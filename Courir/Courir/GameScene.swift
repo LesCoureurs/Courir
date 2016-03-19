@@ -9,26 +9,70 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    var player: SKShapeNode!
+    var player: SKNode!
     var background: SKSpriteNode!
 
     var maxBackgroundOffset: CGFloat!
     var backgroundResetX: CGFloat!
 
-    var currZPosition: CGFloat = 0
-
     override func didMoveToView(view: SKView) {
         backgroundColor = UIColor.whiteColor()
         setupBackground(imageNamed: backgroundImageName)
+        player = createPlayer()
 
-        player = SKShapeNode(circleOfRadius: 30)
-        player.fillColor = UIColor.blackColor()
-        player.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - playerOffset)
-
-        background.zPosition = currZPosition++
-        player.zPosition = currZPosition++
+        background.zPosition = 0
         addChild(player)
         addChild(background)
+        
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
+        
+        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
+            action: Selector("handleUpSwipe:"))
+        swipeUpRecognizer.direction = .Up
+        view.addGestureRecognizer(swipeUpRecognizer)
+        
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self,
+            action: Selector("handleDownSwipe:"))
+        swipeDownRecognizer.direction = .Down
+        view.addGestureRecognizer(swipeDownRecognizer)
+    }
+    
+    func handleUpSwipe(sender: UISwipeGestureRecognizer) {
+        jumpPlayer(0.6, height: 300)
+    }
+    
+    func jumpPlayer(duration: NSTimeInterval, height: CGFloat) {
+        // using the formula x = x0 + vt + 0.5*at^2
+        let originalY = player.position.y
+        let maxHeight = -height
+        
+        // acceleration to reach max height in duration a = 4x/t^2
+        let acceleration = 4 * maxHeight / (CGFloat(duration) * CGFloat(duration))
+        // initial velocity to reach max height in duration v = -at/2
+        let velocity = -CGFloat(duration) * acceleration / 2
+        
+        let jumpUpAction = SKAction.customActionWithDuration(duration) {
+            (node, time) in
+            let y = originalY + velocity * time + 0.5 * acceleration * time * time
+            let newPosition = CGPoint(x: node.position.x, y: y)
+            node.position = newPosition
+        }
+        
+        player.runAction(jumpUpAction)
+    }
+    
+    func handleDownSwipe(sender: UISwipeGestureRecognizer) {
+        
+    }
+    
+    private func createPlayer() -> SKNode {
+        let player = SKShapeNode(circleOfRadius: 30)
+        
+        player.fillColor = UIColor.blackColor()
+        player.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - playerOffset)
+        
+        player.zPosition = 1
+        return player
     }
 
     private func setupBackground(imageNamed name: String) {
