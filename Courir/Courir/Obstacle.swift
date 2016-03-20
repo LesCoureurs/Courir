@@ -13,15 +13,13 @@ enum ObstacleType {
 }
 
 class Obstacle: GameObject {
-    static let defaultHeight = 128
-    static let defaultWidth = 32
-    static let obstacleSpawnXCoordinate: CGFloat = 700
-    static let obstacleSpawnYCoordinate: CGFloat = 100
+    static let obstacleSpawnXCoordinate: Int = 32
+    static let obstacleSpawnYCoordinate: Int = 5
 
     let type: ObstacleType
     
-    private(set) var height = Obstacle.defaultHeight
-    private(set) var width = Obstacle.defaultWidth
+    private(set) var xWidth = 2
+    private(set) var yWidth = 22
     
     var xCoordinate = Obstacle.obstacleSpawnXCoordinate
     var yCoordinate = Obstacle.obstacleSpawnXCoordinate

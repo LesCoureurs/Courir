@@ -9,36 +9,27 @@
 import UIKit
 
 class Player: GameObject {
-    static let defaultHeight = 128
-    static let defaultWidth = 32
-    static let heightWhenJumping = 100
-    static let heightWhenDucking = 64
+    private(set) var xWidth = 4
+    private(set) var yWidth = 4
     
-    private(set) var height = Player.defaultHeight
-    private(set) var width = Player.defaultWidth
+    var xCoordinate: Int
+    var yCoordinate: Int
     
-    var xCoordinate: CGFloat
-    var yCoordinate: CGFloat
-    var speed = CGFloat(10)
-    
-    init(xCoordinate x: CGFloat, yCoordinate y: CGFloat) {
+    init(xCoordinate x: Int, yCoordinate y: Int) {
         self.xCoordinate = x
         self.yCoordinate = y
     }
     
-    func updateSpeed(newSpeed: CGFloat) {
-        speed = newSpeed
-    }
-    
-    func jump() {
-        height = Player.heightWhenJumping
-    }
-    
-    func duck() {
-        height = Player.heightWhenDucking
+    func fallBehind() {
+        xCoordinate -= 1
     }
     
     func run() {
-        height = Player.defaultHeight
+    }
+    
+    func jump() {
+    }
+    
+    func duck() {
     }
 }
