@@ -9,8 +9,8 @@
 import UIKit
 
 protocol GameObject {
-    var height: Int { get }
-    var width: Int { get }
-    var xCoordinate: CGFloat { get set }
-    var yCoordinate: CGFloat { get set }
+    var xWidth: Int { get }
+    var yWidth: Int { get }
+    var xCoordinate: Int { get set }
+    var yCoordinate: Int { get set }
 }
