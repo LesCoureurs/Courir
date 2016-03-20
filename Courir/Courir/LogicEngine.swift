@@ -9,12 +9,15 @@
 import Foundation
 
 class LogicEngine {
-    let state = GameState()
+    let state: GameState
     let obstacleGenerator: ObstacleGenerator
     var timeStep = 0
     
     init(seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
+        // TODO: Replace this when Player init is modified to init without need of coordinates
+        let ownPlayer = Player(xCoordinate: 5, yCoordinate: 5)
+        state = GameState(player: ownPlayer)
     }
     
     var score: Int {
@@ -32,7 +35,9 @@ class LogicEngine {
     func update() {
         updateObstaclePositions()
         handleCollisions()
+        updatePlayerStates()
         generateObstacle()
+        updateDistance()
         updateGameSpeed(timeStep)
         timeStep += 1
     }
@@ -45,8 +50,31 @@ class LogicEngine {
         state.obstacles = state.obstacles.filter{$0.xCoordinate + $0.xWidth - 1 >= 0}
     }
     
+    private func updateDistance() {
+        state.distance += state.currentSpeed
+    }
+    
+    private func updatePlayerStates() {
+        for player in state.players {
+            switch player.state {
+            case let .Jumping(startDistance):
+                if state.distance - startDistance > jumpDistance {
+                    player.run()
+                }
+            case let .Ducking(startDistance):
+                if state.distance - startDistance > duckDistance {
+                    player.run()
+                }
+            default:
+                continue
+            }
+        }
+    }
+    
     private func handleCollisions() {
-        
+        // Use state.currentSpeed to check if there are any obstacles
+        // within 1 frame of hitting state.myPlayer. If so then
+        // state.myPlayer has been hit
     }
     
     private func generateObstacle() {
