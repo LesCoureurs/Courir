@@ -9,10 +9,16 @@
 import Foundation
 
 class GameState {
+    var myPlayer: Player
     var players = [Player]()
     var obstacles = [Obstacle]()
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
+    
+    init(player: Player) {
+        myPlayer = player
+        players.append(myPlayer)
+    }
     
     var objects: [GameObject] {
         return (players as [GameObject]) + (obstacles as [GameObject])
