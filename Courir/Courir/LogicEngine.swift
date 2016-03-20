@@ -8,6 +8,13 @@
 
 import Foundation
 
+protocol LogicEngineDelegate {
+    func didCollide()
+    func didJump()
+    func didDuck()
+    func gameDidEnd()
+}
+
 class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
