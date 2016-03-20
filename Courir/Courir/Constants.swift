@@ -12,3 +12,4 @@ let backgroundImageName = "background"
 
 let playerOffset: CGFloat = 200
 let backgroundSpeed: CGFloat = 100
+let initialGameSpeed = 1
