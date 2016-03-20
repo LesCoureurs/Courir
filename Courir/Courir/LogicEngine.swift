@@ -18,7 +18,9 @@ protocol LogicEngineDelegate {
 class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
+
     var timeStep = 0
+    var lastObstacleDistance: Int?
     
     init(playerNumber: Int, seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -125,7 +127,11 @@ class LogicEngine {
     
     private func generateObstacle() {
         func readyForNextObstacle() -> Bool {
-            return false
+            if lastObstacleDistance == nil {
+                return true
+            } else {
+                return state.distance > max(jumpDistance, duckDistance) + lastObstacleDistance!
+            }
         }
         
         if (readyForNextObstacle()) {
