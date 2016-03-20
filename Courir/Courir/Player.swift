@@ -8,12 +8,18 @@
 
 import UIKit
 
+enum PlayerState: Int {
+    case Stationary, Running, Jumping, Ducking
+}
+
 class Player: GameObject {
     private(set) var xWidth = 4
     private(set) var yWidth = 4
     
     var xCoordinate: Int
     var yCoordinate: Int
+    
+    var state = PlayerState.Stationary
     
     init(xCoordinate x: Int, yCoordinate y: Int) {
         self.xCoordinate = x
@@ -25,11 +31,14 @@ class Player: GameObject {
     }
     
     func run() {
+        state = .Running
     }
     
     func jump() {
+        state =  .Jumping
     }
     
     func duck() {
+        state = .Ducking
     }
 }
