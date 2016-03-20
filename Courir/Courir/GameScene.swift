@@ -9,23 +9,25 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    let grid = SKSpriteNode()
+    let tileSize = (width: 32, height: 32)
+    
     var player: SKNode!
-    var background: SKSpriteNode!
-
-    var maxBackgroundOffset: CGFloat!
-    var backgroundResetX: CGFloat!
 
     override func didMoveToView(view: SKView) {
-        backgroundColor = UIColor.whiteColor()
-        setupBackground(imageNamed: backgroundImageName)
         player = createPlayer()
-
-        background.zPosition = 0
         addChild(player)
-        addChild(background)
-        
+
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         
+        grid.position = CGPoint(x: 0, y: 0)
+        addChild(grid)
+        
+        setupGestureRecognizers(view)
+        render2DGrid()
+    }
+    
+    private func setupGestureRecognizers(view: SKView) {
         let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
             action: Selector("handleUpSwipe:"))
         swipeUpRecognizer.direction = .Up
@@ -35,6 +37,24 @@ class GameScene: SKScene {
             action: Selector("handleDownSwipe:"))
         swipeDownRecognizer.direction = .Down
         view.addGestureRecognizer(swipeDownRecognizer)
+    }
+    
+    private func place2DTile(imageNamed image: String, withPosition: CGPoint) {
+        let tileSprite = SKSpriteNode(imageNamed: image)
+        
+        tileSprite.position = withPosition
+        tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        
+        grid.addChild(tileSprite)
+    }
+    
+    private func render2DGrid() {
+        for i in 0..<24 {
+            for j in 0..<32 {
+                let point = CGPoint(x: (j*tileSize.width), y: -(i*tileSize.height))
+                place2DTile(imageNamed: "grid_tile", withPosition: point)
+            }
+        }
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
@@ -75,22 +95,7 @@ class GameScene: SKScene {
         return player
     }
 
-    private func setupBackground(imageNamed name: String) {
-        let bgNode = SKSpriteNode(imageNamed: name)
-        bgNode.anchorPoint = CGPoint(x: 0, y: 0.5)
-        bgNode.position = CGPoint(x: 0, y: CGRectGetMidY(frame))
-
-        backgroundResetX = bgNode.position.x
-        maxBackgroundOffset = -frame.size.width
-
-        background = bgNode
-    }
-
     override func update(currentTime: CFTimeInterval) {
-        if background.position.x <= maxBackgroundOffset {
-            background.position.x = backgroundResetX
-        }
 
-        background.position.x -= backgroundSpeed
     }
 }
