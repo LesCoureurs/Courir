@@ -81,6 +81,46 @@ class LogicEngine {
         // Use state.currentSpeed to check if there are any obstacles
         // within 1 frame of hitting state.myPlayer. If so then
         // state.myPlayer has been hit
+        
+        func handleCollisionsWith(obstacles: [Obstacle],
+                                  hasCollidedWith: (Obstacle) -> Bool) {
+            for obstacle in obstacles {
+                if hasCollidedWith(obstacle) {
+                    state.myPlayer.run()
+                    state.myPlayer.fallBehind()
+                }
+            }
+        }
+        
+        let obstaclesInNextFrame = state.obstacles.filter {
+            $0.xCoordinate < state.myPlayer.xCoordinate + state.currentSpeed
+        }
+        
+        let nonFloatingObstacles = obstaclesInNextFrame.filter {
+            $0.type == ObstacleType.NonFloating
+        }
+        
+        let floatingObstacles = obstaclesInNextFrame.filter {
+            $0.type == ObstacleType.Floating
+        }
+
+        switch state.myPlayer.state {
+            case let .Jumping(startDistance):
+                handleCollisionsWith(nonFloatingObstacles) { (obstacle) -> Bool in
+                    return startDistance + jumpDistance < self.state.distance + obstacle.xCoordinate
+                }
+            case let .Ducking(startDistance):
+                handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
+                    return startDistance + duckDistance < self.state.distance + obstacle.xCoordinate
+                }
+            case .Running:
+                for _ in obstaclesInNextFrame {
+                    state.myPlayer.run()
+                    state.myPlayer.fallBehind()
+                }
+            default:
+                return
+        }
     }
     
     private func generateObstacle() {
