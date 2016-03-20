@@ -21,7 +21,7 @@
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
 		6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F5511C9D7C3000E0ED9F /* GameObject.swift */; };
 		7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839311C9E7BA1007434E8 /* GameState.swift */; };
-		7A8839341C9E7BBD007434E8 /* GameStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* GameStateManager.swift */; };
+		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
 		6E48F5511C9D7C3000E0ED9F /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		7A8839311C9E7BA1007434E8 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
-		7A8839331C9E7BBD007434E8 /* GameStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStateManager.swift; sourceTree = "<group>"; };
+		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
 				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 				7A8839311C9E7BA1007434E8 /* GameState.swift */,
-				7A8839331C9E7BBD007434E8 /* GameStateManager.swift */,
+				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
 			);
 			path = Courir;
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 				7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */,
 				6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */,
 				6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */,
-				7A8839341C9E7BBD007434E8 /* GameStateManager.swift in Sources */,
+				7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
