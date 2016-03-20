@@ -13,16 +13,16 @@ enum ObstacleType {
 }
 
 class Obstacle: GameObject {
-    static let obstacleSpawnXCoordinate: Int = 32
-    static let obstacleSpawnYCoordinate: Int = 5
+    static let spawnXCoordinate = 32
+    static let spawnYCoordinate = 5
 
     let type: ObstacleType
     
     private(set) var xWidth = 2
     private(set) var yWidth = 22
     
-    var xCoordinate = Obstacle.obstacleSpawnXCoordinate
-    var yCoordinate = Obstacle.obstacleSpawnXCoordinate
+    var xCoordinate = Obstacle.spawnXCoordinate
+    var yCoordinate = Obstacle.spawnYCoordinate
     
     init(type: ObstacleType) {
         self.type = type

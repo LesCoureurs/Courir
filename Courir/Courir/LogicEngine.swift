@@ -13,10 +13,9 @@ class LogicEngine {
     let obstacleGenerator: ObstacleGenerator
     var timeStep = 0
     
-    init(seed: Int? = nil) {
+    init(playerNumber: Int, seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        // TODO: Replace this when Player init is modified to init without need of coordinates
-        let ownPlayer = Player(xCoordinate: 5, yCoordinate: 5)
+        let ownPlayer = Player(playerNumber: playerNumber)
         state = GameState(player: ownPlayer)
     }
     
@@ -57,16 +56,16 @@ class LogicEngine {
     private func updatePlayerStates() {
         for player in state.players {
             switch player.state {
-            case let .Jumping(startDistance):
-                if state.distance - startDistance > jumpDistance {
-                    player.run()
-                }
-            case let .Ducking(startDistance):
-                if state.distance - startDistance > duckDistance {
-                    player.run()
-                }
-            default:
-                continue
+                case let .Jumping(startDistance):
+                    if state.distance - startDistance > jumpDistance {
+                        player.run()
+                    }
+                case let .Ducking(startDistance):
+                    if state.distance - startDistance > duckDistance {
+                        player.run()
+                    }
+                default:
+                    continue
             }
         }
     }
