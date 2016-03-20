@@ -111,11 +111,11 @@
 				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
 				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 				6524A7321C9C7F4B00D8CC48 /* Constants.swift */,
+				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
 				6524A7141C9C7EB800D8CC48 /* Main.storyboard */,
 				6524A7171C9C7EB800D8CC48 /* Assets.xcassets */,
 				6524A7191C9C7EB800D8CC48 /* LaunchScreen.storyboard */,
 				6524A71C1C9C7EB800D8CC48 /* Info.plist */,
-				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
 			);
 			path = Courir;
 			sourceTree = "<group>";
