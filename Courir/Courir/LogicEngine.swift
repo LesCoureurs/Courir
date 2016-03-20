@@ -11,6 +11,7 @@ import Foundation
 class LogicEngine {
     let state = GameState()
     let obstacleGenerator: ObstacleGenerator
+    var timeStep = 0
     
     init(seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -32,6 +33,8 @@ class LogicEngine {
         updateObstaclePositions()
         handleCollisions()
         generateObstacle()
+        updateGameSpeed(timeStep)
+        timeStep += 1
     }
     
     private func updateObstaclePositions() {
