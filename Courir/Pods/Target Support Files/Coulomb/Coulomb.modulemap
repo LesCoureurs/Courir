@@ -1,0 +1,6 @@
+framework module Coulomb {
+  umbrella header "Coulomb-umbrella.h"
+
+  export *
+  module * { export * }
+}
