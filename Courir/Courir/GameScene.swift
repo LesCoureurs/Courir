@@ -97,8 +97,8 @@ class GameScene: SKScene {
         playerNode.fillColor = SKColor.blackColor()
         playerNode.zPosition = 1
         playerNode.lineWidth = 0
-        let x = CGFloat(player.xCoordinate * tileSize.width + player.xWidth * tileSize.width)
-        let y = CGFloat(player.yCoordinate * tileSize.height + player.yWidth * tileSize.height)
+        let x = CGFloat(player.xCoordinate * tileSize.width + player.xWidth / 2 * tileSize.width)
+        let y = CGFloat(player.yCoordinate * tileSize.height + player.yWidth / 2 * tileSize.height)
         playerNode.position = CGPoint(x: x, y: y)
         
         return playerNode
