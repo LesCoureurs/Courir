@@ -9,14 +9,18 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    let grid = SKSpriteNode()
-    let tileSize = (width: 32, height: 32)
+    private let grid = SKSpriteNode()
+    private let tileSize = (width: 32, height: 32)
     
-    var player: SKNode!
+    private let logicEngine = LogicEngine(playerNumber: 0)
+    private var gameState: GameState!
+    private var myPlayer: SKNode!
+    private var players: [SKNode]!
 
     override func didMoveToView(view: SKView) {
-        player = createPlayer()
-        addChild(player)
+        gameState = logicEngine.state
+        myPlayer = createPlayer(gameState.myPlayer)
+        addChild(myPlayer)
 
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         
@@ -49,19 +53,21 @@ class GameScene: SKScene {
     }
     
     private func render2DGrid() {
-        for i in 0..<24 {
-            for j in 0..<32 {
-                let point = CGPoint(x: (j*tileSize.width), y: -(i*tileSize.height))
+        let numCols = Int(size.width / CGFloat(tileSize.width))
+        let numRows = Int(size.height / CGFloat(tileSize.height))
+        for i in 0..<numRows {
+            for j in 0..<numCols {
+                let point = CGPoint(x: (j*tileSize.width), y: (i*tileSize.height))
                 place2DTile(imageNamed: "grid_tile", withPosition: point)
             }
         }
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        jumpPlayer(0.6, height: 300)
+        jumpPlayer(0.6, height: 300, player: myPlayer)
     }
     
-    func jumpPlayer(duration: NSTimeInterval, height: CGFloat) {
+    func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
         // using the formula x = x0 + vt + 0.5*at^2
         let originalY = player.position.y
         let maxHeight = -height
@@ -85,17 +91,20 @@ class GameScene: SKScene {
         
     }
     
-    private func createPlayer() -> SKNode {
-        let player = SKShapeNode(circleOfRadius: 30)
+    private func createPlayer(player: Player) -> SKNode {
+        let playerNode = SKShapeNode(rectOfSize: CGSize(width: player.xWidth*tileSize.width, height: player.yWidth*tileSize.height))
         
-        player.fillColor = UIColor.blackColor()
-        player.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - playerOffset)
+        playerNode.fillColor = SKColor.blackColor()
+        playerNode.zPosition = 1
+        playerNode.lineWidth = 0
+        let x = CGFloat(player.xCoordinate * tileSize.width + player.xWidth * tileSize.width)
+        let y = CGFloat(player.yCoordinate * tileSize.height + player.yWidth * tileSize.height)
+        playerNode.position = CGPoint(x: x, y: y)
         
-        player.zPosition = 1
-        return player
+        return playerNode
     }
 
     override func update(currentTime: CFTimeInterval) {
-
+        
     }
 }
