@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		560DFCF96B794652165758FA /* Pods_Courir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674529A85FEAB39913D65612 /* Pods_Courir.framework */; };
 		6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A70C1C9C7EB800D8CC48 /* AppDelegate.swift */; };
 		6524A7111C9C7EB800D8CC48 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7101C9C7EB800D8CC48 /* GameScene.swift */; };
 		6524A7131C9C7EB800D8CC48 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7121C9C7EB800D8CC48 /* GameViewController.swift */; };
@@ -17,6 +16,7 @@
 		6524A7261C9C7EB800D8CC48 /* CourirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7251C9C7EB800D8CC48 /* CourirTests.swift */; };
 		6524A7311C9C7F1700D8CC48 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7301C9C7F1700D8CC48 /* MenuScene.swift */; };
 		6524A7331C9C7F4B00D8CC48 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7321C9C7F4B00D8CC48 /* Constants.swift */; };
+		6BD94A50D521179C4B947F38 /* Pods_Courir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */; };
 		6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54B1C9D505A00E0ED9F /* Player.swift */; };
 		6E48F54E1C9D506C00E0ED9F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */; };
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
@@ -52,7 +52,6 @@
 		6524A7271C9C7EB800D8CC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6524A7301C9C7F1700D8CC48 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		6524A7321C9C7F4B00D8CC48 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		674529A85FEAB39913D65612 /* Pods_Courir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Courir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E48F54B1C9D505A00E0ED9F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
 		7A8839311C9E7BA1007434E8 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
+		9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Courir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD945865012F28217E8BAC8 /* Pods-Courir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Courir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Courir/Pods-Courir.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				560DFCF96B794652165758FA /* Pods_Courir.framework in Frameworks */,
+				6BD94A50D521179C4B947F38 /* Pods_Courir.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 		EF8ED557EDBF4000D576194D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				674529A85FEAB39913D65612 /* Pods_Courir.framework */,
+				9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
