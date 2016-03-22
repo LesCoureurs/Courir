@@ -18,11 +18,11 @@ internal protocol GameNetworkPortalConnectionDelegate {
 }
 
 internal protocol GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived() {}
-    func duckActionReceived() {}
-    func collideActionReceived() {}
-    func gameStartSignalReceived() {}
-    func gameEndSignalReceived() {}
+    func jumpActionReceived()
+    func duckActionReceived()
+    func collideActionReceived()
+    func gameStartSignalReceived()
+    func gameEndSignalReceived()
 }
 
 class GameNetworkPortal {
@@ -71,8 +71,12 @@ class GameNetworkPortal {
         coulombNetwork.sendData(data, mode: mode)
     }
     
-    func prepareData() -> NSData {
-        return
+    // To convert struct to NSData
+    func prepareData(gameChange: GameChange) -> NSData {
+        var mutableGameChange = gameChange
+        return withUnsafePointer(&mutableGameChange) { p in
+            NSData(bytes: p, length: sizeofValue(mutableGameChange))
+        }
     }
 }
 
@@ -101,5 +105,11 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.disconnectedFromRoom()
     }
     
-    func handleDataPacket(data: NSData, peerID: MCPeerID) {}
+    func handleDataPacket(data: NSData, peerID: MCPeerID) {
+        
+    }
+    
+    func unpackData(data: NSData) -> GameChange {
+
+    }
 }
