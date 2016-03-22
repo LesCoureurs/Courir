@@ -50,13 +50,8 @@ class GameNetworkPortal {
     // MARK: Data transfer
     
     // Send data to everyone in the session
-    // Separate methods to provide more abstraction
-    func sendDataReliable(data: NSData) {
-        coulombNetwork.sendData(data, mode: MCSessionSendDataMode.Reliable)
-    }
-    
-    func sendDataUnreliable(data: NSData) {
-        coulombNetwork.sendData(data, mode: MCSessionSendDataMode.Unreliable)
+    func sendData(data: NSData, mode: MCSessionSendDataMode) {
+        coulombNetwork.sendData(data, mode: mode)
     }
     
     func prepareData() -> NSData {
