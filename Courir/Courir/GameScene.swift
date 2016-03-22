@@ -145,6 +145,10 @@ class GameScene: SKScene, LogicEngineDelegate {
         let obstacleNode = createObstacle(obstacle)
         obstacles[obstacleNode.name!] = (obstacleNode)
     }
+    
+    func didRemoveObstacle(obstacle: Obstacle) {
+        obstacles[obstacle.identifier]?.removeFromParent()
+    }
 
     func didCollide() {
 

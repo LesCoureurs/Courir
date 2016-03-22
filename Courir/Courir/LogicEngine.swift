@@ -10,6 +10,7 @@ import Foundation
 
 protocol LogicEngineDelegate {
     func didGenerateObstacle(obstacle: Obstacle)
+    func didRemoveObstacle(obstacle: Obstacle)
     func didCollide()
     func didJump()
     func didDuck()
@@ -57,11 +58,22 @@ class LogicEngine {
     }
     
     private func updateObstaclePositions() {
+        var obstaclesOnScreen = [Obstacle]()
+        
+        func shouldRemoveObstacle(obstacle: Obstacle) -> Bool {
+            return obstacle.xCoordinate + obstacle.xWidth - 1 < 0
+        }
+        
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= state.currentSpeed
+            if shouldRemoveObstacle(obstacle) {
+                delegate.didRemoveObstacle(obstacle)
+            } else {
+                obstaclesOnScreen.append(obstacle)
+            }
         }
-        // Remove obstacles that have gone off-screen
-        state.obstacles = state.obstacles.filter{$0.xCoordinate + $0.xWidth - 1 >= 0}
+        
+        state.obstacles = obstaclesOnScreen
     }
     
     private func updateDistance() {
@@ -142,6 +154,7 @@ class LogicEngine {
         
         if (readyForNextObstacle()) {
             if let obstacle = obstacleGenerator.getNextObstacle() {
+                lastObstacleDistance = state.distance
                 insertObstacle(obstacle)
             }
         }
