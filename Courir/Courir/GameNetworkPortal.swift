@@ -12,7 +12,7 @@ import MultipeerConnectivity
 internal protocol GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
-    func playersInRoomChanged()
+    func playersInRoomChanged(peerIDs: [MCPeerID])
     func disconnectedFromRoom()
     
 }
@@ -84,10 +84,12 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {
         // If autoAcceptGuests is true, this method won't be called.
         // Else, call connectionDelegate method to handle
-        connectionDelegate?.playerWantsToJoinRoom(peer, handleInvitation)
+        connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
-    func connectedPeersInSessionChanged(peers: [MCPeerID]) {}
+    func connectedPeersInSessionChanged(peers: [MCPeerID]) {
+        connectionDelegate?.playersInRoomChanged(peers)
+    }
     
     func connectedToPeer(peer: MCPeerID) {}
     
