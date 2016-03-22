@@ -13,7 +13,8 @@ class ObstacleGenerator {
     
     private let source: GKARC4RandomSource
     
-    init(var seed: Int? = nil) {
+    init(seed: Int? = nil) {
+        var seed = seed
         if seed != nil {
             source = GKARC4RandomSource(seed: NSData(bytes: &seed, length: sizeof(Int)))
         } else {
