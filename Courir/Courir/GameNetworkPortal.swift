@@ -18,11 +18,11 @@ internal protocol GameNetworkPortalConnectionDelegate {
 }
 
 internal protocol GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived()
-    func duckActionReceived()
-    func collideActionReceived()
-    func gameStartSignalReceived()
-    func gameEndSignalReceived()
+    func jumpActionReceived(data: [String: NSObject])
+    func duckActionReceived(data: [String: NSObject])
+    func collideActionReceived(data: [String: NSObject])
+    func gameStartSignalReceived(data: [String: NSObject])
+    func gameEndSignalReceived(data: [String: NSObject])
 }
 
 class GameNetworkPortal {
@@ -111,15 +111,15 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         let content = unpackData(data)
         switch content.event {
         case GameEvent.GameDidStart:
-            gameStateDelegate?.gameStartSignalReceived()
+            gameStateDelegate?.gameStartSignalReceived(content.data)
         case GameEvent.GameDidEnd:
-            gameStateDelegate?.gameEndSignalReceived()
+            gameStateDelegate?.gameEndSignalReceived(content.data)
         case GameEvent.PlayerDidJump:
-            gameStateDelegate?.jumpActionReceived()
+            gameStateDelegate?.jumpActionReceived(content.data)
         case GameEvent.PlayerDidDuck:
-            gameStateDelegate?.duckActionReceived()
+            gameStateDelegate?.duckActionReceived(content.data)
         case GameEvent.PlayerDidCollide:
-            gameStateDelegate?.collideActionReceived()
+            gameStateDelegate?.collideActionReceived(content.data)
         default:
             return
         }
