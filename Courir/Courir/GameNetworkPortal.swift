@@ -7,6 +7,7 @@
 //
 
 import Coulomb
+import MultipeerConnectivity
 
 internal protocol GameNetworkPortalProtocol {
     
@@ -34,25 +35,45 @@ class GameNetworkPortal {
     }
     
     // MARK: Looking for hosts
-    func beginSearchingForHosts {
+    func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
-    func stopSearchingForHosts {
+    func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
+    func connectToHost(host: MCPeerID) {
+        coulombNetwork.connectToHost(host)
+    }
     
+    // MARK: Data transfer
+    
+    // Send data to everyone in the session
+    // Separate methods to provide more abstraction
+    func sendDataReliable(data: NSData) {
+        coulombNetwork.sendData(data, mode: MCSessionSendDataMode.Reliable)
+    }
+    
+    func sendDataUnreliable(data: NSData) {
+        coulombNetwork.sendData(data, mode: MCSessionSendDataMode.Unreliable)
+    }
+    
+    func prepareData() -> NSData {
+        return
+    }
 }
 
 extension GameNetworkPortal: CoulombNetworkDelegate {
-    func foundHostsChanged(foundHosts: [MCPeerID])
+    func foundHostsChanged(foundHosts: [MCPeerID]) {
+        
+    }
     
-    func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
+    func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {}
     
-    func connectionsChanged(peers: [MCPeerID])
+    func connectionsChanged(peers: [MCPeerID]) {}
     
-    func connectedToPeer(peer: MCPeerID)
+    func connectedToPeer(peer: MCPeerID) {}
     
-    func handleDataPacket(data: NSData, peerID: MCPeerID)
+    func handleDataPacket(data: NSData, peerID: MCPeerID) {}
 }
