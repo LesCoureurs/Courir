@@ -11,18 +11,15 @@ import UIKit
 
 public protocol CoulombNetworkDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
-    
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
-    
-    func connectionsChanged(peers: [MCPeerID])
-    
+    func connectedPeersInSessionChanged(peers: [MCPeerID])
     func connectedToPeer(peer: MCPeerID)
-    
+    func disconnectedFromSession()
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
 public class CoulombNetwork: NSObject {
-    var autoAcceptGuests = true
+    public var autoAcceptGuests = true
     
     static let defaultTimeout: NSTimeInterval = 30
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
@@ -194,11 +191,11 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
-                    // Disconnected from a session, look for host again
-                    startSearchingForHosts()
+                    // Disconnected from a session
+                    delegate?.disconnectedFromSession()
                 }
                 
-                delegate?.connectionsChanged(session.connectedPeers)
+                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
             }
     }
     
