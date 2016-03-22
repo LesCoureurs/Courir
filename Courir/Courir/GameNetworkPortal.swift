@@ -13,6 +13,7 @@ internal protocol GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerJoinedRoom()
     func playersInRoomChanged()
+    func disconnectedFromRoom()
     
 }
 
@@ -26,7 +27,8 @@ internal protocol GameNetworkPortalGameStateDelegate {
 
 class GameNetworkPortal {
     let serviceType = "courir"
-    var delegate: GameNetworkPortalDelegate?
+    var connectionDelegate: GameNetworkPortalConnectionDelegate?
+    var gameStateDelegate: GameNetworkPortalGameStateDelegate
     var coulombNetwork: CoulombNetwork!
 
     init(playerName deviceId: String) {
@@ -84,7 +86,10 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     
     func connectedToPeer(peer: MCPeerID) {}
     
-    func disconnectedFromSession() {}
+    func disconnectedFromSession() {
+        beginSearchingForHosts()
+        connectionDelegate.disconnectedFromRoom()
+    }
     
     func handleDataPacket(data: NSData, peerID: MCPeerID) {}
 }
