@@ -14,3 +14,4 @@ let initialGameSpeed = 1
 let gameAcceleration = 0.05
 let jumpDistance = 10
 let duckDistance = 10
+let speedMultiplier = 0.337768
