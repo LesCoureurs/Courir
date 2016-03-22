@@ -148,7 +148,7 @@ class GameScene: SKScene, LogicEngineDelegate {
         jumpPlayer(0.6, height: 300, player: myPlayer)
     }
     
-    func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
+    private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
         // using the formula x = x0 + vt + 0.5*at^2
         let originalY = player.position.y
         let maxHeight = -height
@@ -157,19 +157,28 @@ class GameScene: SKScene, LogicEngineDelegate {
         let acceleration = 4 * maxHeight / (CGFloat(duration) * CGFloat(duration))
         // initial velocity to reach max height in duration v = -at/2
         let velocity = -CGFloat(duration) * acceleration / 2
-        
+
         let jumpUpAction = SKAction.customActionWithDuration(duration) {
             (node, time) in
+
             let y = originalY + velocity * time + 0.5 * acceleration * time * time
             let newPosition = CGPoint(x: node.position.x, y: y)
             node.position = newPosition
         }
-        
-        player.runAction(jumpUpAction)
+
+        let jumpTextureChange = SKAction.setTexture(playerJumpTexture)
+
+        player.runAction(jumpTextureChange)
+        player.runAction(jumpUpAction, completion: { player.runAction(resetPlayerTexture) })
     }
-    
+
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
-        
+        duckPlayer(myPlayer)
+    }
+
+    private func duckPlayer(player: SKNode) {
+        let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: 0.6)
+        player.runAction(duckTextureChange)
     }
     
     func didGenerateObstacle(obstacle: Obstacle) {
