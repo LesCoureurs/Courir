@@ -9,20 +9,18 @@
 import Coulomb
 import MultipeerConnectivity
 
-internal protocol GameNetworkPortalProtocol {
+internal protocol GameNetworkPortalDelegate {
     
 }
 
 class GameNetworkPortal {
     let serviceType = "courir"
+    var delegate: GameNetworkPortalDelegate?
     var coulombNetwork: CoulombNetwork!
-    
-    init(deviceId: String) {
+
+    init(playerName deviceId: String) {
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
-    }
-    
-    init() {
-        coulombNetwork = CoulombNetwork(serviceType: serviceType)
+        coulombNetwork.delegate = self
     }
     
     // MARK: Hosting
