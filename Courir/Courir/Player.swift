@@ -9,7 +9,7 @@
 import UIKit
 
 enum PlayerState {
-    case Stationary, Running, Jumping(Int), Ducking(Int)
+    case Stationary, Running, Invulnerable(Int), Jumping(Int), Ducking(Int)
 }
 
 class Player: GameObject {
@@ -33,7 +33,7 @@ class Player: GameObject {
     }
     
     func fallBehind() {
-        xCoordinate -= 1
+        xCoordinate -= 1 * unitsPerGameGridCell
     }
     
     func run() {
@@ -46,5 +46,9 @@ class Player: GameObject {
     
     func duck(startDistance: Int) {
         state = .Ducking(startDistance)
+    }
+    
+    func becomeInvulnerable(startDistance: Int) {
+        state = .Invulnerable(startDistance)
     }
 }

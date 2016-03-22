@@ -91,6 +91,10 @@ class LogicEngine {
                     if state.distance - startDistance > duckDistance {
                         player.run()
                     }
+                case let .Invulnerable(startDistance):
+                    if state.distance - startDistance > invulnerableDistance {
+                        player.run()
+                    }
                 default:
                     continue
             }
@@ -133,6 +137,8 @@ class LogicEngine {
                 handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
                     return startDistance + duckDistance < self.state.distance + obstacle.xCoordinate
                 }
+            case .Invulnerable(_):
+                return
             case .Running:
                 for _ in obstaclesInNextFrame {
                     state.myPlayer.run()
