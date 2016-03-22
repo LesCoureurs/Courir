@@ -87,6 +87,9 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     func connectedToPeer(peer: MCPeerID) {}
     
     func disconnectedFromSession() {
+        // Disconnected from a session
+        // Begin searching for host again
+        // Call delegate to take further actions e.g. segue
         beginSearchingForHosts()
         connectionDelegate?.disconnectedFromRoom()
     }
