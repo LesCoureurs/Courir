@@ -9,8 +9,19 @@
 import Coulomb
 import MultipeerConnectivity
 
-internal protocol GameNetworkPortalDelegate {
+internal protocol GameNetworkPortalConnectionDelegate {
+    func foundHostsChanged(foundHosts: [MCPeerID])
+    func playerJoinedRoom()
+    func playersInRoomChanged()
     
+}
+
+internal protocol GameNetworkPortalGameStateDelegate {
+    func jumpActionReceived() {}
+    func duckActionReceived() {}
+    func collideActionReceived() {}
+    func gameStartSignalReceived() {}
+    func gameEndSignalReceived() {}
 }
 
 class GameNetworkPortal {
@@ -45,6 +56,11 @@ class GameNetworkPortal {
         coulombNetwork.connectToHost(host)
     }
     
+    // MARK: Common methods
+    func disconnectFromRoom() {
+        coulombNetwork.disconnect()
+    }
+    
     // MARK: Data transfer
     
     // Send data to everyone in the session
@@ -64,9 +80,11 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {}
     
-    func connectionsChanged(peers: [MCPeerID]) {}
+    func connectedPeersInSessionChanged(peers: [MCPeerID]) {}
     
     func connectedToPeer(peer: MCPeerID) {}
+    
+    func disconnectedFromSession() {}
     
     func handleDataPacket(data: NSData, peerID: MCPeerID) {}
 }
