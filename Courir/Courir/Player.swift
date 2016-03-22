@@ -13,12 +13,12 @@ enum PlayerState {
 }
 
 class Player: GameObject {
-    static let spawnXCoordinate = 12
-    static let minSpawnYCoordinate = 5
-    static let spawnYCoordinateIncrement = 6
+    static let spawnXCoordinate = 12 * unitsPerGameGridCell
+    static let minSpawnYCoordinate = 5 * unitsPerGameGridCell
+    static let spawnYCoordinateIncrement = 6 * unitsPerGameGridCell
     
-    private(set) var xWidth = 4
-    private(set) var yWidth = 4
+    private(set) var xWidth = 3 * unitsPerGameGridCell
+    private(set) var yWidth = 3 * unitsPerGameGridCell
     
     var xCoordinate = Player.spawnXCoordinate
     var yCoordinate: Int
