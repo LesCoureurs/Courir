@@ -148,7 +148,7 @@ class LogicEngine {
             if lastObstacleDistance == nil {
                 return true
             } else {
-                return state.distance > max(jumpDistance, duckDistance) + lastObstacleDistance!
+                return state.distance > 2 * max(jumpDistance, duckDistance) + lastObstacleDistance!
             }
         }
         
