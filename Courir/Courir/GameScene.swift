@@ -8,59 +8,140 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
-    private let grid = SKSpriteNode()
+class GameScene: SKScene, LogicEngineDelegate {
     private let tileSize = (width: 32, height: 32)
     
+    private let grid = SKSpriteNode()
     private let logicEngine = LogicEngine(playerNumber: 0)
+    
     private var gameState: GameState!
     private var myPlayer: SKNode!
-    private var players: [SKNode]!
+    private var players = [String: SKNode]()
+    private var obstacles = [String: SKNode]()
 
     override func didMoveToView(view: SKView) {
+        logicEngine.setDelegate(self)
         gameState = logicEngine.state
-        myPlayer = createPlayer(gameState.myPlayer)
-        addChild(myPlayer)
 
+        initObstacles()
+        initPlayers()
+        initGrid()
+        
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
-        
-        grid.position = CGPoint(x: 0, y: 0)
-        addChild(grid)
-        
         setupGestureRecognizers(view)
-        render2DGrid()
     }
     
-    private func setupGestureRecognizers(view: SKView) {
-        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
-            action: Selector("handleUpSwipe:"))
-        swipeUpRecognizer.direction = .Up
-        view.addGestureRecognizer(swipeUpRecognizer)
-        
-        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self,
-            action: Selector("handleDownSwipe:"))
-        swipeDownRecognizer.direction = .Down
-        view.addGestureRecognizer(swipeDownRecognizer)
+    private func initGrid() {
+        grid.position = CGPoint(x: 0, y: size.height/2)
+        addChild(grid)
+        renderIsoGrid()
     }
     
-    private func place2DTile(imageNamed image: String, withPosition: CGPoint) {
+    private func initObstacles() {
+        let obstacleNodes = gameState.obstacles.map { createObstacle($0) }
+        for node in obstacleNodes {
+            obstacles[node.name!] = node
+        }
+    }
+    
+    private func initPlayers() {
+        gameState.myPlayer.run()
+        myPlayer = createPlayer(gameState.myPlayer)
+        players[myPlayer.name!] = myPlayer
+        for i in 1...3 { // Replace when game state contains data of other players
+            let player = createPlayer(Player(playerNumber: i))
+            players[player.name!] = player
+        }
+    }
+    
+    private func renderIsoGrid() {
+        for i in 0..<gameGridSize {
+            for j in 0..<gameGridSize {
+                let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
+                                               y: (i * tileSize.height / 2)))
+                placeTile(imageNamed: "iso_grid_tile", withPosition: point)
+            }
+        }
+    }
+    
+    private func pointToIso(p: CGPoint) -> CGPoint {
+        return CGPointMake(p.x + p.y, (p.y - p.x) / 2)
+    }
+    
+    private func placeTile(imageNamed image: String, withPosition: CGPoint) {
         let tileSprite = SKSpriteNode(imageNamed: image)
         
         tileSprite.position = withPosition
         tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        tileSprite.size = CGSize(width: 32, height: 16)
         
         grid.addChild(tileSprite)
     }
+
+    private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
+        // multiple is to convert object's coordinates to coordinates in the actual grid
+        let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
+        let x = CGFloat(Double(object.xCoordinate) * multiple)
+        let y = CGFloat(Double(object.yCoordinate) * multiple)
+        var isoPoint = pointToIso(CGPointMake(x, y))
+        // offset as a result of having objects that take up multiple tiles
+        isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
+        return isoPoint
+    }
+
+    private func createGameObject(object: GameObject, imageName: String) -> SKSpriteNode {
+        let sprite = SKSpriteNode(imageNamed: imageName)
+        sprite.position = calculateRenderPositionFor(object)
+        sprite.anchorPoint = CGPointMake(0, 0)
+        grid.addChild(sprite)
+        return sprite
+    }
     
-    private func render2DGrid() {
-        let numCols = Int(size.width / CGFloat(tileSize.width))
-        let numRows = Int(size.height / CGFloat(tileSize.height))
-        for i in 0..<numRows {
-            for j in 0..<numCols {
-                let point = CGPoint(x: (j*tileSize.width), y: (i*tileSize.height))
-                place2DTile(imageNamed: "grid_tile", withPosition: point)
+    private func createPlayer(player: Player) -> SKNode {
+        let playerSprite = createGameObject(player, imageName: "iso_player")
+        playerSprite.zPosition = 2
+        playerSprite.name = String(player.playerNumber)
+        return playerSprite
+    }
+    
+    private func createObstacle(obstacle: Obstacle) -> SKNode {
+        let obstacleSprite: SKSpriteNode
+        switch obstacle.type {
+            case .NonFloating:
+                obstacleSprite = createGameObject(obstacle, imageName: "iso_non_floating_obstacle")
+                obstacleSprite.zPosition = 1
+            case .Floating:
+                obstacleSprite = createGameObject(obstacle, imageName: "iso_floating_obstacle")
+                obstacleSprite.zPosition = 3
+        }
+        
+        obstacleSprite.name = obstacle.identifier
+        return obstacleSprite
+    }
+
+    private func updatePositionFor(object: GameObject, withNode node: SKNode) {
+        node.position = calculateRenderPositionFor(object)
+    }
+
+    override func update(currentTime: CFTimeInterval) {
+        logicEngine.update()
+        for obstacle in gameState.obstacles {
+            if let node = self.obstacles[obstacle.identifier] {
+                updatePositionFor(obstacle, withNode: node)
             }
         }
+    }
+
+    private func setupGestureRecognizers(view: SKView) {
+        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
+            action: #selector(GameScene.handleUpSwipe(_:)))
+        swipeUpRecognizer.direction = .Up
+        view.addGestureRecognizer(swipeUpRecognizer)
+        
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self,
+            action: #selector(GameScene.handleDownSwipe(_:)))
+        swipeDownRecognizer.direction = .Down
+        view.addGestureRecognizer(swipeDownRecognizer)
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
@@ -91,20 +172,28 @@ class GameScene: SKScene {
         
     }
     
-    private func createPlayer(player: Player) -> SKNode {
-        let playerNode = SKShapeNode(rectOfSize: CGSize(width: player.xWidth*tileSize.width, height: player.yWidth*tileSize.height))
-        
-        playerNode.fillColor = SKColor.blackColor()
-        playerNode.zPosition = 1
-        playerNode.lineWidth = 0
-        let x = CGFloat(player.xCoordinate * tileSize.width + player.xWidth / 2 * tileSize.width)
-        let y = CGFloat(player.yCoordinate * tileSize.height + player.yWidth / 2 * tileSize.height)
-        playerNode.position = CGPoint(x: x, y: y)
-        
-        return playerNode
+    func didGenerateObstacle(obstacle: Obstacle) {
+        let obstacleNode = createObstacle(obstacle)
+        obstacles[obstacleNode.name!] = (obstacleNode)
+    }
+    
+    func didRemoveObstacle(obstacle: Obstacle) {
+        obstacles[obstacle.identifier]?.removeFromParent()
     }
 
-    override func update(currentTime: CFTimeInterval) {
-        
+    func didCollide(player: Player) {
+        updatePositionFor(player, withNode: players[String(player.playerNumber)]!)
+    }
+
+    func didJump() {
+
+    }
+
+    func didDuck() {
+
+    }
+
+    func gameDidEnd() {
+
     }
 }

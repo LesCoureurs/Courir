@@ -9,7 +9,9 @@
 import Foundation
 
 protocol LogicEngineDelegate {
-    func didCollide()
+    func didGenerateObstacle(obstacle: Obstacle)
+    func didRemoveObstacle(obstacle: Obstacle)
+    func didCollide(player: Player)
     func didJump()
     func didDuck()
     func gameDidEnd()
@@ -18,7 +20,8 @@ protocol LogicEngineDelegate {
 class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
-
+    
+    private var delegate: LogicEngineDelegate!
     var timeStep = 0
     var lastObstacleDistance: Int?
     
@@ -26,6 +29,10 @@ class LogicEngine {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber)
         state = GameState(player: ownPlayer)
+    }
+
+    func setDelegate(delegate: LogicEngineDelegate) {
+        self.delegate = delegate
     }
     
     var score: Int {
@@ -51,11 +58,22 @@ class LogicEngine {
     }
     
     private func updateObstaclePositions() {
+        var obstaclesOnScreen = [Obstacle]()
+        
+        func shouldRemoveObstacle(obstacle: Obstacle) -> Bool {
+            return obstacle.xCoordinate + obstacle.xWidth - 1 < 0
+        }
+        
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= state.currentSpeed
+            if shouldRemoveObstacle(obstacle) {
+                delegate.didRemoveObstacle(obstacle)
+            } else {
+                obstaclesOnScreen.append(obstacle)
+            }
         }
-        // Remove obstacles that have gone off-screen
-        state.obstacles = state.obstacles.filter{$0.xCoordinate + $0.xWidth - 1 >= 0}
+        
+        state.obstacles = obstaclesOnScreen
     }
     
     private func updateDistance() {
@@ -71,6 +89,10 @@ class LogicEngine {
                     }
                 case let .Ducking(startDistance):
                     if state.distance - startDistance > duckDistance {
+                        player.run()
+                    }
+                case let .Invulnerable(startDistance):
+                    if state.distance - startDistance > invulnerableDistance {
                         player.run()
                     }
                 default:
@@ -90,12 +112,15 @@ class LogicEngine {
                 if hasCollidedWith(obstacle) {
                     state.myPlayer.run()
                     state.myPlayer.fallBehind()
+                    state.myPlayer.becomeInvulnerable(state.distance)
+                    delegate.didCollide(state.myPlayer)
                 }
             }
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {
-            $0.xCoordinate < state.myPlayer.xCoordinate + state.currentSpeed
+            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
+            $0.xCoordinate > state.myPlayer.xCoordinate
         }
         
         let nonFloatingObstacles = obstaclesInNextFrame.filter {
@@ -115,10 +140,14 @@ class LogicEngine {
                 handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
                     return startDistance + duckDistance < self.state.distance + obstacle.xCoordinate
                 }
+            case .Invulnerable(_):
+                return
             case .Running:
                 for _ in obstaclesInNextFrame {
                     state.myPlayer.run()
                     state.myPlayer.fallBehind()
+                    state.myPlayer.becomeInvulnerable(state.distance)
+                    delegate.didCollide(state.myPlayer)
                 }
             default:
                 return
@@ -130,23 +159,25 @@ class LogicEngine {
             if lastObstacleDistance == nil {
                 return true
             } else {
-                return state.distance > max(jumpDistance, duckDistance) + lastObstacleDistance!
+                return state.distance > 2 * max(jumpDistance, duckDistance) + lastObstacleDistance!
             }
         }
         
         if (readyForNextObstacle()) {
             if let obstacle = obstacleGenerator.getNextObstacle() {
+                lastObstacleDistance = state.distance
                 insertObstacle(obstacle)
             }
         }
     }
     
     func updateGameSpeed(timeStep: Int) {
-        state.currentSpeed = initialGameSpeed + Int(Double(timeStep) * gameAcceleration)
+        state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1)) + 1)
     }
     
     func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
+        delegate.didGenerateObstacle(obstacle)
     }
     
     func insertPlayer(player: Player) {

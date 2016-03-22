@@ -9,8 +9,13 @@
 import UIKit
 
 let backgroundImageName = "background"
+let gameGridSize = 32
+let actualGridSize = 1024
+let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 
-let initialGameSpeed = 1
-let gameAcceleration = 0.05
-let jumpDistance = 10
-let duckDistance = 10
+let initialGameSpeed = 60
+let jumpDistance = 10 * unitsPerGameGridCell
+let duckDistance = 10 * unitsPerGameGridCell
+let invulnerableDistance = 10 * unitsPerGameGridCell
+
+let speedMultiplier = 0.337768 * 7

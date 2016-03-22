@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iso_grid_tile.png",
+      "filename" : "iso_floating_obstacle.png",
       "scale" : "1x"
     },
     {
