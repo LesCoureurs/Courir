@@ -29,6 +29,7 @@ class Obstacle: GameObject {
     
     init(type: ObstacleType) {
         self.type = type
-        self.identifier = String(Obstacle.uniqueId++)
+        self.identifier = String(Obstacle.uniqueId)
+        Obstacle.uniqueId += 1
     }
 }

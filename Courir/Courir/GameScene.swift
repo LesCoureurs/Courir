@@ -107,12 +107,12 @@ class GameScene: SKScene, LogicEngineDelegate {
 
     private func setupGestureRecognizers(view: SKView) {
         let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
-            action: Selector("handleUpSwipe:"))
+            action: #selector(GameScene.handleUpSwipe(_:)))
         swipeUpRecognizer.direction = .Up
         view.addGestureRecognizer(swipeUpRecognizer)
         
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self,
-            action: Selector("handleDownSwipe:"))
+            action: #selector(GameScene.handleDownSwipe(_:)))
         swipeDownRecognizer.direction = .Down
         view.addGestureRecognizer(swipeDownRecognizer)
     }
