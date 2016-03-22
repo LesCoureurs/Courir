@@ -105,8 +105,16 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
     
     private func createObstacle(obstacle: Obstacle) -> SKNode {
-        let obstacleSprite = createGameObject(obstacle, imageName: "iso_non_floating_obstacle")
-        obstacleSprite.zPosition = 1
+        let obstacleSprite: SKSpriteNode
+        switch obstacle.type {
+            case .NonFloating:
+                obstacleSprite = createGameObject(obstacle, imageName: "iso_non_floating_obstacle")
+                obstacleSprite.zPosition = 1
+            case .Floating:
+                obstacleSprite = createGameObject(obstacle, imageName: "iso_floating_obstacle")
+                obstacleSprite.zPosition = 3
+        }
+        
         obstacleSprite.name = obstacle.identifier
         return obstacleSprite
     }
