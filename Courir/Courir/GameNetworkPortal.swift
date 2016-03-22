@@ -77,7 +77,7 @@ class GameNetworkPortal {
 
 extension GameNetworkPortal: CoulombNetworkDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
-        
+        connectionDelegate?.foundHostsChanged(foundHosts)
     }
     
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {}
