@@ -11,7 +11,7 @@ import Foundation
 protocol LogicEngineDelegate {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
-    func didCollide()
+    func didCollide(player: Player)
     func didJump()
     func didDuck()
     func gameDidEnd()
@@ -112,12 +112,15 @@ class LogicEngine {
                 if hasCollidedWith(obstacle) {
                     state.myPlayer.run()
                     state.myPlayer.fallBehind()
+                    state.myPlayer.becomeInvulnerable(state.distance)
+                    delegate.didCollide(state.myPlayer)
                 }
             }
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {
-            $0.xCoordinate < state.myPlayer.xCoordinate + state.currentSpeed
+            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
+            $0.xCoordinate > state.myPlayer.xCoordinate
         }
         
         let nonFloatingObstacles = obstaclesInNextFrame.filter {
@@ -143,6 +146,8 @@ class LogicEngine {
                 for _ in obstaclesInNextFrame {
                     state.myPlayer.run()
                     state.myPlayer.fallBehind()
+                    state.myPlayer.becomeInvulnerable(state.distance)
+                    delegate.didCollide(state.myPlayer)
                 }
             default:
                 return

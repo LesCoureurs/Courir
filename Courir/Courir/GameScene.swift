@@ -173,8 +173,8 @@ class GameScene: SKScene, LogicEngineDelegate {
         obstacles[obstacle.identifier]?.removeFromParent()
     }
 
-    func didCollide() {
-
+    func didCollide(player: Player) {
+        updatePositionFor(player, withNode: players[String(player.playerNumber)]!)
     }
 
     func didJump() {
