@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02814D8C1CA0F7B7006D9029 /* GameNetworkPortal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */; };
 		6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A70C1C9C7EB800D8CC48 /* AppDelegate.swift */; };
 		6524A7111C9C7EB800D8CC48 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7101C9C7EB800D8CC48 /* GameScene.swift */; };
 		6524A7131C9C7EB800D8CC48 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7121C9C7EB800D8CC48 /* GameViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameNetworkPortal.swift; sourceTree = "<group>"; };
 		50560D4BBD2434451FA668F1 /* Pods-Courir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Courir.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Courir/Pods-Courir.debug.xcconfig"; sourceTree = "<group>"; };
 		6524A7091C9C7EB800D8CC48 /* Courir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6524A70C1C9C7EB800D8CC48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				6E48F5511C9D7C3000E0ED9F /* GameObject.swift */,
 				7A8839311C9E7BA1007434E8 /* GameState.swift */,
 				7279DFB81C9E91DF00FA4198 /* GameChange.swift */,
+				02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */,
 				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
 				6E48F54B1C9D505A00E0ED9F /* Player.swift */,
 				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
@@ -311,6 +314,7 @@
 				6524A7331C9C7F4B00D8CC48 /* Constants.swift in Sources */,
 				6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */,
 				6524A7111C9C7EB800D8CC48 /* GameScene.swift in Sources */,
+				02814D8C1CA0F7B7006D9029 /* GameNetworkPortal.swift in Sources */,
 				7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */,
 				6524A7311C9C7F1700D8CC48 /* MenuScene.swift in Sources */,
 				7279DFB91C9E91DF00FA4198 /* GameChange.swift in Sources */,
