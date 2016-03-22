@@ -24,7 +24,7 @@ class Player: GameObject {
     var yCoordinate: Int
     
     private(set) var state = PlayerState.Stationary
-    
+
     // Range of playerNumber = [0, 3]
     init(playerNumber: Int) {
         assert(0 <= playerNumber && playerNumber <= 3)

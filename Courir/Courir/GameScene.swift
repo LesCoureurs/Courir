@@ -8,19 +8,25 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, LogicEngineDelegate {
     private let grid = SKSpriteNode()
     private let tileSize = (width: 32, height: 32)
     
     private let logicEngine = LogicEngine(playerNumber: 0)
     private var gameState: GameState!
     private var myPlayer: SKNode!
-    private var players: [SKNode]!
+    private var obstacles = [String: SKNode]()
 
     override func didMoveToView(view: SKView) {
+        logicEngine.setDelegate(self)
         gameState = logicEngine.state
+
+        let obstacleNodes = gameState.obstacles.map { createObstacle($0) }
+        for node in obstacleNodes {
+            obstacles[node.name!] = node
+        }
+
         myPlayer = createPlayer(gameState.myPlayer)
-        addChild(myPlayer)
 
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         
@@ -90,21 +96,69 @@ class GameScene: SKScene {
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         
     }
-    
+
+    private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
+        let x = CGFloat(object.xCoordinate * tileSize.width + object.xWidth / 2 * tileSize.width)
+        let y = CGFloat(object.yCoordinate * tileSize.width + object.yWidth / 2 * tileSize.height)
+        return CGPoint(x: x, y: y)
+    }
+
     private func createPlayer(player: Player) -> SKNode {
         let playerNode = SKShapeNode(rectOfSize: CGSize(width: player.xWidth*tileSize.width, height: player.yWidth*tileSize.height))
         
         playerNode.fillColor = SKColor.blackColor()
         playerNode.zPosition = 1
         playerNode.lineWidth = 0
-        let x = CGFloat(player.xCoordinate * tileSize.width + player.xWidth / 2 * tileSize.width)
-        let y = CGFloat(player.yCoordinate * tileSize.height + player.yWidth / 2 * tileSize.height)
-        playerNode.position = CGPoint(x: x, y: y)
-        
+        playerNode.position = calculateRenderPositionFor(player)
+
+        addChild(playerNode)
         return playerNode
+    }
+    
+    private func createObstacle(obstacle: Obstacle) -> SKNode {
+        let obstacleNode = SKShapeNode(rectOfSize: CGSize(width: obstacle.xWidth*tileSize.width, height: obstacle.yWidth*tileSize.height))
+        
+        obstacleNode.fillColor = SKColor.grayColor()
+        obstacleNode.zPosition = 1
+        obstacleNode.lineWidth = 0
+        obstacleNode.position = calculateRenderPositionFor(obstacle)
+
+        obstacleNode.name = obstacle.identifier
+        addChild(obstacleNode)
+        return obstacleNode
+    }
+
+    private func updatePositionFor(object: GameObject, withNode node: SKNode) {
+        node.position = calculateRenderPositionFor(object)
     }
 
     override func update(currentTime: CFTimeInterval) {
-        
+        logicEngine.update()
+        for obstacle in gameState.obstacles {
+            if let node = self.obstacles[obstacle.identifier] {
+                updatePositionFor(obstacle, withNode: node)
+            }
+        }
+    }
+
+    func didGenerateObstacle(obstacle: Obstacle) {
+        let obstacleNode = createObstacle(obstacle)
+        obstacles[obstacleNode.name!] = (obstacleNode)
+    }
+
+    func didCollide() {
+
+    }
+
+    func didJump() {
+
+    }
+
+    func didDuck() {
+
+    }
+
+    func gameDidEnd() {
+
     }
 }

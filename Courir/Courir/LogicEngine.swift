@@ -9,6 +9,7 @@
 import Foundation
 
 protocol LogicEngineDelegate {
+    func didGenerateObstacle(obstacle: Obstacle)
     func didCollide()
     func didJump()
     func didDuck()
@@ -18,7 +19,8 @@ protocol LogicEngineDelegate {
 class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
-
+    
+    private var delegate: LogicEngineDelegate!
     var timeStep = 0
     var lastObstacleDistance: Int?
     
@@ -26,6 +28,10 @@ class LogicEngine {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber)
         state = GameState(player: ownPlayer)
+    }
+
+    func setDelegate(delegate: LogicEngineDelegate) {
+        self.delegate = delegate
     }
     
     var score: Int {
@@ -147,6 +153,7 @@ class LogicEngine {
     
     func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
+        delegate.didGenerateObstacle(obstacle)
     }
     
     func insertPlayer(player: Player) {
