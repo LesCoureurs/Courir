@@ -9,10 +9,11 @@
 import SpriteKit
 
 class GameScene: SKScene, LogicEngineDelegate {
-    private let grid = SKSpriteNode()
     private let tileSize = (width: 32, height: 32)
     
+    private let grid = SKSpriteNode()
     private let logicEngine = LogicEngine(playerNumber: 0)
+    
     private var gameState: GameState!
     private var myPlayer: SKNode!
     private var obstacles = [String: SKNode]()
@@ -21,23 +22,33 @@ class GameScene: SKScene, LogicEngineDelegate {
         logicEngine.setDelegate(self)
         gameState = logicEngine.state
 
+        
+        initObstacles()
+        initPlayers()
+        initGrid()
+        
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
+        setupGestureRecognizers(view)
+    }
+    
+    private func initGrid() {
+        grid.position = CGPoint(x: 0, y: size.height/2)
+        addChild(grid)
+        renderIsoGrid()
+    }
+    
+    private func initObstacles() {
         let obstacleNodes = gameState.obstacles.map { createObstacle($0) }
         for node in obstacleNodes {
             obstacles[node.name!] = node
         }
-
+    }
+    
+    private func initPlayers() {
         myPlayer = createPlayer(gameState.myPlayer)
-        for i in 1...3 {
+        for i in 1...3 { // Replace when game state contains data of other players
             createPlayer(Player(playerNumber: i))
         }
-
-        physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
-        
-        grid.position = CGPoint(x: 0, y: size.height/2)
-        addChild(grid)
-        
-        setupGestureRecognizers(view)
-        renderIsoGrid()
     }
     
     private func renderIsoGrid() {
@@ -46,7 +57,8 @@ class GameScene: SKScene, LogicEngineDelegate {
         
         for i in 0..<numRows {
             for j in 0..<numCols {
-                let point = pointToIso(CGPoint(x: (j*tileSize.width/2), y: (i*tileSize.height/2)))
+                let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
+                                               y: (i * tileSize.height / 2)))
                 placeTile(imageNamed: "iso_grid_tile", withPosition: point)
             }
         }
@@ -67,28 +79,32 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
 
     private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
-        let x = CGFloat(object.xCoordinate * tileSize.width/2)
-        let y = CGFloat(object.yCoordinate * tileSize.height/2)
+        // multiple is to convert object's coordinates to coordinates in the actual grid
+        let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
+        let x = CGFloat(Double(object.xCoordinate) * multiple)
+        let y = CGFloat(Double(object.yCoordinate) * multiple)
         return pointToIso(CGPointMake(x, y))
     }
 
+    private func createGameObject(object: GameObject, imageName: String) -> SKSpriteNode {
+        let sprite = SKSpriteNode(imageNamed: imageName)
+        sprite.position = calculateRenderPositionFor(object)
+        sprite.anchorPoint = CGPointMake(0, 0)
+        grid.addChild(sprite)
+        return sprite
+    }
+    
     private func createPlayer(player: Player) -> SKNode {
-        let playerSprite = SKSpriteNode(imageNamed: "iso_player")
+        let playerSprite = createGameObject(player, imageName: "iso_player")
         playerSprite.zPosition = 2
-        playerSprite.position = calculateRenderPositionFor(player)
         playerSprite.position.y -= CGFloat(playerSprite.size.height/CGFloat(tileSize.height) - 1) * 8
-        playerSprite.anchorPoint = CGPoint(x: 0, y: 0)
-        grid.addChild(playerSprite)
         return playerSprite
     }
     
     private func createObstacle(obstacle: Obstacle) -> SKNode {
-        let obstacleSprite = SKSpriteNode(imageNamed: "iso_non_floating_obstacle")
+        let obstacleSprite = createGameObject(obstacle, imageName: "iso_non_floating_obstacle")
         obstacleSprite.zPosition = 1
-        obstacleSprite.position = calculateRenderPositionFor(obstacle)
-        obstacleSprite.anchorPoint = CGPoint(x: 0, y: 0)
         obstacleSprite.name = obstacle.identifier
-        grid.addChild(obstacleSprite)
         return obstacleSprite
     }
 
