@@ -22,7 +22,6 @@ class GameScene: SKScene, LogicEngineDelegate {
         logicEngine.setDelegate(self)
         gameState = logicEngine.state
 
-        
         initObstacles()
         initPlayers()
         initGrid()
@@ -52,11 +51,8 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
     
     private func renderIsoGrid() {
-        let numCols = 32
-        let numRows = 32
-        
-        for i in 0..<numRows {
-            for j in 0..<numCols {
+        for i in 0..<gameGridSize {
+            for j in 0..<gameGridSize {
                 let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
                                                y: (i * tileSize.height / 2)))
                 placeTile(imageNamed: "iso_grid_tile", withPosition: point)
@@ -83,7 +79,10 @@ class GameScene: SKScene, LogicEngineDelegate {
         let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
         let x = CGFloat(Double(object.xCoordinate) * multiple)
         let y = CGFloat(Double(object.yCoordinate) * multiple)
-        return pointToIso(CGPointMake(x, y))
+        var isoPoint = pointToIso(CGPointMake(x, y))
+        // offset as a result of having objects that take up multiple tiles
+        isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
+        return isoPoint
     }
 
     private func createGameObject(object: GameObject, imageName: String) -> SKSpriteNode {
@@ -97,7 +96,6 @@ class GameScene: SKScene, LogicEngineDelegate {
     private func createPlayer(player: Player) -> SKNode {
         let playerSprite = createGameObject(player, imageName: "iso_player")
         playerSprite.zPosition = 2
-        playerSprite.position.y -= CGFloat(playerSprite.size.height/CGFloat(tileSize.height) - 1) * 8
         return playerSprite
     }
     
