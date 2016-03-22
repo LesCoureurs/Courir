@@ -88,7 +88,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     
     func disconnectedFromSession() {
         beginSearchingForHosts()
-        connectionDelegate.disconnectedFromRoom()
+        connectionDelegate?.disconnectedFromRoom()
     }
     
     func handleDataPacket(data: NSData, peerID: MCPeerID) {}
