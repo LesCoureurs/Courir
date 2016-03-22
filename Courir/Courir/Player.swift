@@ -25,9 +25,12 @@ class Player: GameObject {
     
     private(set) var state = PlayerState.Stationary
 
+    let playerNumber: Int
+    
     // Range of playerNumber = [0, 3]
     init(playerNumber: Int) {
         assert(0 <= playerNumber && playerNumber <= 3)
+        self.playerNumber = playerNumber
         yCoordinate = Player.minSpawnYCoordinate +
             playerNumber * Player.spawnYCoordinateIncrement
     }

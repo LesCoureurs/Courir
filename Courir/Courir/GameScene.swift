@@ -16,6 +16,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     
     private var gameState: GameState!
     private var myPlayer: SKNode!
+    private var players = [String: SKNode]()
     private var obstacles = [String: SKNode]()
 
     override func didMoveToView(view: SKView) {
@@ -44,9 +45,12 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
     
     private func initPlayers() {
+        gameState.myPlayer.run()
         myPlayer = createPlayer(gameState.myPlayer)
+        players[myPlayer.name!] = myPlayer
         for i in 1...3 { // Replace when game state contains data of other players
-            createPlayer(Player(playerNumber: i))
+            let player = createPlayer(Player(playerNumber: i))
+            players[player.name!] = player
         }
     }
     
@@ -96,6 +100,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     private func createPlayer(player: Player) -> SKNode {
         let playerSprite = createGameObject(player, imageName: "iso_player")
         playerSprite.zPosition = 2
+        playerSprite.name = String(player.playerNumber)
         return playerSprite
     }
     
