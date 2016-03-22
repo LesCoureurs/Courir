@@ -149,6 +149,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
     
     private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
+        logicEngine.handleEvent(.PlayerDidJump, player: 0)
         // using the formula x = x0 + vt + 0.5*at^2
         let originalY = player.position.y
         let maxHeight = -height
@@ -177,6 +178,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
 
     private func duckPlayer(player: SKNode) {
+        logicEngine.handleEvent(.PlayerDidDuck, player: 0)
         let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: 0.6)
         player.runAction(duckTextureChange)
     }

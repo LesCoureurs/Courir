@@ -56,6 +56,18 @@ class LogicEngine {
         updateGameSpeed(timeStep)
         timeStep += 1
     }
+
+    func handleEvent(event: GameEvent, player: Int?) {
+        let player = state.players.filter { $0.playerNumber == player }
+        switch event {
+        case .PlayerDidJump:
+            player.first?.jump(state.distance)
+        case .PlayerDidDuck:
+            player.first?.duck(state.distance)
+        default:
+            break
+        }
+    }
     
     private func updateObstaclePositions() {
         var obstaclesOnScreen = [Obstacle]()
