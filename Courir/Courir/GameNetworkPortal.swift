@@ -71,7 +71,7 @@ class GameNetworkPortal {
         coulombNetwork.sendData(data, mode: mode)
     }
     
-    // To convert struct to NSData
+    // Convert struct to NSData using pointer
     func prepareData(gameChange: GameChange) -> NSData {
         var mutableGameChange = gameChange
         return withUnsafePointer(&mutableGameChange) { p in
