@@ -32,6 +32,7 @@ class GameNetworkPortal {
     var coulombNetwork: CoulombNetwork!
 
     init(playerName deviceId: String) {
+        // coulombNetwork.autoAcceptGuests is defaulted to true
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
         coulombNetwork.delegate = self
     }
@@ -80,7 +81,9 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.foundHostsChanged(foundHosts)
     }
     
-    func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {}
+    func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void) {
+        // If autoAcceptGuests is true, this won't be called.
+    }
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {}
     
