@@ -28,7 +28,7 @@ internal protocol GameNetworkPortalGameStateDelegate {
 class GameNetworkPortal {
     let serviceType = "courir"
     var connectionDelegate: GameNetworkPortalConnectionDelegate?
-    var gameStateDelegate: GameNetworkPortalGameStateDelegate
+    var gameStateDelegate: GameNetworkPortalGameStateDelegate?
     var coulombNetwork: CoulombNetwork!
 
     init(playerName deviceId: String) {
@@ -109,7 +109,11 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         
     }
     
+    // Convert NSData to GameChange struct
     func unpackData(data: NSData) -> GameChange {
-
+        let pointer = UnsafeMutablePointer<GameChange>.alloc(sizeof(GameChange))
+        data.getBytes(pointer, length: sizeof(GameChange))
+        
+        return pointer.move()
     }
 }
