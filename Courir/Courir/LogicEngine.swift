@@ -161,7 +161,7 @@ class LogicEngine {
     }
     
     func updateGameSpeed(timeStep: Int) {
-        state.currentSpeed = initialGameSpeed + Int(Double(timeStep) * gameAcceleration)
+        state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1)) + 1)
     }
     
     func insertObstacle(obstacle: Obstacle) {
