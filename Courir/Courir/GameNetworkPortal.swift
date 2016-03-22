@@ -105,8 +105,23 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.disconnectedFromRoom()
     }
     
+    // Receive data packet, unpack and call appropriate handler
     func handleDataPacket(data: NSData, peerID: MCPeerID) {
-        
+        let content = unpackData(data)
+        switch content.event {
+        case GameEvent.GameDidStart:
+            gameStateDelegate?.gameStartSignalReceived()
+        case GameEvent.GameDidEnd:
+            gameStateDelegate?.gameEndSignalReceived()
+        case GameEvent.PlayerDidJump:
+            gameStateDelegate?.jumpActionReceived()
+        case GameEvent.PlayerDidDuck:
+            gameStateDelegate?.duckActionReceived()
+        case GameEvent.PlayerDidCollide:
+            gameStateDelegate?.collideActionReceived()
+        default:
+            return
+        }
     }
     
     // Convert NSData to GameChange struct
