@@ -72,6 +72,7 @@ class GameNetworkPortal {
     }
     
     // Convert struct to NSData using pointer
+    // TODO: Test this
     func prepareData(gameChange: GameChange) -> NSData {
         var mutableGameChange = gameChange
         return withUnsafePointer(&mutableGameChange) { p in
@@ -125,6 +126,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     // Convert NSData to GameChange struct
+    // TODO: Test this
     func unpackData(data: NSData) -> GameChange {
         let pointer = UnsafeMutablePointer<GameChange>.alloc(sizeof(GameChange))
         data.getBytes(pointer, length: sizeof(GameChange))
