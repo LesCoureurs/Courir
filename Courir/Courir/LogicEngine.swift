@@ -77,7 +77,7 @@ class LogicEngine {
         }
         
         for obstacle in state.obstacles {
-            obstacle.xCoordinate -= state.currentSpeed
+            obstacle.xCoordinate -= speed
             if shouldRemoveObstacle(obstacle) {
                 delegate.didRemoveObstacle(obstacle)
             } else {
@@ -89,7 +89,7 @@ class LogicEngine {
     }
     
     private func updateDistance() {
-        state.distance += state.currentSpeed
+        state.distance += speed
     }
     
     private func updatePlayerStates() {
@@ -126,7 +126,7 @@ class LogicEngine {
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {
-            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
+            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
         }
         
