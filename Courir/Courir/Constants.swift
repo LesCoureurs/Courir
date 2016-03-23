@@ -18,8 +18,12 @@ let speedMultiplier = 0.337768 * 5
 let floatingProbability = Float(0.25)
 let nonfloatingProbability = Float(0.25)
 
-let jumpDuration = 0.6
-let duckDuration = 0.6
+let framerate = 60
+let jumpTimeSteps = 36
+let duckTimeSteps = 36
+
+let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
+let duckDuration = Double(jumpTimeSteps) / Double(framerate)
 let invulnerableDuration = 1.0
 
 let playerJumpTexture = SKTexture(imageNamed: "iso_player_jump")

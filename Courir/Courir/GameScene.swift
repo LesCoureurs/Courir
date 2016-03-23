@@ -148,7 +148,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
         view?.removeGestureRecognizer(sender)
-        jumpPlayer(0.6, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer)
+        jumpPlayer(jumpDuration, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer)
     }
     
     private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
@@ -185,7 +185,7 @@ class GameScene: SKScene, LogicEngineDelegate {
 
     private func duckPlayer(player: SKNode) {
         logicEngine.handleEvent(.PlayerDidDuck, player: 0)
-        let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: 0.6)
+        let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: duckDuration)
         player.runAction(duckTextureChange)
     }
     

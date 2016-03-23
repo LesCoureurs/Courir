@@ -23,7 +23,7 @@ class LogicEngine {
     
     private var delegate: LogicEngineDelegate!
     var timeStep = 0
-    var lastObstacleDistance: Int?
+    var lastObstacleTimeStep: Int?
     
     init(playerNumber: Int, seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -182,16 +182,16 @@ class LogicEngine {
     
     private func generateObstacle() {
         func readyForNextObstacle() -> Bool {
-            if lastObstacleDistance == nil {
+            if lastObstacleTimeStep == nil {
                 return true
             } else {
-                return state.distance > 2 * max(jumpDistance, duckDistance) + lastObstacleDistance!
+                return timeStep > 2 * max(jumpTimeSteps, duckTimeSteps) + lastObstacleTimeStep!
             }
         }
         
         if (readyForNextObstacle()) {
             if let obstacle = obstacleGenerator.getNextObstacle() {
-                lastObstacleDistance = state.distance
+                lastObstacleTimeStep = timeStep
                 insertObstacle(obstacle)
             }
         }
