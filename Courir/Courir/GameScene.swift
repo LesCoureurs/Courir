@@ -18,6 +18,8 @@ class GameScene: SKScene, LogicEngineDelegate {
     private var myPlayer: SKNode!
     private var players = [String: SKNode]()
     private var obstacles = [String: SKNode]()
+    
+    private var swipeUpRecognizer: UISwipeGestureRecognizer!
 
     override func didMoveToView(view: SKView) {
         logicEngine.setDelegate(self)
@@ -133,7 +135,7 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
 
     private func setupGestureRecognizers(view: SKView) {
-        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
+        swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
             action: #selector(GameScene.handleUpSwipe(_:)))
         swipeUpRecognizer.direction = .Up
         view.addGestureRecognizer(swipeUpRecognizer)
@@ -145,7 +147,8 @@ class GameScene: SKScene, LogicEngineDelegate {
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        jumpPlayer(0.6, height: 300, player: myPlayer)
+        view?.removeGestureRecognizer(sender)
+        jumpPlayer(0.6, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer)
     }
     
     private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
@@ -170,7 +173,10 @@ class GameScene: SKScene, LogicEngineDelegate {
         let jumpTextureChange = SKAction.setTexture(playerJumpTexture)
 
         player.runAction(jumpTextureChange)
-        player.runAction(jumpUpAction, completion: { player.runAction(resetPlayerTexture) })
+        player.runAction(jumpUpAction, completion: {
+            player.runAction(resetPlayerTexture)
+            self.view!.addGestureRecognizer(self.swipeUpRecognizer)
+        })
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
