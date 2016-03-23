@@ -15,6 +15,9 @@ let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 let initialGameSpeed = 60
 let speedMultiplier = 0.337768 * 5
 
+let floatingProbability = Float(0.25)
+let nonfloatingProbability = Float(0.25)
+
 let jumpDuration = 0.6
 let duckDuration = 0.6
 let invulnerableDuration = 1.0
