@@ -43,15 +43,15 @@ class Player: GameObject {
         state = .Running
     }
     
-    func jump(startDistance: Int) {
-        state = .Jumping(startDistance)
+    func jump(startTimeStep: Int) {
+        state = .Jumping(startTimeStep)
     }
     
-    func duck(startDistance: Int) {
-        state = .Ducking(startDistance)
+    func duck(startTimeStep: Int) {
+        state = .Ducking(startTimeStep)
     }
     
-    func becomeInvulnerable(startDistance: Int) {
-        state = .Invulnerable(startDistance)
+    func becomeInvulnerable(startTimeStep: Int) {
+        state = .Invulnerable(startTimeStep)
     }
 }

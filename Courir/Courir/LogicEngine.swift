@@ -47,18 +47,6 @@ class LogicEngine {
         return state
     }
     
-    var jumpDistance: Int {
-        return Int(ceil(Double(state.currentSpeed) * jumpDuration)) * unitsPerGameGridCell
-    }
-    
-    var duckDistance: Int {
-        return Int(ceil(Double(state.currentSpeed) * duckDuration)) * unitsPerGameGridCell
-    }
-    
-    var invulnerableDistance: Int {
-        return Int(ceil(Double(state.currentSpeed) * invulnerableDuration)) * unitsPerGameGridCell
-    }
-    
     func update() {
         updateObstaclePositions()
         handleCollisions()
@@ -73,9 +61,9 @@ class LogicEngine {
         let player = state.players.filter { $0.playerNumber == player }
         switch event {
         case .PlayerDidJump:
-            player.first?.jump(state.distance)
+            player.first?.jump(timeStep)
         case .PlayerDidDuck:
-            player.first?.duck(state.distance)
+            player.first?.duck(timeStep)
         default:
             break
         }
@@ -107,16 +95,16 @@ class LogicEngine {
     private func updatePlayerStates() {
         for player in state.players {
             switch player.state {
-                case let .Jumping(startDistance):
-                    if state.distance - startDistance > jumpDistance {
+                case let .Jumping(startTimeStep):
+                    if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
                     }
-                case let .Ducking(startDistance):
-                    if state.distance - startDistance > duckDistance {
+                case let .Ducking(startTimeStep):
+                    if timeStep - startTimeStep > duckTimeSteps {
                         player.run()
                     }
-                case let .Invulnerable(startDistance):
-                    if state.distance - startDistance > invulnerableDistance {
+                case let .Invulnerable(startTimeStep):
+                    if timeStep - startTimeStep > invulnerableTimeSteps {
                         player.run()
                     }
                 default:
@@ -130,21 +118,16 @@ class LogicEngine {
         // within 1 frame of hitting state.myPlayer. If so then
         // state.myPlayer has been hit
         
-        func handleCollisionsWith(obstacles: [Obstacle],
-                                  hasCollidedWith: (Obstacle) -> Bool) {
-            for obstacle in obstacles {
-                if hasCollidedWith(obstacle) {
-                    state.myPlayer.run()
-                    state.myPlayer.fallBehind()
-                    state.myPlayer.becomeInvulnerable(state.distance)
-                    delegate.didCollide(state.myPlayer)
-                }
-            }
+        func collisionOccurred() {
+            state.myPlayer.run()
+            state.myPlayer.fallBehind()
+            state.myPlayer.becomeInvulnerable(timeStep)
+            delegate.didCollide(state.myPlayer)
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
-            $0.xCoordinate > state.myPlayer.xCoordinate + state.myPlayer.xWidth
+            $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
         }
         
         let nonFloatingObstacles = obstaclesInNextFrame.filter {
@@ -156,24 +139,19 @@ class LogicEngine {
         }
 
         switch state.myPlayer.state {
-            case let .Jumping(startDistance):
-                handleCollisionsWith(nonFloatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + self.jumpDistance < self.state.distance + obstacle.xCoordinate
+            case .Jumping(_):
+                if floatingObstacles.count > 0 {
+                    collisionOccurred()
                 }
-                handleCollisionsWith(floatingObstacles) { _ in true }
-            case let .Ducking(startDistance):
-                handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + self.duckDistance < self.state.distance + obstacle.xCoordinate
+            case .Ducking(_):
+                if nonFloatingObstacles.count > 0 {
+                    collisionOccurred()
                 }
-                handleCollisionsWith(nonFloatingObstacles) { _ in true }
             case .Invulnerable(_):
                 return
             case .Running:
-                for _ in obstaclesInNextFrame {
-                    state.myPlayer.run()
-                    state.myPlayer.fallBehind()
-                    state.myPlayer.becomeInvulnerable(state.distance)
-                    delegate.didCollide(state.myPlayer)
+                if obstaclesInNextFrame.count > 0 {
+                    collisionOccurred()
                 }
             default:
                 return
