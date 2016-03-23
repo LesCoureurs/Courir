@@ -47,6 +47,18 @@ class LogicEngine {
         return state
     }
     
+    var jumpDistance: Int {
+        return Int(ceil(Double(state.currentSpeed) * jumpDuration)) * unitsPerGameGridCell
+    }
+    
+    var duckDistance: Int {
+        return Int(ceil(Double(state.currentSpeed) * duckDuration)) * unitsPerGameGridCell
+    }
+    
+    var invulnerableDistance: Int {
+        return Int(ceil(Double(state.currentSpeed) * invulnerableDuration)) * unitsPerGameGridCell
+    }
+    
     func update() {
         updateObstaclePositions()
         handleCollisions()
@@ -132,7 +144,7 @@ class LogicEngine {
         
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
-            $0.xCoordinate > state.myPlayer.xCoordinate
+            $0.xCoordinate > state.myPlayer.xCoordinate + state.myPlayer.xWidth
         }
         
         let nonFloatingObstacles = obstaclesInNextFrame.filter {
@@ -146,12 +158,14 @@ class LogicEngine {
         switch state.myPlayer.state {
             case let .Jumping(startDistance):
                 handleCollisionsWith(nonFloatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + jumpDistance < self.state.distance + obstacle.xCoordinate
+                    return startDistance + self.jumpDistance < self.state.distance + obstacle.xCoordinate
                 }
+                handleCollisionsWith(floatingObstacles) { _ in true }
             case let .Ducking(startDistance):
                 handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + duckDistance < self.state.distance + obstacle.xCoordinate
+                    return startDistance + self.duckDistance < self.state.distance + obstacle.xCoordinate
                 }
+                handleCollisionsWith(nonFloatingObstacles) { _ in true }
             case .Invulnerable(_):
                 return
             case .Running:

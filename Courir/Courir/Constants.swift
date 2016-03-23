@@ -13,11 +13,11 @@ let actualGridSize = 1024
 let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 
 let initialGameSpeed = 60
-let jumpDistance = 10 * unitsPerGameGridCell
-let duckDistance = 10 * unitsPerGameGridCell
-let invulnerableDistance = 10 * unitsPerGameGridCell
+let speedMultiplier = 0.337768 * 5
 
-let speedMultiplier = 0.337768 * 7
+let jumpDuration = 0.6
+let duckDuration = 0.6
+let invulnerableDuration = 1.0
 
 let playerJumpTexture = SKTexture(imageNamed: "iso_player_jump")
 let playerDuckTexture = SKTexture(imageNamed: "iso_player_duck")
