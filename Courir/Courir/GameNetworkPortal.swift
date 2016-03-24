@@ -9,14 +9,14 @@
 import Coulomb
 import MultipeerConnectivity
 
-protocol GameNetworkPortalConnectionDelegate {
+protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID])
     func disconnectedFromRoom()
 }
 
-protocol GameNetworkPortalGameStateDelegate {
+protocol GameNetworkPortalGameStateDelegate: class {
     func jumpActionReceived(data: [String: NSObject], peer: MCPeerID)
     func duckActionReceived(data: [String: NSObject], peer: MCPeerID)
     func collideActionReceived(data: [String: NSObject], peer: MCPeerID)
@@ -26,8 +26,8 @@ protocol GameNetworkPortalGameStateDelegate {
 
 class GameNetworkPortal {
     let serviceType = "courir"
-    var connectionDelegate: GameNetworkPortalConnectionDelegate?
-    var gameStateDelegate: GameNetworkPortalGameStateDelegate?
+    weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
+    weak var gameStateDelegate: GameNetworkPortalGameStateDelegate?
     var coulombNetwork: CoulombNetwork!
 
     init(playerName deviceId: String) {
