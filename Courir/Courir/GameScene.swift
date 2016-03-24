@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, LogicEngineDelegate, Observer {
+class GameScene: SKScene {
     private let tileSize = (width: 32, height: 32)
     
     private let grid = SKSpriteNode()
@@ -165,10 +165,11 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         logicEngine.handleEvent(.PlayerDidDuck, player: 0)
     }
-    
+}
 
-    // MARK: LogicEngineDelegate
-    
+
+// MARK: LogicEngineDelegate
+extension GameScene: LogicEngineDelegate {
     func didGenerateObstacle(obstacle: Obstacle) {
         obstacle.observer = self
         obstacles[obstacle.identifier] = createObstacleNode(obstacle)
@@ -182,10 +183,11 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "score": score]
         NSNotificationCenter.defaultCenter().postNotificationName("showAlert", object: self, userInfo: gameOverData)
     }
-    
-    
-    // MARK: Observer
-    
+}
+
+
+// MARK: Observer
+extension GameScene: Observer {
     func didChangeProperty(propertyName: String, from: AnyObject?) {
         if let object = from as? Player {
             handleUpdatePlayerNode(object, propertyName: propertyName)
