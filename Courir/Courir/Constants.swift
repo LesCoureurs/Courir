@@ -17,6 +17,8 @@ let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 let floatingProbability = Float(0.25)
 let nonfloatingProbability = Float(0.25)
 
+let obstacleSpaceMultiplier = 1.5
+
 let initialGameSpeed = 1
 let speedMultiplier = 0.337768 * 5
 
