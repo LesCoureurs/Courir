@@ -19,8 +19,12 @@ class GameScene: SKScene, LogicEngineDelegate {
     private var players = [String: SKNode]()
     private var obstacles = [String: SKNode]()
     
-    private var swipeUpRecognizer: UISwipeGestureRecognizer!
+    private var jumpRecognizer: UISwipeGestureRecognizer!
+    private var duckRecognizer: UISwipeGestureRecognizer!
 
+    
+    // MARK: Initialisers
+    
     override func didMoveToView(view: SKView) {
         logicEngine.setDelegate(self)
         gameState = logicEngine.state
@@ -61,7 +65,7 @@ class GameScene: SKScene, LogicEngineDelegate {
             for j in 0..<gameGridSize {
                 let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
                                                y: (i * tileSize.height / 2)))
-                placeTile(imageNamed: "iso_grid_tile", withPosition: point)
+                createGridTileAt(point)
             }
         }
     }
@@ -70,8 +74,8 @@ class GameScene: SKScene, LogicEngineDelegate {
         return CGPointMake(p.x + p.y, (p.y - p.x) / 2)
     }
     
-    private func placeTile(imageNamed image: String, withPosition: CGPoint) {
-        let tileSprite = SKSpriteNode(imageNamed: image)
+    private func createGridTileAt(withPosition: CGPoint) {
+        let tileSprite = SKSpriteNode(imageNamed: "iso_grid_tile")
         
         tileSprite.position = withPosition
         tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
@@ -85,6 +89,7 @@ class GameScene: SKScene, LogicEngineDelegate {
         let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
         let x = CGFloat(Double(object.xCoordinate) * multiple)
         let y = CGFloat(Double(object.yCoordinate) * multiple)
+        
         var isoPoint = pointToIso(CGPointMake(x, y))
         // offset as a result of having objects that take up multiple tiles
         isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
@@ -121,9 +126,8 @@ class GameScene: SKScene, LogicEngineDelegate {
         return obstacleSprite
     }
 
-    private func updatePositionFor(object: GameObject, withNode node: SKNode) {
-        node.position = calculateRenderPositionFor(object)
-    }
+    
+    // MARK: Update methods
 
     override func update(currentTime: CFTimeInterval) {
         logicEngine.update()
@@ -133,25 +137,42 @@ class GameScene: SKScene, LogicEngineDelegate {
             }
         }
     }
+    
+    private func updatePositionFor(object: GameObject, withNode node: SKNode) {
+        node.position = calculateRenderPositionFor(object)
+    }
+    
+    
+    // MARK: Gesture handling methods
 
     private func setupGestureRecognizers(view: SKView) {
-        swipeUpRecognizer = UISwipeGestureRecognizer(target: self,
+        jumpRecognizer = UISwipeGestureRecognizer(target: self,
             action: #selector(GameScene.handleUpSwipe(_:)))
-        swipeUpRecognizer.direction = .Up
-        view.addGestureRecognizer(swipeUpRecognizer)
+        jumpRecognizer.direction = .Up
         
-        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self,
+        duckRecognizer = UISwipeGestureRecognizer(target: self,
             action: #selector(GameScene.handleDownSwipe(_:)))
-        swipeDownRecognizer.direction = .Down
-        view.addGestureRecognizer(swipeDownRecognizer)
+        duckRecognizer.direction = .Down
+        
+        addGestureRecognizers()
+    }
+    
+    private func addGestureRecognizers() {
+        view!.addGestureRecognizer(jumpRecognizer)
+        view!.addGestureRecognizer(duckRecognizer)
+    }
+    
+    private func removeGestureRecognizers() {
+        view!.removeGestureRecognizer(jumpRecognizer)
+        view!.removeGestureRecognizer(duckRecognizer)
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        view?.removeGestureRecognizer(sender)
-        jumpPlayer(jumpDuration, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer)
+        removeGestureRecognizers()
+        jumpPlayer(jumpDuration, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer, completion: addGestureRecognizers)
     }
     
-    private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode) {
+    private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode, completion: ()->()) {
         logicEngine.handleEvent(.PlayerDidJump, player: 0)
         // using the formula x = x0 + vt + 0.5*at^2
         let originalY = player.position.y
@@ -175,19 +196,21 @@ class GameScene: SKScene, LogicEngineDelegate {
         player.runAction(jumpTextureChange)
         player.runAction(jumpUpAction, completion: {
             player.runAction(resetPlayerTexture)
-            self.view!.addGestureRecognizer(self.swipeUpRecognizer)
+            completion()
         })
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
-        duckPlayer(myPlayer)
+        removeGestureRecognizers()
+        duckPlayer(myPlayer, completion: addGestureRecognizers)
     }
 
-    private func duckPlayer(player: SKNode) {
+    private func duckPlayer(player: SKNode, completion: ()->()) {
         logicEngine.handleEvent(.PlayerDidDuck, player: 0)
         let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: duckDuration)
-        player.runAction(duckTextureChange)
+        player.runAction(duckTextureChange, completion: completion)
     }
+    
 
     // MARK: LogicEngineDelegate
     
