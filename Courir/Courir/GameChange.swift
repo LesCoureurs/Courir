@@ -10,5 +10,5 @@ import Foundation
 
 struct GameChange {
     private (set) var event: GameEvent
-    private (set) var data: Dictionary<String, NSObject>
+    private (set) var data: [String: NSObject]
 }
