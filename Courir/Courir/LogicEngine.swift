@@ -14,7 +14,7 @@ protocol LogicEngineDelegate {
     func didCollide(player: Player)
     func didJump()
     func didDuck()
-    func gameDidEnd()
+    func gameDidEnd(score: Int)
 }
 
 class LogicEngine {
@@ -48,6 +48,9 @@ class LogicEngine {
     }
     
     func update() {
+        if state.gameIsOver {
+            return
+        }
         updateObstaclePositions()
         handleCollisions()
         updatePlayerStates()
@@ -124,6 +127,10 @@ class LogicEngine {
             state.myPlayer.fallBehind()
             state.myPlayer.becomeInvulnerable(timeStep)
             delegate.didCollide(state.myPlayer)
+            if state.myPlayer.xCoordinate < 0 {
+                delegate.gameDidEnd(score)
+                state.gameIsOver = true
+            }
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {

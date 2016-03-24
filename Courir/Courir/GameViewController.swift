@@ -13,7 +13,12 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showAlert", object: nil)
 
+        presentMenuScene()
+    }
+
+    func presentMenuScene() {
         let scene = MenuScene(size: view.bounds.size)
         scene.scaleMode = .ResizeFill
 
@@ -44,5 +49,28 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+
+    func receiveEvent(notification: NSNotification) {
+        let userInfo = notification.userInfo as! [String: Int]
+        if let eventRawValue = userInfo["eventRawValue"], event = GameEvent(rawValue: eventRawValue) {
+            switch event {
+            case .GameDidEnd:
+                let score = userInfo["score"] ?? 0
+                presentViewController(createAlertControllerForGameOver(withScore: score), animated: true, completion: nil)
+            default:
+                break
+            }
+        }
+    }
+
+    private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
+        let title = "Game Over!"
+        let message = "Score: \(score)"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+
+        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: { (_) in self.presentMenuScene() })
+        alertController.addAction(okAction)
+        return alertController
     }
 }

@@ -188,6 +188,8 @@ class GameScene: SKScene, LogicEngineDelegate {
         let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: duckDuration)
         player.runAction(duckTextureChange)
     }
+
+    // MARK: LogicEngineDelegate
     
     func didGenerateObstacle(obstacle: Obstacle) {
         let obstacleNode = createObstacle(obstacle)
@@ -210,7 +212,8 @@ class GameScene: SKScene, LogicEngineDelegate {
 
     }
 
-    func gameDidEnd() {
-
+    func gameDidEnd(score: Int) {
+        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "score": score]
+        NSNotificationCenter.defaultCenter().postNotificationName("showAlert", object: self, userInfo: gameOverData)
     }
 }
