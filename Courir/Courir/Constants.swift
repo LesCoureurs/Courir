@@ -6,16 +6,28 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
-let backgroundImageName = "background"
 let gameGridSize = 32
 let actualGridSize = 1024
 let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 
-let initialGameSpeed = 60
-let jumpDistance = 10 * unitsPerGameGridCell
-let duckDistance = 10 * unitsPerGameGridCell
-let invulnerableDistance = 10 * unitsPerGameGridCell
+let initialGameSpeed = 1
+let speedMultiplier = 0.337768 * 5
 
-let speedMultiplier = 0.337768 * 7
+let floatingProbability = Float(0.25)
+let nonfloatingProbability = Float(0.25)
+
+let framerate = 60
+let jumpTimeSteps = 54
+let duckTimeSteps = 54
+let invulnerableTimeSteps = 54
+
+let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
+let duckDuration = Double(jumpTimeSteps) / Double(framerate)
+
+let playerJumpTexture = SKTexture(imageNamed: "iso_player_jump")
+let playerDuckTexture = SKTexture(imageNamed: "iso_player_duck")
+let playerTexture = SKTexture(imageNamed: "iso_player")
+
+let resetPlayerTexture = SKAction.setTexture(playerTexture)

@@ -14,7 +14,7 @@ protocol LogicEngineDelegate {
     func didCollide(player: Player)
     func didJump()
     func didDuck()
-    func gameDidEnd()
+    func gameDidEnd(score: Int)
 }
 
 class LogicEngine {
@@ -23,7 +23,7 @@ class LogicEngine {
     
     private var delegate: LogicEngineDelegate!
     var timeStep = 0
-    var lastObstacleDistance: Int?
+    var lastObstacleTimeStep: Int?
     
     init(playerNumber: Int, seed: Int? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -48,6 +48,9 @@ class LogicEngine {
     }
     
     func update() {
+        if state.gameIsOver {
+            return
+        }
         updateObstaclePositions()
         handleCollisions()
         updatePlayerStates()
@@ -55,6 +58,19 @@ class LogicEngine {
         updateDistance()
         updateGameSpeed(timeStep)
         timeStep += 1
+    }
+
+    func handleEvent(event: GameEvent, player: Int?) {
+        if let player = state.players.filter({ $0.playerNumber == player }).first {
+            switch event {
+            case .PlayerDidJump:
+                player.jump(timeStep)
+            case .PlayerDidDuck:
+                player.duck(timeStep)
+            default:
+                break
+            }
+        }
     }
     
     private func updateObstaclePositions() {
@@ -65,7 +81,7 @@ class LogicEngine {
         }
         
         for obstacle in state.obstacles {
-            obstacle.xCoordinate -= state.currentSpeed
+            obstacle.xCoordinate -= speed
             if shouldRemoveObstacle(obstacle) {
                 delegate.didRemoveObstacle(obstacle)
             } else {
@@ -77,22 +93,22 @@ class LogicEngine {
     }
     
     private func updateDistance() {
-        state.distance += state.currentSpeed
+        state.distance += speed
     }
     
     private func updatePlayerStates() {
         for player in state.players {
             switch player.state {
-                case let .Jumping(startDistance):
-                    if state.distance - startDistance > jumpDistance {
+                case let .Jumping(startTimeStep):
+                    if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
                     }
-                case let .Ducking(startDistance):
-                    if state.distance - startDistance > duckDistance {
+                case let .Ducking(startTimeStep):
+                    if timeStep - startTimeStep > duckTimeSteps {
                         player.run()
                     }
-                case let .Invulnerable(startDistance):
-                    if state.distance - startDistance > invulnerableDistance {
+                case let .Invulnerable(startTimeStep):
+                    if timeStep - startTimeStep > invulnerableTimeSteps {
                         player.run()
                     }
                 default:
@@ -106,21 +122,20 @@ class LogicEngine {
         // within 1 frame of hitting state.myPlayer. If so then
         // state.myPlayer has been hit
         
-        func handleCollisionsWith(obstacles: [Obstacle],
-                                  hasCollidedWith: (Obstacle) -> Bool) {
-            for obstacle in obstacles {
-                if hasCollidedWith(obstacle) {
-                    state.myPlayer.run()
-                    state.myPlayer.fallBehind()
-                    state.myPlayer.becomeInvulnerable(state.distance)
-                    delegate.didCollide(state.myPlayer)
-                }
+        func collisionOccurred() {
+            state.myPlayer.run()
+            state.myPlayer.fallBehind()
+            state.myPlayer.becomeInvulnerable(timeStep)
+            delegate.didCollide(state.myPlayer)
+            if state.myPlayer.xCoordinate < 0 {
+                delegate.gameDidEnd(score)
+                state.gameIsOver = true
             }
         }
         
         let obstaclesInNextFrame = state.obstacles.filter {
-            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + state.currentSpeed &&
-            $0.xCoordinate > state.myPlayer.xCoordinate
+            $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
+            $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
         }
         
         let nonFloatingObstacles = obstaclesInNextFrame.filter {
@@ -132,22 +147,19 @@ class LogicEngine {
         }
 
         switch state.myPlayer.state {
-            case let .Jumping(startDistance):
-                handleCollisionsWith(nonFloatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + jumpDistance < self.state.distance + obstacle.xCoordinate
+            case .Jumping(_):
+                if floatingObstacles.count > 0 {
+                    collisionOccurred()
                 }
-            case let .Ducking(startDistance):
-                handleCollisionsWith(floatingObstacles) { (obstacle) -> Bool in
-                    return startDistance + duckDistance < self.state.distance + obstacle.xCoordinate
+            case .Ducking(_):
+                if nonFloatingObstacles.count > 0 {
+                    collisionOccurred()
                 }
             case .Invulnerable(_):
                 return
             case .Running:
-                for _ in obstaclesInNextFrame {
-                    state.myPlayer.run()
-                    state.myPlayer.fallBehind()
-                    state.myPlayer.becomeInvulnerable(state.distance)
-                    delegate.didCollide(state.myPlayer)
+                if obstaclesInNextFrame.count > 0 {
+                    collisionOccurred()
                 }
             default:
                 return
@@ -156,23 +168,23 @@ class LogicEngine {
     
     private func generateObstacle() {
         func readyForNextObstacle() -> Bool {
-            if lastObstacleDistance == nil {
+            if lastObstacleTimeStep == nil {
                 return true
             } else {
-                return state.distance > 2 * max(jumpDistance, duckDistance) + lastObstacleDistance!
+                return timeStep > 2 * max(jumpTimeSteps, duckTimeSteps) + lastObstacleTimeStep!
             }
         }
         
         if (readyForNextObstacle()) {
             if let obstacle = obstacleGenerator.getNextObstacle() {
-                lastObstacleDistance = state.distance
+                lastObstacleTimeStep = timeStep
                 insertObstacle(obstacle)
             }
         }
     }
     
     func updateGameSpeed(timeStep: Int) {
-        state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1)) + 1)
+        state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1))) + initialGameSpeed
     }
     
     func insertObstacle(obstacle: Obstacle) {

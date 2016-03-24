@@ -29,9 +29,9 @@ class ObstacleGenerator {
         
         let nextRandFloat = source.nextUniform()
         switch nextRandFloat {
-            case 0..<0.25:
+            case 0..<floatingProbability:
                 return Obstacle(type: ObstacleType.Floating)
-            case 0.25..<0.5:
+            case floatingProbability..<floatingProbability + nonfloatingProbability:
                 return Obstacle(type: ObstacleType.NonFloating)
             default:
                 return nil

@@ -14,6 +14,8 @@ class GameState {
     var obstacles = [Obstacle]()
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
+
+    var gameIsOver = false
     
     init(player: Player) {
         myPlayer = player
