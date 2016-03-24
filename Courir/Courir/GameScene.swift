@@ -15,9 +15,9 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     private let logicEngine = LogicEngine(playerNumber: 0)
     
     private var gameState: GameState!
-    private var myPlayer: SKNode!
-    private var players = [Int: SKNode]()
-    private var obstacles = [Int: SKNode]()
+    private var myPlayer: SKSpriteNode!
+    private var players = [Int: SKSpriteNode]()
+    private var obstacles = [Int: SKSpriteNode]()
     
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
@@ -92,13 +92,13 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         return sprite
     }
     
-    private func createPlayer(player: Player) -> SKNode {
+    private func createPlayer(player: Player) -> SKSpriteNode {
         let playerSprite = createGameObject(player, imageName: "iso_player")
         playerSprite.zPosition = 2
         return playerSprite
     }
     
-    private func createObstacle(obstacle: Obstacle) -> SKNode {
+    private func createObstacle(obstacle: Obstacle) -> SKSpriteNode {
         let obstacleSprite: SKSpriteNode
         switch obstacle.type {
             case .NonFloating:
@@ -131,7 +131,7 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         logicEngine.update()
     }
     
-    private func updatePositionFor(object: GameObject, withNode node: SKNode) {
+    private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
         node.position = calculateRenderPositionFor(object)
     }
     
@@ -161,7 +161,6 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        removeGestureRecognizers()
         jumpPlayer(jumpDuration, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer, completion: addGestureRecognizers)
     }
     
@@ -194,14 +193,7 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
-        removeGestureRecognizers()
-        duckPlayer(myPlayer, completion: addGestureRecognizers)
-    }
-
-    private func duckPlayer(player: SKNode, completion: ()->()) {
         logicEngine.handleEvent(.PlayerDidDuck, player: 0)
-        let duckTextureChange = SKAction.animateWithTextures([playerDuckTexture, playerTexture], timePerFrame: duckDuration)
-        player.runAction(duckTextureChange, completion: completion)
     }
     
 
@@ -233,24 +225,43 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     }
     
     private func updatePlayerNode(player: Player, propertyName: String) {
+        guard let node = players[player.playerNumber] else {
+            return
+        }
+        
         switch propertyName {
             case "xCoordinate", "yCoordinate":
-                if let node = players[player.playerNumber] {
-                    updatePositionFor(player, withNode: node)
-                }
+                updatePositionFor(player, withNode: node)
             case "state":
-                print("\(player.playerNumber)'s new state: \(player.state)")
+                updatePlayerState(player, withNode: node)
             default:
                 return
         }
     }
     
+    private func updatePlayerState(player: Player, withNode node: SKSpriteNode) {
+        print("\(player.playerNumber)'s new state: \(player.state)")
+        switch player.state {
+            case .Ducking(_):
+                removeGestureRecognizers()
+                node.texture = playerDuckTexture
+            case .Jumping(_):
+                removeGestureRecognizers()
+                node.texture = playerJumpTexture
+            case .Running, .Stationary, .Invulnerable(_):
+                addGestureRecognizers()
+                node.texture = playerTexture
+        }
+    }
+    
     private func updateObstacleNode(obstacle: Obstacle, propertyName: String) {
+        guard let node = obstacles[obstacle.identifier] else {
+            return
+        }
+        
         switch propertyName {
             case "xCoordinate", "yCoordinate":
-                if let node = obstacles[obstacle.identifier] {
-                    updatePositionFor(obstacle, withNode: node)
-                }
+                updatePositionFor(obstacle, withNode: node)
             default:
                 return
         }

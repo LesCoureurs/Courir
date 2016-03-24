@@ -60,12 +60,12 @@ class LogicEngine {
     func handleEvent(event: GameEvent, player: Int?) {
         if let player = state.players.filter({ $0.playerNumber == player }).first {
             switch event {
-            case .PlayerDidJump:
-                player.jump(timeStep)
-            case .PlayerDidDuck:
-                player.duck(timeStep)
-            default:
-                break
+                case .PlayerDidJump:
+                    player.jump(timeStep)
+                case .PlayerDidDuck:
+                    player.duck(timeStep)
+                default:
+                    break
             }
         }
     }
@@ -151,14 +151,12 @@ class LogicEngine {
                 if nonFloatingObstacles.count > 0 {
                     collisionOccurred()
                 }
-            case .Invulnerable(_):
+            case .Invulnerable(_), .Stationary:
                 return
             case .Running:
                 if obstaclesInNextFrame.count > 0 {
                     collisionOccurred()
                 }
-            default:
-                return
         }
     }
     
