@@ -35,6 +35,12 @@ class Player: GameObject {
         }
     }
     
+    var zCoordinate: CGFloat = 0 {
+        didSet {
+            observer?.didChangeProperty("zCoordinate", from: self)
+        }
+    }
+    
     private(set) var state = PlayerState.Stationary {
         didSet {
             observer?.didChangeProperty("state", from: self)

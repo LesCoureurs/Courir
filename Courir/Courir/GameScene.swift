@@ -161,35 +161,7 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        jumpPlayer(jumpDuration, height: CGFloat(3 * unitsPerGameGridCell), player: myPlayer, completion: addGestureRecognizers)
-    }
-    
-    private func jumpPlayer(duration: NSTimeInterval, height: CGFloat, player: SKNode, completion: ()->()) {
         logicEngine.handleEvent(.PlayerDidJump, player: 0)
-        // using the formula x = x0 + vt + 0.5*at^2
-        let originalY = player.position.y
-        let maxHeight = -height
-        
-        // acceleration to reach max height in duration a = 4x/t^2
-        let acceleration = 4 * maxHeight / (CGFloat(duration) * CGFloat(duration))
-        // initial velocity to reach max height in duration v = -at/2
-        let velocity = -CGFloat(duration) * acceleration / 2
-
-        let jumpUpAction = SKAction.customActionWithDuration(duration) {
-            (node, time) in
-
-            let y = originalY + velocity * time + 0.5 * acceleration * time * time
-            let newPosition = CGPoint(x: node.position.x, y: y)
-            node.position = newPosition
-        }
-
-        let jumpTextureChange = SKAction.setTexture(playerJumpTexture)
-
-        player.runAction(jumpTextureChange)
-        player.runAction(jumpUpAction, completion: {
-            player.runAction(resetPlayerTexture)
-            completion()
-        })
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
@@ -218,13 +190,13 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
         if let object = from as? Player {
-            updatePlayerNode(object, propertyName: propertyName)
+            handleUpdatePlayerNode(object, propertyName: propertyName)
         } else if let object = from as? Obstacle {
-            updateObstacleNode(object, propertyName: propertyName)
+            handleUpdateObstacleNode(object, propertyName: propertyName)
         }
     }
     
-    private func updatePlayerNode(player: Player, propertyName: String) {
+    private func handleUpdatePlayerNode(player: Player, propertyName: String) {
         guard let node = players[player.playerNumber] else {
             return
         }
@@ -232,11 +204,17 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         switch propertyName {
             case "xCoordinate", "yCoordinate":
                 updatePositionFor(player, withNode: node)
+            case "zCoordinate":
+                updateJumpingPositionFor(player, withNode: node)
             case "state":
                 updatePlayerState(player, withNode: node)
             default:
                 return
         }
+    }
+    
+    private func updateJumpingPositionFor(player: Player, withNode node: SKSpriteNode) {
+        node.position.y = calculateRenderPositionFor(player).y + CGFloat(player.zCoordinate)
     }
     
     private func updatePlayerState(player: Player, withNode node: SKSpriteNode) {
@@ -254,7 +232,7 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         }
     }
     
-    private func updateObstacleNode(obstacle: Obstacle, propertyName: String) {
+    private func handleUpdateObstacleNode(obstacle: Obstacle, propertyName: String) {
         guard let node = obstacles[obstacle.identifier] else {
             return
         }

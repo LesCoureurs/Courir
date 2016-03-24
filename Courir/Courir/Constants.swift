@@ -26,6 +26,12 @@ let invulnerableTimeSteps = 54
 let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
 let duckDuration = Double(jumpTimeSteps) / Double(framerate)
 
+let maxJumpHeight = -CGFloat(3 * unitsPerGameGridCell)
+// acceleration to reach max height in duration a = 4x/t^2
+let acceleration = 4 * maxJumpHeight / (CGFloat(jumpDuration) * CGFloat(jumpDuration))
+// initial velocity to reach max height in duration v = -at/2
+let velocity = -CGFloat(jumpDuration) * acceleration / 2
+
 let playerJumpTexture = SKTexture(imageNamed: "iso_player_jump")
 let playerDuckTexture = SKTexture(imageNamed: "iso_player_duck")
 let playerTexture = SKTexture(imageNamed: "iso_player")
