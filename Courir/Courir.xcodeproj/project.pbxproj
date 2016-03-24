@@ -110,21 +110,13 @@
 		6524A70B1C9C7EB800D8CC48 /* Courir */ = {
 			isa = PBXGroup;
 			children = (
+				7A6233021CA44177007FEF08 /* Logic */,
+				7A6233011CA44122007FEF08 /* Model */,
+				7A6233001CA440FE007FEF08 /* View */,
 				6524A70C1C9C7EB800D8CC48 /* AppDelegate.swift */,
-				6524A7301C9C7F1700D8CC48 /* MenuScene.swift */,
-				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
-				6524A7121C9C7EB800D8CC48 /* GameViewController.swift */,
-				6E48F5511C9D7C3000E0ED9F /* GameObject.swift */,
-				7A8839311C9E7BA1007434E8 /* GameState.swift */,
-				7279DFB81C9E91DF00FA4198 /* GameChange.swift */,
-				02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */,
-				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
-				6EF577661CA3CA93003FB063 /* Observer.swift */,
-				6E48F54B1C9D505A00E0ED9F /* Player.swift */,
-				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
-				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 				6524A7321C9C7F4B00D8CC48 /* Constants.swift */,
-				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
+				02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */,
+				6EF577661CA3CA93003FB063 /* Observer.swift */,
 				6524A7141C9C7EB800D8CC48 /* Main.storyboard */,
 				6524A7171C9C7EB800D8CC48 /* Assets.xcassets */,
 				6524A7191C9C7EB800D8CC48 /* LaunchScreen.storyboard */,
@@ -140,6 +132,38 @@
 				6524A7271C9C7EB800D8CC48 /* Info.plist */,
 			);
 			path = CourirTests;
+			sourceTree = "<group>";
+		};
+		7A6233001CA440FE007FEF08 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
+				6524A7121C9C7EB800D8CC48 /* GameViewController.swift */,
+				6524A7301C9C7F1700D8CC48 /* MenuScene.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7A6233011CA44122007FEF08 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E48F5511C9D7C3000E0ED9F /* GameObject.swift */,
+				7A8839311C9E7BA1007434E8 /* GameState.swift */,
+				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
+				6E48F54B1C9D505A00E0ED9F /* Player.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7A6233021CA44177007FEF08 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
+				7279DFB81C9E91DF00FA4198 /* GameChange.swift */,
+				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
+				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 		8DE78664409EC854A3A7063D /* Pods */ = {
