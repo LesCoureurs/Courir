@@ -58,14 +58,15 @@ class LogicEngine {
     }
 
     func handleEvent(event: GameEvent, player: Int?) {
-        let player = state.players.filter { $0.playerNumber == player }
-        switch event {
-        case .PlayerDidJump:
-            player.first?.jump(timeStep)
-        case .PlayerDidDuck:
-            player.first?.duck(timeStep)
-        default:
-            break
+        if let player = state.players.filter({ $0.playerNumber == player }).first {
+            switch event {
+            case .PlayerDidJump:
+                player.jump(timeStep)
+            case .PlayerDidDuck:
+                player.duck(timeStep)
+            default:
+                break
+            }
         }
     }
     
