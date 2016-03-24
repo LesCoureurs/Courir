@@ -9,26 +9,43 @@
 import SpriteKit
 
 class MenuScene: SKScene {
-    var playButton: SKLabelNode!
+    private let menuOptions = ["Play", "Multiplayer"]
+    private var menuButtons = [SKLabelNode]()
 
     override func didMoveToView(view: SKView) {
-        playButton = SKLabelNode()
-        playButton.text = "Play"
-        playButton.fontSize = 45
-        playButton.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        addChild(playButton)
+
+        let defaultButtonPosition = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) + CGFloat(menuButtonOffset / 2))
+        for i in 0..<menuOptions.count {
+            let position = CGPoint(x: defaultButtonPosition.x, y: defaultButtonPosition.y - CGFloat(i * menuButtonOffset))
+            let button = createMenuButton(withLabel: menuOptions[i], atPosition: position)
+            menuButtons.append(button)
+        }
+    }
+
+    private func createMenuButton(withLabel label: String, atPosition position: CGPoint) -> SKLabelNode {
+        let button = SKLabelNode()
+        button.text = label
+        button.fontSize = menuButtonFontSize
+        button.position = position
+        addChild(button)
+        return button
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let location = touch.locationInNode(self)
-
-            if nodeAtPoint(location) == playButton {
+            let node = nodeAtPoint(location)
+            switch node {
+            case menuButtons[0]:
                 let gameScene = GameScene(size: size)
                 let skView = view as SKView!
                 skView.ignoresSiblingOrder = true
                 gameScene.scaleMode = .AspectFill
                 skView.presentScene(gameScene)
+            case menuButtons[1]:
+                break // Display Multiplayer Room Selection Scene
+            default:
+                break
             }
         }
     }
