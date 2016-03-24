@@ -170,8 +170,8 @@ class LogicEngine {
             if lastObstacleTimeStep == nil {
                 return true
             } else {
-                return Double(timeStep) > obstacleSpaceMultiplier *
-                    max(jumpTimeSteps, duckTimeSteps) + lastObstacleTimeStep!
+                return timeStep > Int(obstacleSpaceMultiplier
+                    * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
             }
         }
         
