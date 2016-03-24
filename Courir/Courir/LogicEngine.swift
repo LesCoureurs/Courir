@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LogicEngineDelegate {
+protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
     func gameDidEnd(score: Int)
@@ -18,7 +18,8 @@ class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
     
-    private var delegate: LogicEngineDelegate!
+    weak var delegate: LogicEngineDelegate?
+    
     var timeStep = 0
     var lastObstacleTimeStep: Int?
     
@@ -26,10 +27,6 @@ class LogicEngine {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber)
         state = GameState(player: ownPlayer)
-    }
-
-    func setDelegate(delegate: LogicEngineDelegate) {
-        self.delegate = delegate
     }
     
     var score: Int {
@@ -80,7 +77,7 @@ class LogicEngine {
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= speed
             if shouldRemoveObstacle(obstacle) {
-                delegate.didRemoveObstacle(obstacle)
+                delegate?.didRemoveObstacle(obstacle)
             } else {
                 obstaclesOnScreen.append(obstacle)
             }
@@ -132,7 +129,7 @@ class LogicEngine {
             state.myPlayer.fallBehind()
             state.myPlayer.becomeInvulnerable(timeStep)
             if state.myPlayer.xCoordinate < 0 {
-                delegate.gameDidEnd(score)
+                delegate?.gameDidEnd(score)
                 state.gameIsOver = true
             }
         }
@@ -191,7 +188,7 @@ class LogicEngine {
     
     func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
-        delegate.didGenerateObstacle(obstacle)
+        delegate?.didGenerateObstacle(obstacle)
     }
     
     func insertPlayer(player: Player) {

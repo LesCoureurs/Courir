@@ -26,7 +26,7 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine.setDelegate(self)
+        logicEngine.delegate = self
         gameState = logicEngine.state
 
         initObstacles()
