@@ -129,11 +129,6 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
 
     override func update(currentTime: CFTimeInterval) {
         logicEngine.update()
-        for obstacle in gameState.obstacles {
-            if let node = self.obstacles[obstacle.identifier] {
-                updatePositionFor(obstacle, withNode: node)
-            }
-        }
     }
     
     private func updatePositionFor(object: GameObject, withNode node: SKNode) {
