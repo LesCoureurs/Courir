@@ -6,14 +6,11 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol LogicEngineDelegate {
+protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
-    func didCollide(player: Player)
-    func didJump()
-    func didDuck()
     func gameDidEnd(score: Int)
 }
 
@@ -21,7 +18,8 @@ class LogicEngine {
     let state: GameState
     let obstacleGenerator: ObstacleGenerator
     
-    private var delegate: LogicEngineDelegate!
+    weak var delegate: LogicEngineDelegate?
+    
     var timeStep = 0
     var lastObstacleTimeStep: Int?
     
@@ -29,10 +27,6 @@ class LogicEngine {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber)
         state = GameState(player: ownPlayer)
-    }
-
-    func setDelegate(delegate: LogicEngineDelegate) {
-        self.delegate = delegate
     }
     
     var score: Int {
@@ -63,12 +57,12 @@ class LogicEngine {
     func handleEvent(event: GameEvent, player: Int?) {
         if let player = state.players.filter({ $0.playerNumber == player }).first {
             switch event {
-            case .PlayerDidJump:
-                player.jump(timeStep)
-            case .PlayerDidDuck:
-                player.duck(timeStep)
-            default:
-                break
+                case .PlayerDidJump:
+                    player.jump(timeStep)
+                case .PlayerDidDuck:
+                    player.duck(timeStep)
+                default:
+                    break
             }
         }
     }
@@ -83,7 +77,7 @@ class LogicEngine {
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= speed
             if shouldRemoveObstacle(obstacle) {
-                delegate.didRemoveObstacle(obstacle)
+                delegate?.didRemoveObstacle(obstacle)
             } else {
                 obstaclesOnScreen.append(obstacle)
             }
@@ -102,6 +96,8 @@ class LogicEngine {
                 case let .Jumping(startTimeStep):
                     if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
+                    } else {
+                        updateJumpingPlayerPosition(player, startTimeStep)
                     }
                 case let .Ducking(startTimeStep):
                     if timeStep - startTimeStep > duckTimeSteps {
@@ -117,6 +113,12 @@ class LogicEngine {
         }
     }
     
+    private func updateJumpingPlayerPosition(player: Player, _ startTimeStep: Int) {
+        let time = CGFloat(timeStep - startTimeStep)/CGFloat(framerate)
+        // using the formula x = x0 + vt + 0.5*at^2
+        player.zCoordinate = velocity * time + 0.5 * acceleration * time * time
+    }
+    
     private func handleCollisions() {
         // Use state.currentSpeed to check if there are any obstacles
         // within 1 frame of hitting state.myPlayer. If so then
@@ -126,9 +128,8 @@ class LogicEngine {
             state.myPlayer.run()
             state.myPlayer.fallBehind()
             state.myPlayer.becomeInvulnerable(timeStep)
-            delegate.didCollide(state.myPlayer)
             if state.myPlayer.xCoordinate < 0 {
-                delegate.gameDidEnd(score)
+                delegate?.gameDidEnd(score)
                 state.gameIsOver = true
             }
         }
@@ -155,14 +156,12 @@ class LogicEngine {
                 if nonFloatingObstacles.count > 0 {
                     collisionOccurred()
                 }
-            case .Invulnerable(_):
+            case .Invulnerable(_), .Stationary:
                 return
             case .Running:
                 if obstaclesInNextFrame.count > 0 {
                     collisionOccurred()
                 }
-            default:
-                return
         }
     }
     
@@ -189,7 +188,7 @@ class LogicEngine {
     
     func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
-        delegate.didGenerateObstacle(obstacle)
+        delegate?.didGenerateObstacle(obstacle)
     }
     
     func insertPlayer(player: Player) {

@@ -17,15 +17,36 @@ class Player: GameObject {
     static let minSpawnYCoordinate = 5 * unitsPerGameGridCell
     static let spawnYCoordinateIncrement = 6 * unitsPerGameGridCell
     
-    private(set) var xWidth = 3 * unitsPerGameGridCell
-    private(set) var yWidth = 3 * unitsPerGameGridCell
-    
-    var xCoordinate = Player.spawnXCoordinate
-    var yCoordinate: Int
-    
-    private(set) var state = PlayerState.Stationary
-
     let playerNumber: Int
+    let xWidth = 3 * unitsPerGameGridCell
+    let yWidth = 3 * unitsPerGameGridCell
+    
+    weak var observer: Observer?
+    
+    var xCoordinate = Player.spawnXCoordinate {
+        didSet {
+            observer?.didChangeProperty("xCoordinate", from: self)
+        }
+    }
+    
+    var yCoordinate: Int {
+        didSet {
+            observer?.didChangeProperty("yCoordinate", from: self)
+        }
+    }
+    
+    var zCoordinate: CGFloat = 0 {
+        didSet {
+            observer?.didChangeProperty("zCoordinate", from: self)
+        }
+    }
+    
+    private(set) var state = PlayerState.Stationary {
+        didSet {
+            observer?.didChangeProperty("state", from: self)
+        }
+    }
+    
     
     // Range of playerNumber = [0, 3]
     init(playerNumber: Int) {

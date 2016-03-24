@@ -18,18 +18,27 @@ class Obstacle: GameObject {
     static let spawnYCoordinate = 5 * unitsPerGameGridCell
 
     let type: ObstacleType
+    let identifier: Int
+    let xWidth = 1 * unitsPerGameGridCell
+    let yWidth = 21 * unitsPerGameGridCell
     
-    private(set) var xWidth = 1 * unitsPerGameGridCell
-    private(set) var yWidth = 21 * unitsPerGameGridCell
-    
-    var xCoordinate = Obstacle.spawnXCoordinate
-    var yCoordinate = Obstacle.spawnYCoordinate
+    weak var observer: Observer?
 
-    let identifier: String
+    var xCoordinate = Obstacle.spawnXCoordinate {
+        didSet {
+            observer?.didChangeProperty("xCoordinate", from: self)
+        }
+    }
+    
+    var yCoordinate = Obstacle.spawnYCoordinate {
+        didSet {
+            observer?.didChangeProperty("yCoordinate", from: self)
+        }
+    }
     
     init(type: ObstacleType) {
         self.type = type
-        self.identifier = String(Obstacle.uniqueId)
+        self.identifier = Obstacle.uniqueId
         Obstacle.uniqueId += 1
     }
 }

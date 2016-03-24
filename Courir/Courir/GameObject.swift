@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GameObject {
+protocol GameObject: Observed {
     var xWidth: Int { get }
     var yWidth: Int { get }
     var xCoordinate: Int { get set }
