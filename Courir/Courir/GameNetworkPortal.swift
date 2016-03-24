@@ -9,20 +9,19 @@
 import Coulomb
 import MultipeerConnectivity
 
-internal protocol GameNetworkPortalConnectionDelegate {
+protocol GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID])
     func disconnectedFromRoom()
-    
 }
 
-internal protocol GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived(data: [String: NSObject])
-    func duckActionReceived(data: [String: NSObject])
-    func collideActionReceived(data: [String: NSObject])
-    func gameStartSignalReceived(data: [String: NSObject])
-    func gameEndSignalReceived(data: [String: NSObject])
+protocol GameNetworkPortalGameStateDelegate {
+    func jumpActionReceived(data: [String: NSObject], peer: MCPeerID)
+    func duckActionReceived(data: [String: NSObject], peer: MCPeerID)
+    func collideActionReceived(data: [String: NSObject], peer: MCPeerID)
+    func gameStartSignalReceived(data: [String: NSObject], peer: MCPeerID)
+    func gameEndSignalReceived(data: [String: NSObject], peer: MCPeerID)
 }
 
 class GameNetworkPortal {
@@ -111,15 +110,15 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         let content = unpackData(data)
         switch content.event {
         case GameEvent.GameDidStart:
-            gameStateDelegate?.gameStartSignalReceived(content.data)
+            gameStateDelegate?.gameStartSignalReceived(content.data, peer: peerID)
         case GameEvent.GameDidEnd:
-            gameStateDelegate?.gameEndSignalReceived(content.data)
+            gameStateDelegate?.gameEndSignalReceived(content.data, peer: peerID)
         case GameEvent.PlayerDidJump:
-            gameStateDelegate?.jumpActionReceived(content.data)
+            gameStateDelegate?.jumpActionReceived(content.data, peer: peerID)
         case GameEvent.PlayerDidDuck:
-            gameStateDelegate?.duckActionReceived(content.data)
+            gameStateDelegate?.duckActionReceived(content.data, peer: peerID)
         case GameEvent.PlayerDidCollide:
-            gameStateDelegate?.collideActionReceived(content.data)
+            gameStateDelegate?.collideActionReceived(content.data, peer: peerID)
         default:
             return
         }
