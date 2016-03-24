@@ -23,6 +23,6 @@ class GameState {
     }
     
     var objects: [GameObject] {
-        return (players as [GameObject]) + (obstacles as [GameObject])
+        return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
     }
 }
