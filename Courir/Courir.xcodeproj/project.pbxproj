@@ -158,10 +158,10 @@
 		7A6233021CA44177007FEF08 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 				7279DFB81C9E91DF00FA4198 /* GameChange.swift */,
 				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
 				7A8839331C9E7BBD007434E8 /* LogicEngine.swift */,
+				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
