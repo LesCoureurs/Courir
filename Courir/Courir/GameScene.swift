@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, LogicEngineDelegate {
+class GameScene: SKScene, LogicEngineDelegate, Observer {
     private let tileSize = (width: 32, height: 32)
     
     private let grid = SKSpriteNode()
@@ -29,12 +29,19 @@ class GameScene: SKScene, LogicEngineDelegate {
         logicEngine.setDelegate(self)
         gameState = logicEngine.state
 
+        setObserverForGameObjects()
         initObstacles()
         initPlayers()
         initGrid()
         
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         setupGestureRecognizers(view)
+    }
+    
+    private func setObserverForGameObjects() {
+        for var object in gameState.objects {
+            object.observer = self
+        }
     }
     
     private func initGrid() {
@@ -238,5 +245,21 @@ class GameScene: SKScene, LogicEngineDelegate {
     func gameDidEnd(score: Int) {
         let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "score": score]
         NSNotificationCenter.defaultCenter().postNotificationName("showAlert", object: self, userInfo: gameOverData)
+    }
+    
+    
+    // MARK: Observer
+    
+    func didChangeProperty(propertyName: String, from: AnyObject?) {
+        switch propertyName {
+            case "xCoordinate":
+                print("x")
+            case "yCoordinate":
+                print("y")
+            case "state":
+                print("state")
+            default:
+                return
+        }
     }
 }
