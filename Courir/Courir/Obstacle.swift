@@ -18,7 +18,7 @@ class Obstacle: GameObject {
     static let spawnYCoordinate = 5 * unitsPerGameGridCell
 
     let type: ObstacleType
-    let identifier: String
+    let identifier: Int
     let xWidth = 1 * unitsPerGameGridCell
     let yWidth = 21 * unitsPerGameGridCell
     
@@ -38,7 +38,7 @@ class Obstacle: GameObject {
     
     init(type: ObstacleType) {
         self.type = type
-        self.identifier = String(Obstacle.uniqueId)
+        self.identifier = Obstacle.uniqueId
         Obstacle.uniqueId += 1
     }
 }

@@ -16,8 +16,8 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     
     private var gameState: GameState!
     private var myPlayer: SKNode!
-    private var players = [String: SKNode]()
-    private var obstacles = [String: SKNode]()
+    private var players = [Int: SKNode]()
+    private var obstacles = [Int: SKNode]()
     
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
@@ -29,19 +29,12 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
         logicEngine.setDelegate(self)
         gameState = logicEngine.state
 
-        setObserverForGameObjects()
         initObstacles()
         initPlayers()
         initGrid()
         
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         setupGestureRecognizers(view)
-    }
-    
-    private func setObserverForGameObjects() {
-        for var object in gameState.objects {
-            object.observer = self
-        }
     }
     
     private func initGrid() {
@@ -51,23 +44,33 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     }
     
     private func initObstacles() {
-        let obstacleNodes = gameState.obstacles.map { createObstacle($0) }
-        for node in obstacleNodes {
-            obstacles[node.name!] = node
+        for obstacle in gameState.obstacles {
+            obstacle.observer = self
+            obstacles[obstacle.identifier] = createObstacle(obstacle)
         }
     }
     
     private func initPlayers() {
         gameState.myPlayer.run()
+        gameState.myPlayer.observer = self
         myPlayer = createPlayer(gameState.myPlayer)
-        players[myPlayer.name!] = myPlayer
+        players[gameState.myPlayer.playerNumber] = myPlayer
         for i in 1...3 { // Replace when game state contains data of other players
-            let player = createPlayer(Player(playerNumber: i))
-            players[player.name!] = player
+            players[i] = createPlayer(Player(playerNumber: i))
         }
     }
     
     private func renderIsoGrid() {
+        func createGridTileAt(withPosition: CGPoint) {
+            let tileSprite = SKSpriteNode(imageNamed: "iso_grid_tile")
+            
+            tileSprite.position = withPosition
+            tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
+            tileSprite.size = CGSize(width: 32, height: 16)
+            
+            grid.addChild(tileSprite)
+        }
+        
         for i in 0..<gameGridSize {
             for j in 0..<gameGridSize {
                 let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
@@ -79,28 +82,6 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     
     private func pointToIso(p: CGPoint) -> CGPoint {
         return CGPointMake(p.x + p.y, (p.y - p.x) / 2)
-    }
-    
-    private func createGridTileAt(withPosition: CGPoint) {
-        let tileSprite = SKSpriteNode(imageNamed: "iso_grid_tile")
-        
-        tileSprite.position = withPosition
-        tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
-        tileSprite.size = CGSize(width: 32, height: 16)
-        
-        grid.addChild(tileSprite)
-    }
-
-    private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
-        // multiple is to convert object's coordinates to coordinates in the actual grid
-        let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
-        let x = CGFloat(Double(object.xCoordinate) * multiple)
-        let y = CGFloat(Double(object.yCoordinate) * multiple)
-        
-        var isoPoint = pointToIso(CGPointMake(x, y))
-        // offset as a result of having objects that take up multiple tiles
-        isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
-        return isoPoint
     }
 
     private func createGameObject(object: GameObject, imageName: String) -> SKSpriteNode {
@@ -114,7 +95,6 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     private func createPlayer(player: Player) -> SKNode {
         let playerSprite = createGameObject(player, imageName: "iso_player")
         playerSprite.zPosition = 2
-        playerSprite.name = String(player.playerNumber)
         return playerSprite
     }
     
@@ -129,8 +109,19 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
                 obstacleSprite.zPosition = 3
         }
         
-        obstacleSprite.name = obstacle.identifier
         return obstacleSprite
+    }
+    
+    private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
+        // multiple is to convert object's coordinates to coordinates in the actual grid
+        let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
+        let x = CGFloat(Double(object.xCoordinate) * multiple)
+        let y = CGFloat(Double(object.yCoordinate) * multiple)
+        
+        var isoPoint = pointToIso(CGPointMake(x, y))
+        // offset as a result of having objects that take up multiple tiles
+        isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
+        return isoPoint
     }
 
     
@@ -222,24 +213,12 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     // MARK: LogicEngineDelegate
     
     func didGenerateObstacle(obstacle: Obstacle) {
-        let obstacleNode = createObstacle(obstacle)
-        obstacles[obstacleNode.name!] = (obstacleNode)
+        obstacle.observer = self
+        obstacles[obstacle.identifier] = createObstacle(obstacle)
     }
     
     func didRemoveObstacle(obstacle: Obstacle) {
         obstacles[obstacle.identifier]?.removeFromParent()
-    }
-
-    func didCollide(player: Player) {
-        updatePositionFor(player, withNode: players[String(player.playerNumber)]!)
-    }
-
-    func didJump() {
-
-    }
-
-    func didDuck() {
-
     }
 
     func gameDidEnd(score: Int) {
@@ -251,13 +230,32 @@ class GameScene: SKScene, LogicEngineDelegate, Observer {
     // MARK: Observer
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
+        if let object = from as? Player {
+            updatePlayerNode(object, propertyName: propertyName)
+        } else if let object = from as? Obstacle {
+            updateObstacleNode(object, propertyName: propertyName)
+        }
+    }
+    
+    private func updatePlayerNode(player: Player, propertyName: String) {
         switch propertyName {
-            case "xCoordinate":
-                print("x")
-            case "yCoordinate":
-                print("y")
+            case "xCoordinate", "yCoordinate":
+                if let node = players[player.playerNumber] {
+                    updatePositionFor(player, withNode: node)
+                }
             case "state":
-                print("state")
+                print("\(player.playerNumber)'s new state: \(player.state)")
+            default:
+                return
+        }
+    }
+    
+    private func updateObstacleNode(obstacle: Obstacle, propertyName: String) {
+        switch propertyName {
+            case "xCoordinate", "yCoordinate":
+                if let node = obstacles[obstacle.identifier] {
+                    updatePositionFor(obstacle, withNode: node)
+                }
             default:
                 return
         }

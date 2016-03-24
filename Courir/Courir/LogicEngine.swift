@@ -11,9 +11,6 @@ import Foundation
 protocol LogicEngineDelegate {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
-    func didCollide(player: Player)
-    func didJump()
-    func didDuck()
     func gameDidEnd(score: Int)
 }
 
@@ -126,7 +123,6 @@ class LogicEngine {
             state.myPlayer.run()
             state.myPlayer.fallBehind()
             state.myPlayer.becomeInvulnerable(timeStep)
-            delegate.didCollide(state.myPlayer)
             if state.myPlayer.xCoordinate < 0 {
                 delegate.gameDidEnd(score)
                 state.gameIsOver = true
