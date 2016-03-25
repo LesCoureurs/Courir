@@ -38,6 +38,11 @@ class GameNetworkPortal {
         coulombNetwork.delegate = self
     }
     
+    deinit {
+        coulombNetwork.stopAdvertisingHost()
+        coulombNetwork.stopSearchingForHosts()
+    }
+    
     // MARK: Hosting
     func beginHosting() {
         coulombNetwork.startAdversitingHost()

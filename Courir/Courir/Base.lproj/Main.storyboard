@@ -1,25 +1,146 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8118" systemVersion="15A172" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8098"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
                     </layoutGuides>
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <segue destination="QGq-uN-4Jv" kind="show" identifier="selectRoomSegue" id="j0V-I2-xWc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="245" y="325"/>
+        </scene>
+        <!--Room Selection View Controller-->
+        <scene sceneID="UYY-eO-dkC">
+            <objects>
+                <viewController id="QGq-uN-4Jv" customClass="RoomSelectionViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wzu-bz-DwX"/>
+                        <viewControllerLayoutGuide type="bottom" id="iL6-xO-cFd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tQk-PZ-0gk">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nDT-gx-lAt">
+                                <rect key="frame" x="71" y="119" width="372" height="599"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="372" id="Rdf-Ub-2PR"/>
+                                </constraints>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ro-cUO">
+                                <rect key="frame" x="659" y="404" width="140" height="30"/>
+                                <state key="normal" title="Start your own room"/>
+                                <connections>
+                                    <segue destination="40i-zX-uIe" kind="show" identifier="hostRoomSegue" id="lU1-jC-2Ut"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ako-YD-7tP">
+                                <rect key="frame" x="165" y="59" width="183" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ako-YD-7tP" firstAttribute="leading" secondItem="tQk-PZ-0gk" secondAttribute="leadingMargin" constant="145" id="M0N-Rj-agL"/>
+                            <constraint firstItem="ako-YD-7tP" firstAttribute="top" secondItem="wzu-bz-DwX" secondAttribute="bottom" constant="39" id="NkQ-xJ-9eu"/>
+                            <constraint firstItem="ako-YD-7tP" firstAttribute="centerX" secondItem="nDT-gx-lAt" secondAttribute="centerX" id="ZtB-Oc-xAY"/>
+                            <constraint firstItem="nDT-gx-lAt" firstAttribute="top" secondItem="ako-YD-7tP" secondAttribute="bottom" constant="30" id="buw-gr-ODL"/>
+                            <constraint firstItem="iL6-xO-cFd" firstAttribute="top" secondItem="nDT-gx-lAt" secondAttribute="bottom" constant="50" id="dM8-cf-v7p"/>
+                            <constraint firstItem="nGb-ro-cUO" firstAttribute="centerY" secondItem="nDT-gx-lAt" secondAttribute="centerY" id="jLT-Bu-cNV"/>
+                            <constraint firstItem="nGb-ro-cUO" firstAttribute="leading" secondItem="nDT-gx-lAt" secondAttribute="trailing" constant="216" id="s1X-VT-WnG"/>
+                        </constraints>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="roomsAvailableTableView" destination="nDT-gx-lAt" id="HXS-GL-CNY"/>
+                        <segue destination="40i-zX-uIe" kind="show" identifier="enterRoomSegue" id="Ob5-ck-MbV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TOO-8d-Dxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="245" y="1253"/>
+        </scene>
+        <!--Room View Controller-->
+        <scene sceneID="k6i-9A-BOb">
+            <objects>
+                <viewController id="40i-zX-uIe" customClass="RoomViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IMN-pv-s0k"/>
+                        <viewControllerLayoutGuide type="bottom" id="6eg-Q1-7P5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Izs-xz-hMR">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently in room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-jX-TsN">
+                                <rect key="frame" x="150" y="59" width="191" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VR5-bS-gWq">
+                                <rect key="frame" x="59.5" y="121" width="372" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="372" id="gku-2G-SWp"/>
+                                </constraints>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-kf-Igw">
+                                <rect key="frame" x="647.5" y="404.5" width="76" height="30"/>
+                                <state key="normal" title="Start game"/>
+                                <connections>
+                                    <action selector="startGame:" destination="40i-zX-uIe" eventType="touchUpInside" id="9k7-ac-5Is"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aXg-kf-Igw" firstAttribute="leading" secondItem="VR5-bS-gWq" secondAttribute="trailing" constant="216" id="BM7-Wg-iN3"/>
+                            <constraint firstItem="VR5-bS-gWq" firstAttribute="top" secondItem="fFh-jX-TsN" secondAttribute="bottom" constant="32" id="ByP-QR-iKN"/>
+                            <constraint firstItem="fFh-jX-TsN" firstAttribute="centerX" secondItem="VR5-bS-gWq" secondAttribute="centerX" id="Ics-X2-ODI"/>
+                            <constraint firstItem="aXg-kf-Igw" firstAttribute="centerY" secondItem="VR5-bS-gWq" secondAttribute="centerY" id="Thi-gL-kG6"/>
+                            <constraint firstItem="6eg-Q1-7P5" firstAttribute="top" secondItem="VR5-bS-gWq" secondAttribute="bottom" constant="50" id="Voy-As-wCp"/>
+                            <constraint firstItem="fFh-jX-TsN" firstAttribute="top" secondItem="IMN-pv-s0k" secondAttribute="bottom" constant="39" id="tK7-Sg-Im7"/>
+                            <constraint firstItem="fFh-jX-TsN" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leadingMargin" constant="130" id="tdg-fq-p5g"/>
+                        </constraints>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="peersTableView" destination="VR5-bS-gWq" id="LaQ-kD-ehb"/>
+                        <outlet property="startButton" destination="aXg-kf-Igw" id="9wn-nr-uvy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jAm-ww-Rl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1501" y="1253"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lU1-jC-2Ut"/>
+    </inferredMetricsTieBreakers>
 </document>

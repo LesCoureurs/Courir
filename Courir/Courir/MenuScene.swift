@@ -43,7 +43,8 @@ class MenuScene: SKScene {
                 gameScene.scaleMode = .AspectFill
                 skView.presentScene(gameScene)
             case menuButtons[1]:
-                break // Display Multiplayer Room Selection Scene
+                // Display Multiplayer Room Selection Scene
+                NSNotificationCenter.defaultCenter().postNotificationName("selectRooms", object: nil)
             default:
                 break
             }
