@@ -15,18 +15,23 @@ protocol LogicEngineDelegate: class {
 }
 
 class LogicEngine {
+
+    // MARK: Properties
+
     let state: GameState
-    let obstacleGenerator: ObstacleGenerator
+    private let obstacleGenerator: ObstacleGenerator
     
     weak var delegate: LogicEngineDelegate?
+
+    private let gameNetworkPortal = GameNetworkPortal._instance
     
-    var timeStep = 0
-    var lastObstacleTimeStep: Int?
+    private var timeStep = 0
+    private var lastObstacleTimeStep: Int?
     
-    init(playerNumber: Int, seed: Int? = nil) {
+    init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        let ownPlayer = Player(playerNumber: playerNumber)
-        state = GameState(player: ownPlayer)
+        let ownPlayer = Player(playerNumber: playerNumber, isMultiplayer: isMultiplayer)
+        state = GameState(player: ownPlayer, isMultiplayer: isMultiplayer)
     }
     
     var score: Int {
@@ -42,7 +47,7 @@ class LogicEngine {
     }
     
     func update() {
-        if state.gameIsOver {
+        guard !state.gameIsOver else {
             return
         }
         updateObstaclePositions()
@@ -84,10 +89,6 @@ class LogicEngine {
         }
         
         state.obstacles = obstaclesOnScreen
-    }
-    
-    private func updateDistance() {
-        state.distance += speed
     }
     
     private func updatePlayerStates() {
@@ -182,17 +183,21 @@ class LogicEngine {
             }
         }
     }
-    
+
+    private func updateDistance() {
+        state.distance += speed
+    }
+
     func updateGameSpeed(timeStep: Int) {
         state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1))) + initialGameSpeed
     }
     
-    func insertObstacle(obstacle: Obstacle) {
+    private func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
         delegate?.didGenerateObstacle(obstacle)
     }
     
-    func insertPlayer(player: Player) {
+    private func insertPlayer(player: Player) {
         state.players.append(player)
     }
 }

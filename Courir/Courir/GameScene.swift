@@ -9,23 +9,31 @@
 import SpriteKit
 
 class GameScene: SKScene {
+
+    // MARK: Properties
+
     private let tileSize = (width: 32, height: 32)
     
     private let grid = SKSpriteNode()
-    private let logicEngine = LogicEngine(playerNumber: 0)
+    private var logicEngine: LogicEngine!
     
     private var gameState: GameState!
     private var myPlayer: SKSpriteNode!
+    private var myPlayerNumber: Int!
     private var players = [Int: SKSpriteNode]()
     private var obstacles = [Int: SKSpriteNode]()
     
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
 
-    
+    var isMultiplayer = false
+    private var readyToRender = false
+
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
+        myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
+        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer)
         logicEngine.delegate = self
         gameState = logicEngine.state
 
@@ -35,12 +43,18 @@ class GameScene: SKScene {
         
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
         setupGestureRecognizers(view)
+
+        if !isMultiplayer {
+            readyToRender = true
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
+        guard readyToRender else {
+            return
+        }
         logicEngine.update()
     }
-    
 
     // MARK: Initialisers
 
@@ -56,8 +70,10 @@ class GameScene: SKScene {
         gameState.myPlayer.observer = self
         myPlayer = createPlayerNode(gameState.myPlayer)
         players[gameState.myPlayer.playerNumber] = myPlayer
-        for i in 1...3 { // Replace when game state contains data of other players
-            players[i] = createPlayerNode(Player(playerNumber: i))
+        if isMultiplayer {
+            for i in 1...3 { // Replace when game state contains data of other players
+                players[i] = createPlayerNode(Player(playerNumber: i, isMultiplayer: isMultiplayer))
+            }
         }
     }
     
@@ -159,11 +175,11 @@ class GameScene: SKScene {
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
-        logicEngine.handleEvent(.PlayerDidJump, player: 0)
+        logicEngine.handleEvent(.PlayerDidJump, player: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
-        logicEngine.handleEvent(.PlayerDidDuck, player: 0)
+        logicEngine.handleEvent(.PlayerDidDuck, player: myPlayerNumber)
     }
 }
 
