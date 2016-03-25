@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 import MultipeerConnectivity
 
 private let cellIdentifier = "host-cell-identifer"
@@ -37,6 +38,11 @@ class RoomViewController: UIViewController {
     @IBAction func startGame(sender: AnyObject) {
         portal.stopHosting()
         portal.stopSearchingForHosts()
+        presentGameScene()
+    }
+
+    private func presentGameScene() {
+        performSegueWithIdentifier("startGameSegue", sender: self)
     }
     
     func playerIsNotHost() {
@@ -45,6 +51,13 @@ class RoomViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "startGameSegue" {
+            let destination = segue.destinationViewController as! GameViewController
+            destination.isMultiplayer = true
+        }
     }
 }
 

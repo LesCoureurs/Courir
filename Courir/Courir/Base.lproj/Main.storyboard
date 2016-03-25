@@ -7,22 +7,65 @@
     </dependencies>
     <scenes>
         <!--Game View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <scene sceneID="efx-Xn-ReG">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4ES-gW-g9a" customClass="GameViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
-                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                        <viewControllerLayoutGuide type="top" id="X8f-Cv-5Tg"/>
+                        <viewControllerLayoutGuide type="bottom" id="z9W-Xf-XiW"/>
                     </layoutGuides>
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="24O-l2-RgK" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9bc-X6-3wY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Y48-kV-EJR" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1501" y="325"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="MenuViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
+                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                    </layoutGuides>
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
+                                <rect key="frame" x="488" y="350" width="46" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="handleSinglePlayerStart:" destination="BV1-FR-VrT" eventType="touchUpInside" id="lz5-Gu-C6A"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
+                                <rect key="frame" x="465" y="380" width="95" height="30"/>
+                                <state key="normal" title="Multiplayer"/>
+                                <connections>
+                                    <action selector="handleMultiplayerStart:" destination="BV1-FR-VrT" eventType="touchUpInside" id="syd-4n-39W"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="sQz-iL-jnx"/>
+                        <outletCollection property="menuButtons" destination="rPV-OW-Ra7" collectionClass="NSMutableArray" id="HDx-Wl-nCP"/>
                         <segue destination="QGq-uN-4Jv" kind="show" identifier="selectRoomSegue" id="j0V-I2-xWc"/>
+                        <segue destination="4ES-gW-g9a" kind="show" identifier="startGameSegue" id="RHv-Gn-4KF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -58,7 +101,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ako-YD-7tP">
                                 <rect key="frame" x="165" y="59" width="183" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -99,7 +142,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently in room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-jX-TsN">
                                 <rect key="frame" x="150" y="59" width="191" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VR5-bS-gWq">
@@ -133,6 +176,7 @@
                     <connections>
                         <outlet property="peersTableView" destination="VR5-bS-gWq" id="LaQ-kD-ehb"/>
                         <outlet property="startButton" destination="aXg-kf-Igw" id="9wn-nr-uvy"/>
+                        <segue destination="4ES-gW-g9a" kind="show" identifier="startGameSegue" id="ph3-8p-GxT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAm-ww-Rl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -142,5 +186,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="lU1-jC-2Ut"/>
+        <segue reference="ph3-8p-GxT"/>
     </inferredMetricsTieBreakers>
 </document>
