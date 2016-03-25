@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import MultipeerConnectivity
 
 class GameScene: SKScene {
 
@@ -27,13 +28,14 @@ class GameScene: SKScene {
     private var duckRecognizer: UISwipeGestureRecognizer!
 
     var isMultiplayer = false
+    var peers = [MCPeerID]()
     private var readyToRender = false
 
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
         myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
-        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer)
+        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
 
@@ -42,13 +44,16 @@ class GameScene: SKScene {
         initGrid()
         
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
-        setupGestureRecognizers(view)
 
         if !isMultiplayer {
             readyToRender = true
         }
+
+        if readyToRender {
+            setupGestureRecognizers(view)
+        }
     }
-    
+
     override func update(currentTime: CFTimeInterval) {
         guard readyToRender else {
             return
@@ -66,14 +71,11 @@ class GameScene: SKScene {
     }
     
     private func initPlayers() {
-        gameState.myPlayer.run()
-        gameState.myPlayer.observer = self
-        myPlayer = createPlayerNode(gameState.myPlayer)
-        players[gameState.myPlayer.playerNumber] = myPlayer
-        if isMultiplayer {
-            for i in 1...3 { // Replace when game state contains data of other players
-                players[i] = createPlayerNode(Player(playerNumber: i, isMultiplayer: isMultiplayer))
-            }
+        for player in gameState.players {
+            player.run()
+            player.observer = self
+            let node = createPlayerNode(player)
+            players[player.playerNumber] = node
         }
     }
     

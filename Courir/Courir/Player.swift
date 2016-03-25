@@ -50,6 +50,7 @@ class Player: GameObject {
     
     // Range of playerNumber = [0, 3]
     init(playerNumber: Int, isMultiplayer: Bool) {
+        // TODO: Positioning for multiplayer mode
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
         yCoordinate = Player.minSpawnYCoordinate +

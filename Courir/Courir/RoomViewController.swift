@@ -57,6 +57,7 @@ class RoomViewController: UIViewController {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
             destination.isMultiplayer = true
+            destination.peers = peers
         }
     }
 }

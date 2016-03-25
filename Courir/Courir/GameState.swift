@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import MultipeerConnectivity
 
 class GameState {
     var myPlayer: Player
     var players = [Player]()
+    private var numPlayers = 0
+    var peerMapping = [MCPeerID: Int]()
     var obstacles = [Obstacle]()
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
@@ -22,9 +25,20 @@ class GameState {
         self.isMultiplayer = isMultiplayer
         myPlayer = player
         players.append(myPlayer)
+        numPlayers += 1
+        peerMapping[myPeerID] = myMultiplayerModeNumber
     }
-    
+
     var objects: [GameObject] {
         return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
+    }
+
+    func initPeers(peers: [MCPeerID]) {
+        for peer in peers {
+            peerMapping[peer] = numPlayers
+            let player = Player(playerNumber: numPlayers, isMultiplayer: isMultiplayer)
+            players.append(player)
+            numPlayers += 1
+        }
     }
 }

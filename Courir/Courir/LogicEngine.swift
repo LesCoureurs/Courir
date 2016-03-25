@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
@@ -28,10 +29,13 @@ class LogicEngine {
     private var timeStep = 0
     private var lastObstacleTimeStep: Int?
     
-    init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool) {
+    init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber, isMultiplayer: isMultiplayer)
         state = GameState(player: ownPlayer, isMultiplayer: isMultiplayer)
+        if isMultiplayer {
+            state.initPeers(peers)
+        }
     }
     
     var score: Int {
@@ -45,6 +49,8 @@ class LogicEngine {
     var gameState: GameState {
         return state
     }
+
+    // MARK: Logic Handling
     
     func update() {
         guard !state.gameIsOver else {
