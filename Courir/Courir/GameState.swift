@@ -15,9 +15,11 @@ class GameState {
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
 
+    var isMultiplayer: Bool
     var gameIsOver = false
     
-    init(player: Player) {
+    init(player: Player, isMultiplayer: Bool = false) {
+        self.isMultiplayer = isMultiplayer
         myPlayer = player
         players.append(myPlayer)
     }

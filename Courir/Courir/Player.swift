@@ -49,11 +49,14 @@ class Player: GameObject {
     
     
     // Range of playerNumber = [0, 3]
-    init(playerNumber: Int) {
+    init(playerNumber: Int, isMultiplayer: Bool) {
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
         yCoordinate = Player.minSpawnYCoordinate +
             playerNumber * Player.spawnYCoordinateIncrement
+        if !isMultiplayer {
+            yCoordinate += Int(Player.spawnYCoordinateIncrement/2)
+        }
     }
     
     func fallBehind() {
