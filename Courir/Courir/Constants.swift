@@ -44,6 +44,9 @@ let playerTexture = SKTexture(imageNamed: "iso_player")
 let obstacleNonFloatingTexture = SKTexture(imageNamed: "iso_non_floating_obstacle")
 let obstacleFloatingTexture = SKTexture(imageNamed: "iso_floating_obstacle")
 
+// My Details
+let myDeviceName = UIDevice.currentDevice().name
+
 // Menu
 let menuButtonFontSize: CGFloat = 45
 let menuButtonOffset = 70

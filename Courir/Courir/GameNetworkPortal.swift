@@ -25,12 +25,14 @@ protocol GameNetworkPortalGameStateDelegate: class {
 }
 
 class GameNetworkPortal {
+    static let _instance = GameNetworkPortal(playerName: myDeviceName)
+
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate?
     var coulombNetwork: CoulombNetwork!
 
-    init(playerName deviceId: String) {
+    private init(playerName deviceId: String) {
         // coulombNetwork.autoAcceptGuests is defaulted to true
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
         coulombNetwork.delegate = self
