@@ -147,6 +147,8 @@
 				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
 				6524A7121C9C7EB800D8CC48 /* GameViewController.swift */,
 				6524A7301C9C7F1700D8CC48 /* MenuScene.swift */,
+				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
+				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
