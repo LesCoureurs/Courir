@@ -26,6 +26,8 @@
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
 		7279DFB91C9E91DF00FA4198 /* GameChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFB81C9E91DF00FA4198 /* GameChange.swift */; };
 		7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFBA1C9E92A400FA4198 /* GameEvent.swift */; };
+		7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */; };
+		7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */; };
 		7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839311C9E7BA1007434E8 /* GameState.swift */; };
 		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +66,8 @@
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		7279DFB81C9E91DF00FA4198 /* GameChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameChange.swift; sourceTree = "<group>"; };
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
+		7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSelectionViewController.swift; sourceTree = "<group>"; };
+		7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		7A8839311C9E7BA1007434E8 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
 		9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Courir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,8 +354,10 @@
 				6524A7311C9C7F1700D8CC48 /* MenuScene.swift in Sources */,
 				7279DFB91C9E91DF00FA4198 /* GameChange.swift in Sources */,
 				6524A7131C9C7EB800D8CC48 /* GameViewController.swift in Sources */,
+				7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */,
 				6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */,
 				7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */,
+				7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */,
 				6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */,
 				6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */,
 				7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */,

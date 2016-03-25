@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showAlert", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.selectRooms), name: "selectRooms", object: nil)
 
         presentMenuScene()
     }
@@ -49,6 +50,10 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func selectRooms() {
+        performSegueWithIdentifier("selectRoomSegue", sender: self)
     }
 
     func receiveEvent(notification: NSNotification) {
