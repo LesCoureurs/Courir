@@ -71,10 +71,15 @@ class GameNetworkPortal {
     func sendData(data: NSData, mode: MCSessionSendDataMode) {
         coulombNetwork.sendData(data, mode: mode)
     }
+
+    func sendData(data: GameChange, mode: MCSessionSendDataMode) {
+        let data = prepareData(data)
+        sendData(data, mode: mode)
+    }
     
     // Convert struct to NSData using pointer
     // TODO: Test this
-    func prepareData(gameChange: GameChange) -> NSData {
+    private func prepareData(gameChange: GameChange) -> NSData {
         var mutableGameChange = gameChange
         return withUnsafePointer(&mutableGameChange) { p in
             NSData(bytes: p, length: sizeofValue(mutableGameChange))
