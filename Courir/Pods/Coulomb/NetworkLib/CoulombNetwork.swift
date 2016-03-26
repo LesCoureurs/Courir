@@ -12,7 +12,7 @@ import UIKit
 public protocol CoulombNetworkDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
-    func connectedPeersInSessionChanged(peers: [MCPeerID])
+    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?)
     func connectedToPeer(peer: MCPeerID)
     func disconnectedFromSession()
     func handleDataPacket(data: NSData, peerID: MCPeerID)
@@ -25,11 +25,6 @@ public class CoulombNetwork: NSObject {
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
-    
-    // A set of all peers in the session.
-    // We need this since session.connectedPeers only contains peers except self.
-    // Useful for discovering disconnection.
-    private var peersInSession: Set<MCPeerID>
     
     public weak var delegate: CoulombNetworkDelegate?
     
@@ -46,7 +41,6 @@ public class CoulombNetwork: NSObject {
     public init(serviceType: String, deviceId: String) {
         self.serviceType = serviceType
         myPeerId = MCPeerID(displayName: deviceId)
-        peersInSession = Set<MCPeerID>()
     }
     
     public convenience init(serviceType: String) {
@@ -122,8 +116,6 @@ public class CoulombNetwork: NSObject {
     public func disconnect() {
         session.disconnect()
         NSLog("%@", "disconnected from \(session.hashValue)")
-        stopAdvertisingHost()
-        startSearchingForHosts()
     }
     
     // This method is async
@@ -199,7 +191,7 @@ extension CoulombNetwork: MCSessionDelegate {
                 if state == .Connected {
                     NSLog("%@", "connected to \(session.hashValue)")
                     // Update the set of peers in the session
-                    peersInSession.insert(peerID)
+                    self.session.peersInSession.insert(peerID)
                     
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
@@ -208,19 +200,48 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
+                    NSLog("%@", "peersInSession \(self.session.peersInSession)")
                     
                     // If session.connectedPeers is empty, it implies that either:
                     // - Self is disconnected from the session
                     // - The session has no other connected peer
                     // Combine with peersInSession count > 1, we can be certain that
                     // self is disconnected.
-                    if session.connectedPeers.isEmpty && peersInSession.count > 1 {
-                        peersInSession.remove(myPeerId)
+                    if self.session.connectedPeers.isEmpty && self.session.peersInSession.count > 1 {
+                        NSLog("%@", "Self was removed")
+                        self.session.peersInSession.remove(myPeerId)
                         delegate?.disconnectedFromSession()
+                    } else {
+                        NSLog("%@", "Self was not removed")
+                        NSLog("%@", "Current host: \(self.session.host)")
+                        
+                        // If the removed item is the current host
+                        if self.session.host == peerID {
+                            var nextHost = peerID
+                            
+                            // Assign a new host as the first item in peersInSession set that is not the old host
+                            for peer in self.session.peersInSession {
+                                if peer != peerID {
+                                    nextHost = peer
+                                    break
+                                }
+                            }
+                            NSLog("%@", "Next potential host: \(nextHost)")
+                            
+                            // If the current item is the next in line, convert it to a host
+                            if myPeerId == nextHost {
+                                NSLog("%@", "my peer is the next host")
+                                // Convert current item into a host
+                                self.session.host = myPeerId
+                                NSLog("%@", "New host \(self.session.host?.displayName)")
+                                stopSearchingForHosts()
+                                startAdvertisingHost()
+                            }
+                        }
                     }
                 }
                 
-                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
+                delegate?.connectedPeersInSessionChanged(self.session.connectedPeers, host: self.session.host)
             }
     }
     
