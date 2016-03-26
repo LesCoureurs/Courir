@@ -26,10 +26,15 @@ public class CoulombNetwork: NSObject {
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
     
+    // A set of all peers in the session.
+    // We need this since session.connectedPeers only contains peers except self.
+    // Useful for discovering disconnection.
+    private var peersInSession: Set<MCPeerID>
+    
     public weak var delegate: CoulombNetworkDelegate?
     
-    private lazy var session: MCSession = {
-        let session = MCSession(peer: self.myPeerId, securityIdentity: nil,
+    private lazy var session: MCSessionWithHost = {
+        let session = MCSessionWithHost(peer: self.myPeerId, securityIdentity: nil,
             encryptionPreference: .Required)
         session.delegate = self
         return session
@@ -41,6 +46,7 @@ public class CoulombNetwork: NSObject {
     public init(serviceType: String, deviceId: String) {
         self.serviceType = serviceType
         myPeerId = MCPeerID(displayName: deviceId)
+        peersInSession = Set<MCPeerID>()
     }
     
     public convenience init(serviceType: String) {
@@ -54,7 +60,7 @@ public class CoulombNetwork: NSObject {
     }
     
     // MARK: Methods for host
-    public func startAdversitingHost() {
+    public func startAdvertisingHost() {
         if serviceAdvertiser == nil {
             serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
                 discoveryInfo: ["peerType": "host"], serviceType: serviceType)
@@ -95,6 +101,11 @@ public class CoulombNetwork: NSObject {
         }
         
         browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
+        
+        // If the session is still without host, assign a new one
+        if session.host == nil {
+            session.host = host
+        }
     }
     
     public func getFoundHosts() -> [MCPeerID] {
@@ -111,6 +122,7 @@ public class CoulombNetwork: NSObject {
     public func disconnect() {
         session.disconnect()
         NSLog("%@", "disconnected from \(session.hashValue)")
+        stopAdvertisingHost()
         startSearchingForHosts()
     }
     
@@ -186,13 +198,26 @@ extension CoulombNetwork: MCSessionDelegate {
             if state != .Connecting {
                 if state == .Connected {
                     NSLog("%@", "connected to \(session.hashValue)")
+                    // Update the set of peers in the session
+                    peersInSession.insert(peerID)
+                    
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
+                    
+                    // Pass to delegate
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
-                    // Disconnected from a session
-                    delegate?.disconnectedFromSession()
+                    
+                    // If session.connectedPeers is empty, it implies that either:
+                    // - Self is disconnected from the session
+                    // - The session has no other connected peer
+                    // Combine with peersInSession count > 1, we can be certain that
+                    // self is disconnected.
+                    if session.connectedPeers.isEmpty && peersInSession.count > 1 {
+                        peersInSession.remove(myPeerId)
+                        delegate?.disconnectedFromSession()
+                    }
                 }
                 
                 delegate?.connectedPeersInSessionChanged(session.connectedPeers)
