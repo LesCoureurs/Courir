@@ -33,29 +33,37 @@ class GameNetworkPortal {
     var coulombNetwork: CoulombNetwork!
 
     private init(playerName deviceId: String) {
-        // coulombNetwork.autoAcceptGuests is defaulted to true
+        // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
+        // If autoAcceptGuests is set to false, implement 
+        // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
         coulombNetwork.delegate = self
     }
     
+    // Some of the following methods are safe: they only execute when applicable, else just return
     // MARK: Hosting
+    // Safe
     func beginHosting() {
         coulombNetwork.startAdvertisingHost()
     }
     
+    // Safe
     func stopHosting() {
         coulombNetwork.stopAdvertisingHost()
     }
     
     // MARK: Looking for hosts
+    // Safe
     func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
+    // Safe
     func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
+    // Safe
     func connectToHost(host: MCPeerID) {
         coulombNetwork.connectToHost(host)
     }
@@ -108,7 +116,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     func connectedToPeer(peer: MCPeerID) {}
     
     func disconnectedFromSession() {
-        // Disconnected from a session
+        // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
         stopHosting()
