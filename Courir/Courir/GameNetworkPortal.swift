@@ -12,7 +12,7 @@ import MultipeerConnectivity
 protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
-    func playersInRoomChanged(peerIDs: [MCPeerID])
+    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
     func disconnectedFromRoom()
 }
 
@@ -98,16 +98,20 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
-    func connectedPeersInSessionChanged(peers: [MCPeerID]) {
-        connectionDelegate?.playersInRoomChanged(peers)
+    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?) {
+        guard let currentHost = host else {
+            return
+        }
+        connectionDelegate?.playersInRoomChanged(peers, host: currentHost)
     }
     
     func connectedToPeer(peer: MCPeerID) {}
     
     func disconnectedFromSession() {
         // Disconnected from a session
-        // Begin searching for host again
+        // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
+        stopHosting()
         beginSearchingForHosts()
         connectionDelegate?.disconnectedFromRoom()
     }
