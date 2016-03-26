@@ -40,7 +40,7 @@ class GameNetworkPortal {
     
     // MARK: Hosting
     func beginHosting() {
-        coulombNetwork.startAdversitingHost()
+        coulombNetwork.startAdvertisingHost()
     }
     
     func stopHosting() {
