@@ -8,8 +8,21 @@
 
 import UIKit
 
-enum PlayerState {
-    case Stationary, Running, Invulnerable(Int), Jumping(Int), Ducking(Int)
+enum PlayerState: Equatable {
+    case Ready, Stationary, Running, Invulnerable(Int), Jumping(Int), Ducking(Int)
+}
+
+func ==(this: PlayerState, other: PlayerState) -> Bool {
+    switch (this, other) {
+    case (.Ready, .Ready): return true
+    case (.Stationary, .Stationary): return true
+    case (.Running, .Running): return true
+    case (.Invulnerable, .Invulnerable): return true
+    case (.Jumping, .Jumping): return true
+    case (.Ducking, .Ducking): return true
+    default:
+        return false
+    }
 }
 
 class Player: GameObject {
@@ -58,6 +71,10 @@ class Player: GameObject {
         if !isMultiplayer {
             yCoordinate += Int(Player.spawnYCoordinateIncrement/2)
         }
+    }
+
+    func ready() {
+        state = .Ready
     }
     
     func fallBehind() {
