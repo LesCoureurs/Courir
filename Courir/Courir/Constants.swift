@@ -14,6 +14,9 @@ let gameGridSize = 32
 let actualGridSize = 1024
 let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 
+// Length of countdown timer
+let countdownTimerStart = 3
+
 // Probabilities of obstacles appearing
 let floatingProbability = Float(0.25)
 let nonfloatingProbability = Float(0.25)
