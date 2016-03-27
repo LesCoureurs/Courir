@@ -17,11 +17,11 @@ protocol GameNetworkPortalConnectionDelegate: class {
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
-    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
-    func gameEndSignalReceived(data: [String: AnyObject], peer: MCPeerID)
-    func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
-    func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
-    func collideActionReceived(data: [String: AnyObject], peer: MCPeerID)
+    func gameStartSignalReceived(data: AnyObject, peer: MCPeerID)
+    func gameEndSignalReceived(data: AnyObject, peer: MCPeerID)
+    func jumpActionReceived(data: AnyObject, peer: MCPeerID)
+    func duckActionReceived(data: AnyObject, peer: MCPeerID)
+    func collideActionReceived(data: AnyObject, peer: MCPeerID)
 }
 
 class GameNetworkPortal {
@@ -127,15 +127,15 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
             switch event {
             case GameEvent.GameDidStart:
-                gameStateDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
+                gameStateDelegate?.gameStartSignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.GameDidEnd:
-                gameStateDelegate?.gameEndSignalReceived(parsedData, peer: peerID)
+                gameStateDelegate?.gameEndSignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidJump:
-                gameStateDelegate?.jumpActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.jumpActionReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidDuck:
-                gameStateDelegate?.duckActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.duckActionReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidCollide:
-                gameStateDelegate?.collideActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.collideActionReceived(parsedData["data"], peer: peerID)
             default:
                 break
             }
