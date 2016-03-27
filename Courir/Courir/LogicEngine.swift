@@ -30,9 +30,6 @@ class LogicEngine {
     private var lastObstacleTimeStep: Int?
     
     init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
-        // Assign the delegate to self to begin receiving updates
-        GameNetworkPortal._instance.gameStateDelegate = self
-
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber, isMultiplayer: isMultiplayer)
         ownPlayer.ready()

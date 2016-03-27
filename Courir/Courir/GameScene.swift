@@ -40,6 +40,8 @@ class GameScene: SKScene {
         logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
+        // Assign the delegate to the logic engine to begin receiving updates
+        GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
         initObstacles()
         initPlayers()
