@@ -207,3 +207,28 @@ class LogicEngine {
         state.players.append(player)
     }
 }
+
+// MARK: GameNetworkPortalGameStateDelegate
+extension LogicEngine: GameNetworkPortalGameStateDelegate {
+    func jumpActionReceived(data: [String : AnyObject], peer: MCPeerID) {
+
+    }
+
+    func duckActionReceived(data: [String : AnyObject], peer: MCPeerID) {
+
+    }
+
+    func collideActionReceived(data: [String : AnyObject], peer: MCPeerID) {
+
+    }
+
+    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+        if let player = gameState.getPlayer(withPeerID: peer) {
+            player.ready()
+        }
+    }
+
+    func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+
+    }
+}

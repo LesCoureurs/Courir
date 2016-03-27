@@ -17,11 +17,11 @@ protocol GameNetworkPortalConnectionDelegate: class {
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
-    func jumpActionReceived(data: [String: NSObject], peer: MCPeerID)
-    func duckActionReceived(data: [String: NSObject], peer: MCPeerID)
-    func collideActionReceived(data: [String: NSObject], peer: MCPeerID)
-    func gameStartSignalReceived(data: [String: NSObject], peer: MCPeerID)
-    func gameEndSignalReceived(data: [String: NSObject], peer: MCPeerID)
+    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
+    func gameEndSignalReceived(data: [String: AnyObject], peer: MCPeerID)
+    func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
+    func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
+    func collideActionReceived(data: [String: AnyObject], peer: MCPeerID)
 }
 
 class GameNetworkPortal {
@@ -79,24 +79,15 @@ class GameNetworkPortal {
     }
     
     // MARK: Data transfer
-    
-    // Send data to everyone in the session
-    func sendData(data: NSData, mode: MCSessionSendDataMode) {
-        coulombNetwork.sendData(data, mode: mode)
+    func send(event: GameEvent, data: AnyObject = "No data", mode: MCSessionSendDataMode = .Reliable) {
+        let standardData = ["event": event.rawValue, "data": data]
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(standardData)
+        sendData(encodedData, mode: mode)
     }
 
-    func sendData(data: GameChange, mode: MCSessionSendDataMode) {
-        let data = prepareData(data)
-        sendData(data, mode: mode)
-    }
-    
-    // Convert struct to NSData using pointer
-    // TODO: Test this
-    private func prepareData(gameChange: GameChange) -> NSData {
-        var mutableGameChange = gameChange
-        return withUnsafePointer(&mutableGameChange) { p in
-            NSData(bytes: p, length: sizeofValue(mutableGameChange))
-        }
+    // Send data to everyone in the session
+    private func sendData(data: NSData, mode: MCSessionSendDataMode) {
+        coulombNetwork.sendData(data, mode: mode)
     }
 }
 
@@ -129,31 +120,25 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.disconnectedFromRoom()
     }
     
-    // Receive data packet, unpack and call appropriate handler
+    // Receives NSData and converts it into a dictionary of type [String: AnyObject]
+    // All data packets must contain an event number which is keyed with the string
+    // "event"
     func handleDataPacket(data: NSData, peerID: MCPeerID) {
-        let content = unpackData(data)
-        switch content.event {
-        case GameEvent.GameDidStart:
-            gameStateDelegate?.gameStartSignalReceived(content.data, peer: peerID)
-        case GameEvent.GameDidEnd:
-            gameStateDelegate?.gameEndSignalReceived(content.data, peer: peerID)
-        case GameEvent.PlayerDidJump:
-            gameStateDelegate?.jumpActionReceived(content.data, peer: peerID)
-        case GameEvent.PlayerDidDuck:
-            gameStateDelegate?.duckActionReceived(content.data, peer: peerID)
-        case GameEvent.PlayerDidCollide:
-            gameStateDelegate?.collideActionReceived(content.data, peer: peerID)
-        default:
-            return
+        if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
+            switch event {
+            case GameEvent.GameDidStart:
+                gameStateDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
+            case GameEvent.GameDidEnd:
+                gameStateDelegate?.gameEndSignalReceived(parsedData, peer: peerID)
+            case GameEvent.PlayerDidJump:
+                gameStateDelegate?.jumpActionReceived(parsedData, peer: peerID)
+            case GameEvent.PlayerDidDuck:
+                gameStateDelegate?.duckActionReceived(parsedData, peer: peerID)
+            case GameEvent.PlayerDidCollide:
+                gameStateDelegate?.collideActionReceived(parsedData, peer: peerID)
+            default:
+                break
+            }
         }
-    }
-    
-    // Convert NSData to GameChange struct
-    // TODO: Test this
-    func unpackData(data: NSData) -> GameChange {
-        let pointer = UnsafeMutablePointer<GameChange>.alloc(sizeof(GameChange))
-        data.getBytes(pointer, length: sizeof(GameChange))
-        
-        return pointer.move()
     }
 }

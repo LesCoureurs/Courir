@@ -52,6 +52,8 @@ class GameScene: SKScene {
         if readyToRender {
             setupGestureRecognizers(view)
         }
+
+        GameNetworkPortal._instance.send(.GameIsReady)
     }
 
     override func update(currentTime: CFTimeInterval) {

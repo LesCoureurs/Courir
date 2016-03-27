@@ -45,6 +45,7 @@ class RoomSelectionViewController: UIViewController {
     }
 }
 
+// MARK: UITableViewDelegate
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
@@ -68,6 +69,7 @@ extension RoomSelectionViewController: UITableViewDataSource {
     }
 }
 
+// MARK: GameNetworkPortalConnectionDelegate
 extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
         hosts = foundHosts
