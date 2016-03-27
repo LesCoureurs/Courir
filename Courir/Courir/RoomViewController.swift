@@ -38,6 +38,7 @@ class RoomViewController: UIViewController {
     @IBAction func startGame(sender: AnyObject) {
         portal.stopHosting()
         portal.stopSearchingForHosts()
+        GameNetworkPortal._instance.send(.GameDidStart)
         presentGameScene()
     }
 
