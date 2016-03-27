@@ -32,6 +32,7 @@ class LogicEngine {
     init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         let ownPlayer = Player(playerNumber: playerNumber, isMultiplayer: isMultiplayer)
+        ownPlayer.ready()
         state = GameState(player: ownPlayer, isMultiplayer: isMultiplayer)
         if isMultiplayer {
             state.initPeers(peers)
