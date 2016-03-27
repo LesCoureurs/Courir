@@ -12,7 +12,7 @@ import MultipeerConnectivity
 protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
-    func playersInRoomChanged(peerIDs: [MCPeerID])
+    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
     func disconnectedFromRoom()
 }
 
@@ -33,34 +33,42 @@ class GameNetworkPortal {
     var coulombNetwork: CoulombNetwork!
 
     private init(playerName deviceId: String) {
-        // coulombNetwork.autoAcceptGuests is defaulted to true
+        // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
+        // If autoAcceptGuests is set to false, implement 
+        // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
         coulombNetwork.delegate = self
     }
-    
+
     deinit {
         coulombNetwork.stopAdvertisingHost()
         coulombNetwork.stopSearchingForHosts()
     }
-    
+
+    // Some of the following methods are safe: they only execute when applicable, else just return
     // MARK: Hosting
+    // Safe
     func beginHosting() {
-        coulombNetwork.startAdversitingHost()
+        coulombNetwork.startAdvertisingHost()
     }
     
+    // Safe
     func stopHosting() {
         coulombNetwork.stopAdvertisingHost()
     }
     
     // MARK: Looking for hosts
+    // Safe
     func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
+    // Safe
     func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
+    // Safe
     func connectToHost(host: MCPeerID) {
         coulombNetwork.connectToHost(host)
     }
@@ -76,10 +84,15 @@ class GameNetworkPortal {
     func sendData(data: NSData, mode: MCSessionSendDataMode) {
         coulombNetwork.sendData(data, mode: mode)
     }
+
+    func sendData(data: GameChange, mode: MCSessionSendDataMode) {
+        let data = prepareData(data)
+        sendData(data, mode: mode)
+    }
     
     // Convert struct to NSData using pointer
     // TODO: Test this
-    func prepareData(gameChange: GameChange) -> NSData {
+    private func prepareData(gameChange: GameChange) -> NSData {
         var mutableGameChange = gameChange
         return withUnsafePointer(&mutableGameChange) { p in
             NSData(bytes: p, length: sizeofValue(mutableGameChange))
@@ -98,16 +111,20 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
-    func connectedPeersInSessionChanged(peers: [MCPeerID]) {
-        connectionDelegate?.playersInRoomChanged(peers)
+    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?) {
+        guard let currentHost = host else {
+            return
+        }
+        connectionDelegate?.playersInRoomChanged(peers, host: currentHost)
     }
     
     func connectedToPeer(peer: MCPeerID) {}
     
     func disconnectedFromSession() {
-        // Disconnected from a session
-        // Begin searching for host again
+        // Called when self is disconnected from a session
+        // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
+        stopHosting()
         beginSearchingForHosts()
         connectionDelegate?.disconnectedFromRoom()
     }

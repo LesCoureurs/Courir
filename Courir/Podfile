@@ -5,7 +5,7 @@ platform :ios, '8.1'
 use_frameworks!
 
 target 'Courir' do
-  pod 'Coulomb', :git => 'https://github.com/SplooshKit/Coulomb.git', :tag => '0.0.2'
+  pod 'Coulomb', :git => 'https://github.com/SplooshKit/Coulomb.git', :tag => '0.0.4'
 end
 
 target 'CourirTests' do
