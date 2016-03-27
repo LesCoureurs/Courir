@@ -66,7 +66,7 @@ class GameScene: SKScene {
             } else {
                 startTimeInterval = currentTime
             }
-        } else if gameState.allPlayersReady && hasGameStarted {
+        } else if hasGameStarted {
             logicEngine.update()
         }
     }
