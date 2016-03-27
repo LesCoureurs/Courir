@@ -155,20 +155,22 @@ class LogicEngine {
         }
 
         switch state.myPlayer.state {
-            case .Jumping(_):
-                if floatingObstacles.count > 0 {
-                    collisionOccurred()
-                }
-            case .Ducking(_):
-                if nonFloatingObstacles.count > 0 {
-                    collisionOccurred()
-                }
-            case .Invulnerable(_), .Stationary:
-                return
-            case .Running:
-                if obstaclesInNextFrame.count > 0 {
-                    collisionOccurred()
-                }
+        case .Jumping(_):
+            if floatingObstacles.count > 0 {
+                collisionOccurred()
+            }
+        case .Ducking(_):
+            if nonFloatingObstacles.count > 0 {
+                collisionOccurred()
+            }
+        case .Invulnerable(_), .Stationary:
+            return
+        case .Running:
+            if obstaclesInNextFrame.count > 0 {
+                collisionOccurred()
+            }
+        default:
+            break
         }
     }
     
