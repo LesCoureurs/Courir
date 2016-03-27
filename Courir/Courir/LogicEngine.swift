@@ -28,6 +28,7 @@ class LogicEngine {
     
     private var timeStep = 0
     private var lastObstacleTimeStep: Int?
+    private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int)]()
     
     init(playerNumber: Int, seed: Int? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -56,6 +57,7 @@ class LogicEngine {
         guard !state.gameIsOver else {
             return
         }
+        updateEventQueue()
         updateObstaclePositions()
         handleCollisions()
         updatePlayerStates()
@@ -65,16 +67,35 @@ class LogicEngine {
         timeStep += 1
     }
 
-    func handleEvent(event: GameEvent, player: Int?) {
+    func handleEvent(event: GameEvent, player: Int?, occurringTimeStep: Int = timeStep) {
         if let player = state.players.filter({ $0.playerNumber == player }).first {
             switch event {
                 case .PlayerDidJump:
-                    player.jump(timeStep)
+                    player.jump(occurringTimeStep)
+                    if state.isMultiplayer && player! == state.myPlayer.playerNumber {
+                        var jumpData = [String: AnyObject]()
+                        jumpData["time_step"] = occurringTimeStep
+                        gameNetworkPortal.send(.PlayerDidJump, data: jumpData)
+                    }
                 case .PlayerDidDuck:
-                    player.duck(timeStep)
+                    player.duck(occurringTimeStep)
+                    if state.isMultiplayer && player! == state.myPlayer.playerNumber {
+                        var duckData = [String: AnyObject]()
+                        duckData["time_step"] = occurringTimeStep
+                        gameNetworkPortal.send(.PlayerDidJump, data: duckData)
+                    }
                 default:
                     break
             }
+        }
+    }
+    
+    private func updateEventQueue() {
+        while eventQueue.last?.timeStep <= timeStep {
+            guard let front = eventQueue.popLast() else {
+                break
+            }
+            handleEvent(front.event, player: front.playerNumber, occurringTimeStep: front.timeStep)
         }
     }
     
@@ -208,29 +229,56 @@ class LogicEngine {
     private func insertPlayer(player: Player) {
         state.players.append(player)
     }
+    
+    private func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int) {
+        eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep))
+        eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
+    }
 }
 
 // MARK: GameNetworkPortalGameStateDelegate
 extension LogicEngine: GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived(data: [String : AnyObject], peer: MCPeerID) {
+    func jumpActionReceived(data: AnyObject, peer: MCPeerID) {
+        guard let playerNumber = state.peerMapping[peer],
+            dataDict = data as? [String: AnyObject] else {
+            return
+        }
+        guard let timeStepOccurrenceString = dataDict["time_step"] as? String else {
+            return
+        }
+        guard let occurringTimeStep = Int(timeStepOccurrenceString) {
+            return
+        }
+        appendToEventQueue(.PlayerDidJump, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep)
+    }
+
+    func duckActionReceived(data: AnyObject, peer: MCPeerID) {
+        guard let playerNumber = state.peerMapping[peer],
+            dataDict = data as? [String: AnyObject] else {
+                return
+        }
+        guard let timeStepOccurrenceString = dataDict["time_step"] as? String else {
+            return
+        }
+        guard let occurringTimeStep = Int(timeStepOccurrenceString) {
+            return
+        }
+        appendToEventQueue(.PlayerDidDuck, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep)
+    }
+
+    func collideActionReceived(data: AnyObject, peer: MCPeerID) {
 
     }
 
-    func duckActionReceived(data: [String : AnyObject], peer: MCPeerID) {
-
-    }
-
-    func collideActionReceived(data: [String : AnyObject], peer: MCPeerID) {
-
-    }
-
-    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+    func gameStartSignalReceived(data: AnyObject, peer: MCPeerID) {
         if let player = gameState.getPlayer(withPeerID: peer) {
             player.ready()
         }
     }
 
-    func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+    func gameEndSignalReceived(data: AnyObject, peer: MCPeerID) {
 
     }
 }
