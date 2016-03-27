@@ -248,15 +248,17 @@ extension GameScene: Observer {
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         print("\(player.playerNumber)'s new state: \(player.state)")
         switch player.state {
-            case .Ducking(_):
-                removeGestureRecognizers()
-                node.texture = playerDuckTexture
-            case .Jumping(_):
-                removeGestureRecognizers()
-                node.texture = playerJumpTexture
-            case .Running, .Stationary, .Invulnerable(_):
-                addGestureRecognizers()
-                node.texture = playerTexture
+        case .Ducking(_):
+            removeGestureRecognizers()
+            node.texture = playerDuckTexture
+        case .Jumping(_):
+            removeGestureRecognizers()
+            node.texture = playerJumpTexture
+        case .Running, .Stationary, .Invulnerable(_):
+            addGestureRecognizers()
+            node.texture = playerTexture
+        default:
+            break
         }
     }
     
