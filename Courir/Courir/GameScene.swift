@@ -12,7 +12,10 @@ import MultipeerConnectivity
 class GameScene: SKScene {
 
     // MARK: Properties
-
+    private let countdownNode = SKLabelNode(text: "\(countdownTimerStart)")
+    private var hasGameStarted = false
+    private var startTimeInterval: CFTimeInterval?
+    
     private let tileSize = (width: 32, height: 32)
     
     private let grid = SKSpriteNode()
@@ -42,25 +45,33 @@ class GameScene: SKScene {
         initObstacles()
         initPlayers()
         initGrid()
-        
-        physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
+        initCountdownTimer()
 
         if !isMultiplayer {
             readyToRender = true
         }
 
-        if readyToRender {
-            setupGestureRecognizers(view)
-        }
-
+        setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameIsReady)
     }
 
     override func update(currentTime: CFTimeInterval) {
-        guard readyToRender else {
-            return
+        if !hasGameStarted {
+            if let start = startTimeInterval {
+                let timeSinceStart = Int(currentTime - start)
+                let countdownValue = countdownTimerStart - timeSinceStart
+                if countdownValue > 0 {
+                    countdownNode.text = "\(countdownValue)"
+                } else {
+                    countdownNode.removeFromParent()
+                    hasGameStarted = true
+                }
+            } else {
+                startTimeInterval = currentTime
+            }
+        } else {
+            logicEngine.update()
         }
-        logicEngine.update()
     }
 
     // MARK: Initialisers
@@ -85,6 +96,15 @@ class GameScene: SKScene {
         grid.position = CGPoint(x: 0, y: size.height/2)
         addChild(grid)
         renderIsoGrid()
+    }
+    
+    private func initCountdownTimer() {
+        countdownNode.fontName = "HelveticaNeue-Bold"
+        countdownNode.position = CGPoint(x: size.width / 2, y: 0)
+        countdownNode.fontSize *= 3
+        countdownNode.zPosition = 999
+        countdownNode.fontColor = UIColor.blackColor()
+        grid.addChild(countdownNode)
     }
     
     private func renderIsoGrid() {
@@ -179,10 +199,16 @@ class GameScene: SKScene {
     }
     
     func handleUpSwipe(sender: UISwipeGestureRecognizer) {
+        guard hasGameStarted else {
+            return
+        }
         logicEngine.handleEvent(.PlayerDidJump, player: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
+        guard hasGameStarted else {
+            return
+        }
         logicEngine.handleEvent(.PlayerDidDuck, player: myPlayerNumber)
     }
 }
