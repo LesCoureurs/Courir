@@ -25,7 +25,7 @@ class RoomViewController: UIViewController {
         super.viewDidLoad()
         peersTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         portal.connectionDelegate = self
-        
+        portal.gameStateDelegate = self
         peersTableView.dataSource = self
         
         if isHost {
@@ -113,9 +113,7 @@ extension RoomViewController: GameNetworkPortalGameStateDelegate {
     }
 
     func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-        if let data = data as? [String: String] where data["action"] == "start" {
-            presentGameScene()
-        }
+        presentGameScene()
     }
 
     func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {

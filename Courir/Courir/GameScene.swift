@@ -32,7 +32,6 @@ class GameScene: SKScene {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
-    private var readyToRender = false
 
     // MARK: Overridden methods
     
@@ -47,16 +46,12 @@ class GameScene: SKScene {
         initGrid()
         initCountdownTimer()
 
-        if !isMultiplayer {
-            readyToRender = true
-        }
-
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameIsReady)
     }
 
     override func update(currentTime: CFTimeInterval) {
-        if !hasGameStarted {
+        if gameState.allPlayersReady && !hasGameStarted {
             if let start = startTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
                 let countdownValue = countdownTimerStart - timeSinceStart
@@ -69,7 +64,7 @@ class GameScene: SKScene {
             } else {
                 startTimeInterval = currentTime
             }
-        } else {
+        } else if gameState.allPlayersReady && hasGameStarted {
             logicEngine.update()
         }
     }
@@ -85,7 +80,6 @@ class GameScene: SKScene {
     
     private func initPlayers() {
         for player in gameState.players {
-            player.run()
             player.observer = self
             let node = createPlayerNode(player)
             players[player.playerNumber] = node
