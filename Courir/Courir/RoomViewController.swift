@@ -87,10 +87,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         acceptGuest(true)
     }
     
-    func playersInRoomChanged(peerIDs: [MCPeerID]) {
-        print("##############")
-        print("Players in room changed")
-        print("##############")
+    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
         peers = peerIDs
         dispatch_async(dispatch_get_main_queue(), { self.peersTableView.reloadData() })
     }
