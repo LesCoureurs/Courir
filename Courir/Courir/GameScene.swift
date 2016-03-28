@@ -32,7 +32,6 @@ class GameScene: SKScene {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
-    private var readyToRender = false
 
     // MARK: Overridden methods
     
@@ -41,22 +40,20 @@ class GameScene: SKScene {
         logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
+        // Assign the delegate to the logic engine to begin receiving updates
+        GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
         initObstacles()
         initPlayers()
         initGrid()
         initCountdownTimer()
 
-        if !isMultiplayer {
-            readyToRender = true
-        }
-
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameIsReady)
     }
 
     override func update(currentTime: CFTimeInterval) {
-        if !hasGameStarted {
+        if gameState.allPlayersReady && !hasGameStarted {
             if let start = startTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
                 let countdownValue = countdownTimerStart - timeSinceStart
@@ -69,7 +66,7 @@ class GameScene: SKScene {
             } else {
                 startTimeInterval = currentTime
             }
-        } else {
+        } else if hasGameStarted {
             logicEngine.update()
         }
     }
@@ -85,7 +82,6 @@ class GameScene: SKScene {
     
     private func initPlayers() {
         for player in gameState.players {
-            player.run()
             player.observer = self
             let node = createPlayerNode(player)
             players[player.playerNumber] = node

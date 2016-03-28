@@ -193,6 +193,11 @@ extension CoulombNetwork: MCSessionDelegate {
                     // Update the set of peers in the session
                     self.session.peersInSession.insert(peerID)
                     
+                    // If host of session is unassigned, that means self is host
+                    if self.session.host == nil {
+                        self.session.host = myPeerId
+                    }
+                    
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
                     

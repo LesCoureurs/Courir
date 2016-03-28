@@ -1,20 +1,20 @@
 PODS:
-  - Coulomb (0.0.4)
+  - Coulomb (0.0.5)
 
 DEPENDENCIES:
-  - Coulomb (from `https://github.com/SplooshKit/Coulomb.git`, tag `0.0.4`)
+  - Coulomb (from `https://github.com/SplooshKit/Coulomb.git`, tag `0.0.5`)
 
 EXTERNAL SOURCES:
   Coulomb:
     :git: https://github.com/SplooshKit/Coulomb.git
-    :tag: 0.0.4
+    :tag: 0.0.5
 
 CHECKOUT OPTIONS:
   Coulomb:
     :git: https://github.com/SplooshKit/Coulomb.git
-    :tag: 0.0.4
+    :tag: 0.0.5
 
 SPEC CHECKSUMS:
-  Coulomb: 4fcf45ee1612ea61b97806818e1469394b14ed18
+  Coulomb: 321c80914566675991edab324aba1c062681248f
 
 COCOAPODS: 0.39.0

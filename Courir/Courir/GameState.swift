@@ -33,6 +33,10 @@ class GameState {
         return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
     }
 
+    var allPlayersReady: Bool {
+        return players.filter { $0.state == PlayerState.Ready }.count == players.count
+    }
+
     func initPeers(peers: [MCPeerID]) {
         for peer in peers {
             peerMapping[peer] = numPlayers
@@ -40,5 +44,12 @@ class GameState {
             players.append(player)
             numPlayers += 1
         }
+    }
+
+    func getPlayer(withPeerID peerID: MCPeerID) -> Player? {
+        if let index = peerMapping[peerID] {
+            return players[index]
+        }
+        return nil
     }
 }

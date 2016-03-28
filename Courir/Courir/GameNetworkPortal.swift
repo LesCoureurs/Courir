@@ -13,6 +13,7 @@ protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
+    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func disconnectedFromRoom()
 }
 
@@ -118,6 +119,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         stopHosting()
         beginSearchingForHosts()
         connectionDelegate?.disconnectedFromRoom()
+        gameStateDelegate?.disconnectedFromGame()
     }
     
     // Receives NSData and converts it into a dictionary of type [String: AnyObject]
