@@ -126,6 +126,7 @@ class LogicEngine {
         var collisionData = [String: AnyObject]()
         collisionData["time_step"] = timeStep
         collisionData["x_coordinate"] = xCoordinate
+        gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
     private func updateEventQueue() {
