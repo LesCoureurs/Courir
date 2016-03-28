@@ -198,14 +198,14 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidJump, player: myPlayerNumber)
+        logicEngine.handleEvent(.PlayerDidJump, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidDuck, player: myPlayerNumber)
+        logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
     }
 }
 
