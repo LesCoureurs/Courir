@@ -131,7 +131,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
             switch event {
             case GameEvent.GameDidStart:
                 connectionDelegate?.gameStartSignalReceived(parsedData["data"], peer: peerID)
-            case GameEvent.GameIsReady:
+            case GameEvent.GameReady:
                 gameStateDelegate?.gameReadySignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.GameDidEnd:
                 gameStateDelegate?.gameEndSignalReceived(parsedData["data"], peer: peerID)

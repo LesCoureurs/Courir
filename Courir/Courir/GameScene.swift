@@ -50,7 +50,7 @@ class GameScene: SKScene {
         initCountdownTimer()
 
         setupGestureRecognizers(view)
-        GameNetworkPortal._instance.send(.GameIsReady)
+        GameNetworkPortal._instance.send(.GameReady)
     }
 
     override func update(currentTime: CFTimeInterval) {
@@ -269,8 +269,8 @@ extension GameScene: Observer {
     
     /// Update the player's texture based on state
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
-        print("\(player.playerNumber)'s new state: \(player.state)")
-        switch player.state {
+        print("\(player.playerNumber)'s new state: \(player.physicalState)")
+        switch player.physicalState {
         case .Ducking(_):
             removeGestureRecognizers()
             node.texture = playerDuckTexture
@@ -280,8 +280,6 @@ extension GameScene: Observer {
         case .Running, .Stationary, .Invulnerable(_):
             addGestureRecognizers()
             node.texture = playerTexture
-        default:
-            break
         }
     }
     

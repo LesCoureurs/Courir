@@ -26,7 +26,6 @@ class RoomViewController: UIViewController {
         super.viewDidLoad()
         peersTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         portal.connectionDelegate = self
-        portal.gameStateDelegate = self
         peersTableView.dataSource = self
         
         if isHost {
@@ -111,32 +110,5 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         }
         self.seed = seed
         presentGameScene()
-    }
-}
-
-// MARK: GameNetworkPortalGameStateDelegate
-extension RoomViewController: GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived(data: AnyObject?, peer: MCPeerID) {
-        fatalError("Method jumpActionReceived not implemented")
-    }
-
-    func duckActionReceived(data: AnyObject?, peer: MCPeerID) {
-        fatalError("Method duckActionReceived not implemented")
-    }
-
-    func collideActionReceived(data: AnyObject?, peer: MCPeerID) {
-        fatalError("Method collideActionReceived not implemented")
-    }
-
-    func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-
-    }
-    
-    func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID) {
-        
-    }
-    
-    func disconnectedFromGame() {
-        
     }
 }
