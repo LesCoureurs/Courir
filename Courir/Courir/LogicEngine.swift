@@ -273,10 +273,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
             dataDict = data as? [String: AnyObject] else {
             return
         }
-        guard let timeStepOccurrenceString = dataDict["time_step"] as? String else {
-            return
-        }
-        guard let occurringTimeStep = Int(timeStepOccurrenceString) else {
+        guard let occurringTimeStep = dataDict["time_step"] as? Int else {
             return
         }
         appendToEventQueue(.PlayerDidJump, playerNumber: playerNumber,
