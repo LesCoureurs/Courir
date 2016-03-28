@@ -18,6 +18,7 @@ protocol GameNetworkPortalConnectionDelegate: class {
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
+    func gameReadySignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func gameEndSignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
     func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
@@ -128,6 +129,8 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
             switch event {
             case GameEvent.GameDidStart:
                 connectionDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
+            case GameEvent.GameIsReady:
+                gameStateDelegate?.gameReadySignalReceived(parsedData, peer: peerID)
             case GameEvent.GameDidEnd:
                 gameStateDelegate?.gameEndSignalReceived(parsedData, peer: peerID)
             case GameEvent.PlayerDidJump:
