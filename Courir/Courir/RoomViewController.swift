@@ -96,6 +96,10 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     func disconnectedFromRoom() {
 
     }
+    
+    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+        presentGameScene()
+    }
 }
 
 // MARK: GameNetworkPortalGameStateDelegate
@@ -112,11 +116,15 @@ extension RoomViewController: GameNetworkPortalGameStateDelegate {
         fatalError("Method collideActionReceived not implemented")
     }
 
-    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-        presentGameScene()
-    }
-
     func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
 
+    }
+    
+    func gameReadySignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+        
+    }
+    
+    func disconnectedFromGame() {
+        
     }
 }

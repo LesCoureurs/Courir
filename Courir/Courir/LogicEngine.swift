@@ -226,12 +226,21 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+        // Probably want to move this to gameReady?
         if let player = gameState.getPlayer(withPeerID: peer) {
             player.ready()
         }
     }
+    
+    func gameReadySignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+        
+    }
 
     func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
 
+    }
+    
+    func disconnectedFromGame() {
+        
     }
 }
