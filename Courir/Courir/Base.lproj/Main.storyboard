@@ -85,30 +85,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nDT-gx-lAt">
-                                <rect key="frame" x="71" y="119" width="372" height="599"/>
+                                <rect key="frame" x="71" y="150" width="372" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="372" id="Rdf-Ub-2PR"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ro-cUO">
-                                <rect key="frame" x="659" y="404" width="140" height="30"/>
+                                <rect key="frame" x="659" y="419.5" width="140" height="30"/>
                                 <state key="normal" title="Start your own room"/>
                                 <connections>
                                     <segue destination="40i-zX-uIe" kind="show" identifier="hostRoomSegue" id="lU1-jC-2Ut"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ako-YD-7tP">
-                                <rect key="frame" x="165" y="59" width="183" height="30"/>
+                                <rect key="frame" x="165" y="90" width="183" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TiY-9r-B3H">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items>
+                                    <navigationItem id="Bk9-L9-1at">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="ed4-ub-CNw">
+                                            <connections>
+                                                <segue destination="rsb-1F-LAp" kind="unwind" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ako-YD-7tP" firstAttribute="leading" secondItem="tQk-PZ-0gk" secondAttribute="leadingMargin" constant="145" id="M0N-Rj-agL"/>
-                            <constraint firstItem="ako-YD-7tP" firstAttribute="top" secondItem="wzu-bz-DwX" secondAttribute="bottom" constant="39" id="NkQ-xJ-9eu"/>
+                            <constraint firstItem="ako-YD-7tP" firstAttribute="top" secondItem="wzu-bz-DwX" secondAttribute="bottom" constant="70" id="NkQ-xJ-9eu"/>
                             <constraint firstItem="ako-YD-7tP" firstAttribute="centerX" secondItem="nDT-gx-lAt" secondAttribute="centerX" id="ZtB-Oc-xAY"/>
                             <constraint firstItem="nDT-gx-lAt" firstAttribute="top" secondItem="ako-YD-7tP" secondAttribute="bottom" constant="30" id="buw-gr-ODL"/>
                             <constraint firstItem="iL6-xO-cFd" firstAttribute="top" secondItem="nDT-gx-lAt" secondAttribute="bottom" constant="50" id="dM8-cf-v7p"/>
@@ -124,6 +136,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOO-8d-Dxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rsb-1F-LAp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="245" y="1253"/>
         </scene>
@@ -139,21 +152,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9H-TU-RnM">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items>
+                                    <navigationItem id="sXN-C6-Xib">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
+                                            <connections>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently in room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-jX-TsN">
-                                <rect key="frame" x="150" y="59" width="191" height="30"/>
+                                <rect key="frame" x="150" y="90" width="191" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VR5-bS-gWq">
-                                <rect key="frame" x="59.5" y="121" width="372" height="597"/>
+                                <rect key="frame" x="59.5" y="152" width="372" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="372" id="gku-2G-SWp"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-kf-Igw">
-                                <rect key="frame" x="647.5" y="404.5" width="76" height="30"/>
+                                <rect key="frame" x="647.5" y="420" width="76" height="30"/>
                                 <state key="normal" title="Start game"/>
                                 <connections>
                                     <action selector="startGame:" destination="40i-zX-uIe" eventType="touchUpInside" id="9k7-ac-5Is"/>
@@ -167,7 +192,7 @@
                             <constraint firstItem="fFh-jX-TsN" firstAttribute="centerX" secondItem="VR5-bS-gWq" secondAttribute="centerX" id="Ics-X2-ODI"/>
                             <constraint firstItem="aXg-kf-Igw" firstAttribute="centerY" secondItem="VR5-bS-gWq" secondAttribute="centerY" id="Thi-gL-kG6"/>
                             <constraint firstItem="6eg-Q1-7P5" firstAttribute="top" secondItem="VR5-bS-gWq" secondAttribute="bottom" constant="50" id="Voy-As-wCp"/>
-                            <constraint firstItem="fFh-jX-TsN" firstAttribute="top" secondItem="IMN-pv-s0k" secondAttribute="bottom" constant="39" id="tK7-Sg-Im7"/>
+                            <constraint firstItem="fFh-jX-TsN" firstAttribute="top" secondItem="IMN-pv-s0k" secondAttribute="bottom" constant="70" id="tK7-Sg-Im7"/>
                             <constraint firstItem="fFh-jX-TsN" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leadingMargin" constant="130" id="tdg-fq-p5g"/>
                         </constraints>
                     </view>
@@ -180,6 +205,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAm-ww-Rl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lX0-Zn-Dt3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1501" y="1253"/>
         </scene>

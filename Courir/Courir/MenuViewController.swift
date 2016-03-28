@@ -39,6 +39,10 @@ class MenuViewController: UIViewController {
         
     }
 
+    @IBAction func unwindToMenuFromRoomSelection(sender: UIStoryboardSegue) {
+        
+    }
+
      // MARK: - Navigation
 
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

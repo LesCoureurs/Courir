@@ -39,6 +39,10 @@ class RoomSelectionViewController: UIViewController {
             roomViewController.playerIsNotHost()
         }
     }
+
+    @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
+        
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
