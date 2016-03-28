@@ -13,11 +13,11 @@ protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
+    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func disconnectedFromRoom()
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
-    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func gameEndSignalReceived(data: [String: AnyObject], peer: MCPeerID)
     func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
     func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
@@ -127,7 +127,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
             switch event {
             case GameEvent.GameDidStart:
-                gameStateDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
+                connectionDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
             case GameEvent.GameDidEnd:
                 gameStateDelegate?.gameEndSignalReceived(parsedData, peer: peerID)
             case GameEvent.PlayerDidJump:
