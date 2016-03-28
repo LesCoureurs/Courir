@@ -88,7 +88,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
         
     }
     
-    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
+    func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
         
     }
 }
