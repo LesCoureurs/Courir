@@ -30,6 +30,7 @@ class GameScene: SKScene {
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
 
+    var seed: Int?
     var isMultiplayer = false
     var peers = [MCPeerID]()
 
@@ -37,7 +38,7 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
-        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer, peers: peers)
+        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: seed, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
         // Assign the delegate to the logic engine to begin receiving updates

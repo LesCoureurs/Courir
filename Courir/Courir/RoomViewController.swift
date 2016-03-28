@@ -20,6 +20,7 @@ class RoomViewController: UIViewController {
     private(set) var isHost = true
     private var peers = [MCPeerID]()
     private let portal = GameNetworkPortal._instance
+    private lazy var seed = Int(arc4random())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,9 @@ class RoomViewController: UIViewController {
     @IBAction func startGame(sender: AnyObject) {
         portal.stopHosting()
         portal.stopSearchingForHosts()
-        GameNetworkPortal._instance.send(.GameDidStart)
+        var startData = [String: AnyObject]()
+        startData["seed"] = seed
+        GameNetworkPortal._instance.send(.GameDidStart, data: startData)
         presentGameScene()
     }
 
@@ -59,6 +62,7 @@ class RoomViewController: UIViewController {
             let destination = segue.destinationViewController as! GameViewController
             destination.isMultiplayer = true
             destination.peers = peers
+            destination.seed = seed
         }
     }
 }
