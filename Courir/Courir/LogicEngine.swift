@@ -187,20 +187,6 @@ class LogicEngine {
     }
     
     private func handleCollisions() {
-        // Use state.currentSpeed to check if there are any obstacles
-        // within 1 frame of hitting state.myPlayer. If so then
-        // state.myPlayer has been hit
-        
-        func collisionOccurred() {
-            state.myPlayer.run()
-            state.myPlayer.fallBehind()
-            state.myPlayer.becomeInvulnerable(timeStep)
-            if state.myPlayer.xCoordinate < 0 {
-                delegate?.gameDidEnd(score)
-                state.gameIsOver = true
-            }
-        }
-        
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
@@ -217,17 +203,20 @@ class LogicEngine {
         switch state.myPlayer.state {
         case .Jumping(_):
             if floatingObstacles.count > 0 {
-                collisionOccurred()
+                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
+                                   occurringTimeStep: timeStep)
             }
         case .Ducking(_):
             if nonFloatingObstacles.count > 0 {
-                collisionOccurred()
+                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
+                                   occurringTimeStep: timeStep)
             }
         case .Invulnerable(_), .Stationary:
             return
         case .Running:
             if obstaclesInNextFrame.count > 0 {
-                collisionOccurred()
+                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
+                                   occurringTimeStep: timeStep)
             }
         default:
             break
