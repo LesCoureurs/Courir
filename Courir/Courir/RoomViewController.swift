@@ -40,7 +40,7 @@ class RoomViewController: UIViewController {
         portal.stopHosting()
         portal.stopSearchingForHosts()
         var startData = [String: AnyObject]()
-        seed = Int(arc4random())
+        seed = Int(arc4random_uniform(UInt32(Int.max)))
         startData["seed"] = seed!
         GameNetworkPortal._instance.send(.GameDidStart, data: startData)
         presentGameScene()
