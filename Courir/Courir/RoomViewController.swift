@@ -101,30 +101,3 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         presentGameScene()
     }
 }
-
-// MARK: GameNetworkPortalGameStateDelegate
-extension RoomViewController: GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived(data: [String : AnyObject], peer: MCPeerID) {
-        fatalError("Method jumpActionReceived not implemented")
-    }
-
-    func duckActionReceived(data: [String : AnyObject], peer: MCPeerID) {
-        fatalError("Method duckActionReceived not implemented")
-    }
-
-    func collideActionReceived(data: [String : AnyObject], peer: MCPeerID) {
-        fatalError("Method collideActionReceived not implemented")
-    }
-
-    func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-
-    }
-    
-    func gameReadySignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-        
-    }
-    
-    func disconnectedFromGame() {
-        
-    }
-}
