@@ -23,6 +23,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
     func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
     func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
     func collideActionReceived(data: [String: AnyObject], peer: MCPeerID)
+    func disconnectedFromGame()
 }
 
 class GameNetworkPortal {
@@ -119,6 +120,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         stopHosting()
         beginSearchingForHosts()
         connectionDelegate?.disconnectedFromRoom()
+        gameStateDelegate?.disconnectedFromGame()
     }
     
     // Receives NSData and converts it into a dictionary of type [String: AnyObject]
