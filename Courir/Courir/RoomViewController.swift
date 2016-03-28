@@ -25,7 +25,6 @@ class RoomViewController: UIViewController {
         super.viewDidLoad()
         peersTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         portal.connectionDelegate = self
-        portal.gameStateDelegate = self
         peersTableView.dataSource = self
         
         if isHost {

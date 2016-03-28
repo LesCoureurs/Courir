@@ -100,7 +100,7 @@ class LogicEngine {
     
     private func updatePlayerStates() {
         for player in state.players {
-            switch player.state {
+            switch player.physicalState {
                 case let .Jumping(startTimeStep):
                     if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
@@ -155,7 +155,7 @@ class LogicEngine {
             $0.type == ObstacleType.Floating
         }
 
-        switch state.myPlayer.state {
+        switch state.myPlayer.physicalState {
         case .Jumping(_):
             if floatingObstacles.count > 0 {
                 collisionOccurred()
@@ -170,8 +170,6 @@ class LogicEngine {
             if obstaclesInNextFrame.count > 0 {
                 collisionOccurred()
             }
-        default:
-            break
         }
     }
     
@@ -224,16 +222,11 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     func collideActionReceived(data: [String : AnyObject], peer: MCPeerID) {
 
     }
-
-    func gameStartSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-        // Probably want to move this to gameReady?
+    
+    func gameReadySignalReceived(data: [String : AnyObject], peer: MCPeerID) {
         if let player = gameState.getPlayer(withPeerID: peer) {
             player.ready()
         }
-    }
-    
-    func gameReadySignalReceived(data: [String : AnyObject], peer: MCPeerID) {
-        
     }
 
     func gameEndSignalReceived(data: [String : AnyObject], peer: MCPeerID) {
