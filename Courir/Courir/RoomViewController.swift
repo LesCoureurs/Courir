@@ -102,6 +102,13 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
+        guard let dataDict = data as? [String: AnyObject] else {
+            return
+        }
+        guard let seed = dataDict["seed"] as? Int else {
+            return
+        }
+        self.seed = seed
         presentGameScene()
     }
 }
