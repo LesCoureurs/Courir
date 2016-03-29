@@ -53,7 +53,7 @@ class GameState {
         return nil
     }
     
-    func gameFinished() -> Bool {
+    func everyoneFinished() -> Bool {
         for player in players {
             if player.state != PlayerState.Lost {
                 return false

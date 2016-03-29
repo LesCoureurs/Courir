@@ -277,7 +277,7 @@ class LogicEngine {
     
     private func checkRaceFinished() {
         // Stop the update() method
-        if state.gameFinished() {
+        if state.everyoneFinished() {
             state.gameIsOver = true
         }
         // Send game end signal
