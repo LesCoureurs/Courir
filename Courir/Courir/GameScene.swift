@@ -54,6 +54,9 @@ class GameScene: SKScene {
     }
 
     override func update(currentTime: CFTimeInterval) {
+        guard logicEngine != nil && gameState != nil else {
+            return
+        }
         if gameState.allPlayersReady && !hasGameStarted {
             if let start = startTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
