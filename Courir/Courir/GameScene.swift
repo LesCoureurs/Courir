@@ -37,7 +37,7 @@ class GameScene: SKScene {
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        dispatch_sync(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue(), {
             self.myPlayerNumber = self.isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
             self.logicEngine = LogicEngine(playerNumber: self.myPlayerNumber, seed: self.seed, isMultiplayer: self.isMultiplayer, peers: self.peers)
             NSLog("%@", "Assigned logicEngine \(self.logicEngine)")
