@@ -104,6 +104,7 @@ class LogicEngine {
                     }
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
+                        checkRaceFinished()
                         delegate?.playerDidFinish(score)
                     }
                 } else {
@@ -263,6 +264,12 @@ class LogicEngine {
         eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep,
             otherData: otherData))
         eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
+    }
+    
+    private func checkRaceFinished() {
+        // Call delegates to handle UI changes
+        // Stop the update() method
+        state.gameIsOver = true
     }
 }
 
