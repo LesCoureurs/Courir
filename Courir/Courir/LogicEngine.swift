@@ -276,11 +276,13 @@ class LogicEngine {
     }
     
     private func checkRaceFinished() {
-        // Call delegates to handle UI changes
         // Stop the update() method
         if state.gameFinished() {
             state.gameIsOver = true
         }
+        // Send game end signal
+        
+        // Call delegates to handle UI changes
     }
 }
 
