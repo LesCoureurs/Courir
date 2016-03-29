@@ -19,6 +19,7 @@ public protocol CoulombNetworkDelegate: class {
 }
 
 public class CoulombNetwork: NSObject {
+    public var debugMode = false
     public var autoAcceptGuests = true
     
     static let defaultTimeout: NSTimeInterval = 30
@@ -115,20 +116,27 @@ public class CoulombNetwork: NSObject {
     // Disconnect from current session, browse for another host
     public func disconnect() {
         session.disconnect()
-        NSLog("%@", "disconnected from \(session.hashValue)")
+        DLog("%@", "disconnected from \(session.hashValue)")
     }
     
     // This method is async
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
-            NSLog("%@", "send data to host: \(data)")
+            DLog("%@", "send data to host: \(data)")
             try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
         } catch {
-            NSLog("%@", "send data failed: \(data)")
+            DLog("%@", "send data failed: \(data)")
             return false
         }
         
         return true
+    }
+    
+    // Debug mode
+    private func DLog(message: String, _ function: String) {
+        if debugMode {
+            NSLog(message, function)
+        }
     }
 }
 
@@ -137,7 +145,7 @@ extension CoulombNetwork: MCNearbyServiceAdvertiserDelegate {
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
         didReceiveInvitationFromPeer peerID: MCPeerID,
         withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
-            NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
+            DLog("%@", "didReceiveInvitationFromPeer \(peerID)")
             
             let acceptGuest = {
                 (accepted: Bool) -> Void in
@@ -156,7 +164,7 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
     // Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
         withDiscoveryInfo info: [String : String]?) {
-            NSLog("%@", "foundPeer: \(peerID)")
+            DLog("%@", "foundPeer: \(peerID)")
             
             guard let discoveryInfo = info else {
                 return
@@ -165,7 +173,7 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
                 return
             }
             
-            NSLog("%@", "invitePeer: \(peerID)")
+            DLog("%@", "invitePeer: \(peerID)")
             foundHosts.append(peerID)
             delegate?.foundHostsChanged(foundHosts)
     }
@@ -186,10 +194,10 @@ extension CoulombNetwork: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
-            NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+            DLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
             if state != .Connecting {
                 if state == .Connected {
-                    NSLog("%@", "connected to \(session.hashValue)")
+                    DLog("%@", "connected to \(session.hashValue)")
                     // Update the set of peers in the session
                     self.session.peersInSession.insert(peerID)
                     
@@ -204,8 +212,8 @@ extension CoulombNetwork: MCSessionDelegate {
                     // Pass to delegate
                     delegate?.connectedToPeer(peerID)
                 } else {
-                    NSLog("%@", "not connected to \(session.hashValue)")
-                    NSLog("%@", "peersInSession \(self.session.peersInSession)")
+                    DLog("%@", "not connected to \(session.hashValue)")
+                    DLog("%@", "peersInSession \(self.session.peersInSession)")
                     
                     // If session.connectedPeers is empty, it implies that either:
                     // - Self is disconnected from the session
@@ -213,12 +221,12 @@ extension CoulombNetwork: MCSessionDelegate {
                     // Combine with peersInSession count > 1, we can be certain that
                     // self is disconnected.
                     if self.session.connectedPeers.isEmpty && self.session.peersInSession.count > 1 {
-                        NSLog("%@", "Self was removed")
+                        DLog("%@", "Self was removed")
                         self.session.peersInSession.remove(myPeerId)
                         delegate?.disconnectedFromSession()
                     } else {
-                        NSLog("%@", "Self was not removed")
-                        NSLog("%@", "Current host: \(self.session.host)")
+                        DLog("%@", "Self was not removed")
+                        DLog("%@", "Current host: \(self.session.host)")
                         
                         // If the removed item is the current host
                         if self.session.host == peerID {
@@ -231,14 +239,14 @@ extension CoulombNetwork: MCSessionDelegate {
                                     break
                                 }
                             }
-                            NSLog("%@", "Next potential host: \(nextHost)")
+                            DLog("%@", "Next potential host: \(nextHost)")
                             
                             // If the current item is the next in line, convert it to a host
                             if myPeerId == nextHost {
-                                NSLog("%@", "my peer is the next host")
+                                DLog("%@", "my peer is the next host")
                                 // Convert current item into a host
                                 self.session.host = myPeerId
-                                NSLog("%@", "New host \(self.session.host?.displayName)")
+                                DLog("%@", "New host \(self.session.host?.displayName)")
                                 stopSearchingForHosts()
                                 startAdvertisingHost()
                             }
@@ -253,7 +261,7 @@ extension CoulombNetwork: MCSessionDelegate {
     // Handles incomming NSData
     public func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
-            NSLog("%@", "Data received: \(data)")
+            DLog("%@", "Data received: \(data)")
             delegate?.handleDataPacket(data, peerID: peerID)
     }
     
