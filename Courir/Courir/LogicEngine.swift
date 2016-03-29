@@ -83,6 +83,10 @@ class LogicEngine {
             occurrence = timeStep
         }
         
+        guard state.ownPlayerStillPlaying() else {
+            return
+        }
+        
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)

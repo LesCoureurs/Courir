@@ -61,4 +61,8 @@ class GameState {
         }
         return true
     }
+    
+    func ownPlayerStillPlaying() -> Bool {
+        return myPlayer.state != PlayerState.Lost
+    }
 }
