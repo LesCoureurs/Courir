@@ -31,8 +31,17 @@ class GameNetworkPortal {
 
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
-    weak var gameStateDelegate: GameNetworkPortalGameStateDelegate?
+    weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
+        didSet {
+            while !messageBacklog.isEmpty {
+                let message = messageBacklog.removeAtIndex(0)
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { self.handleDataPacket(message.data, peerID: message.peer) })
+            }
+        }
+    }
     var coulombNetwork: CoulombNetwork!
+
+    private var messageBacklog = [(data: NSData, peer: MCPeerID)]()
 
     private init(playerName deviceId: String) {
         // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
@@ -127,7 +136,12 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     // All data packets must contain an event number which is keyed with the string
     // "event"
     func handleDataPacket(data: NSData, peerID: MCPeerID) {
+
         if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
+            if gameStateDelegate == nil && event != .GameDidStart {
+                messageBacklog.append((data: data, peer: peerID))
+                return
+            }
             switch event {
             case GameEvent.GameDidStart:
                 connectionDelegate?.gameStartSignalReceived(parsedData["data"], peer: peerID)

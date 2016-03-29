@@ -46,7 +46,8 @@ class RoomViewController: UIViewController {
     }
 
     private func presentGameScene() {
-        performSegueWithIdentifier("startGameSegue", sender: self)
+        dispatch_async(dispatch_get_main_queue(), { self.performSegueWithIdentifier("startGameSegue", sender: self) })
+
     }
     
     func playerIsNotHost() {
