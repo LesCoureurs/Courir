@@ -270,7 +270,9 @@ class LogicEngine {
     private func checkRaceFinished() {
         // Call delegates to handle UI changes
         // Stop the update() method
-        state.gameIsOver = true
+        if state.gameFinished() {
+            state.gameIsOver = true
+        }
     }
 }
 

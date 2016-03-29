@@ -52,4 +52,13 @@ class GameState {
         }
         return nil
     }
+    
+    func gameFinished() -> Bool {
+        for player in players {
+            if player.state != PlayerState.Lost {
+                return false
+            }
+        }
+        return true
+    }
 }
