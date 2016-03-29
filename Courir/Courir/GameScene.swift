@@ -30,7 +30,7 @@ class GameScene: SKScene {
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
 
-    var seed: Int?
+    var seed: String?
     var isMultiplayer = false
     var peers = [MCPeerID]()
 

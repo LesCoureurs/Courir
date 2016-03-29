@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
-    var seed: Int?
+    var seed: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

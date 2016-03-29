@@ -20,7 +20,7 @@ class RoomViewController: UIViewController {
     private(set) var isHost = true
     private var peers = [MCPeerID]()
     private let portal = GameNetworkPortal._instance
-    private var seed: Int?
+    private var seed: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class RoomViewController: UIViewController {
         portal.stopHosting()
         portal.stopSearchingForHosts()
         var startData = [String: AnyObject]()
-        seed = Int(arc4random_uniform(100000000))
+        seed = "\(arc4random())"
         startData["seed"] = seed!
         GameNetworkPortal._instance.send(.GameDidStart, data: startData)
         presentGameScene()
@@ -106,7 +106,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         guard let dataDict = data as? [String: AnyObject] else {
             return
         }
-        guard let seed = dataDict["seed"] as? Int else {
+        guard let seed = dataDict["seed"] as? String else {
             return
         }
         self.seed = seed
