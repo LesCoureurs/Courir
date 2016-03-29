@@ -13,7 +13,7 @@ protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
     func gameDidEnd()
-    func playerDidFinish(score: Int)
+    func playerDidFinish(playerNumber: Int, score: Int)
 }
 
 class LogicEngine {
@@ -107,14 +107,14 @@ class LogicEngine {
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
                         player.lost()
-                        state.updatePlayerScore(player, score: score)
+                        state.updatePlayerScore(player.playerNumber, score: score)
                         
                         if validToSend {
                             sendPlayerLostData(score)
                         }
                         
                         checkRaceFinished()
-                        delegate?.playerDidFinish(score)
+                        delegate?.playerDidFinish(player.playerNumber, score: score)
                     }
                 } else {
                     guard let xCoordinate = data as? Int else {
@@ -348,6 +348,20 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
         }
     }
 
+    func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
+        guard let playerNumber = state.peerMapping[peer],
+            dataDict = data as? [String: AnyObject] else {
+                return
+        }
+        
+        guard let score = dataDict["score"] as? Int else {
+            return
+        }
+        
+        state.updatePlayerScore(playerNumber, score: score)
+        delegate?.playerDidFinish(playerNumber, score: score)
+    }
+    
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
 
     }
