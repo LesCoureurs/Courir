@@ -13,6 +13,7 @@ protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
     func gameDidEnd(score: Int)
+    func playerDidFinish(score: Int)
 }
 
 class LogicEngine {
@@ -101,9 +102,9 @@ class LogicEngine {
                     if state.isMultiplayer {
                         sendCollisionData(player.xCoordinate)
                     }
+                    // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
-                        delegate?.gameDidEnd(score)
-                        state.gameIsOver = true
+                        delegate?.playerDidFinish(score)
                     }
                 } else {
                     guard let xCoordinate = data as? Int else {
