@@ -37,20 +37,24 @@ class GameScene: SKScene {
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
-        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: seed, isMultiplayer: isMultiplayer, peers: peers)
-        logicEngine.delegate = self
-        gameState = logicEngine.state
-        // Assign the delegate to the logic engine to begin receiving updates
-        GameNetworkPortal._instance.gameStateDelegate = logicEngine
-
-        initObstacles()
-        initPlayers()
-        initGrid()
-        initCountdownTimer()
-
-        setupGestureRecognizers(view)
-        GameNetworkPortal._instance.send(.GameReady)
+        dispatch_sync(dispatch_get_main_queue(), {
+            self.myPlayerNumber = self.isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
+            self.logicEngine = LogicEngine(playerNumber: self.myPlayerNumber, seed: self.seed, isMultiplayer: self.isMultiplayer, peers: self.peers)
+            NSLog("%@", "Assigned logicEngine \(self.logicEngine)")
+            self.logicEngine.delegate = self
+            self.gameState = self.logicEngine.state
+            NSLog("%@", "Assigned gameState \(self.gameState)")
+            // Assign the delegate to the logic engine to begin receiving updates
+            GameNetworkPortal._instance.gameStateDelegate = self.logicEngine
+            
+            self.initObstacles()
+            self.initPlayers()
+            self.initGrid()
+            self.initCountdownTimer()
+            
+            self.setupGestureRecognizers(view)
+            GameNetworkPortal._instance.send(.GameReady)
+        })
     }
 
     override func update(currentTime: CFTimeInterval) {
