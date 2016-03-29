@@ -37,10 +37,10 @@ class GameScene: SKScene {
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
-        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: seed, isMultiplayer: isMultiplayer, peers: peers)
+        logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
+        myPlayerNumber = gameState.myPlayer.playerNumber
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
