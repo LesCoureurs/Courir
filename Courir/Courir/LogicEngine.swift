@@ -107,6 +107,12 @@ class LogicEngine {
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
                         player.lost()
+                        state.updatePlayerScore(player, score: score)
+                        
+                        if validToSend {
+                            sendPlayerLostData(score)
+                        }
+                        
                         checkRaceFinished()
                         delegate?.playerDidFinish(score)
                     }
@@ -138,6 +144,12 @@ class LogicEngine {
         collisionData["time_step"] = timeStep
         collisionData["x_coordinate"] = xCoordinate
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
+    }
+    
+    private func sendPlayerLostData(score: Int) {
+        var playerLostData = [String: AnyObject]()
+        playerLostData["score"] = score
+        gameNetworkPortal.send(.PlayerLost, data: playerLostData)
     }
     
     private func updateEventQueue() {
