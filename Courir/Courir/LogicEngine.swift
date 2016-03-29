@@ -83,7 +83,7 @@ class LogicEngine {
             occurrence = timeStep
         }
         
-        let validToSend = validToSendData(player)
+        let validToSend = validToSendDataHandleEvent(player)
         
         switch event {
             case .PlayerDidJump:
@@ -127,7 +127,8 @@ class LogicEngine {
         }
     }
     
-    private func validToSendData(player: Player) -> Bool {
+    // MARK: sending data
+    private func validToSendDataHandleEvent(player: Player) -> Bool {
         return state.isMultiplayer
             && player.playerNumber == state.myPlayer.playerNumber
             && state.ownPlayerStillPlaying()
@@ -152,6 +153,7 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerLost, data: playerLostData)
     }
     
+    // MARK: Internal update methods
     private func updateEventQueue() {
         while eventQueue.last?.timeStep <= timeStep {
             guard let front = eventQueue.popLast() else {
@@ -288,13 +290,15 @@ class LogicEngine {
     }
     
     private func checkRaceFinished() {
-        // Stop the update() method
         if state.everyoneFinished() {
+            // Stop the update() method
             state.gameIsOver = true
+            
+            // Send game end signal
+            gameNetworkPortal
+            
+            // Call delegates to handle UI changes
         }
-        // Send game end signal
-        
-        // Call delegates to handle UI changes
     }
 }
 
