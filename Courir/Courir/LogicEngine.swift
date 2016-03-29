@@ -83,19 +83,17 @@ class LogicEngine {
             occurrence = timeStep
         }
         
-        guard state.ownPlayerStillPlaying() else {
-            return
-        }
+        let validToSend = validToSendData(player)
         
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
-                if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
+                if validToSend {
                     sendActionData(.PlayerDidJump)
                 }
             case .PlayerDidDuck:
                 player.duck(occurrence)
-                if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
+                if validToSend {
                     sendActionData(.PlayerDidDuck)
                 }
             case .PlayerDidCollide:
@@ -103,7 +101,7 @@ class LogicEngine {
                 if player.playerNumber == state.myPlayer.playerNumber {
                     player.fallBehind()
                     player.becomeInvulnerable(timeStep)
-                    if state.isMultiplayer {
+                    if validToSend {
                         sendCollisionData(player.xCoordinate)
                     }
                     // If player fell off the grid, he finished the race
@@ -121,6 +119,12 @@ class LogicEngine {
             default:
                 break
         }
+    }
+    
+    private func validToSendData(player: Player) -> Bool {
+        return state.isMultiplayer
+            && player.playerNumber == state.myPlayer.playerNumber
+            && state.ownPlayerStillPlaying()
     }
     
     private func sendActionData(event: GameEvent) {
