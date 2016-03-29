@@ -30,6 +30,7 @@ class GameScene: SKScene {
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
 
+    var seed: String?
     var isMultiplayer = false
     var peers = [MCPeerID]()
 
@@ -37,7 +38,7 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         myPlayerNumber = isMultiplayer ? myMultiplayerModeNumber : myDefaultPlayerNumber
-        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: nil, isMultiplayer: isMultiplayer, peers: peers)
+        logicEngine = LogicEngine(playerNumber: myPlayerNumber, seed: seed, isMultiplayer: isMultiplayer, peers: peers)
         logicEngine.delegate = self
         gameState = logicEngine.state
         // Assign the delegate to the logic engine to begin receiving updates
@@ -53,6 +54,9 @@ class GameScene: SKScene {
     }
 
     override func update(currentTime: CFTimeInterval) {
+        guard logicEngine != nil && gameState != nil else {
+            return
+        }
         if gameState.allPlayersReady && !hasGameStarted {
             if let start = startTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
@@ -198,14 +202,14 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidJump, player: myPlayerNumber)
+        logicEngine.handleEvent(.PlayerDidJump, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidDuck, player: myPlayerNumber)
+        logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
     }
 }
 

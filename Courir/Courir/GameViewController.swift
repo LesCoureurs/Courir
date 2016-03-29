@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
+    var seed: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class GameViewController: UIViewController {
         let gameScene = GameScene(size: view.bounds.size)
         gameScene.isMultiplayer = isMultiplayer
         gameScene.peers = peers
+        gameScene.seed = seed
         let skView = self.view as! SKView!
         skView.ignoresSiblingOrder = true
         gameScene.scaleMode = .AspectFill

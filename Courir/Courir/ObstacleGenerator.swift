@@ -12,10 +12,9 @@ class ObstacleGenerator {
     
     private let source: GKARC4RandomSource
     
-    init(seed: Int? = nil) {
-        var seed = seed
+    init(seed: String? = nil) {
         if seed != nil {
-            source = GKARC4RandomSource(seed: NSData(bytes: &seed, length: sizeof(Int)))
+            source = GKARC4RandomSource(seed: seed!.dataUsingEncoding(NSUTF8StringEncoding)!)
         } else {
             source = GKARC4RandomSource()
         }

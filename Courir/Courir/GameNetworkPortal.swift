@@ -13,16 +13,16 @@ protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
-    func gameStartSignalReceived(data: [String: AnyObject], peer: MCPeerID)
+    func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID)
     func disconnectedFromRoom()
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
-    func gameReadySignalReceived(data: [String: AnyObject], peer: MCPeerID)
-    func gameEndSignalReceived(data: [String: AnyObject], peer: MCPeerID)
-    func jumpActionReceived(data: [String: AnyObject], peer: MCPeerID)
-    func duckActionReceived(data: [String: AnyObject], peer: MCPeerID)
-    func collideActionReceived(data: [String: AnyObject], peer: MCPeerID)
+    func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID)
+    func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID)
+    func jumpActionReceived(data: AnyObject?, peer: MCPeerID)
+    func duckActionReceived(data: AnyObject?, peer: MCPeerID)
+    func collideActionReceived(data: AnyObject?, peer: MCPeerID)
     func disconnectedFromGame()
 }
 
@@ -31,8 +31,17 @@ class GameNetworkPortal {
 
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
-    weak var gameStateDelegate: GameNetworkPortalGameStateDelegate?
+    weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
+        didSet {
+            while !messageBacklog.isEmpty {
+                let message = messageBacklog.removeAtIndex(0)
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { self.handleDataPacket(message.data, peerID: message.peer) })
+            }
+        }
+    }
     var coulombNetwork: CoulombNetwork!
+
+    private var messageBacklog = [(data: NSData, peer: MCPeerID)]()
 
     private init(playerName deviceId: String) {
         // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
@@ -127,20 +136,25 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     // All data packets must contain an event number which is keyed with the string
     // "event"
     func handleDataPacket(data: NSData, peerID: MCPeerID) {
+
         if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
+            if gameStateDelegate == nil && event != .GameDidStart {
+                messageBacklog.append((data: data, peer: peerID))
+                return
+            }
             switch event {
             case GameEvent.GameDidStart:
-                connectionDelegate?.gameStartSignalReceived(parsedData, peer: peerID)
+                connectionDelegate?.gameStartSignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.GameReady:
-                gameStateDelegate?.gameReadySignalReceived(parsedData, peer: peerID)
+                gameStateDelegate?.gameReadySignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.GameDidEnd:
-                gameStateDelegate?.gameEndSignalReceived(parsedData, peer: peerID)
+                gameStateDelegate?.gameEndSignalReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidJump:
-                gameStateDelegate?.jumpActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.jumpActionReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidDuck:
-                gameStateDelegate?.duckActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.duckActionReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidCollide:
-                gameStateDelegate?.collideActionReceived(parsedData, peer: peerID)
+                gameStateDelegate?.collideActionReceived(parsedData["data"], peer: peerID)
             default:
                 break
             }
