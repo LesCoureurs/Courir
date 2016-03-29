@@ -104,6 +104,7 @@ class LogicEngine {
                     }
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
+                        player.lost()
                         checkRaceFinished()
                         delegate?.playerDidFinish(score)
                     }
