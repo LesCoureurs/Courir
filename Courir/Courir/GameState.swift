@@ -67,7 +67,7 @@ class GameState {
         return myPlayer.state != PlayerState.Lost
     }
     
-    func updatePlayerScore(player: Player, score: Int) {
-        scoreTracking[player.playerNumber] = score
+    func updatePlayerScore(playerNumber: Int, score: Int) {
+        scoreTracking[playerNumber] = score
     }
 }
