@@ -31,7 +31,7 @@ class LogicEngine {
     private var lastObstacleTimeStep: Int?
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
-    
+
     init(seed: String? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         state = GameState(isMultiplayer: isMultiplayer)
