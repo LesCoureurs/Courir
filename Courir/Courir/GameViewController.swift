@@ -20,6 +20,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpGameEndMenu()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showEndGameMenu", object: nil)
         presentGameScene()
     }
