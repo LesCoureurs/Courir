@@ -30,15 +30,11 @@ class LogicEngine {
     private var lastObstacleTimeStep: Int?
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
-    
-    init(playerNumber: Int, seed: String? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
+
+    init(seed: String? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        let ownPlayer = Player(playerNumber: playerNumber, isMultiplayer: isMultiplayer)
-        ownPlayer.ready()
-        state = GameState(player: ownPlayer, isMultiplayer: isMultiplayer)
-        if isMultiplayer {
-            state.initPeers(peers)
-        }
+        state = GameState(isMultiplayer: isMultiplayer)
+        state.initPlayers(peers)
     }
     
     var score: Int {
