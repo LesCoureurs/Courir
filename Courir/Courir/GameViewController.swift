@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
     var peers = [MCPeerID]()
     var seed: String?
 
+    @IBOutlet weak var endGameMenu: GameEndView!
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showAlert", object: nil)

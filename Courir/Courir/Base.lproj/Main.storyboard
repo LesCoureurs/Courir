@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZD-Wm-f2y" customClass="GameOverView" customModule="Courir" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZD-Wm-f2y" customClass="GameEndView" customModule="Courir" customModuleProvider="target">
                                 <rect key="frame" x="181" y="100" width="661" height="432"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
@@ -64,6 +64,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="endGameMenu" destination="NZD-Wm-f2y" id="74X-9z-BVe"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
                     </connections>
                 </viewController>

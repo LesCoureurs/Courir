@@ -1,5 +1,5 @@
 //
-//  GameOverView.swift
+//  GameEndView
 //  Courir
 //
 //  Created by Hieu Giang on 30/3/16.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class GameOverView: UIView {
+class GameEndView: UIView {
 
 }
