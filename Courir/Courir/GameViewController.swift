@@ -71,7 +71,7 @@ class GameViewController: UIViewController {
     }
     private func displayGameEndMenu(gameResult: [Int: Int]) {
         UIView.animateWithDuration(0.5) { () -> Void in
-            endGameMenu.alpha = 1
+            self.endGameMenu.alpha = 1
         }
         endGameMenu.hidden = false
     }
