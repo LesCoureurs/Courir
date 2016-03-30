@@ -12,8 +12,8 @@ import MultipeerConnectivity
 class GameState {
     var myPlayer: Player!
     var players = [Player]()
-    private var numPlayers = 0
     var peerMapping = [MCPeerID: Int]()
+
     var obstacles = [Obstacle]()
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
@@ -39,15 +39,14 @@ class GameState {
 
         allPeerIDs.append(myPeerID)
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
-        for peer in allPeerIDs {
-            peerMapping[peer] = numPlayers
-            let player = Player(playerNumber: numPlayers, isMultiplayer: isMultiplayer)
+        for (playerNum, peer) in allPeerIDs.enumerate() {
+            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()
             }
+            peerMapping[peer] = playerNum
             players.append(player)
-            numPlayers += 1
         }
     }
 
