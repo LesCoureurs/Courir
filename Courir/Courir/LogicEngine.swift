@@ -210,6 +210,10 @@ class LogicEngine {
     }
     
     private func handleCollisions() {
+        guard state.myPlayer.state != .Lost else {
+            return
+        }
+        
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
