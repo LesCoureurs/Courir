@@ -94,7 +94,6 @@ class LogicEngine {
                 }
             case .PlayerDidCollide:
                 player.run()
-                NSLog("%@", "Collided")
                 if player.playerNumber == state.myPlayer.playerNumber {
                     player.fallBehind()
                     player.becomeInvulnerable(timeStep)
@@ -365,7 +364,10 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-
+        // Stop the update() method
+        state.gameIsOver = true
+        
+        delegate?.gameDidEnd()
     }
     
     func disconnectedFromGame() {
