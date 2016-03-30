@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameMenu: GameEndView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        endGameMenu.hidden = true
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showEndGameMenu", object: nil)
         presentGameScene()
     }
@@ -64,9 +64,14 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func setUpGameEndMenu() {
+        endGameMenu.hidden = true
+        endGameMenu.alpha = 0
+        endGameMenu.layer.cornerRadius = 10
+    }
     private func displayGameEndMenu(gameResult: [Int: Int]) {
         UIView.animateWithDuration(0.5) { () -> Void in
-            self.endGameMenu.alpha = 1
+            endGameMenu.alpha = 1
         }
         endGameMenu.hidden = false
     }
