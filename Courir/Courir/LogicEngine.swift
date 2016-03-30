@@ -94,6 +94,7 @@ class LogicEngine {
                 }
             case .PlayerDidCollide:
                 player.run()
+                NSLog("%@", "Collided")
                 if player.playerNumber == state.myPlayer.playerNumber {
                     player.fallBehind()
                     player.becomeInvulnerable(timeStep)
@@ -290,9 +291,10 @@ class LogicEngine {
             // Stop the update() method
             state.gameIsOver = true
             
-            // Send game end signal
-            gameNetworkPortal.send(.GameDidEnd)
-            
+            if state.isMultiplayer {
+                // Send game end signal
+                gameNetworkPortal.send(.GameDidEnd)
+            }
             // Call delegates to handle UI changes
             delegate?.gameDidEnd()
         }
