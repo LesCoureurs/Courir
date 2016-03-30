@@ -19,7 +19,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameMenu: GameEndView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showAlert", object: nil)
+        endGameMenu.hidden = true
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showEndGameMenu", object: nil)
         presentGameScene()
     }
 
@@ -44,16 +45,30 @@ class GameViewController: UIViewController {
     }
 
     func receiveEvent(notification: NSNotification) {
-        let userInfo = notification.userInfo as! [String: Int]
-        if let eventRawValue = userInfo["eventRawValue"], event = GameEvent(rawValue: eventRawValue) {
+        let userInfo = notification.userInfo as! [String: AnyObject]
+        guard let eventRawValue = userInfo["eventRawValue"] as? Int else {
+            return
+        }
+        
+        guard let gameResult = userInfo["gameResult"] as? [Int: Int] else {
+            return
+        }
+        
+        if let event = GameEvent(rawValue: eventRawValue) {
             switch event {
             case .GameDidEnd:
-                let score = userInfo["score"] ?? 0
-                presentViewController(createAlertControllerForGameOver(withScore: score), animated: true, completion: nil)
+                displayGameEndMenu(gameResult)
             default:
                 break
             }
         }
+    }
+    
+    private func displayGameEndMenu(gameResult: [Int: Int]) {
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.endGameMenu.alpha = 1
+        }
+        endGameMenu.hidden = false
     }
 
     private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
