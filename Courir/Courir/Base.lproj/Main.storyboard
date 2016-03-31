@@ -69,10 +69,16 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rN-cr-Xkg">
                                         <rect key="frame" x="150" y="366" width="108" height="30"/>
                                         <state key="normal" title="Main Menu"/>
+                                        <connections>
+                                            <segue destination="BV1-FR-VrT" kind="show" id="0NK-Xe-tKG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
                                         <rect key="frame" x="424" y="366" width="103" height="30"/>
-                                        <state key="normal" title="Waiting Room"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,6 +92,7 @@
                         <outlet property="endGameLabel" destination="MLM-bK-lrE" id="hBv-Nh-oHU"/>
                         <outlet property="endGameMenu" destination="NZD-Wm-f2y" id="74X-9z-BVe"/>
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
+                        <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
                     </connections>
                 </viewController>
@@ -275,7 +282,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lU1-jC-2Ut"/>
         <segue reference="ph3-8p-GxT"/>
+        <segue reference="lU1-jC-2Ut"/>
     </inferredMetricsTieBreakers>
 </document>

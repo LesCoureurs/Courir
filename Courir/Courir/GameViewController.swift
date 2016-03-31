@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
+    @IBOutlet weak var replayOrUnwindButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +79,9 @@ class GameViewController: UIViewController {
     }
     
     private func setUpGameEndMenu() {
+        let title = isMultiplayer ? "Back To Room" : "Play Again"
+        replayOrUnwindButton.setTitle(title, forState: .Normal)
+        
         endGameTable.dataSource = endGameMenu
         endGameTable.delegate = endGameMenu
         endGameMenu.hidden = true
@@ -100,6 +104,14 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
+        if isMultiplayer {
+            
+        } else {
+            
+        }
+    }
+    
     private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
         let title = "Game Over!"
         let message = "Score: \(score)"
