@@ -71,7 +71,9 @@ class GameViewController: UIViewController {
         if let event = GameEvent(rawValue: eventRawValue) {
             switch event {
             case .GameDidEnd:
-                displayGameEndMenu(gameResultArray)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.displayGameEndMenu(gameResultArray)
+                })
             default:
                 break
             }
