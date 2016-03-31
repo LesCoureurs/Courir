@@ -52,7 +52,7 @@ class GameViewController: UIViewController {
             return
         }
         
-        guard let gameResult = userInfo["gameResult"] as? [Int: Int] else {
+        guard let gameResult = userInfo["gameResult"] as? [MCPeerID: Int] else {
             return
         }
         
@@ -71,7 +71,7 @@ class GameViewController: UIViewController {
         endGameMenu.alpha = 0
         endGameMenu.layer.cornerRadius = 10
     }
-    private func displayGameEndMenu(gameResult: [Int: Int]) {
+    private func displayGameEndMenu(gameResult: [MCPeerID: Int]) {
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
         }
