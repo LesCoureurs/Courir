@@ -11,21 +11,8 @@ import MultipeerConnectivity
 
 class GameEndView: UIView {
     var scoreSheet: [(peerID: MCPeerID, score: Int)]?
-    var win: Bool! = false
-    let numCol = 2
-    let numRows = 4
-    let resultTable: UITableView!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        resultTable = UITableView()
-        resultTable.dataSource = self
-        resultTable.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let numRows = 4
+    private let cellIdentifier = "endGameTableCell"
 }
 
 extension GameEndView: UITableViewDataSource {
@@ -34,10 +21,35 @@ extension GameEndView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! GameEndTableCell
+        let rank = indexPath.row
+        
+        guard rank < scoreSheet?.count else {
+            return cell
+        }
+        
+        if let entry = scoreSheet?[rank] {
+            cell.indexNum.text = rank.orderFormat()
+            cell.playerNameLabel.text = entry.peerID.displayName
+            cell.scoreLabel.text = String(entry.score)
+        }
+
+        return cell
     }
 }
 
 extension GameEndView: UITableViewDelegate {
     
+}
+
+extension Int {
+    func orderFormat() -> String {
+        switch(self) {
+        case 0: return "1st"
+        case 1: return "2nd"
+        case 2: return "3rd"
+        case 3: return "4th"
+        default: return "Error"
+        }
+    }
 }

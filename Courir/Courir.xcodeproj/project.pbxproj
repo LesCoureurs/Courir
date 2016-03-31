@@ -149,8 +149,8 @@
 				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
 				024D82411CAC256500D9CB53 /* GameEndView.swift */,
 				7266DF011CA566A9002216C9 /* GameViewController.swift */,
-				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
 				024D82431CAC37E400D9CB53 /* GameEndTableCell.swift */,
+				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
 				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
 				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
 			);

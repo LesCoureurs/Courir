@@ -16,7 +16,10 @@ class GameViewController: UIViewController {
     var peers = [MCPeerID]()
     var seed: String?
 
+    @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
+    @IBOutlet weak var endGameTable: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,17 +78,26 @@ class GameViewController: UIViewController {
     }
     
     private func setUpGameEndMenu() {
+        endGameTable.dataSource = endGameMenu
+        endGameTable.delegate = endGameMenu
         endGameMenu.hidden = true
         endGameMenu.alpha = 0
         endGameMenu.layer.cornerRadius = 10
     }
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
+        endGameMenu.hidden = false
         endGameMenu.scoreSheet = gameResultArray
-        endGameMenu.win = (gameResultArray.first?.peerID == myPeerID)
+        endGameTable.reloadData()
+
+        if gameResultArray.first?.peerID == myPeerID {
+            endGameLabel.text = "You won!"
+        } else {
+            endGameLabel.text = "Ouch!"
+        }
+        
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
         }
-        endGameMenu.hidden = false
     }
 
     private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
