@@ -70,7 +70,7 @@
                                         <rect key="frame" x="150" y="366" width="108" height="30"/>
                                         <state key="normal" title="Main Menu"/>
                                         <connections>
-                                            <segue destination="BV1-FR-VrT" kind="show" id="0NK-Xe-tKG"/>
+                                            <action selector="mainMenuButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="I6h-y3-wHY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
@@ -78,6 +78,7 @@
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
+                                            <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="V4Y-bs-H6c"/>
                                         </connections>
                                     </button>
                                 </subviews>

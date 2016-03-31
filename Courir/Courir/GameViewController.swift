@@ -104,6 +104,10 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBAction func mainMenuButtonPressed(sender: AnyObject) {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
+    }
+    
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
         if isMultiplayer {
             performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
