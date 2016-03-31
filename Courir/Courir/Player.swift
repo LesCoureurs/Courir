@@ -23,6 +23,10 @@ class Player: GameObject {
     static let spawnXCoordinate = 12 * unitsPerGameGridCell
     static let minSpawnYCoordinate = 5 * unitsPerGameGridCell
     static let spawnYCoordinateIncrement = 6 * unitsPerGameGridCell
+    static let spawnYOffset = [1: 3 * spawnYCoordinateIncrement / 2,
+                               2: spawnYCoordinateIncrement,
+                               3: spawnYCoordinateIncrement / 2,
+                               4: 0]
     
     let playerNumber: Int
     let xWidth = 3 * unitsPerGameGridCell
@@ -58,14 +62,14 @@ class Player: GameObject {
     
     
     // Range of playerNumber = [0, 3]
-    init(playerNumber: Int, isMultiplayer: Bool) {
+    init(playerNumber: Int, isMultiplayer: Bool, numPlayers: Int) {
         // TODO: Positioning for multiplayer mode
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
         yCoordinate = Player.minSpawnYCoordinate +
             playerNumber * Player.spawnYCoordinateIncrement
-        if !isMultiplayer {
-            yCoordinate += Int(Player.spawnYCoordinateIncrement/2)
+        if let centeringOffset = Player.spawnYOffset[numPlayers] {
+            yCoordinate += centeringOffset
         }
     }
 

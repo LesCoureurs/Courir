@@ -40,8 +40,9 @@ class GameState {
 
         allPeerIDs.append(myPeerID)
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
+
         for (playerNum, peer) in allPeerIDs.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer)
+            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: allPeerIDs.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()
