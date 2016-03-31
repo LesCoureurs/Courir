@@ -9,7 +9,10 @@
 import UIKit
 
 class GameEndTableCell: UITableViewCell {
-    var label: UILabel?
+    @IBOutlet weak var indexNum: UILabel!
+    @IBOutlet weak var playerNameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
