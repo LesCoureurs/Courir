@@ -114,16 +114,6 @@ class GameViewController: UIViewController {
             presentGameScene()
         }
     }
-    
-    private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
-        let title = "Game Over!"
-        let message = "Score: \(score)"
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-
-        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: { (_) in self.performSegueWithIdentifier("exitGameSegue", sender: self) })
-        alertController.addAction(okAction)
-        return alertController
-    }
 
     /*
     // MARK: - Navigation
