@@ -95,11 +95,7 @@ class GameViewController: UIViewController {
         endGameMenu.scoreSheet = gameResultArray
         endGameTable.reloadData()
 
-        if gameResultArray.first?.peerID == myPeerID {
-            endGameLabel.text = "You won!"
-        } else {
-            endGameLabel.text = "Ouch!"
-        }
+        endGameLabel.text = "Game Over"
         
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
