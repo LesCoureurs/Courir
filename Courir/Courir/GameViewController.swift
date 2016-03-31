@@ -106,9 +106,10 @@ class GameViewController: UIViewController {
 
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
         if isMultiplayer {
-            
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
         } else {
-            
+            setUpGameEndMenu()
+            presentGameScene()
         }
     }
     
