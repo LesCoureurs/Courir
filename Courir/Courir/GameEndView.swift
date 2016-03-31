@@ -9,7 +9,7 @@
 import UIKit
 
 class GameEndView: UIView {
-    let scoreSheet: [Int: Int]? = nil
+    var scoreSheet: [Int: [String: AnyObject]]?
     let numCol = 2
     let numRows = 4
     let resultTable: UITableView!

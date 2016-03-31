@@ -103,7 +103,7 @@ class LogicEngine {
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
                         player.lost()
-                        state.updatePlayerScore(player.playerNumber, score: score)
+                        state.updatePlayerScore(myPeerID, score: score)
                         
                         if validToSend {
                             sendPlayerLostData(score)
@@ -359,7 +359,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
             return
         }
         
-        state.updatePlayerScore(playerNumber, score: score)
+        state.updatePlayerScore(peer, score: score)
         delegate?.playerDidFinish(playerNumber, score: score)
     }
     
