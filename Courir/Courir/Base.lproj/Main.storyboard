@@ -78,7 +78,6 @@
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
-                                            <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="V4Y-bs-H6c"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -95,6 +94,7 @@
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
+                        <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bc-X6-3wY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -284,6 +284,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ph3-8p-GxT"/>
-        <segue reference="lU1-jC-2Ut"/>
+        <segue reference="Ob5-ck-MbV"/>
     </inferredMetricsTieBreakers>
 </document>
