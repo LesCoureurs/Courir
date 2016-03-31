@@ -81,6 +81,7 @@ class GameViewController: UIViewController {
     }
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
         endGameMenu.scoreSheet = gameResultArray
+        endGameMenu.win = (gameResultArray.first?.peerID == myPeerID)
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
         }

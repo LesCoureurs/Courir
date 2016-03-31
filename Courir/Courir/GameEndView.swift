@@ -11,6 +11,7 @@ import MultipeerConnectivity
 
 class GameEndView: UIView {
     var scoreSheet: [(peerID: MCPeerID, score: Int)]?
+    var win: Bool! = false
     let numCol = 2
     let numRows = 4
     let resultTable: UITableView!
