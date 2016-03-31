@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class GameEndView: UIView {
-    var scoreSheet: [Int: [String: AnyObject]]?
+    var scoreSheet: [(peerID: MCPeerID, score: Int)]?
     let numCol = 2
     let numRows = 4
     let resultTable: UITableView!

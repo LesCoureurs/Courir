@@ -56,10 +56,18 @@ class GameViewController: UIViewController {
             return
         }
         
+        var gameResultArray = [(peerID: MCPeerID, score: Int)]()
+        
+        for (key, value) in gameResult {
+            gameResultArray.append((peerID: key, score: value))
+        }
+        
+        gameResultArray.sortInPlace({ $0.score > ($1.score) })
+        
         if let event = GameEvent(rawValue: eventRawValue) {
             switch event {
             case .GameDidEnd:
-                displayGameEndMenu(gameResult)
+                displayGameEndMenu(gameResultArray)
             default:
                 break
             }
@@ -71,7 +79,8 @@ class GameViewController: UIViewController {
         endGameMenu.alpha = 0
         endGameMenu.layer.cornerRadius = 10
     }
-    private func displayGameEndMenu(gameResult: [MCPeerID: Int]) {
+    private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
+        endGameMenu.scoreSheet = gameResultArray
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
         }
