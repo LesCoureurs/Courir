@@ -10,7 +10,6 @@ import UIKit
 import SpriteKit
 
 class MenuViewController: UIViewController {
-    private var nameTextField: UITextField?
     private var saveAction: UIAlertAction?
     
     private let menuOptions = ["Play", "Multiplayer"]
@@ -65,11 +64,12 @@ class MenuViewController: UIViewController {
         let title = "Enter Name"
         let message = ""
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        var nameTextField: UITextField?
         
         alertController.addTextFieldWithConfigurationHandler({ (textField) -> Void in
             textField.placeholder = myDeviceName
-            self.nameTextField = textField
-            self.nameTextField!.addTarget(self, action: #selector(MenuViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            nameTextField = textField
+            nameTextField!.addTarget(self, action: #selector(MenuViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
@@ -78,22 +78,23 @@ class MenuViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         saveAction = UIAlertAction(title: "Save", style: .Default) { action -> Void in
-            myName = self.nameTextField?.text
+            myName = nameTextField?.text
         }
+        
         alertController.addAction(saveAction!)
-        disableSaveIfEmptyField()
+        disableSaveIfEmptyField(nameTextField!)
         
         presentViewController(alertController, animated: true, completion: nil)
     }
     
     func textFieldDidChange(textField: UITextField) {
-        disableSaveIfEmptyField()
+        disableSaveIfEmptyField(textField)
     }
     
-    private func disableSaveIfEmptyField() {
-        guard let textContent = nameTextField?.text else {
+    private func disableSaveIfEmptyField(textField: UITextField) {
+        guard let textContent = textField.text else {
             return
         }
-        saveAction?.enabled = !textContent.isEmpty
+        saveAction!.enabled = !textContent.isEmpty
     }
 }
