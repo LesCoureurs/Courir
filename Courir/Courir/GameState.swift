@@ -13,6 +13,7 @@ class GameState {
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
+    var scoreTracking = [MCPeerID: Int]()
 
     var obstacles = [Obstacle]()
     var currentSpeed = initialGameSpeed
@@ -56,5 +57,17 @@ class GameState {
             return players[index]
         }
         return nil
+    }
+    
+    func everyoneFinished() -> Bool {
+        return scoreTracking.count == players.count
+    }
+    
+    func ownPlayerStillPlaying() -> Bool {
+        return myPlayer.state != PlayerState.Lost
+    }
+    
+    func updatePlayerScore(peerID: MCPeerID, score: Int) {
+        scoreTracking[peerID] = score
     }
 }

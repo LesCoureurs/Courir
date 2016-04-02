@@ -66,6 +66,10 @@ class RoomViewController: UIViewController {
             destination.seed = seed
         }
     }
+    
+    @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
+        
+    }
 }
 
 extension RoomViewController: UITableViewDataSource {

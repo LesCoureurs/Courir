@@ -77,6 +77,10 @@ class Player: GameObject {
         state = .Ready
     }
     
+    func lost() {
+        state = .Lost
+    }
+    
     func fallBehind() {
         xCoordinate -= 1 * unitsPerGameGridCell
     }

@@ -244,9 +244,15 @@ extension GameScene: LogicEngineDelegate {
         obstacles[obstacle.identifier]?.removeFromParent()
     }
 
-    func gameDidEnd(score: Int) {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "score": score]
-        NSNotificationCenter.defaultCenter().postNotificationName("showAlert", object: self, userInfo: gameOverData)
+    func playerDidFinish(playerNumber: Int, score: Int) {
+        print("Player \(playerNumber) finished with score = \(score)")
+    }
+    
+    func gameDidEnd() {
+        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
+        print("Game did end. Score tracking: \(gameState.scoreTracking)")
     }
 }
 

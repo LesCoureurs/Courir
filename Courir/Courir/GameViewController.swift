@@ -16,6 +16,11 @@ class GameViewController: UIViewController {
     var peers = [MCPeerID]()
     var seed: String?
 
+    @IBOutlet weak var endGameLabel: UILabel!
+    @IBOutlet weak var endGameMenu: GameEndView!
+    @IBOutlet weak var endGameTable: UITableView!
+    @IBOutlet weak var replayOrUnwindButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self,
@@ -24,6 +29,7 @@ class GameViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(self.exitGame),
                                                          name: "exitGame", object: nil)
+        setUpGameEndMenu()
         presentGameScene()
     }
 
@@ -52,29 +58,77 @@ class GameViewController: UIViewController {
     }
 
     func receiveEvent(notification: NSNotification) {
-        let userInfo = notification.userInfo as! [String: Int]
-        if let eventRawValue = userInfo["eventRawValue"], event = GameEvent(rawValue: eventRawValue) {
+        let userInfo = notification.userInfo as! [String: AnyObject]
+        guard let eventRawValue = userInfo["eventRawValue"] as? Int else {
+            return
+        }
+        
+        guard let gameResult = userInfo["gameResult"] as? [MCPeerID: Int] else {
+            return
+        }
+        
+        var gameResultArray = [(peerID: MCPeerID, score: Int)]()
+        
+        for (key, value) in gameResult {
+            gameResultArray.append((peerID: key, score: value))
+        }
+        
+        gameResultArray.sortInPlace({ $0.score > ($1.score) })
+        
+        if let event = GameEvent(rawValue: eventRawValue) {
             switch event {
             case .GameDidEnd:
-                let score = userInfo["score"] ?? 0
-                presentViewController(createAlertControllerForGameOver(withScore: score), animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.displayGameEndMenu(gameResultArray)
+                })
             default:
                 break
             }
         }
     }
+    
+    private func setUpGameEndMenu() {
+        let title = isMultiplayer ? "Back To Room" : "Play Again"
+        replayOrUnwindButton.setTitle(title, forState: .Normal)
+        
+        endGameTable.dataSource = endGameMenu
+        endGameTable.delegate = endGameMenu
+        endGameMenu.hidden = true
+        endGameMenu.alpha = 0
+        endGameMenu.layer.cornerRadius = 10
+    }
+    private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
+        endGameMenu.hidden = false
+        endGameMenu.scoreSheet = gameResultArray
+        endGameTable.reloadData()
 
-    private func createAlertControllerForGameOver(withScore score: Int) -> UIAlertController {
-        let title = "Game Over!"
-        let message = "Score: \(score)"
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        endGameLabel.text = "Game Over"
+        
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.endGameMenu.alpha = 1
+        }
+    }
 
+<<<<<<< HEAD
         let okAction = UIAlertAction(title: "Ok", style: .Default) {
             (_) in
             self.exitGame()
         }
         alertController.addAction(okAction)
         return alertController
+=======
+    @IBAction func mainMenuButtonPressed(sender: AnyObject) {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
+    }
+    
+    @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+        } else {
+            setUpGameEndMenu()
+            presentGameScene()
+        }
+>>>>>>> master
     }
 
     /*
