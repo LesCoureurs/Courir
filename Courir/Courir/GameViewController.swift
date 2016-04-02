@@ -18,7 +18,12 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showAlert", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.receiveEvent(_:)),
+                                                         name: "showAlert", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.exitGame),
+                                                         name: "exitGame", object: nil)
         presentGameScene()
     }
 
@@ -41,6 +46,10 @@ class GameViewController: UIViewController {
         gameScene.scaleMode = .AspectFill
         skView.presentScene(gameScene)
     }
+    
+    func exitGame() {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
+    }
 
     func receiveEvent(notification: NSNotification) {
         let userInfo = notification.userInfo as! [String: Int]
@@ -60,7 +69,10 @@ class GameViewController: UIViewController {
         let message = "Score: \(score)"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
 
-        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: { (_) in self.performSegueWithIdentifier("exitGameSegue", sender: self) })
+        let okAction = UIAlertAction(title: "Ok", style: .Default) {
+            (_) in
+            self.exitGame()
+        }
         alertController.addAction(okAction)
         return alertController
     }
