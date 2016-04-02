@@ -272,7 +272,6 @@ extension GameScene: Observer {
     
     /// Update the player's texture based on state
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
-        print("\(player.playerNumber)'s new state: \(player.physicalState)")
         switch player.physicalState {
         case .Ducking(_):
             removeGestureRecognizers()
