@@ -14,7 +14,10 @@ class GameScene: SKScene {
     // MARK: Properties
     private let countdownNode = SKLabelNode(text: "\(countdownTimerStart)")
     private var hasGameStarted = false
-    private var startTimeInterval: CFTimeInterval?
+    private var coundownStartTimeInterval: CFTimeInterval?
+    
+    private let pauseButtonNode = SKLabelNode(text: "Pause")
+    private var isGamePaused = false
     
     private let tileSize = (width: 32, height: 32)
     
@@ -48,6 +51,7 @@ class GameScene: SKScene {
         initPlayers()
         initGrid()
         initCountdownTimer()
+        initPauseButton()
 
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
@@ -58,7 +62,7 @@ class GameScene: SKScene {
             return
         }
         if gameState.allPlayersReady && !hasGameStarted {
-            if let start = startTimeInterval {
+            if let start = coundownStartTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
                 let countdownValue = countdownTimerStart - timeSinceStart
                 if countdownValue > 0 {
@@ -68,7 +72,7 @@ class GameScene: SKScene {
                     hasGameStarted = true
                 }
             } else {
-                startTimeInterval = currentTime
+                coundownStartTimeInterval = currentTime
             }
         } else if hasGameStarted {
             logicEngine.update()
@@ -102,9 +106,19 @@ class GameScene: SKScene {
         countdownNode.fontName = "HelveticaNeue-Bold"
         countdownNode.position = CGPoint(x: size.width / 2, y: 0)
         countdownNode.fontSize *= 3
-        countdownNode.zPosition = 999
+        countdownNode.zPosition = 998
         countdownNode.fontColor = UIColor.blackColor()
         grid.addChild(countdownNode)
+    }
+    
+    private func initPauseButton() {
+        guard !isMultiplayer else {
+            return
+        }
+        pauseButtonNode.zPosition = 997
+        pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
+                                           y: (-size.height / 2 + pauseButtonNode.frame.height))
+        grid.addChild(pauseButtonNode)
     }
     
     private func renderIsoGrid() {
