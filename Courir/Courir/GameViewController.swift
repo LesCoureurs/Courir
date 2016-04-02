@@ -108,15 +108,7 @@ class GameViewController: UIViewController {
             self.endGameMenu.alpha = 1
         }
     }
-
-<<<<<<< HEAD
-        let okAction = UIAlertAction(title: "Ok", style: .Default) {
-            (_) in
-            self.exitGame()
-        }
-        alertController.addAction(okAction)
-        return alertController
-=======
+    
     @IBAction func mainMenuButtonPressed(sender: AnyObject) {
         performSegueWithIdentifier("exitGameSegue", sender: self)
     }
@@ -128,7 +120,6 @@ class GameViewController: UIViewController {
             setUpGameEndMenu()
             presentGameScene()
         }
->>>>>>> master
     }
 
     /*
