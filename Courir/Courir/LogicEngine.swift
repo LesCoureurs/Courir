@@ -12,7 +12,8 @@ import MultipeerConnectivity
 protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
-    func gameDidEnd(score: Int)
+    func gameDidEnd()
+    func playerDidFinish(playerNumber: Int, score: Int)
 }
 
 class LogicEngine {
@@ -78,15 +79,17 @@ class LogicEngine {
             occurrence = timeStep
         }
         
+        let canSend = validToSend(player)
+        
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
-                if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
+                if canSend {
                     sendActionData(.PlayerDidJump)
                 }
             case .PlayerDidDuck:
                 player.duck(occurrence)
-                if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
+                if canSend {
                     sendActionData(.PlayerDidDuck)
                 }
             case .PlayerDidCollide:
@@ -94,12 +97,20 @@ class LogicEngine {
                 if player.playerNumber == state.myPlayer.playerNumber {
                     player.fallBehind()
                     player.becomeInvulnerable(timeStep)
-                    if state.isMultiplayer {
+                    if canSend {
                         sendCollisionData(player.xCoordinate)
                     }
+                    // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
-                        delegate?.gameDidEnd(score)
-                        state.gameIsOver = true
+                        player.lost()
+                        state.updatePlayerScore(myPeerID, score: score)
+                        
+                        if canSend {
+                            sendPlayerLostData(score)
+                        }
+                        
+                        checkRaceFinished()
+                        delegate?.playerDidFinish(player.playerNumber, score: score)
                     }
                 } else {
                     guard let xCoordinate = data as? Int else {
@@ -110,6 +121,13 @@ class LogicEngine {
             default:
                 break
         }
+    }
+    
+    // MARK: sending data
+    private func validToSend(player: Player) -> Bool {
+        return state.isMultiplayer
+            && player.playerNumber == state.myPlayer.playerNumber
+            && state.ownPlayerStillPlaying()
     }
     
     private func sendActionData(event: GameEvent) {
@@ -125,6 +143,13 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
+    private func sendPlayerLostData(score: Int) {
+        var playerLostData = [String: AnyObject]()
+        playerLostData["score"] = score
+        gameNetworkPortal.send(.PlayerLost, data: playerLostData)
+    }
+    
+    // MARK: Internal update methods
     private func updateEventQueue() {
         while eventQueue.last?.timeStep <= timeStep {
             guard let front = eventQueue.popLast() else {
@@ -184,6 +209,10 @@ class LogicEngine {
     }
     
     private func handleCollisions() {
+        guard state.myPlayer.state != .Lost else {
+            return
+        }
+        
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
@@ -259,6 +288,20 @@ class LogicEngine {
             otherData: otherData))
         eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
     }
+    
+    private func checkRaceFinished() {
+        if state.everyoneFinished() {
+            // Stop the update() method
+            state.gameIsOver = true
+            
+            if state.isMultiplayer {
+                // Send game end signal
+                gameNetworkPortal.send(.GameDidEnd)
+            }
+            // Call delegates to handle UI changes
+            delegate?.gameDidEnd()
+        }
+    }
 }
 
 // MARK: GameNetworkPortalGameStateDelegate
@@ -306,8 +349,25 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
         }
     }
 
+    func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
+        guard let playerNumber = state.peerMapping[peer],
+            dataDict = data as? [String: AnyObject] else {
+                return
+        }
+        
+        guard let score = dataDict["score"] as? Int else {
+            return
+        }
+        
+        state.updatePlayerScore(peer, score: score)
+        delegate?.playerDidFinish(playerNumber, score: score)
+    }
+    
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-
+        // Stop the update() method
+        state.gameIsOver = true
+        
+        delegate?.gameDidEnd()
     }
     
     func disconnectedFromGame() {
