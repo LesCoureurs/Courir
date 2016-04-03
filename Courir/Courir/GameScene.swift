@@ -227,11 +227,6 @@ class GameScene: SKScene {
         }
         logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
     }
-    
-    // MARK: Pause Menu methods
-    private func showPauseMenu() {
-        
-    }
 }
 
 // MARK: PauseButtonDelegate
