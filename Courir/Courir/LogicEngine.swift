@@ -330,9 +330,8 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-                return
+        guard let dataDict = data as? [String: AnyObject] else {
+            return
         }
         
         guard let score = dataDict["score"] as? Int else {
