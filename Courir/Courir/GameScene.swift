@@ -14,7 +14,10 @@ class GameScene: SKScene {
     // MARK: Properties
     private let countdownNode = SKLabelNode(text: "\(countdownTimerStart)")
     private var hasGameStarted = false
-    private var startTimeInterval: CFTimeInterval?
+    private var coundownStartTimeInterval: CFTimeInterval?
+    
+    private let pauseButtonNode = PauseButtonNode()
+    private var isGamePaused = false
     
     private let tileSize = (width: 32, height: 32)
     
@@ -48,17 +51,18 @@ class GameScene: SKScene {
         initPlayers()
         initGrid()
         initCountdownTimer()
+        initPauseButton()
 
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
     }
 
     override func update(currentTime: CFTimeInterval) {
-        guard logicEngine != nil && gameState != nil else {
+        guard logicEngine != nil && gameState != nil && !isGamePaused else {
             return
         }
-        if gameState.allPlayersReady && !hasGameStarted {
-            if let start = startTimeInterval {
+        if gameState.allPlayersReady && !hasGameStarted{
+            if let start = coundownStartTimeInterval {
                 let timeSinceStart = Int(currentTime - start)
                 let countdownValue = countdownTimerStart - timeSinceStart
                 if countdownValue > 0 {
@@ -68,7 +72,7 @@ class GameScene: SKScene {
                     hasGameStarted = true
                 }
             } else {
-                startTimeInterval = currentTime
+                coundownStartTimeInterval = currentTime
             }
         } else if hasGameStarted {
             logicEngine.update()
@@ -102,9 +106,20 @@ class GameScene: SKScene {
         countdownNode.fontName = "HelveticaNeue-Bold"
         countdownNode.position = CGPoint(x: size.width / 2, y: 0)
         countdownNode.fontSize *= 3
-        countdownNode.zPosition = 999
+        countdownNode.zPosition = 995
         countdownNode.fontColor = UIColor.blackColor()
         grid.addChild(countdownNode)
+    }
+    
+    private func initPauseButton() {
+        guard !isMultiplayer else {
+            return
+        }
+        pauseButtonNode.delegate = self
+        pauseButtonNode.zPosition = 990
+        pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
+                                           y: (-size.height / 2 + pauseButtonNode.frame.height))
+        grid.addChild(pauseButtonNode)
     }
     
     private func renderIsoGrid() {
@@ -211,8 +226,12 @@ class GameScene: SKScene {
         }
         logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
     }
+    
+    // MARK: Pause Menu methods
+    private func showPauseMenu() {
+        
+    }
 }
-
 
 // MARK: LogicEngineDelegate
 extension GameScene: LogicEngineDelegate {
@@ -303,5 +322,32 @@ extension GameScene: Observer {
             default:
                 return
         }
+    }
+}
+
+// MARK: PauseButtonDelegate
+extension GameScene: PauseButtonDelegate {
+    func pauseButtonTouched() {
+        isGamePaused = true
+        let pauseMenu = PauseMenuNode()
+        pauseMenu.position = CGPoint(x: size.width / 2, y: 0)
+        pauseMenu.delegate = self
+        pauseMenu.userInteractionEnabled = true
+        grid.addChild(pauseMenu)
+    }
+}
+
+// MARK: PauseMenuDelegate
+extension GameScene: PauseMenuDelegate {
+    func pauseMenuDismissed() {
+        isGamePaused = false
+        coundownStartTimeInterval = nil
+        hasGameStarted = false
+        countdownNode.text = "\(countdownTimerStart)"
+        grid.addChild(countdownNode)
+    }
+    
+    func leaveGameSelected() {
+        NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
     }
 }

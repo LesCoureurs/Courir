@@ -23,10 +23,13 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.receiveEvent(_:)),
+                                                         name: "showAlert", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.exitGame),
+                                                         name: "exitGame", object: nil)
         setUpGameEndMenu()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.receiveEvent(_:)), name: "showEndGameMenu", object: nil)
         presentGameScene()
     }
 
@@ -48,6 +51,10 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         gameScene.scaleMode = .AspectFill
         skView.presentScene(gameScene)
+    }
+    
+    func exitGame() {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
     }
 
     func receiveEvent(notification: NSNotification) {
@@ -101,7 +108,7 @@ class GameViewController: UIViewController {
             self.endGameMenu.alpha = 1
         }
     }
-
+    
     @IBAction func mainMenuButtonPressed(sender: AnyObject) {
         performSegueWithIdentifier("exitGameSegue", sender: self)
     }
