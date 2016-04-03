@@ -9,10 +9,6 @@
 import UIKit
 import MultipeerConnectivity
 
-protocol LogicEngineDelegate: class {
-    func playerDidFinish(playerNumber: Int, score: Int)
-}
-
 class LogicEngine {
 
     // MARK: Properties
@@ -20,8 +16,6 @@ class LogicEngine {
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
     
-    weak var delegate: LogicEngineDelegate?
-
     private let gameNetworkPortal = GameNetworkPortal._instance
     
     private var timeStep = 0
@@ -99,15 +93,14 @@ class LogicEngine {
                     }
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
-                        player.lost()
                         state.updatePlayerScore(myPeerID, score: score)
+                        player.lost()
                         
                         if canSend {
                             sendPlayerLostData(score)
                         }
                         
                         checkRaceFinished()
-                        delegate?.playerDidFinish(player.playerNumber, score: score)
                     }
                 } else {
                     guard let xCoordinate = data as? Int else {
@@ -348,7 +341,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
         }
         
         state.updatePlayerScore(peer, score: score)
-        delegate?.playerDidFinish(playerNumber, score: score)
+        state.getPlayer(withPeerID: peer)!.lost()
     }
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {

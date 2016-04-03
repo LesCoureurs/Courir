@@ -214,25 +214,6 @@ class GameScene: SKScene {
 }
 
 
-//// MARK: LogicEngineDelegate
-//extension GameScene: LogicEngineDelegate {
-//    func didGenerateObstacle(obstacle: Obstacle) {
-//        obstacle.observer = self
-//        obstacles[obstacle.identifier] = createObstacleNode(obstacle)
-//    }
-//    
-//    func didRemoveObstacle(obstacle: Obstacle) {
-//        obstacles[obstacle.identifier]?.removeFromParent()
-//    }
-//
-//    func playerDidFinish(playerNumber: Int, score: Int) {
-//        print("Player \(playerNumber) finished with score = \(score)")
-//    }
-//    
-//
-//}
-
-
 // MARK: Observer
 extension GameScene: Observer {
     func didChangeProperty(propertyName: String, from: AnyObject?) {
@@ -256,8 +237,10 @@ extension GameScene: Observer {
                 updatePositionFor(player, withNode: node)
             case "zCoordinate":
                 updateJumpingPositionFor(player, withNode: node)
-            case "state":
+            case "physicalState":
                 updatePlayerTexture(player, withNode: node)
+            case "state":
+                updateState(player, withNode: node)
             default:
                 return
         }
@@ -276,15 +259,25 @@ extension GameScene: Observer {
     /// Update the player's texture based on state
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         switch player.physicalState {
-        case .Ducking(_):
-            removeGestureRecognizers()
-            node.texture = playerDuckTexture
-        case .Jumping(_):
-            removeGestureRecognizers()
-            node.texture = playerJumpTexture
-        case .Running, .Stationary, .Invulnerable(_):
-            addGestureRecognizers()
-            node.texture = playerTexture
+            case .Ducking(_):
+                removeGestureRecognizers()
+                node.texture = playerDuckTexture
+            case .Jumping(_):
+                removeGestureRecognizers()
+                node.texture = playerJumpTexture
+            case .Running, .Stationary, .Invulnerable(_):
+                addGestureRecognizers()
+                node.texture = playerTexture
+        }
+    }
+    
+    private func updateState(player: Player, withNode node: SKSpriteNode) {
+        switch player.state {
+            case .Lost:
+                // TODO handle updates to player states
+                break;
+            default:
+                return
         }
     }
     
