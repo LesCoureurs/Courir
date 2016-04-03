@@ -344,7 +344,9 @@ extension GameScene: PauseMenuDelegate {
         coundownStartTimeInterval = nil
         hasGameStarted = false
         countdownNode.text = "\(countdownTimerStart)"
-        grid.addChild(countdownNode)
+        if countdownNode.parent == nil {
+            grid.addChild(countdownNode)
+        }
     }
     
     func leaveGameSelected() {
