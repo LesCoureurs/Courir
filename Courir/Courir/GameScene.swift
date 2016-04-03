@@ -12,9 +12,8 @@ import MultipeerConnectivity
 class GameScene: SKScene {
 
     // MARK: Properties
-    private let countdownNode = SKLabelNode(text: "\(countdownTimerStart)")
+    private let countdownNode = CountdownNode()
     private var hasGameStarted = false
-    private var coundownStartTimeInterval: CFTimeInterval?
     
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
@@ -63,18 +62,7 @@ class GameScene: SKScene {
             return
         }
         if gameState.allPlayersReady && !hasGameStarted{
-            if let start = coundownStartTimeInterval {
-                let timeSinceStart = Int(currentTime - start)
-                let countdownValue = countdownTimerStart - timeSinceStart
-                if countdownValue > 0 {
-                    countdownNode.text = "\(countdownValue)"
-                } else {
-                    countdownNode.removeFromParent()
-                    hasGameStarted = true
-                }
-            } else {
-                coundownStartTimeInterval = currentTime
-            }
+            countdownNode.updateCountdownTime(currentTime)
         } else if hasGameStarted {
             logicEngine.update()
         }
@@ -104,11 +92,9 @@ class GameScene: SKScene {
     }
     
     private func initCountdownTimer() {
-        countdownNode.fontName = "HelveticaNeue-Bold"
+        countdownNode.delegate = self
         countdownNode.position = CGPoint(x: size.width / 2, y: 0)
-        countdownNode.fontSize *= 3
         countdownNode.zPosition = 995
-        countdownNode.fontColor = UIColor.blackColor()
         grid.addChild(countdownNode)
     }
     
@@ -229,6 +215,13 @@ class GameScene: SKScene {
     }
 }
 
+// MARK: CountdownDelegate
+extension GameScene: CountdownDelegate {
+    func didCountdownEnd() {
+        hasGameStarted = true
+    }
+}
+
 // MARK: PauseButtonDelegate
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
@@ -245,9 +238,8 @@ extension GameScene: PauseButtonDelegate {
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
         isGamePaused = false
-        coundownStartTimeInterval = nil
         hasGameStarted = false
-        countdownNode.text = "\(countdownTimerStart)"
+        countdownNode.reset()
         if countdownNode.parent == nil {
             grid.addChild(countdownNode)
         }
