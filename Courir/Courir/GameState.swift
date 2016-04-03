@@ -9,7 +9,7 @@
 import Foundation
 import MultipeerConnectivity
 
-class GameState {
+class GameState: Observed {
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
@@ -21,6 +21,8 @@ class GameState {
 
     var isMultiplayer: Bool
     var gameIsOver = false
+    
+    weak var observer: Observer?
     
     init(isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer

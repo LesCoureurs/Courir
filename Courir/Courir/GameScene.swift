@@ -38,8 +38,8 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
-        logicEngine.delegate = self
         gameState = logicEngine.state
+        gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
@@ -214,28 +214,23 @@ class GameScene: SKScene {
 }
 
 
-// MARK: LogicEngineDelegate
-extension GameScene: LogicEngineDelegate {
-    func didGenerateObstacle(obstacle: Obstacle) {
-        obstacle.observer = self
-        obstacles[obstacle.identifier] = createObstacleNode(obstacle)
-    }
-    
-    func didRemoveObstacle(obstacle: Obstacle) {
-        obstacles[obstacle.identifier]?.removeFromParent()
-    }
-
-    func playerDidFinish(playerNumber: Int, score: Int) {
-        print("Player \(playerNumber) finished with score = \(score)")
-    }
-    
-    func gameDidEnd() {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
-        print("Game did end. Score tracking: \(gameState.scoreTracking)")
-    }
-}
+//// MARK: LogicEngineDelegate
+//extension GameScene: LogicEngineDelegate {
+//    func didGenerateObstacle(obstacle: Obstacle) {
+//        obstacle.observer = self
+//        obstacles[obstacle.identifier] = createObstacleNode(obstacle)
+//    }
+//    
+//    func didRemoveObstacle(obstacle: Obstacle) {
+//        obstacles[obstacle.identifier]?.removeFromParent()
+//    }
+//
+//    func playerDidFinish(playerNumber: Int, score: Int) {
+//        print("Player \(playerNumber) finished with score = \(score)")
+//    }
+//    
+//
+//}
 
 
 // MARK: Observer
@@ -245,6 +240,8 @@ extension GameScene: Observer {
             handleUpdatePlayerNode(object, propertyName: propertyName)
         } else if let object = from as? Obstacle {
             handleUpdateObstacleNode(object, propertyName: propertyName)
+        } else if let _ = from as? GameState {
+            handleUpdateGameState(propertyName)
         }
     }
     
@@ -303,5 +300,9 @@ extension GameScene: Observer {
             default:
                 return
         }
+    }
+    
+    /// Handle the updating of appropriate nodes when changes are made to the game state
+    private func handleUpdateGameState(propertyName: String) {
     }
 }
