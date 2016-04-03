@@ -287,35 +287,26 @@ class LogicEngine {
 // MARK: GameNetworkPortalGameStateDelegate
 extension LogicEngine: GameNetworkPortalGameStateDelegate {
     func jumpActionReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-            return
-        }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int else {
-            return
-        }
-        appendToEventQueue(.PlayerDidJump, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep)
+        handlePlayerAction(.PlayerDidJump, data: data, peer: peer)
     }
 
     func duckActionReceived(data: AnyObject?, peer: MCPeerID) {
+        handlePlayerAction(.PlayerDidDuck, data: data, peer: peer)
+    }
+    
+    private func handlePlayerAction(action: GameEvent, data: AnyObject?, peer: MCPeerID) {
         guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
+            dataDict = data as? [String: AnyObject],
+            occurringTimeStep = dataDict["time_step"] as? Int else {
                 return
         }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int else {
-            return
-        }
-        appendToEventQueue(.PlayerDidDuck, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep)
+        appendToEventQueue(action, playerNumber: playerNumber, occurringTimeStep: occurringTimeStep)
     }
 
     func collideActionReceived(data: AnyObject?, peer: MCPeerID) {
         guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-                return
-        }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int,
+            dataDict = data as? [String: AnyObject],
+            occurringTimeStep = dataDict["time_step"] as? Int,
             xCoordinate = dataDict["x_coordinate"] else {
                 return
         }
