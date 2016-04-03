@@ -65,16 +65,15 @@ class LogicEngine {
             occurrence = occurringTimeStep!
         }
         
-        let canSend = isValidToSend(player)
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
-                if canSend {
+                if isValidToSend(player) {
                     sendActionData(.PlayerDidJump)
                 }
             case .PlayerDidDuck:
                 player.duck(occurrence)
-                if canSend {
+                if isValidToSend(player) {
                     sendActionData(.PlayerDidDuck)
                 }
             case .PlayerDidCollide:
