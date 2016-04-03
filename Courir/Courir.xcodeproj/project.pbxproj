@@ -32,6 +32,8 @@
 		7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */; };
 		7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839311C9E7BA1007434E8 /* GameState.swift */; };
 		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
+		7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */; };
+		7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		7A8839311C9E7BA1007434E8 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
+		7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseButtonNode.swift; sourceTree = "<group>"; };
+		7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseMenuNode.swift; sourceTree = "<group>"; };
 		9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Courir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD945865012F28217E8BAC8 /* Pods-Courir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Courir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Courir/Pods-Courir.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +160,8 @@
 				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
 				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
 				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
+				7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */,
+				7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -367,6 +373,8 @@
 				024D82441CAC37E400D9CB53 /* GameEndTableCell.swift in Sources */,
 				7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */,
 				7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */,
+				7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */,
+				7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */,
 				6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */,
 				6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */,
 				6E2CEE4B1CB0FF8D003DD41D /* GameScene+Observer.swift in Sources */,
