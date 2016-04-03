@@ -163,6 +163,8 @@ class LogicEngine {
     private func updatePlayerStates() {
         for player in state.players {
             switch player.physicalState {
+                case .Stationary:
+                    player.run()
                 case let .Jumping(startTimeStep):
                     if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
