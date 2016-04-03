@@ -65,7 +65,7 @@ class LogicEngine {
             occurrence = occurringTimeStep!
         }
         
-        let canSend = validToSend(player)
+        let canSend = isValidToSend(player)
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
@@ -89,7 +89,7 @@ class LogicEngine {
         if player.playerNumber == state.myPlayer.playerNumber {
             player.fallBehind()
             player.becomeInvulnerable(timeStep)
-            if validToSend(player) {
+            if isValidToSend(player) {
                 sendCollisionData(player.xCoordinate)
             }
             // If player fell off the grid, he finished the race
@@ -97,7 +97,7 @@ class LogicEngine {
                 state.updatePlayerScore(myPeerID, score: score)
                 player.lost()
                 
-                if validToSend(player) {
+                if isValidToSend(player) {
                     sendPlayerLostData(score)
                 }
                 
@@ -109,7 +109,7 @@ class LogicEngine {
     }
     
     // MARK: sending data
-    private func validToSend(player: Player) -> Bool {
+    private func isValidToSend(player: Player) -> Bool {
         return state.isMultiplayer
             && player.playerNumber == state.myPlayer.playerNumber
             && state.ownPlayerStillPlaying()
