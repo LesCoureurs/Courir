@@ -32,16 +32,16 @@ extension GameScene: Observer {
         }
         
         switch propertyName {
-        case "xCoordinate", "yCoordinate":
-            updatePositionFor(player, withNode: node)
-        case "zCoordinate":
-            updateJumpingPositionFor(player, withNode: node)
-        case "physicalState":
-            updatePlayerTexture(player, withNode: node)
-        case "state":
-            updateState(player, withNode: node)
-        default:
-            return
+            case "xCoordinate", "yCoordinate":
+                updatePositionFor(player, withNode: node)
+            case "zCoordinate":
+                updateJumpingPositionFor(player, withNode: node)
+            case "physicalState":
+                updatePlayerTexture(player, withNode: node)
+            case "state":
+                updateState(player, withNode: node)
+            default:
+                return
         }
     }
     
@@ -58,25 +58,25 @@ extension GameScene: Observer {
     /// Update the player's texture based on state
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         switch player.physicalState {
-        case .Ducking(_):
-            removeGestureRecognizers()
-            node.texture = playerDuckTexture
-        case .Jumping(_):
-            removeGestureRecognizers()
-            node.texture = playerJumpTexture
-        case .Running, .Stationary, .Invulnerable(_):
-            addGestureRecognizers()
-            node.texture = playerTexture
+            case .Ducking(_):
+                removeGestureRecognizers()
+                node.texture = playerDuckTexture
+            case .Jumping(_):
+                removeGestureRecognizers()
+                node.texture = playerJumpTexture
+            case .Running, .Stationary, .Invulnerable(_):
+                addGestureRecognizers()
+                node.texture = playerTexture
         }
     }
     
     private func updateState(player: Player, withNode node: SKSpriteNode) {
         switch player.state {
-        case .Lost:
-            // TODO handle updates to player states
-            break;
-        default:
-            return
+            case .Lost:
+                // TODO handle updates to player states
+                break
+            default:
+                return
         }
     }
     
@@ -90,10 +90,10 @@ extension GameScene: Observer {
         }
         
         switch propertyName {
-        case "xCoordinate", "yCoordinate":
-            updatePositionFor(obstacle, withNode: node)
-        default:
-            return
+            case "xCoordinate", "yCoordinate":
+                updatePositionFor(obstacle, withNode: node)
+            default:
+                return
         }
     }
     
@@ -103,12 +103,12 @@ extension GameScene: Observer {
     /// Handle the updating of appropriate nodes when changes are made to the game state
     private func handleUpdateGameState(propertyName: String) {
         switch propertyName {
-        case "gameIsOver":
-            gameDidEnd()
-        case "obstacles":
-            handleChangesToObstacles()
-        default:
-            return
+            case "gameIsOver":
+                gameDidEnd()
+            case "obstacles":
+                handleChangesToObstacles()
+            default:
+                return
         }
     }
     
