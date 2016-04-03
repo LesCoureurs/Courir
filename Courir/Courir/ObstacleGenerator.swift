@@ -13,7 +13,7 @@ class ObstacleGenerator {
     private let source: GKARC4RandomSource
     
     init(seed: String? = nil) {
-        if seed != nil {
+        if seed != nil && !seed!.isEmpty {
             source = GKARC4RandomSource(seed: seed!.dataUsingEncoding(NSUTF8StringEncoding)!)
         } else {
             source = GKARC4RandomSource()

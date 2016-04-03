@@ -33,53 +33,77 @@ class ObstacleGeneratorTests: XCTestCase {
                        "Generators with no seed should not result with same values")
     }
     
-    func testSeed_zero() {
-        let g1 = ObstacleGenerator(seed: 0)
-        let g2 = ObstacleGenerator(seed: 0)
+    func testSeed_blank() {
+        let g1 = ObstacleGenerator(seed: "")
+        let g2 = ObstacleGenerator(seed: "")
+        XCTAssertFalse(generatesSameSequence(g1, g2),
+                      "Valid generators should result with same values")
+    }
+    
+    func testSeed_singleChar() {
+        var g1 = ObstacleGenerator(seed: "a")
+        var g2 = ObstacleGenerator(seed: "a")
+        XCTAssertTrue(generatesSameSequence(g1, g2),
+                      "Valid generators should result with same values")
+        
+        g1 = ObstacleGenerator(seed: "1")
+        g2 = ObstacleGenerator(seed: "1")
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
-    func testSeed_maxInt() {
-        let g1 = ObstacleGenerator(seed: Int.max)
-        let g2 = ObstacleGenerator(seed: Int.max)
+    func testSeed_multipleChar() {
+        var g1 = ObstacleGenerator(seed: "Courir")
+        var g2 = ObstacleGenerator(seed: "Courir")
+        XCTAssertTrue(generatesSameSequence(g1, g2),
+                      "Valid generators should result with same values")
+        
+        g1 = ObstacleGenerator(seed: "Coulomb")
+        g2 = ObstacleGenerator(seed: "Coulomb")
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
-    func testSeed_negativeInt() {
-        let g1 = ObstacleGenerator(seed: -5)
-        let g2 = ObstacleGenerator(seed: -5)
+    func testSeed_multipleSpecialChar() {
+        var g1 = ObstacleGenerator(seed: "Courir, best Courir!")
+        var g2 = ObstacleGenerator(seed: "Courir, best Courir!")
+        XCTAssertTrue(generatesSameSequence(g1, g2),
+                      "Valid generators should result with same values")
+        
+        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
+        g2 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
-    func testSeed_differentInts() {
-        var g1 = ObstacleGenerator(seed: 555)
-        var g2 = ObstacleGenerator(seed: -123)
+    func testSeed_differentStrings() {
+        var g1 = ObstacleGenerator(seed: "Courir")
+        var g2 = ObstacleGenerator(seed: "Coulomb")
         XCTAssertFalse(generatesSameSequence(g1, g2),
                        "Valid & different generators should result with different values")
         
-        g1 = ObstacleGenerator(seed: 12351535)
-        g2 = ObstacleGenerator(seed: 12351534)
+        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
+        g2 = ObstacleGenerator(seed: "Coulomb ~`!@#$%^&*()_+")
         XCTAssertFalse(generatesSameSequence(g1, g2),
                        "Valid & different generators should result with different values")
     }
     
+    /// Compare output obstacle types with predefined expected output
     func testGetNextObstacleIsDeterministic() {
-        let g1 = ObstacleGenerator(seed: 1)
-        let expected1: [ObstacleType?] = [nil, ObstacleType.NonFloating, nil, nil, ObstacleType.NonFloating]
+        let g1 = ObstacleGenerator(seed: "seed")
+        let expected1: [ObstacleType?] = [nil, nil, ObstacleType.Floating, nil, nil]
         for i in 0..<5 {
             XCTAssertTrue(g1.getNextObstacle()?.type == expected1[i], "Non deterministic")
         }
         
-        let g2 = ObstacleGenerator(seed: 999)
-        let expected2: [ObstacleType?] = [nil, ObstacleType.NonFloating, nil, ObstacleType.Floating, nil]
+        let g2 = ObstacleGenerator(seed: "another seed")
+        let expected2: [ObstacleType?] = [nil, nil, nil, nil, ObstacleType.NonFloating]
         for i in 0..<5 {
             XCTAssertTrue(g2.getNextObstacle()?.type == expected2[i], "Non deterministic")
         }
     }
     
+    /// Test if specifying the type of getNextObstacle returns the correct type
     func testGetNextObstacleWithType() {
         let g1 = ObstacleGenerator()
         XCTAssertEqual(g1.getNextObstacle(ObstacleType.Floating)!.type,
