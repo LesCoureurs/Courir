@@ -10,8 +10,6 @@ import UIKit
 import MultipeerConnectivity
 
 protocol LogicEngineDelegate: class {
-    func didGenerateObstacle(obstacle: Obstacle)
-    func didRemoveObstacle(obstacle: Obstacle)
     func playerDidFinish(playerNumber: Int, score: Int)
 }
 
@@ -160,22 +158,16 @@ class LogicEngine {
     }
     
     private func updateObstaclePositions() {
-        var obstaclesOnScreen = [Obstacle]()
         
-        func shouldRemoveObstacle(obstacle: Obstacle) -> Bool {
-            return obstacle.xCoordinate + obstacle.xWidth - 1 < 0
+        func shouldKeepObstacle(obstacle: Obstacle) -> Bool {
+            return obstacle.xCoordinate + obstacle.xWidth - 1 >= 0
         }
         
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= speed
-            if shouldRemoveObstacle(obstacle) {
-                delegate?.didRemoveObstacle(obstacle)
-            } else {
-                obstaclesOnScreen.append(obstacle)
-            }
         }
         
-        state.obstacles = obstaclesOnScreen
+        state.obstacles = state.obstacles.filter {shouldKeepObstacle($0)}
     }
     
     private func updatePlayerStates() {
@@ -274,7 +266,6 @@ class LogicEngine {
     
     private func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
-        delegate?.didGenerateObstacle(obstacle)
     }
     
     private func insertPlayer(player: Player) {

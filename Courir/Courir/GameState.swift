@@ -15,7 +15,12 @@ class GameState: Observed {
     var peerMapping = [MCPeerID: Int]()
     var scoreTracking = [MCPeerID: Int]()
 
-    var obstacles = [Obstacle]()
+    var obstacles = [Obstacle]() {
+        didSet {
+            observer?.didChangeProperty("obstacles", from: self)
+        }
+    }
+    
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
 

@@ -305,10 +305,12 @@ extension GameScene: Observer {
     /// Handle the updating of appropriate nodes when changes are made to the game state
     private func handleUpdateGameState(propertyName: String) {
         switch propertyName {
-        case "gameIsOver":
-            gameDidEnd()
-        default:
-            return
+            case "gameIsOver":
+                gameDidEnd()
+            case "obstacles":
+                handleChangesToObstacles()
+            default:
+                return
         }
     }
     
@@ -317,5 +319,25 @@ extension GameScene: Observer {
         
         NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
         print("Game did end. Score tracking: \(gameState.scoreTracking)")
+    }
+    
+    private func handleChangesToObstacles() {
+        
+        // Create nodes for newly added obstacles
+        let addedObstacles = gameState.obstacles.filter {obstacles[$0.identifier] == nil}
+        
+        for obstacle in addedObstacles {
+            obstacle.observer = self
+            obstacles[obstacle.identifier] = createObstacleNode(obstacle)
+        }
+        
+        // Remove nodes and references to removed obstacles
+        let obstacleIds = gameState.obstacles.map {$0.identifier}
+        let removedObstacles = obstacles.filter {!obstacleIds.contains($0.0)}
+        
+        for (id, obstacleNode) in removedObstacles {
+            obstacleNode.removeFromParent()
+            obstacles.removeValueForKey(id)
+        }
     }
 }
