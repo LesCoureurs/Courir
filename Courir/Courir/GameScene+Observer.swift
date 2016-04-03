@@ -116,7 +116,6 @@ extension GameScene: Observer {
         let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
         
         NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
-        print("Game did end. Score tracking: \(gameState.scoreTracking)")
     }
     
     private func handleChangesToObstacles() {
