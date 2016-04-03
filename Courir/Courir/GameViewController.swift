@@ -25,7 +25,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(self.receiveEvent(_:)),
-                                                         name: "showAlert", object: nil)
+                                                         name: "showEndGameMenu", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(self.exitGame),
                                                          name: "exitGame", object: nil)
