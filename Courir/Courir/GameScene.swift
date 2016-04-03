@@ -304,5 +304,18 @@ extension GameScene: Observer {
     
     /// Handle the updating of appropriate nodes when changes are made to the game state
     private func handleUpdateGameState(propertyName: String) {
+        switch propertyName {
+        case "gameIsOver":
+            gameDidEnd()
+        default:
+            return
+        }
+    }
+    
+    private func gameDidEnd() {
+        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
+        print("Game did end. Score tracking: \(gameState.scoreTracking)")
     }
 }

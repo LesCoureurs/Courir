@@ -20,7 +20,11 @@ class GameState: Observed {
     var distance = 0 // Score
 
     var isMultiplayer: Bool
-    var gameIsOver = false
+    var gameIsOver = false {
+        didSet {
+            observer?.didChangeProperty("gameIsOver", from: self)
+        }
+    }
     
     weak var observer: Observer?
     

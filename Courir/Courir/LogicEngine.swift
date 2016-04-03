@@ -12,7 +12,6 @@ import MultipeerConnectivity
 protocol LogicEngineDelegate: class {
     func didGenerateObstacle(obstacle: Obstacle)
     func didRemoveObstacle(obstacle: Obstacle)
-    func gameDidEnd()
     func playerDidFinish(playerNumber: Int, score: Int)
 }
 
@@ -298,8 +297,6 @@ class LogicEngine {
                 // Send game end signal
                 gameNetworkPortal.send(.GameDidEnd)
             }
-            // Call delegates to handle UI changes
-            delegate?.gameDidEnd()
         }
     }
 }
@@ -366,8 +363,6 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
         // Stop the update() method
         state.gameIsOver = true
-        
-        delegate?.gameDidEnd()
     }
     
     func disconnectedFromGame() {
