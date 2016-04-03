@@ -60,15 +60,12 @@ class LogicEngine {
             return
         }
         
-        var occurrence: Int
+        var occurrence = timeStep
         if occurringTimeStep != nil {
             occurrence = occurringTimeStep!
-        } else {
-            occurrence = timeStep
         }
         
         let canSend = validToSend(player)
-        
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
