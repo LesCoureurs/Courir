@@ -225,12 +225,8 @@ class LogicEngine {
     
     private func generateObstacle() {
         func readyForNextObstacle() -> Bool {
-            if lastObstacleTimeStep == nil {
-                return true
-            } else {
-                return timeStep > Int(obstacleSpaceMultiplier
-                    * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
-            }
+            return lastObstacleTimeStep == nil || timeStep > Int(obstacleSpaceMultiplier
+                * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
         }
         
         if (readyForNextObstacle()) {
