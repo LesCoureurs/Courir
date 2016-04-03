@@ -37,9 +37,6 @@ class LogicEngine {
         return state.currentSpeed
     }
     
-    var gameState: GameState {
-        return state
-    }
 
     // MARK: Logic Handling
     
@@ -325,7 +322,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
   
     func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID) {
-        if let player = gameState.getPlayer(withPeerID: peer) {
+        if let player = state.getPlayer(withPeerID: peer) {
             player.ready()
         }
     }
