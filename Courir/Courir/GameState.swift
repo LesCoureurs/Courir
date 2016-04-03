@@ -9,18 +9,29 @@
 import Foundation
 import MultipeerConnectivity
 
-class GameState {
+class GameState: Observed {
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
     var scoreTracking = [MCPeerID: Int]()
 
-    var obstacles = [Obstacle]()
+    var obstacles = [Obstacle]() {
+        didSet {
+            observer?.didChangeProperty("obstacles", from: self)
+        }
+    }
+    
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
 
     var isMultiplayer: Bool
-    var gameIsOver = false
+    var gameIsOver = false {
+        didSet {
+            observer?.didChangeProperty("gameIsOver", from: self)
+        }
+    }
+    
+    weak var observer: Observer?
     
     init(isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer

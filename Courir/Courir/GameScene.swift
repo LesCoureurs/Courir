@@ -19,30 +19,31 @@ class GameScene: SKScene {
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
+    private var jumpRecognizer: UISwipeGestureRecognizer!
+    private var duckRecognizer: UISwipeGestureRecognizer!
+    
     private let tileSize = (width: 32, height: 32)
     
     private let grid = SKSpriteNode()
     private var logicEngine: LogicEngine!
-    
-    private var gameState: GameState!
     private var myPlayer: SKSpriteNode!
     private var myPlayerNumber: Int!
-    private var players = [Int: SKSpriteNode]()
-    private var obstacles = [Int: SKSpriteNode]()
     
-    private var jumpRecognizer: UISwipeGestureRecognizer!
-    private var duckRecognizer: UISwipeGestureRecognizer!
+    var gameState: GameState!
+    var players = [Int: SKSpriteNode]()
+    var obstacles = [Int: SKSpriteNode]()
 
     var seed: String?
     var isMultiplayer = false
     var peers = [MCPeerID]()
 
+    
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
         logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
-        logicEngine.delegate = self
         gameState = logicEngine.state
+        gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
@@ -161,7 +162,7 @@ class GameScene: SKScene {
         return playerSprite
     }
     
-    private func createObstacleNode(obstacle: Obstacle) -> SKSpriteNode {
+    func createObstacleNode(obstacle: Obstacle) -> SKSpriteNode {
         let obstacleSprite: SKSpriteNode
         switch obstacle.type {
             case .NonFloating:
@@ -176,7 +177,7 @@ class GameScene: SKScene {
     }
     
     /// Convert world coordinates of object to screen coordinates
-    private func calculateRenderPositionFor(object: GameObject) -> CGPoint {
+    func calculateRenderPositionFor(object: GameObject) -> CGPoint {
         // multiple is to convert object's coordinates to coordinates in the actual larger grid
         let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
         let x = CGFloat(Double(object.xCoordinate) * multiple)
@@ -203,12 +204,12 @@ class GameScene: SKScene {
         addGestureRecognizers()
     }
     
-    private func addGestureRecognizers() {
+    func addGestureRecognizers() {
         view!.addGestureRecognizer(jumpRecognizer)
         view!.addGestureRecognizer(duckRecognizer)
     }
     
-    private func removeGestureRecognizers() {
+    func removeGestureRecognizers() {
         view!.removeGestureRecognizer(jumpRecognizer)
         view!.removeGestureRecognizer(duckRecognizer)
     }
@@ -230,98 +231,6 @@ class GameScene: SKScene {
     // MARK: Pause Menu methods
     private func showPauseMenu() {
         
-    }
-}
-
-// MARK: LogicEngineDelegate
-extension GameScene: LogicEngineDelegate {
-    func didGenerateObstacle(obstacle: Obstacle) {
-        obstacle.observer = self
-        obstacles[obstacle.identifier] = createObstacleNode(obstacle)
-    }
-    
-    func didRemoveObstacle(obstacle: Obstacle) {
-        obstacles[obstacle.identifier]?.removeFromParent()
-    }
-
-    func playerDidFinish(playerNumber: Int, score: Int) {
-        print("Player \(playerNumber) finished with score = \(score)")
-    }
-    
-    func gameDidEnd() {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
-        print("Game did end. Score tracking: \(gameState.scoreTracking)")
-    }
-}
-
-
-// MARK: Observer
-extension GameScene: Observer {
-    func didChangeProperty(propertyName: String, from: AnyObject?) {
-        if let object = from as? Player {
-            handleUpdatePlayerNode(object, propertyName: propertyName)
-        } else if let object = from as? Obstacle {
-            handleUpdateObstacleNode(object, propertyName: propertyName)
-        }
-    }
-    
-    /// Handle the updating of the player node whose property has changed
-    private func handleUpdatePlayerNode(player: Player, propertyName: String) {
-        guard let node = players[player.playerNumber] else {
-            return
-        }
-        
-        switch propertyName {
-            case "xCoordinate", "yCoordinate":
-                updatePositionFor(player, withNode: node)
-            case "zCoordinate":
-                updateJumpingPositionFor(player, withNode: node)
-            case "state":
-                updatePlayerTexture(player, withNode: node)
-            default:
-                return
-        }
-    }
-    
-    /// Update screen coordinates for object whose x and/or y coordinate has changed
-    private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
-        node.position = calculateRenderPositionFor(object)
-    }
-    
-    /// Update screen y coordinate for the jumping player
-    private func updateJumpingPositionFor(player: Player, withNode node: SKSpriteNode) {
-        node.position.y = calculateRenderPositionFor(player).y + CGFloat(player.zCoordinate)
-    }
-    
-    /// Update the player's texture based on state
-    private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
-        switch player.physicalState {
-        case .Ducking(_):
-            removeGestureRecognizers()
-            node.texture = playerDuckTexture
-        case .Jumping(_):
-            removeGestureRecognizers()
-            node.texture = playerJumpTexture
-        case .Running, .Stationary, .Invulnerable(_):
-            addGestureRecognizers()
-            node.texture = playerTexture
-        }
-    }
-    
-    /// Handle the updating of the obstacle node whose property has changed
-    private func handleUpdateObstacleNode(obstacle: Obstacle, propertyName: String) {
-        guard let node = obstacles[obstacle.identifier] else {
-            return
-        }
-        
-        switch propertyName {
-            case "xCoordinate", "yCoordinate":
-                updatePositionFor(obstacle, withNode: node)
-            default:
-                return
-        }
     }
 }
 

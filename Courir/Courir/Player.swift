@@ -54,11 +54,15 @@ class Player: GameObject {
     
     private(set) var physicalState = PhysicalState.Stationary {
         didSet {
-            observer?.didChangeProperty("state", from: self)
+            observer?.didChangeProperty("physicalState", from: self)
         }
     }
 
-    private(set) var state = PlayerState.Connected
+    private(set) var state = PlayerState.Connected {
+        didSet {
+            observer?.didChangeProperty("state", from: self)
+        }
+    }
     
     
     // Range of playerNumber = [0, 3]

@@ -9,13 +9,6 @@
 import UIKit
 import MultipeerConnectivity
 
-protocol LogicEngineDelegate: class {
-    func didGenerateObstacle(obstacle: Obstacle)
-    func didRemoveObstacle(obstacle: Obstacle)
-    func gameDidEnd()
-    func playerDidFinish(playerNumber: Int, score: Int)
-}
-
 class LogicEngine {
 
     // MARK: Properties
@@ -23,8 +16,6 @@ class LogicEngine {
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
     
-    weak var delegate: LogicEngineDelegate?
-
     private let gameNetworkPortal = GameNetworkPortal._instance
     
     private var timeStep = 0
@@ -46,9 +37,6 @@ class LogicEngine {
         return state.currentSpeed
     }
     
-    var gameState: GameState {
-        return state
-    }
 
     // MARK: Logic Handling
     
@@ -102,15 +90,14 @@ class LogicEngine {
                     }
                     // If player fell off the grid, he finished the race
                     if player.xCoordinate < 0 {
-                        player.lost()
                         state.updatePlayerScore(myPeerID, score: score)
+                        player.lost()
                         
                         if canSend {
                             sendPlayerLostData(score)
                         }
                         
                         checkRaceFinished()
-                        delegate?.playerDidFinish(player.playerNumber, score: score)
                     }
                 } else {
                     guard let xCoordinate = data as? Int else {
@@ -161,22 +148,16 @@ class LogicEngine {
     }
     
     private func updateObstaclePositions() {
-        var obstaclesOnScreen = [Obstacle]()
         
-        func shouldRemoveObstacle(obstacle: Obstacle) -> Bool {
-            return obstacle.xCoordinate + obstacle.xWidth - 1 < 0
+        func shouldKeepObstacle(obstacle: Obstacle) -> Bool {
+            return obstacle.xCoordinate + obstacle.xWidth - 1 >= 0
         }
         
         for obstacle in state.obstacles {
             obstacle.xCoordinate -= speed
-            if shouldRemoveObstacle(obstacle) {
-                delegate?.didRemoveObstacle(obstacle)
-            } else {
-                obstaclesOnScreen.append(obstacle)
-            }
         }
         
-        state.obstacles = obstaclesOnScreen
+        state.obstacles = state.obstacles.filter {shouldKeepObstacle($0)}
     }
     
     private func updatePlayerStates() {
@@ -277,7 +258,6 @@ class LogicEngine {
     
     private func insertObstacle(obstacle: Obstacle) {
         state.obstacles.append(obstacle)
-        delegate?.didGenerateObstacle(obstacle)
     }
     
     private func insertPlayer(player: Player) {
@@ -300,8 +280,6 @@ class LogicEngine {
                 // Send game end signal
                 gameNetworkPortal.send(.GameDidEnd)
             }
-            // Call delegates to handle UI changes
-            delegate?.gameDidEnd()
         }
     }
 }
@@ -346,15 +324,14 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
   
     func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID) {
-        if let player = gameState.getPlayer(withPeerID: peer) {
+        if let player = state.getPlayer(withPeerID: peer) {
             player.ready()
         }
     }
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-                return
+        guard let dataDict = data as? [String: AnyObject] else {
+            return
         }
         
         guard let score = dataDict["score"] as? Int else {
@@ -362,14 +339,12 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
         }
         
         state.updatePlayerScore(peer, score: score)
-        delegate?.playerDidFinish(playerNumber, score: score)
+        state.getPlayer(withPeerID: peer)!.lost()
     }
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
         // Stop the update() method
         state.gameIsOver = true
-        
-        delegate?.gameDidEnd()
     }
     
     func disconnectedFromGame() {
