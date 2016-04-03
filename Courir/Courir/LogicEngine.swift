@@ -60,58 +60,55 @@ class LogicEngine {
             return
         }
         
-        var occurrence: Int
+        var occurrence = timeStep
         if occurringTimeStep != nil {
             occurrence = occurringTimeStep!
-        } else {
-            occurrence = timeStep
         }
-        
-        let canSend = validToSend(player)
         
         switch event {
             case .PlayerDidJump:
                 player.jump(occurrence)
-                if canSend {
+                if isValidToSend(player) {
                     sendActionData(.PlayerDidJump)
                 }
             case .PlayerDidDuck:
                 player.duck(occurrence)
-                if canSend {
+                if isValidToSend(player) {
                     sendActionData(.PlayerDidDuck)
                 }
             case .PlayerDidCollide:
-                player.run()
-                if player.playerNumber == state.myPlayer.playerNumber {
-                    player.fallBehind()
-                    player.becomeInvulnerable(timeStep)
-                    if canSend {
-                        sendCollisionData(player.xCoordinate)
-                    }
-                    // If player fell off the grid, he finished the race
-                    if player.xCoordinate < 0 {
-                        state.updatePlayerScore(myPeerID, score: score)
-                        player.lost()
-                        
-                        if canSend {
-                            sendPlayerLostData(score)
-                        }
-                        
-                        checkRaceFinished()
-                    }
-                } else {
-                    guard let xCoordinate = data as? Int else {
-                        break
-                    }
-                    player.xCoordinate = xCoordinate
-                }
+                handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
             default:
                 break
         }
     }
     
+    func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
+        player.run()
+        if player.playerNumber == state.myPlayer.playerNumber {
+            player.fallBehind()
+            player.becomeInvulnerable(timeStep)
+            if isValidToSend(player) {
+                sendCollisionData(player.xCoordinate)
+            }
+            // If player fell off the grid, he finished the race
+            if player.xCoordinate < 0 {
+                state.updatePlayerScore(myPeerID, score: score)
+                player.lost()
+                
+                if isValidToSend(player) {
+                    sendPlayerLostData(score)
+                }
+                
+                checkRaceFinished()
+            }
+        } else {
+            player.xCoordinate = xCoordinate!
+        }
+    }
+    
     // MARK: sending data
-    private func validToSend(player: Player) -> Bool {
+    private func isValidToSend(player: Player) -> Bool {
         return state.isMultiplayer
             && player.playerNumber == state.myPlayer.playerNumber
             && state.ownPlayerStillPlaying()
@@ -196,48 +193,40 @@ class LogicEngine {
             return
         }
         
+        func collisionDidOccur() {
+            appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
+                               occurringTimeStep: timeStep)
+        }
+        
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
         }
-        
-        let nonFloatingObstacles = obstaclesInNextFrame.filter {
-            $0.type == ObstacleType.NonFloating
-        }
-        
-        let floatingObstacles = obstaclesInNextFrame.filter {
-            $0.type == ObstacleType.Floating
-        }
+        let nonFloatingObstacles = obstaclesInNextFrame.filter{$0.type == ObstacleType.NonFloating}
+        let floatingObstacles = obstaclesInNextFrame.filter{$0.type == ObstacleType.Floating}
 
         switch state.myPlayer.physicalState {
-        case .Jumping(_):
-            if floatingObstacles.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
-        case .Ducking(_):
-            if nonFloatingObstacles.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
-        case .Invulnerable(_), .Stationary:
-            return
-        case .Running:
-            if obstaclesInNextFrame.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
+            case .Jumping(_):
+                if floatingObstacles.count > 0 {
+                    collisionDidOccur()
+                }
+            case .Ducking(_):
+                if nonFloatingObstacles.count > 0 {
+                    collisionDidOccur()
+                }
+            case .Invulnerable(_), .Stationary:
+                return
+            case .Running:
+                if obstaclesInNextFrame.count > 0 {
+                    collisionDidOccur()
+                }
         }
     }
     
     private func generateObstacle() {
         func readyForNextObstacle() -> Bool {
-            if lastObstacleTimeStep == nil {
-                return true
-            } else {
-                return timeStep > Int(obstacleSpaceMultiplier
-                    * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
-            }
+            return lastObstacleTimeStep == nil || timeStep > Int(obstacleSpaceMultiplier
+                * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
         }
         
         if (readyForNextObstacle()) {
@@ -287,35 +276,26 @@ class LogicEngine {
 // MARK: GameNetworkPortalGameStateDelegate
 extension LogicEngine: GameNetworkPortalGameStateDelegate {
     func jumpActionReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-            return
-        }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int else {
-            return
-        }
-        appendToEventQueue(.PlayerDidJump, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep)
+        handlePlayerAction(.PlayerDidJump, data: data, peer: peer)
     }
 
     func duckActionReceived(data: AnyObject?, peer: MCPeerID) {
+        handlePlayerAction(.PlayerDidDuck, data: data, peer: peer)
+    }
+    
+    private func handlePlayerAction(action: GameEvent, data: AnyObject?, peer: MCPeerID) {
         guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
+            dataDict = data as? [String: AnyObject],
+            occurringTimeStep = dataDict["time_step"] as? Int else {
                 return
         }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int else {
-            return
-        }
-        appendToEventQueue(.PlayerDidDuck, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep)
+        appendToEventQueue(action, playerNumber: playerNumber, occurringTimeStep: occurringTimeStep)
     }
 
     func collideActionReceived(data: AnyObject?, peer: MCPeerID) {
         guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject] else {
-                return
-        }
-        guard let occurringTimeStep = dataDict["time_step"] as? Int,
+            dataDict = data as? [String: AnyObject],
+            occurringTimeStep = dataDict["time_step"] as? Int,
             xCoordinate = dataDict["x_coordinate"] else {
                 return
         }
