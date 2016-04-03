@@ -193,37 +193,33 @@ class LogicEngine {
             return
         }
         
+        func collisionDidOccur() {
+            appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
+                               occurringTimeStep: timeStep)
+        }
+        
         let obstaclesInNextFrame = state.obstacles.filter {
             $0.xCoordinate < state.myPlayer.xCoordinate + state.myPlayer.xWidth + speed &&
             $0.xCoordinate + $0.xWidth >= state.myPlayer.xCoordinate
         }
-        
-        let nonFloatingObstacles = obstaclesInNextFrame.filter {
-            $0.type == ObstacleType.NonFloating
-        }
-        
-        let floatingObstacles = obstaclesInNextFrame.filter {
-            $0.type == ObstacleType.Floating
-        }
+        let nonFloatingObstacles = obstaclesInNextFrame.filter{$0.type == ObstacleType.NonFloating}
+        let floatingObstacles = obstaclesInNextFrame.filter{$0.type == ObstacleType.Floating}
 
         switch state.myPlayer.physicalState {
-        case .Jumping(_):
-            if floatingObstacles.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
-        case .Ducking(_):
-            if nonFloatingObstacles.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
-        case .Invulnerable(_), .Stationary:
-            return
-        case .Running:
-            if obstaclesInNextFrame.count > 0 {
-                appendToEventQueue(.PlayerDidCollide, playerNumber: state.myPlayer.playerNumber,
-                                   occurringTimeStep: timeStep)
-            }
+            case .Jumping(_):
+                if floatingObstacles.count > 0 {
+                    collisionDidOccur()
+                }
+            case .Ducking(_):
+                if nonFloatingObstacles.count > 0 {
+                    collisionDidOccur()
+                }
+            case .Invulnerable(_), .Stationary:
+                return
+            case .Running:
+                if obstaclesInNextFrame.count > 0 {
+                    collisionDidOccur()
+                }
         }
     }
     
