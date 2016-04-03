@@ -30,6 +30,7 @@ class RoomViewController: UIViewController {
         
         if isHost {
             portal.beginHosting()
+            startButton.enabled = peers.count > 0
         } else {
             startButton.enabled = false
         }
@@ -98,8 +99,15 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
+        if isHost {
+            dispatch_async(dispatch_get_main_queue()){
+                self.startButton.enabled = self.peers.count > 0
+            }
+        }
         peers = peerIDs
-        dispatch_async(dispatch_get_main_queue(), { self.peersTableView.reloadData() })
+        dispatch_async(dispatch_get_main_queue()) {
+            self.peersTableView.reloadData()
+        }
     }
     
     func disconnectedFromRoom() {
