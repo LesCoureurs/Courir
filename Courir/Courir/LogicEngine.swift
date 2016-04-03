@@ -81,32 +81,33 @@ class LogicEngine {
                     sendActionData(.PlayerDidDuck)
                 }
             case .PlayerDidCollide:
-                player.run()
-                if player.playerNumber == state.myPlayer.playerNumber {
-                    player.fallBehind()
-                    player.becomeInvulnerable(timeStep)
-                    if canSend {
-                        sendCollisionData(player.xCoordinate)
-                    }
-                    // If player fell off the grid, he finished the race
-                    if player.xCoordinate < 0 {
-                        state.updatePlayerScore(myPeerID, score: score)
-                        player.lost()
-                        
-                        if canSend {
-                            sendPlayerLostData(score)
-                        }
-                        
-                        checkRaceFinished()
-                    }
-                } else {
-                    guard let xCoordinate = data as? Int else {
-                        break
-                    }
-                    player.xCoordinate = xCoordinate
-                }
+                handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
             default:
                 break
+        }
+    }
+    
+    func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
+        player.run()
+        if player.playerNumber == state.myPlayer.playerNumber {
+            player.fallBehind()
+            player.becomeInvulnerable(timeStep)
+            if validToSend(player) {
+                sendCollisionData(player.xCoordinate)
+            }
+            // If player fell off the grid, he finished the race
+            if player.xCoordinate < 0 {
+                state.updatePlayerScore(myPeerID, score: score)
+                player.lost()
+                
+                if validToSend(player) {
+                    sendPlayerLostData(score)
+                }
+                
+                checkRaceFinished()
+            }
+        } else {
+            player.xCoordinate = xCoordinate!
         }
     }
     
