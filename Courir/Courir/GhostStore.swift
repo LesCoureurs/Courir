@@ -53,10 +53,10 @@ class GhostStore {
                                                  toFile: GhostStore.ghostFileURL.path!)
     }
     
-    static func removeGhostData(forDate date: NSDate) -> Bool {
+    static func removeGhostData(forDate date: NSDate, completion: (Bool) -> Void)  {
         var ghostDictionary = GhostStore.loadGhostDictionary()
         ghostDictionary.removeValueForKey(date)
-        return saveGhostDictionary(ghostDictionary)
+        completion(saveGhostDictionary(ghostDictionary))
     }
     
     static var storedGhostDates: [NSDate] {
