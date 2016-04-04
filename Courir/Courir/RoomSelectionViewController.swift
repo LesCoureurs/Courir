@@ -50,7 +50,7 @@ class RoomSelectionViewController: UIViewController {
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
-            roomsAvailableTableView.reloadData()
+            self.roomsAvailableTableView.reloadData()
         })
     }
 }
@@ -84,7 +84,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
         hosts = foundHosts
         dispatch_async(dispatch_get_main_queue(), {
-            roomsAvailableTableView.reloadData()
+            self.roomsAvailableTableView.reloadData()
         })
     }
     
