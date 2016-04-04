@@ -18,12 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZD-Wm-f2y" customClass="GameEndView" customModule="Courir" customModuleProvider="target">
-                                <rect key="frame" x="181" y="100" width="661" height="432"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NZD-Wm-f2y" customClass="GameEndView" customModule="Courir" customModuleProvider="target">
+                                <rect key="frame" x="181" y="168" width="661" height="432"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-x2-Wwr">
-                                        <rect key="frame" x="100" y="103" width="460" height="245"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-x2-Wwr">
+                                        <rect key="frame" x="100" y="93" width="460" height="245"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="460" id="4z1-ML-Jnq"/>
+                                            <constraint firstAttribute="height" constant="245" id="G2B-1K-W7B"/>
+                                        </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="endGameTableCell" id="HeI-hA-VMh" customClass="GameEndTableCell" customModule="Courir" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
@@ -60,21 +64,46 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
-                                        <rect key="frame" x="160" y="41" width="342" height="54"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
+                                        <rect key="frame" x="159" y="41" width="342" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="LEe-nS-8HS"/>
+                                            <constraint firstAttribute="width" constant="342" id="qFg-cz-5rH"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rN-cr-Xkg">
-                                        <rect key="frame" x="150" y="366" width="108" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rN-cr-Xkg">
+                                        <rect key="frame" x="128" y="366" width="108" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="108" id="4Yk-NC-x9a"/>
+                                            <constraint firstAttribute="height" constant="30" id="GHS-k5-hTT"/>
+                                        </constraints>
                                         <state key="normal" title="Main Menu"/>
                                         <connections>
                                             <action selector="mainMenuButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="I6h-y3-wHY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaN-3f-Tot">
+                                        <rect key="frame" x="276" y="366" width="108" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="FL9-Vt-cDU"/>
+                                            <constraint firstAttribute="width" constant="108" id="Jzx-By-hEw"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="l9U-TM-4nw"/>
+                                            <constraint firstAttribute="height" constant="30" id="t7f-hC-M1L"/>
+                                        </constraints>
+                                        <state key="normal" title="Save Run"/>
+                                        <connections>
+                                            <action selector="saveRunButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="XOw-Hs-i0J"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
                                         <rect key="frame" x="424" y="366" width="103" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="103" id="Ke5-hR-u0M"/>
+                                            <constraint firstAttribute="height" constant="30" id="dB2-VI-Yy9"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
@@ -82,9 +111,27 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="QaN-3f-Tot" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="CDt-cz-TQL"/>
+                                    <constraint firstItem="QaN-3f-Tot" firstAttribute="bottom" secondItem="5rN-cr-Xkg" secondAttribute="bottom" id="MaU-gr-CxG"/>
+                                    <constraint firstAttribute="height" constant="432" id="VxF-jr-Qwd"/>
+                                    <constraint firstItem="pyj-x2-Wwr" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="ebG-gE-j78"/>
+                                    <constraint firstAttribute="bottom" secondItem="QaN-3f-Tot" secondAttribute="bottom" constant="36" id="fr9-g9-UYM"/>
+                                    <constraint firstItem="MLM-bK-lrE" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="g54-As-paC"/>
+                                    <constraint firstAttribute="width" constant="661" id="gM9-L0-HeF"/>
+                                    <constraint firstItem="pyj-x2-Wwr" firstAttribute="centerY" secondItem="NZD-Wm-f2y" secondAttribute="centerY" id="gXt-jm-bH8"/>
+                                    <constraint firstItem="MLM-bK-lrE" firstAttribute="top" secondItem="NZD-Wm-f2y" secondAttribute="top" constant="41" id="gb8-oA-L8p"/>
+                                    <constraint firstItem="QaN-3f-Tot" firstAttribute="leading" secondItem="5rN-cr-Xkg" secondAttribute="trailing" constant="40" id="hgE-qz-gdH"/>
+                                    <constraint firstItem="If6-Cc-Qy2" firstAttribute="leading" secondItem="QaN-3f-Tot" secondAttribute="trailing" constant="40" id="r2W-vf-OKf"/>
+                                    <constraint firstItem="If6-Cc-Qy2" firstAttribute="bottom" secondItem="5rN-cr-Xkg" secondAttribute="bottom" id="tXC-J9-Mub"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NZD-Wm-f2y" firstAttribute="centerY" secondItem="24O-l2-RgK" secondAttribute="centerY" id="0NT-OX-v3Y"/>
+                            <constraint firstItem="NZD-Wm-f2y" firstAttribute="centerX" secondItem="24O-l2-RgK" secondAttribute="centerX" id="uNO-Qv-ZUb"/>
+                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
@@ -93,6 +140,7 @@
                         <outlet property="endGameMenu" destination="NZD-Wm-f2y" id="74X-9z-BVe"/>
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
+                        <outlet property="saveRunButtton" destination="QaN-3f-Tot" id="xLX-9I-XJW"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
                     </connections>
