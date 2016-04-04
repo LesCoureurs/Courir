@@ -32,7 +32,7 @@ class GameScene: SKScene {
     var players = [Int: SKSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
 
-    var seed: String?
+    var seed: NSData?
     var isMultiplayer = false
     var peers = [MCPeerID]()
 
@@ -40,7 +40,7 @@ class GameScene: SKScene {
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
+        logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
         gameState = logicEngine.state
         gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber

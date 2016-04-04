@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
-    var seed: String?
+    var seed: NSData?
 
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
