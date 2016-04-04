@@ -105,6 +105,10 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
             }
         }
         peers = peerIDs
+        if host == myPeerID {
+            isHost = true
+        }
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.peersTableView.reloadData()
         }
