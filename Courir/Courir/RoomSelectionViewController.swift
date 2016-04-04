@@ -41,7 +41,7 @@ class RoomSelectionViewController: UIViewController {
     }
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
-        
+        portal.disconnectFromRoom()
     }
     
     override func prefersStatusBarHidden() -> Bool {
