@@ -49,8 +49,9 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
-        portal.beginSearchingForHosts()
-        roomsAvailableTableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            roomsAvailableTableView.reloadData()
+        })
     }
 }
 
@@ -82,7 +83,9 @@ extension RoomSelectionViewController: UITableViewDataSource {
 extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
         hosts = foundHosts
-        roomsAvailableTableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            roomsAvailableTableView.reloadData()
+        })
     }
     
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void) {
