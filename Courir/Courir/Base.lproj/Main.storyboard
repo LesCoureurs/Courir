@@ -237,7 +237,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomView" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
