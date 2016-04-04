@@ -33,6 +33,7 @@
 		7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839311C9E7BA1007434E8 /* GameState.swift */; };
 		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
 		7A8C65BF1CB2839200EF6117 /* PlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */; };
+		7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65C01CB28BB100EF6117 /* GhostStore.swift */; };
 		7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */; };
 		7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */; };
 		7AF09BFA1CB14C14001B0A5B /* CoundownNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF09BF91CB14C14001B0A5B /* CoundownNode.swift */; };
@@ -79,6 +80,7 @@
 		7A8839311C9E7BA1007434E8 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
 		7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEvent.swift; sourceTree = "<group>"; };
+		7A8C65C01CB28BB100EF6117 /* GhostStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GhostStore.swift; sourceTree = "<group>"; };
 		7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseButtonNode.swift; sourceTree = "<group>"; };
 		7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseMenuNode.swift; sourceTree = "<group>"; };
 		7AF09BF91CB14C14001B0A5B /* CoundownNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoundownNode.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
 				6E48F54B1C9D505A00E0ED9F /* Player.swift */,
 				7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */,
+				7A8C65C01CB28BB100EF6117 /* GhostStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */,
 				6524A7131C9C7EB800D8CC48 /* MenuViewController.swift in Sources */,
 				7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */,
+				7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */,
 				6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */,
 				024D82441CAC37E400D9CB53 /* GameEndTableCell.swift in Sources */,
 				7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */,
