@@ -115,7 +115,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func disconnectedFromRoom() {
-        performSegueWithIdentifier("unwindToMenuFromRoomSelection", sender: self)
+        performSegueWithIdentifier("unwindToRoomSelectionFromRoomView", sender: self)
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
