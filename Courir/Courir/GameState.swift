@@ -14,6 +14,8 @@ class GameState: Observed {
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
     var scoreTracking = [MCPeerID: Int]()
+    
+    private(set) var myEvents = [PlayerEvent]()
 
     var obstacles = [Obstacle]() {
         didSet {
@@ -80,5 +82,23 @@ class GameState: Observed {
     
     func updatePlayerScore(peerID: MCPeerID, score: Int) {
         scoreTracking[peerID] = score
+    }
+    
+    // MARK: Player event methods
+    
+    func addJumpEvent(timeStep: Int) {
+        addGameEvent(.PlayerDidJump, timeStep: timeStep)
+    }
+    
+    func addDuckEvent(timeStep: Int) {
+        addGameEvent(.PlayerDidDuck, timeStep: timeStep)
+    }
+    
+    func addCollideEvent(timeStep: Int, xCoordinate: Int) {
+        addGameEvent(.PlayerDidCollide, timeStep: timeStep, otherData: xCoordinate)
+    }
+    
+    private func addGameEvent(event: GameEvent, timeStep: Int, otherData: AnyObject? = nil) {
+        myEvents.append(PlayerEvent(event: event, timeStep: timeStep, otherData: otherData))
     }
 }
