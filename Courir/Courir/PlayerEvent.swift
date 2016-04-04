@@ -13,6 +13,12 @@ class PlayerEvent: NSObject, NSCoding {
     let timeStep: Int
     let otherData: AnyObject?
     
+    init(event: GameEvent, timeStep: Int, otherData: AnyObject? = nil) {
+        self.event = event
+        self.timeStep = timeStep
+        self.otherData = otherData
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         event = GameEvent(rawValue: aDecoder.decodeIntegerForKey("eventRawVal"))!
         timeStep = aDecoder.decodeIntegerForKey("timeStepVal")
