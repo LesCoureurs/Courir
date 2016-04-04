@@ -29,7 +29,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HeI-hA-VMh" id="P2m-F1-hKD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cH-Q0-lTJ">
@@ -182,7 +182,7 @@
                                     <navigationItem id="Bk9-L9-1at">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="ed4-ub-CNw">
                                             <connections>
-                                                <segue destination="rsb-1F-LAp" kind="unwind" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
+                                                <segue destination="rsb-1F-LAp" kind="unwind" identifier="unwindToMenuFromRoomSelection" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
