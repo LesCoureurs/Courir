@@ -123,11 +123,7 @@ class GameViewController: UIViewController {
         }
         saveRunButtton.enabled = false
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            if ghostStore.storeGhostData() {
-                print("Successfully saved ghost data")
-            } else {
-                print("Error when saving ghost data")
-            }
+            ghostStore.storeGhostData(nil)
         }
     }
     

@@ -36,7 +36,7 @@ class GhostStore {
         self.init(seed: storedSeed, score: storedScore, eventSequence: storedEventSequence)
     }
     
-    func storeGhostData() -> Bool {
+    func storeGhostData(completion : ((Bool) -> Void)?) {
         var ghostDictionary = GhostStore.loadGhostDictionary()
         let currentDate = NSDate()
         let ghostStoreData: [String: NSObject] = [
@@ -45,7 +45,8 @@ class GhostStore {
             GhostStore.eventSequenceKey: eventSequence
         ]
         ghostDictionary[currentDate] = ghostStoreData
-        return GhostStore.saveGhostDictionary(ghostDictionary)
+        let complete = GhostStore.saveGhostDictionary(ghostDictionary)
+        completion?(complete)
     }
     
     private static func saveGhostDictionary(ghostDictionary: [NSDate: NSObject]) -> Bool {
@@ -53,10 +54,11 @@ class GhostStore {
                                                  toFile: GhostStore.ghostFileURL.path!)
     }
     
-    static func removeGhostData(forDate date: NSDate, completion: (Bool) -> Void)  {
+    static func removeGhostData(forDate date: NSDate, completion: ((Bool) -> Void)?)  {
         var ghostDictionary = GhostStore.loadGhostDictionary()
         ghostDictionary.removeValueForKey(date)
-        completion(saveGhostDictionary(ghostDictionary))
+        let complete = saveGhostDictionary(ghostDictionary)
+        completion?(complete)
     }
     
     static var storedGhostDates: [NSDate] {
