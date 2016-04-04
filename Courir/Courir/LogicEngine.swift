@@ -66,20 +66,37 @@ class LogicEngine {
         }
         
         switch event {
+        case .PlayerDidJump, .PlayerDidDuck:
+            handlePlayerActionEvent(player, timeStep: occurrence, action: event)
+        case .PlayerDidCollide:
+            handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+        default:
+            break
+        }
+    }
+    
+    func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
+        assert (action == .PlayerDidJump || action == .PlayerDidDuck)
+        
+        if action == .PlayerDidJump {
+            player.jump(occurrence)
+        } else {
+            player.duck(occurrence)
+        }
+        
+        if isValidToSend(player) {
+            sendActionData(action)
+        }
+        
+        if player.playerNumber == state.myPlayer.playerNumber {
+            switch action {
             case .PlayerDidJump:
-                player.jump(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidJump)
-                }
+                state.addJumpEvent(occurrence)
             case .PlayerDidDuck:
-                player.duck(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidDuck)
-                }
-            case .PlayerDidCollide:
-                handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+                state.addDuckEvent(occurrence)
             default:
                 break
+            }
         }
     }
     
@@ -87,6 +104,7 @@ class LogicEngine {
         player.run()
         if player.playerNumber == state.myPlayer.playerNumber {
             player.fallBehind()
+            state.addCollideEvent(timeStep, xCoordinate: player.xCoordinate)
             player.becomeInvulnerable(timeStep)
             if isValidToSend(player) {
                 sendCollisionData(player.xCoordinate)
