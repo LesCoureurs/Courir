@@ -13,23 +13,27 @@ class GhostStore {
         .URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         .first!.URLByAppendingPathComponent("ghost-store.data")
     private static let seedKey = "seed"
+    private static let scoreKey = "score"
     private static let eventSequenceKey = "eventSequence"
     
     let seed: NSData
+    let score: Int
     let eventSequence: [PlayerEvent]
     
-    init(seed: NSData, eventSequence: [PlayerEvent]) {
+    init(seed: NSData, score: Int, eventSequence: [PlayerEvent]) {
         self.seed = seed
+        self.score = score
         self.eventSequence = eventSequence
     }
     
     convenience init?(date: NSDate) {
         guard let ghostData = GhostStore.loadGhostDictionary()[date] as? [String: NSObject],
             storedSeed = ghostData[GhostStore.seedKey] as? NSData,
+            storedScore = ghostData[GhostStore.scoreKey] as? Int,
             storedEventSequence = ghostData[GhostStore.eventSequenceKey] as? [PlayerEvent] else {
             return nil
         }
-        self.init(seed: storedSeed, eventSequence: storedEventSequence)
+        self.init(seed: storedSeed, score: storedScore, eventSequence: storedEventSequence)
     }
     
     func storeGhostData() -> Bool {
@@ -37,6 +41,7 @@ class GhostStore {
         let currentDate = NSDate()
         let ghostStoreData: [String: NSObject] = [
             GhostStore.seedKey: seed,
+            GhostStore.scoreKey: score,
             GhostStore.eventSequenceKey: eventSequence
         ]
         ghostDictionary[currentDate] = ghostStoreData

@@ -50,7 +50,7 @@ class GameState: Observed {
     }
     
     var ghostStore: GhostStore {
-        return GhostStore(seed: seed, eventSequence: myEvents)
+        return GhostStore(seed: seed, score: distance, eventSequence: myEvents)
     }
 
     func initPlayers(peers: [MCPeerID]) {

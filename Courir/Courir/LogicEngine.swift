@@ -34,6 +34,7 @@ class LogicEngine {
         self.init(isMultiplayer: false, peers: [ghostID], seed: ghostStore.seed)
         let ghostPlayerNumber = state.peerMapping[ghostID]
         state.getPlayer(withPeerID: ghostID)?.ready()
+        state.updatePlayerScore(ghostID, score: ghostStore.score)
         initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
