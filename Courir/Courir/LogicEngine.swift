@@ -25,7 +25,7 @@ class LogicEngine {
 
     init(isMultiplayer: Bool, peers: [MCPeerID], seed: NSData? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        state = GameState(isMultiplayer: isMultiplayer)
+        state = GameState(seed: obstacleGenerator.seed, isMultiplayer: isMultiplayer)
         state.initPlayers(peers)
     }
     
@@ -33,6 +33,7 @@ class LogicEngine {
         let ghostID = MCPeerID(displayName: "Ghost Player")
         self.init(isMultiplayer: false, peers: [ghostID], seed: ghostStore.seed)
         let ghostPlayerNumber = state.peerMapping[ghostID]
+        state.getPlayer(withPeerID: ghostID)?.ready()
         initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     

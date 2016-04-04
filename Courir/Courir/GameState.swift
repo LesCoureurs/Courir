@@ -25,8 +25,9 @@ class GameState: Observed {
     
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
-
-    var isMultiplayer: Bool
+    
+    let seed: NSData
+    let isMultiplayer: Bool
     var gameIsOver = false {
         didSet {
             observer?.didChangeProperty("gameIsOver", from: self)
@@ -35,8 +36,9 @@ class GameState: Observed {
     
     weak var observer: Observer?
     
-    init(isMultiplayer: Bool = false) {
+    init(seed: NSData, isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer
+        self.seed = seed
     }
 
     var objects: [GameObject] {
@@ -45,6 +47,10 @@ class GameState: Observed {
 
     var allPlayersReady: Bool {
         return players.filter { $0.state == PlayerState.Ready }.count == players.count
+    }
+    
+    var ghostStore: GhostStore {
+        return GhostStore(seed: seed, eventSequence: myEvents)
     }
 
     func initPlayers(peers: [MCPeerID]) {

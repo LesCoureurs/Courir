@@ -113,9 +113,16 @@ extension GameScene: Observer {
     }
     
     private func gameDidEnd() {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
+        let gameOverData = [
+            "eventRawValue": GameEvent.GameDidEnd.rawValue,
+            "gameResult": gameState.scoreTracking,
+            "ghostStore": gameState.ghostStore
+        ]
         
-        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName("showEndGameMenu",
+                                  object: self,
+                                  userInfo: gameOverData as [NSObject : AnyObject])
     }
     
     private func handleChangesToObstacles() {

@@ -32,15 +32,15 @@ class GameScene: SKScene {
     var players = [Int: SKSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
 
+    var initialGhostStore: GhostStore?
     var seed: NSData?
     var isMultiplayer = false
     var peers = [MCPeerID]()
-
     
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
+        initLogicEngine()
         gameState = logicEngine.state
         gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
@@ -69,6 +69,14 @@ class GameScene: SKScene {
     }
 
     // MARK: Initialisers
+    
+    private func initLogicEngine() {
+        if initialGhostStore == nil {
+            logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
+        } else {
+            logicEngine = LogicEngine(ghostStore: initialGhostStore!)
+        }
+    }
 
     private func initObstacles() {
         for obstacle in gameState.obstacles {
