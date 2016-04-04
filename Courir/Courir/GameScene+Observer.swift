@@ -59,13 +59,19 @@ extension GameScene: Observer {
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         switch player.physicalState {
             case .Ducking(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerDuckTexture
             case .Jumping(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerJumpTexture
             case .Running, .Stationary, .Invulnerable(_):
-                addGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    addGestureRecognizers()
+                }
                 node.texture = playerTexture
         }
     }
