@@ -99,14 +99,15 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
+        if host == myPeerID {
+            isHost = true
+        }
+        peers = peerIDs
+        
         if isHost {
             dispatch_async(dispatch_get_main_queue()){
                 self.startButton.enabled = self.peers.count > 0
             }
-        }
-        peers = peerIDs
-        if host == myPeerID {
-            isHost = true
         }
         
         dispatch_async(dispatch_get_main_queue()) {
