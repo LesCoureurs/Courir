@@ -47,6 +47,11 @@ class RoomSelectionViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    @IBAction func refreshButtonPressed(sender: AnyObject) {
+        portal.beginSearchingForHosts()
+        roomsAvailableTableView.reloadData()
+    }
 }
 
 // MARK: UITableViewDelegate
