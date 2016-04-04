@@ -53,4 +53,4 @@ var myName: String?
 let myDeviceName = UIDevice.currentDevice().name
 let myDefaultPlayerNumber = 1
 let myMultiplayerModeNumber = 0
-let myPeerID = MCPeerID(displayName: myName ?? myDeviceName)
+let myPeerID = GameNetworkPortal._instance.getMyPeerID()

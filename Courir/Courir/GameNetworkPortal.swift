@@ -101,6 +101,10 @@ class GameNetworkPortal {
     private func sendData(data: NSData, mode: MCSessionSendDataMode) {
         coulombNetwork.sendData(data, mode: mode)
     }
+    
+    func getMyPeerID() -> MCPeerID {
+        return coulombNetwork.getMyPeerID()
+    }
 }
 
 extension GameNetworkPortal: CoulombNetworkDelegate {
@@ -115,10 +119,10 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?) {
-        guard let currentHost = host else {
+        guard let _ = host else {
             return
         }
-        connectionDelegate?.playersInRoomChanged(peers, host: currentHost)
+        connectionDelegate?.playersInRoomChanged(peers, host: host!)
     }
     
     func connectedToPeer(peer: MCPeerID) {}
