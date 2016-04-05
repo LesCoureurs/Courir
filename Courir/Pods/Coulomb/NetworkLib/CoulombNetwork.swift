@@ -57,6 +57,7 @@ public class CoulombNetwork: NSObject {
     
     // MARK: Methods for host
     public func startAdvertisingHost() {
+        self.host = myPeerId
         if serviceAdvertiser == nil {
             serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
                 discoveryInfo: ["peerType": "host"], serviceType: serviceType)
@@ -73,6 +74,7 @@ public class CoulombNetwork: NSObject {
     
     // MARK: Methods for guest
     public func startSearchingForHosts() {
+        self.host = nil
         if serviceBrowser == nil {
             serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
             serviceBrowser?.delegate = self
@@ -207,10 +209,10 @@ extension CoulombNetwork: MCSessionDelegate {
 //                    self.session.peersInSession.insert(self.myPeerId)
                     
                     // If host of session is unassigned, that means self is host
-                    if self.host == nil {
-                        print("session host set as self")
-                        self.host = myPeerId
-                    }
+//                    if self.host == nil {
+//                        print("session host set as self")
+//                        self.host = myPeerId
+//                    }
                     
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
