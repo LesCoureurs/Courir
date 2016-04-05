@@ -18,6 +18,8 @@ class GameScene: SKScene {
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
+    let scoreNode = SKLabelNode(text: "0")
+    
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
     
@@ -32,15 +34,15 @@ class GameScene: SKScene {
     var players = [Int: SKSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
 
-    var seed: String?
+    var initialGhostStore: GhostStore?
+    var seed: NSData?
     var isMultiplayer = false
     var peers = [MCPeerID]()
-
     
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
+        initLogicEngine()
         gameState = logicEngine.state
         gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
@@ -52,6 +54,7 @@ class GameScene: SKScene {
         initGrid()
         initCountdownTimer()
         initPauseButton()
+        initScore()
 
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
@@ -69,6 +72,14 @@ class GameScene: SKScene {
     }
 
     // MARK: Initialisers
+    
+    private func initLogicEngine() {
+        if initialGhostStore == nil {
+            logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
+        } else {
+            logicEngine = LogicEngine(ghostStore: initialGhostStore!)
+        }
+    }
 
     private func initObstacles() {
         for obstacle in gameState.obstacles {
@@ -107,6 +118,15 @@ class GameScene: SKScene {
         pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
                                            y: (-size.height / 2 + pauseButtonNode.frame.height))
         grid.addChild(pauseButtonNode)
+    }
+    
+    private func initScore() {
+        scoreNode.horizontalAlignmentMode = .Right
+        scoreNode.fontName = "HelveticaNeue-Medium"
+        scoreNode.zPosition = 990
+        scoreNode.position = CGPoint(x: size.width - 20,
+                                     y: size.height / 2 - scoreNode.frame.height * 2)
+        grid.addChild(scoreNode)
     }
     
     private func renderIsoGrid() {

@@ -14,12 +14,15 @@ class GameViewController: UIViewController {
 
     var isMultiplayer = false
     var peers = [MCPeerID]()
-    var seed: String?
+    var seed: NSData?
+    var initialGhostStore: GhostStore?
+    var gameEndGhostStore: GhostStore?
 
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
     @IBOutlet weak var replayOrUnwindButton: UIButton!
+    @IBOutlet weak var saveRunButtton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,7 @@ class GameViewController: UIViewController {
 
     private func presentGameScene() {
         let gameScene = GameScene(size: view.bounds.size)
+        gameScene.initialGhostStore = initialGhostStore
         gameScene.isMultiplayer = isMultiplayer
         gameScene.peers = peers
         gameScene.seed = seed
@@ -59,15 +63,14 @@ class GameViewController: UIViewController {
 
     func receiveEvent(notification: NSNotification) {
         let userInfo = notification.userInfo as! [String: AnyObject]
-        guard let eventRawValue = userInfo["eventRawValue"] as? Int else {
-            return
-        }
-        
-        guard let gameResult = userInfo["gameResult"] as? [MCPeerID: Int] else {
+        guard let eventRawValue = userInfo["eventRawValue"] as? Int,
+            gameResult = userInfo["gameResult"] as? [MCPeerID: Int],
+            ghostStore = userInfo["ghostStore"] as? GhostStore else {
             return
         }
         
         var gameResultArray = [(peerID: MCPeerID, score: Int)]()
+        gameEndGhostStore = ghostStore
         
         for (key, value) in gameResult {
             gameResultArray.append((peerID: key, score: value))
@@ -97,6 +100,7 @@ class GameViewController: UIViewController {
         endGameMenu.alpha = 0
         endGameMenu.layer.cornerRadius = 10
     }
+    
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
         endGameMenu.hidden = false
         endGameMenu.scoreSheet = gameResultArray
@@ -113,10 +117,21 @@ class GameViewController: UIViewController {
         performSegueWithIdentifier("exitGameSegue", sender: self)
     }
     
+    @IBAction func saveRunButtonPressed(sender: AnyObject) {
+        guard let ghostStore = gameEndGhostStore else {
+            return
+        }
+        saveRunButtton.enabled = false
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            ghostStore.storeGhostData(nil)
+        }
+    }
+    
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
         if isMultiplayer {
             performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
         } else {
+            initialGhostStore = gameEndGhostStore
             setUpGameEndMenu()
             presentGameScene()
         }

@@ -34,14 +34,6 @@ class MenuViewController: UIViewController {
         return true
     }
 
-    @IBAction func handleSinglePlayerStart(sender: AnyObject) {
-        performSegueWithIdentifier("startGameSegue", sender: self)
-    }
-
-    @IBAction func handleMultiplayerStart(sender: AnyObject) {
-        performSegueWithIdentifier("selectRoomSegue", sender: self)
-    }
-
     @IBAction func handleExitGame(sender: UIStoryboardSegue) {
         
     }
