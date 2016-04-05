@@ -255,7 +255,7 @@ class LogicEngine {
         state.players.append(player)
     }
     
-    private func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int,
+    func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int,
                                     otherData: AnyObject? = nil) {
         eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep,
             otherData: otherData))
@@ -272,64 +272,5 @@ class LogicEngine {
                 gameNetworkPortal.send(.GameDidEnd)
             }
         }
-    }
-}
-
-// MARK: GameNetworkPortalGameStateDelegate
-extension LogicEngine: GameNetworkPortalGameStateDelegate {
-    func jumpActionReceived(data: AnyObject?, peer: MCPeerID) {
-        handlePlayerAction(.PlayerDidJump, data: data, peer: peer)
-    }
-
-    func duckActionReceived(data: AnyObject?, peer: MCPeerID) {
-        handlePlayerAction(.PlayerDidDuck, data: data, peer: peer)
-    }
-    
-    private func handlePlayerAction(action: GameEvent, data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject],
-            occurringTimeStep = dataDict["time_step"] as? Int else {
-                return
-        }
-        appendToEventQueue(action, playerNumber: playerNumber, occurringTimeStep: occurringTimeStep)
-    }
-
-    func collideActionReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
-            dataDict = data as? [String: AnyObject],
-            occurringTimeStep = dataDict["time_step"] as? Int,
-            xCoordinate = dataDict["x_coordinate"] else {
-                return
-        }
-        appendToEventQueue(.PlayerDidCollide, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep, otherData: xCoordinate)
-    }
-  
-    func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID) {
-        if let player = state.getPlayer(withPeerID: peer) {
-            player.ready()
-        }
-    }
-
-    func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let dataDict = data as? [String: AnyObject] else {
-            return
-        }
-        
-        guard let score = dataDict["score"] as? Int else {
-            return
-        }
-        
-        state.updatePlayerScore(peer, score: score)
-        state.getPlayer(withPeerID: peer)!.lost()
-    }
-    
-    func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        // Stop the update() method
-        state.gameIsOver = true
-    }
-    
-    func disconnectedFromGame() {
-        
     }
 }
