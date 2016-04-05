@@ -95,7 +95,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
         
     }
     
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
+    func playersInRoomChanged(peerIDs: [MCPeerID]) {
         
     }
     

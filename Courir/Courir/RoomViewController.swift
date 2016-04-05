@@ -92,17 +92,18 @@ extension RoomViewController: UITableViewDataSource {
 
 extension RoomViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
-        
+        print("room view delegate")
     }
     
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void) {
         acceptGuest(true)
     }
     
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
-        if host == myPeerID {
-            isHost = true
-        }
+    func playersInRoomChanged(peerIDs: [MCPeerID]) {
+//        if host == myPeerID {
+//            print("Currnet host is myself \(host.displayName)")
+//            isHost = true
+//        }
         peers = peerIDs
         
         if isHost {
@@ -117,6 +118,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func disconnectedFromRoom() {
+        print("Room View received disconn from session")
         performSegueWithIdentifier("unwindToRoomSelectionFromRoomView", sender: self)
     }
     
