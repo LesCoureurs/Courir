@@ -24,7 +24,7 @@ let nonfloatingProbability = Float(0.05)
 let obstacleSpaceMultiplier = 1.5
 
 let initialGameSpeed = 1
-let speedMultiplier = 0.337768 * 8
+let speedMultiplier = 3.5
 
 let framerate = 30
 let jumpTimeSteps = 21
