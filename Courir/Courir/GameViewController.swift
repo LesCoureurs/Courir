@@ -116,7 +116,9 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func mainMenuButtonPressed(sender: AnyObject) {
-        portal.disconnectFromRoom()
+        if isMultiplayer {
+            portal.disconnectFromRoom()
+        }
         performSegueWithIdentifier("exitGameSegue", sender: self)
     }
     
