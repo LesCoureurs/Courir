@@ -83,7 +83,12 @@ class GameState: Observed {
     }
     
     func everyoneFinished() -> Bool {
-        return scoreTracking.count == players.count
+        for player in players {
+            if player.state != .Lost {
+                return false
+            }
+        }
+        return true
     }
     
     func ownPlayerStillPlaying() -> Bool {
