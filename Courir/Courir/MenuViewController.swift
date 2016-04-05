@@ -48,7 +48,7 @@ class MenuViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
-            let singlePlayerData = GameSetupData(mode: .SinglePlayer, isHost: false, peers: [MCPeerID](), seed: nil)
+            let singlePlayerData = GameSetupData(mode: .SinglePlayer, host: nil, peers: [MCPeerID](), seed: nil)
             destination.setUpWith(singlePlayerData)
         }
     }

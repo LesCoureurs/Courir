@@ -36,7 +36,7 @@ class SinglePlayerStartViewController: UIViewController {
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? GameViewController where segue.identifier == "startNewGameSegue" || segue.identifier == "startGhostGameSegue" {
-            let singlePlayerData = GameSetupData(mode: .SinglePlayer, isHost: false, peers: [MCPeerID](), seed: nil)
+            let singlePlayerData = GameSetupData(mode: .SinglePlayer, host: nil, peers: [MCPeerID](), seed: nil)
             destination.setUpWith(singlePlayerData)
 
             if segue.identifier == "startGhostGameSegue" {
