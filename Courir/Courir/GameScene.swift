@@ -211,14 +211,16 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidJump, playerNumber: myPlayerNumber)
+        let event: GameEvent = gameSetupData.isHost ? .FloatingObstacleGenerated : .PlayerDidJump
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
+        let event: GameEvent = gameSetupData.isHost ? .NonFloatingObstacleGenerated : .PlayerDidDuck
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 }
 
