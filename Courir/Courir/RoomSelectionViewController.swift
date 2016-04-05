@@ -52,6 +52,7 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
+        portal.beginSearchingForHosts()
         dispatch_async(dispatch_get_main_queue(), {
             self.roomsAvailableTableView.reloadData()
         })
