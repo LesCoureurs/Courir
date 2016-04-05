@@ -23,9 +23,9 @@ class LogicEngine {
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
 
-    init(seed: String? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
+    init(seed: String? = nil, mode: GameMode, peers: [MCPeerID]) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        state = GameState(isMultiplayer: isMultiplayer)
+        state = GameState(mode: mode)
         state.initPlayers(peers)
     }
     
@@ -226,18 +226,25 @@ class LogicEngine {
                 }
         }
     }
-    
+
+    private func readyForNextObstacle() -> Bool {
+        return lastObstacleTimeStep == nil || timeStep > Int(obstacleSpaceMultiplier
+            * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
+    }
+
     private func generateObstacle() {
-        func readyForNextObstacle() -> Bool {
-            return lastObstacleTimeStep == nil || timeStep > Int(obstacleSpaceMultiplier
-                * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
-        }
-        
         if (readyForNextObstacle()) {
             if let obstacle = obstacleGenerator.getNextObstacle() {
                 lastObstacleTimeStep = timeStep
                 insertObstacle(obstacle)
             }
+        }
+    }
+
+    private func generateObstacle(type: ObstacleType) {
+        if let obstacle = obstacleGenerator.getNextObstacle(type) where readyForNextObstacle() {
+            lastObstacleTimeStep = timeStep
+            insertObstacle(obstacle)
         }
     }
 
