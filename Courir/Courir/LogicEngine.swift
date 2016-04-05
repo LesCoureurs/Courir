@@ -66,20 +66,24 @@ class LogicEngine {
         }
         
         switch event {
-            case .PlayerDidJump:
-                player.jump(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidJump)
-                }
-            case .PlayerDidDuck:
-                player.duck(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidDuck)
-                }
-            case .PlayerDidCollide:
-                handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
-            default:
-                break
+        case .PlayerDidJump:
+            player.jump(occurrence)
+            if isValidToSend(player) {
+                sendActionData(.PlayerDidJump)
+            }
+        case .PlayerDidDuck:
+            player.duck(occurrence)
+            if isValidToSend(player) {
+                sendActionData(.PlayerDidDuck)
+            }
+        case .PlayerDidCollide:
+            handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+        case .FloatingObstacleGenerated:
+            generateObstacle(.Floating)
+        case .NonFloatingObstacleGenerated:
+            generateObstacle(.NonFloating)
+        default:
+            break
         }
     }
     
