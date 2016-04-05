@@ -12,6 +12,10 @@ import MultipeerConnectivity
 class GameState: Observed {
     var myPlayer: Player!
     var players = [Player]()
+
+    var host: Player?
+    var hostID: MCPeerID?
+
     var peerMapping = [MCPeerID: Int]()
     var scoreTracking = [MCPeerID: Int]()
     

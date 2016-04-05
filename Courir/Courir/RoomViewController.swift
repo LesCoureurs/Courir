@@ -21,10 +21,12 @@ class RoomViewController: UIViewController {
 
     private(set) var mode: GameMode = .Multiplayer
     private(set) var isHost = true
+    var host: MCPeerID = myPeerID
+    
     private var peers = [MCPeerID]()
 
     private var gameSetupData: GameSetupData {
-        return GameSetupData(mode: mode, isHost: isHost, peers: peers, seed: seed)
+        return GameSetupData(mode: mode, host: host, peers: peers, seed: seed)
     }
 
     private let portal = GameNetworkPortal._instance
@@ -132,6 +134,10 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         }
         self.seed = seed.dataUsingEncoding(NSUTF8StringEncoding)
         self.mode = mode
+
+        if mode == .SpecialMultiplayer {
+            self.host = peer
+        }
         presentGameScene()
     }
 }

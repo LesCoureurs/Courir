@@ -82,7 +82,7 @@ class GameScene: SKScene {
     
     private func initLogicEngine() {
         if initialGhostStore == nil {
-            logicEngine = LogicEngine(mode: gameSetupData.mode, peers: gameSetupData.peers, seed: gameSetupData.seed)
+            logicEngine = LogicEngine(mode: gameSetupData.mode, peers: gameSetupData.peers, seed: gameSetupData.seed, host: gameSetupData.host)
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }

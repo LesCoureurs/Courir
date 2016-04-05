@@ -11,10 +11,15 @@ import MultipeerConnectivity
 
 struct GameSetupData {
     private (set) var mode: GameMode
-    private var isMultiplayer: Bool {
+    var isMultiplayer: Bool {
         return mode == GameMode.Multiplayer || mode == GameMode.SpecialMultiplayer
     }
-    private (set) var isHost: Bool
+
+    private (set) var host: MCPeerID?
+    var isHost: Bool {
+        return host == myPeerID
+    }
+
     private (set) var peers: [MCPeerID]
     private (set) var seed: NSData?
 }

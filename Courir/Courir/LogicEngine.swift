@@ -23,10 +23,14 @@ class LogicEngine {
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
 
-    init(mode: GameMode, peers: [MCPeerID] = [MCPeerID](), seed: NSData? = nil) {
+    init(mode: GameMode, peers: [MCPeerID] = [MCPeerID](), seed: NSData? = nil, host: MCPeerID? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         state = GameState(seed: obstacleGenerator.seed, mode: mode)
-        state.initPlayers(peers)
+        if let hostID = host {
+            state.initPlayers(peers, withHost: hostID)
+        } else {
+            state.initPlayers(peers)
+        }
     }
     
     convenience init(ghostStore: GhostStore) {
