@@ -24,7 +24,7 @@
                                     <navigationItem id="4UF-CM-48Y">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="rLF-HZ-f17">
                                             <connections>
-                                                <segue destination="Ig7-gB-AWz" kind="unwind" unwindAction="handleExitGame:" id="duO-YL-xrG"/>
+                                                <segue destination="Ig7-gB-AWz" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="duO-YL-xrG"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -335,7 +335,7 @@
                                     <navigationItem id="Bk9-L9-1at">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="ed4-ub-CNw">
                                             <connections>
-                                                <segue destination="rsb-1F-LAp" kind="unwind" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
+                                                <segue destination="rsb-1F-LAp" kind="unwind" identifier="unwindToMenuFromRoomSelectionSegue" unwindAction="unwindToMenuFromRoomSelection:" id="JkK-rO-8fD"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -393,7 +393,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -446,7 +446,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="3jR-ft-Hdy"/>
         <segue reference="ph3-8p-GxT"/>
-        <segue reference="Ob5-ck-MbV"/>
     </inferredMetricsTieBreakers>
 </document>
