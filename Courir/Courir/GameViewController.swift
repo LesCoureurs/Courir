@@ -12,7 +12,10 @@ import MultipeerConnectivity
 
 class GameViewController: UIViewController {
 
-    var isMultiplayer = false
+    var mode: GameMode!
+    private var isMultiplayer: Bool {
+        return mode == GameMode.Multiplayer || mode == GameMode.SpecialMultiplayer
+    }
     var peers = [MCPeerID]()
     var seed: String?
 
@@ -44,7 +47,7 @@ class GameViewController: UIViewController {
 
     private func presentGameScene() {
         let gameScene = GameScene(size: view.bounds.size)
-        gameScene.isMultiplayer = isMultiplayer
+        gameScene.mode = mode
         gameScene.peers = peers
         gameScene.seed = seed
         let skView = self.view as! SKView!

@@ -188,6 +188,13 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBj-j1-dOH">
+                                <rect key="frame" x="614" y="458" width="231" height="30"/>
+                                <state key="normal" title="You Are The Obstacle Generator"/>
+                                <connections>
+                                    <segue destination="40i-zX-uIe" kind="show" identifier="specialModeRoomSegue" id="3jR-ft-Hdy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -283,7 +290,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="3jR-ft-Hdy"/>
         <segue reference="ph3-8p-GxT"/>
-        <segue reference="Ob5-ck-MbV"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -16,7 +16,8 @@ class RoomViewController: UIViewController {
 
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
-    
+
+    private(set) var mode: GameMode = .SinglePlayer
     private(set) var isHost = true
     private var peers = [MCPeerID]()
     private let portal = GameNetworkPortal._instance
@@ -54,6 +55,10 @@ class RoomViewController: UIViewController {
     func playerIsNotHost() {
         isHost = false
     }
+
+    func setMode(mode: GameMode) {
+        self.mode = mode
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -62,7 +67,7 @@ class RoomViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
-            destination.isMultiplayer = true
+            destination.mode = mode
             destination.peers = peers
             destination.seed = seed
         }
