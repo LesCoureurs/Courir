@@ -37,7 +37,7 @@ class GameScene: SKScene {
     private var gameSetupData: GameSetupData!
 
     private var isMultiplayer: Bool {
-        return gameSetupData.mode == GameMode.SinglePlayer || gameSetupData.mode == GameMode.SpecialMultiplayer
+        return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
     }
 
     func setUpWith(data: GameSetupData) {
