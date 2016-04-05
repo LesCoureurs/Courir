@@ -232,16 +232,7 @@ class LogicEngine {
             * Double(max(jumpTimeSteps, duckTimeSteps))) + lastObstacleTimeStep!
     }
 
-    private func generateObstacle() {
-        if (readyForNextObstacle()) {
-            if let obstacle = obstacleGenerator.getNextObstacle() {
-                lastObstacleTimeStep = timeStep
-                insertObstacle(obstacle)
-            }
-        }
-    }
-
-    private func generateObstacle(type: ObstacleType) {
+    private func generateObstacle(type: ObstacleType? = nil) {
         if let obstacle = obstacleGenerator.getNextObstacle(type) where readyForNextObstacle() {
             lastObstacleTimeStep = timeStep
             insertObstacle(obstacle)
