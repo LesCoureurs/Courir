@@ -59,13 +59,19 @@ extension GameScene: Observer {
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         switch player.physicalState {
             case .Ducking(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerDuckTexture
             case .Jumping(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerJumpTexture
             case .Running, .Stationary, .Invulnerable(_):
-                addGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    addGestureRecognizers()
+                }
                 node.texture = playerTexture
         }
     }
@@ -114,9 +120,16 @@ extension GameScene: Observer {
     }
     
     private func gameDidEnd() {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
+        let gameOverData = [
+            "eventRawValue": GameEvent.GameDidEnd.rawValue,
+            "gameResult": gameState.scoreTracking,
+            "ghostStore": gameState.ghostStore
+        ]
         
-        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName("showEndGameMenu",
+                                  object: self,
+                                  userInfo: gameOverData as [NSObject : AnyObject])
     }
     
     private func handleChangesToObstacles() {

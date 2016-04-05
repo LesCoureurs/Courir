@@ -23,10 +23,19 @@ class LogicEngine {
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
 
-    init(seed: String? = nil, isMultiplayer: Bool, peers: [MCPeerID]) {
+    init(isMultiplayer: Bool, peers: [MCPeerID], seed: NSData? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        state = GameState(isMultiplayer: isMultiplayer)
+        state = GameState(seed: obstacleGenerator.seed, isMultiplayer: isMultiplayer)
         state.initPlayers(peers)
+    }
+    
+    convenience init(ghostStore: GhostStore) {
+        let ghostID = MCPeerID(displayName: "Ghost Player")
+        self.init(isMultiplayer: false, peers: [ghostID], seed: ghostStore.seed)
+        let ghostPlayerNumber = state.peerMapping[ghostID]
+        state.getPlayer(withPeerID: ghostID)?.ready()
+        state.updatePlayerScore(ghostID, score: ghostStore.score)
+        initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
     var score: Int {
@@ -35,6 +44,15 @@ class LogicEngine {
     
     var speed: Int {
         return state.currentSpeed
+    }
+    
+    private func initGhostEventQueue(eventSequence: [PlayerEvent], ghostPlayerNumber: Int) {
+        let ghostSequence = eventSequence.map {
+            (event: $0.event, playerNumber: ghostPlayerNumber, timeStep: $0.timeStep,
+                otherData: $0.otherData)
+        }
+        eventQueue.appendContentsOf(ghostSequence)
+        eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
     }
     
 
@@ -66,20 +84,37 @@ class LogicEngine {
         }
         
         switch event {
+        case .PlayerDidJump, .PlayerDidDuck:
+            handlePlayerActionEvent(player, timeStep: occurrence, action: event)
+        case .PlayerDidCollide:
+            handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+        default:
+            break
+        }
+    }
+    
+    func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
+        assert (action == .PlayerDidJump || action == .PlayerDidDuck)
+        
+        if action == .PlayerDidJump {
+            player.jump(occurrence)
+        } else {
+            player.duck(occurrence)
+        }
+        
+        if isValidToSend(player) {
+            sendActionData(action)
+        }
+        
+        if player.playerNumber == state.myPlayer.playerNumber {
+            switch action {
             case .PlayerDidJump:
-                player.jump(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidJump)
-                }
+                state.addJumpEvent(occurrence)
             case .PlayerDidDuck:
-                player.duck(occurrence)
-                if isValidToSend(player) {
-                    sendActionData(.PlayerDidDuck)
-                }
-            case .PlayerDidCollide:
-                handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+                state.addDuckEvent(occurrence)
             default:
                 break
+            }
         }
     }
     
@@ -87,6 +122,7 @@ class LogicEngine {
         player.run()
         if player.playerNumber == state.myPlayer.playerNumber {
             player.fallBehind()
+            state.addCollideEvent(timeStep, xCoordinate: player.xCoordinate)
             player.becomeInvulnerable(timeStep)
             if isValidToSend(player) {
                 sendCollisionData(player.xCoordinate)
@@ -310,11 +346,8 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let dataDict = data as? [String: AnyObject] else {
-            return
-        }
-        
-        guard let score = dataDict["score"] as? Int else {
+        guard let dataDict = data as? [String: AnyObject],
+            score = dataDict["score"] as? Int else {
             return
         }
         
