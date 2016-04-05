@@ -12,7 +12,7 @@ import MultipeerConnectivity
 protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
+    func playersInRoomChanged(peerIDs: [MCPeerID])
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID)
     func disconnectedFromRoom()
 }
@@ -50,6 +50,7 @@ class GameNetworkPortal {
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
         coulombNetwork.delegate = self
+        coulombNetwork.debugMode = true
     }
 
     deinit {
@@ -118,11 +119,12 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
-    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?) {
-        guard let _ = host else {
-            return
-        }
-        connectionDelegate?.playersInRoomChanged(peers, host: host!)
+    func connectedPeersInSessionChanged(peers: [MCPeerID]) {
+//        guard let _ = host else {
+//            return
+//        }
+//        print("Portal received conn peers changed: \(peers) \(host)")
+        connectionDelegate?.playersInRoomChanged(peers)
     }
     
     func connectedToPeer(peer: MCPeerID) {}
@@ -133,6 +135,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Call delegate to take further actions e.g. segue
         stopHosting()
         beginSearchingForHosts()
+        print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
         gameStateDelegate?.disconnectedFromGame()
     }
