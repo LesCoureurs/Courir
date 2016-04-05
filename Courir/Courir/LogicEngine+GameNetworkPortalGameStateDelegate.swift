@@ -48,7 +48,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     private func handleObstacleGeneration(event: GameEvent, data: AnyObject?, peer: MCPeerID) {
-        guard let playerNumber = state.peerMapping[peer],
+        guard let playerNumber = state.host?.playerNumber,
             dataDict = data as? [String: AnyObject],
             occurringTimeStep = dataDict["time_step"] as? Int else {
                 return
