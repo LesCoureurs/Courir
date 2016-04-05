@@ -119,7 +119,9 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     
     func disconnectedFromRoom() {
         print("Room View received disconn from session")
-        performSegueWithIdentifier("unwindToRoomSelectionFromRoomView", sender: self)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomView", sender: self)
+        })
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {

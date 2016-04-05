@@ -119,7 +119,9 @@ class GameViewController: UIViewController {
         if isMultiplayer {
             portal.disconnectFromRoom()
         }
-        performSegueWithIdentifier("exitGameSegue", sender: self)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.performSegueWithIdentifier("exitGameSegue", sender: self)
+        })
     }
     
     @IBAction func saveRunButtonPressed(sender: AnyObject) {
