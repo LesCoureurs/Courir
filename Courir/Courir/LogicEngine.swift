@@ -64,6 +64,7 @@ class LogicEngine {
     
     func update() {
         guard !state.gameIsOver else {
+            print("game is over")
             return
         }
         updateEventQueue()
@@ -136,22 +137,25 @@ class LogicEngine {
     
     func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
         player.run()
+        let validToSend = isValidToSend(player)
+        
         if player.playerNumber == state.myPlayer.playerNumber {
             player.fallBehind()
             state.addCollideEvent(timeStep, xCoordinate: player.xCoordinate)
             player.becomeInvulnerable(timeStep)
-            if isValidToSend(player) {
+            if validToSend {
                 sendCollisionData(player.xCoordinate)
             }
             // If player fell off the grid, he finished the race
             if player.xCoordinate < 0 {
                 state.updatePlayerScore(myPeerID, score: score)
-                player.lost()
                 
-                if isValidToSend(player) {
+                if validToSend {
                     sendPlayerLostData(score)
                 }
                 
+                player.lost()
+
                 checkRaceFinished()
             }
         } else {
@@ -311,6 +315,7 @@ class LogicEngine {
     
     private func checkRaceFinished() {
         if state.everyoneFinished() {
+            print("everyone finished")
             // Stop the update() method
             state.gameIsOver = true
             
