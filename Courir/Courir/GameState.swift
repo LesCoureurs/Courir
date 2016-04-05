@@ -24,7 +24,7 @@ class GameState: Observed {
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
 
-    var mode: GameMode
+    private (set) var mode: GameMode
     var isMultiplayer: Bool {
         return mode == .Multiplayer || mode == .SpecialMultiplayer
     }

@@ -48,7 +48,9 @@ class LogicEngine {
         updateObstaclePositions()
         handleCollisions()
         updatePlayerStates()
-        generateObstacle()
+        if state.mode != .SpecialMultiplayer {
+            generateObstacle()
+        }
         updateDistance()
         updateGameSpeed(timeStep)
         timeStep += 1
@@ -80,8 +82,14 @@ class LogicEngine {
             handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
         case .FloatingObstacleGenerated:
             generateObstacle(.Floating)
+            if isValidToSend(player) {
+                sendActionData(.FloatingObstacleGenerated)
+            }
         case .NonFloatingObstacleGenerated:
             generateObstacle(.NonFloating)
+            if isValidToSend(player) {
+                sendActionData(.NonFloatingObstacleGenerated)
+            }
         default:
             break
         }
