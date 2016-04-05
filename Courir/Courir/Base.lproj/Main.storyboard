@@ -316,13 +316,6 @@
                                     <constraint firstAttribute="width" constant="372" id="Rdf-Ub-2PR"/>
                                 </constraints>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ro-cUO">
-                                <rect key="frame" x="659" y="419" width="140" height="30"/>
-                                <state key="normal" title="Start your own room"/>
-                                <connections>
-                                    <segue destination="40i-zX-uIe" kind="show" identifier="hostRoomSegue" id="lU1-jC-2Ut"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ako-YD-7tP">
                                 <rect key="frame" x="165" y="90" width="183" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -341,27 +334,45 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBj-j1-dOH">
-                                <rect key="frame" x="614" y="458" width="231" height="30"/>
-                                <state key="normal" title="You Are The Obstacle Generator"/>
-                                <connections>
-                                    <segue destination="40i-zX-uIe" kind="show" identifier="specialModeRoomSegue" id="3jR-ft-Hdy"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wqa-zG-fi7">
+                                <rect key="frame" x="618" y="404" width="222" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ro-cUO">
+                                        <rect key="frame" x="41" y="0.0" width="140" height="30"/>
+                                        <state key="normal" title="Start your own room"/>
+                                        <connections>
+                                            <segue destination="40i-zX-uIe" kind="show" identifier="hostRoomSegue" id="lU1-jC-2Ut"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBj-j1-dOH">
+                                        <rect key="frame" x="0.0" y="30" width="222" height="30"/>
+                                        <state key="normal" title="You Are The Obstacle Generator"/>
+                                        <connections>
+                                            <segue destination="40i-zX-uIe" kind="show" identifier="specialModeRoomSegue" id="3jR-ft-Hdy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wqa-zG-fi7" firstAttribute="leading" secondItem="nDT-gx-lAt" secondAttribute="leading" constant="547" id="8lt-mv-dsC"/>
                             <constraint firstAttribute="trailing" secondItem="TiY-9r-B3H" secondAttribute="trailing" id="GLr-hs-cQj"/>
                             <constraint firstItem="ako-YD-7tP" firstAttribute="leading" secondItem="tQk-PZ-0gk" secondAttribute="leadingMargin" constant="145" id="M0N-Rj-agL"/>
                             <constraint firstItem="ako-YD-7tP" firstAttribute="top" secondItem="wzu-bz-DwX" secondAttribute="bottom" constant="70" id="NkQ-xJ-9eu"/>
+                            <constraint firstItem="wqa-zG-fi7" firstAttribute="centerY" secondItem="nDT-gx-lAt" secondAttribute="centerY" id="UEJ-c3-y5F"/>
                             <constraint firstItem="TiY-9r-B3H" firstAttribute="leading" secondItem="tQk-PZ-0gk" secondAttribute="leading" id="Z1b-Yz-mT4"/>
                             <constraint firstItem="ako-YD-7tP" firstAttribute="centerX" secondItem="nDT-gx-lAt" secondAttribute="centerX" id="ZtB-Oc-xAY"/>
                             <constraint firstItem="nDT-gx-lAt" firstAttribute="top" secondItem="ako-YD-7tP" secondAttribute="bottom" constant="30" id="buw-gr-ODL"/>
+                            <constraint firstItem="wqa-zG-fi7" firstAttribute="leading" secondItem="nDT-gx-lAt" secondAttribute="leading" id="cLa-M4-3sa"/>
                             <constraint firstItem="iL6-xO-cFd" firstAttribute="top" secondItem="nDT-gx-lAt" secondAttribute="bottom" constant="50" id="dM8-cf-v7p"/>
                             <constraint firstItem="TiY-9r-B3H" firstAttribute="top" secondItem="tQk-PZ-0gk" secondAttribute="top" id="fAy-WH-S8r"/>
-                            <constraint firstItem="nGb-ro-cUO" firstAttribute="centerY" secondItem="nDT-gx-lAt" secondAttribute="centerY" id="jLT-Bu-cNV"/>
-                            <constraint firstItem="nGb-ro-cUO" firstAttribute="leading" secondItem="nDT-gx-lAt" secondAttribute="trailing" constant="216" id="s1X-VT-WnG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cLa-M4-3sa"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
