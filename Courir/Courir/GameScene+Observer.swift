@@ -86,7 +86,6 @@ extension GameScene: Observer {
         }
     }
     
-    
     // MARK: Methods for observing Obstacles
     
     /// Handle the updating of the obstacle node whose property has changed
@@ -113,6 +112,8 @@ extension GameScene: Observer {
                 gameDidEnd()
             case "obstacles":
                 handleChangesToObstacles()
+            case "distance":
+                updateScore()
             default:
                 return
         }
@@ -149,5 +150,10 @@ extension GameScene: Observer {
             obstacleNode.removeFromParent()
             obstacles.removeValueForKey(id)
         }
+    }
+    
+    // Update the score
+    private func updateScore() {
+        scoreNode.text = "\(gameState.distance)"
     }
 }
