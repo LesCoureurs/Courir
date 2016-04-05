@@ -17,11 +17,17 @@ class RoomViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
 
-    private(set) var mode: GameMode = .SinglePlayer
+    private var seed: String?
+
+    private(set) var mode: GameMode = .Multiplayer
     private(set) var isHost = true
     private var peers = [MCPeerID]()
+
+    private var gameSetupData: GameSetupData {
+        return GameSetupData(mode: mode, isHost: isHost, peers: peers, seed: seed)
+    }
+
     private let portal = GameNetworkPortal._instance
-    private var seed: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +73,7 @@ class RoomViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
-            destination.mode = mode
-            destination.peers = peers
-            destination.seed = seed
+            destination.setUpWith(gameSetupData)
         }
     }
     

@@ -12,17 +12,18 @@ import MultipeerConnectivity
 
 class GameViewController: UIViewController {
 
-    var mode: GameMode!
     private var isMultiplayer: Bool {
-        return mode == GameMode.Multiplayer || mode == GameMode.SpecialMultiplayer
+        return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
     }
-    var peers = [MCPeerID]()
-    var seed: String?
+
+    private var gameSetupData: GameSetupData!
 
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
     @IBOutlet weak var replayOrUnwindButton: UIButton!
+
+    // MARK: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,19 +46,19 @@ class GameViewController: UIViewController {
         return true
     }
 
+    // MARK: Start Game
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
+
     private func presentGameScene() {
         let gameScene = GameScene(size: view.bounds.size)
-        gameScene.mode = mode
-        gameScene.peers = peers
-        gameScene.seed = seed
+        gameScene.setUpWith(gameSetupData)
         let skView = self.view as! SKView!
         skView.ignoresSiblingOrder = true
         gameScene.scaleMode = .AspectFill
         skView.presentScene(gameScene)
-    }
-    
-    func exitGame() {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
     }
 
     func receiveEvent(notification: NSNotification) {
@@ -89,7 +90,13 @@ class GameViewController: UIViewController {
             }
         }
     }
-    
+
+    // MARK: End Game
+
+    func exitGame() {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
+    }
+
     private func setUpGameEndMenu() {
         let title = isMultiplayer ? "Back To Room" : "Play Again"
         replayOrUnwindButton.setTitle(title, forState: .Normal)
@@ -124,15 +131,4 @@ class GameViewController: UIViewController {
             presentGameScene()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
