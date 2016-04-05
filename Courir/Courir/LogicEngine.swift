@@ -80,10 +80,10 @@ class LogicEngine {
 
     func handleEvent(event: GameEvent, playerNumber: Int?, occurringTimeStep: Int? = nil,
                      otherData data: AnyObject? = nil) {
-        guard let player = state.players.filter({ $0.playerNumber == playerNumber }).first else {
+        guard let player = state.getPlayer(withPlayerNumber: playerNumber) else {
             return
         }
-        
+
         var occurrence = timeStep
         if occurringTimeStep != nil {
             occurrence = occurringTimeStep!

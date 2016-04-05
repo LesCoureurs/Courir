@@ -66,14 +66,34 @@ class GameState: Observed {
     }
 
     func initPlayers(peers: [MCPeerID]) {
-        let peers = peers
         var allPeerIDs = peers
 
         allPeerIDs.append(myPeerID)
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
-        for (playerNum, peer) in allPeerIDs.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: allPeerIDs.count)
+        initPlayersHelper(allPeerIDs)
+
+    }
+
+    func initPlayers(peers: [MCPeerID], withHost hostID: MCPeerID) {
+        var allPeerIDs = Array(Set(peers).union([myPeerID]).subtract([hostID]))
+        print(hostID)
+        print("Peers for \(myPeerID): \(allPeerIDs)")
+        allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
+
+        initPlayersHelper(allPeerIDs)
+
+        self.host = Player(playerNumber: 3, isMultiplayer: true, numPlayers: allPeerIDs.count)
+        self.hostID = hostID
+
+        if myPeerID == hostID {
+            myPlayer = self.host
+        }
+    }
+
+    private func initPlayersHelper(peers: [MCPeerID]) {
+        for (playerNum, peer) in peers.enumerate() {
+            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: peers.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()
@@ -84,8 +104,21 @@ class GameState: Observed {
     }
 
     func getPlayer(withPeerID peerID: MCPeerID) -> Player? {
+        guard peerID != hostID else {
+            return nil
+        }
+
         if let index = peerMapping[peerID] {
             return players[index]
+        }
+        return nil
+    }
+
+    func getPlayer(withPlayerNumber playerNumber: Int?) -> Player? {
+        if let player = players.filter({ $0.playerNumber == playerNumber }).first {
+            return player
+        } else if let host = host where playerNumber == 3 {
+            return host
         }
         return nil
     }
