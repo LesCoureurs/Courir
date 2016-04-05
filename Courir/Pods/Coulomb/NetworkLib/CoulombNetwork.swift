@@ -204,16 +204,6 @@ extension CoulombNetwork: MCSessionDelegate {
             if state != .Connecting {
                 if state == .Connected {
                     DLog("%@", "connected to \(session.hashValue)")
-                    // Update the set of peers in the session
-//                    self.session.peersInSession.insert(peerID)
-//                    self.session.peersInSession.insert(self.myPeerId)
-                    
-                    // If host of session is unassigned, that means self is host
-//                    if self.host == nil {
-//                        print("session host set as self")
-//                        self.host = myPeerId
-//                    }
-                    
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
                     
@@ -221,15 +211,8 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     DLog("%@", "not connected to \(session.hashValue)")
-//                    DLog("%@", "peersInSession \(self.session.peersInSession)")
-                    
-                    // If session.connectedPeers is empty, it implies that either:
-                    // - Self is disconnected from the session
-                    // - The session has no other connected peer
-                    // Combine with peersInSession count > 1, we can be certain that
-                    // self is disconnected.
-                    
-                    if self.session.connectedPeers.isEmpty && self.host == peerID {
+                    // If self is disconnected or current host is disconnected
+                    if self.session.connectedPeers.isEmpty || self.host == peerID {
                         DLog("%@", "Self was removed")
                         
                         delegate?.disconnectedFromSession()
