@@ -62,7 +62,9 @@ class GameScene: SKScene {
         initCountdownTimer()
         initPauseButton()
         initScore()
-
+        
+        // Set game to 30FPS
+        view.frameInterval = 2
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
     }
