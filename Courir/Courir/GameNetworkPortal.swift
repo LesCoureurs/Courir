@@ -24,6 +24,8 @@ protocol GameNetworkPortalGameStateDelegate: class {
     func jumpActionReceived(data: AnyObject?, peer: MCPeerID)
     func duckActionReceived(data: AnyObject?, peer: MCPeerID)
     func collideActionReceived(data: AnyObject?, peer: MCPeerID)
+    func floatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
+    func nonfloatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
     func disconnectedFromGame()
 }
 
@@ -158,6 +160,10 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
                 gameStateDelegate?.duckActionReceived(parsedData["data"], peer: peerID)
             case GameEvent.PlayerDidCollide:
                 gameStateDelegate?.collideActionReceived(parsedData["data"], peer: peerID)
+            case GameEvent.FloatingObstacleGenerated:
+                gameStateDelegate?.floatingObstacleReceived(parsedData["data"], peer: peerID)
+            case GameEvent.NonFloatingObstacleGenerated:
+                gameStateDelegate?.nonfloatingObstacleReceived(parsedData["data"], peer: peerID)
             default:
                 break
             }
