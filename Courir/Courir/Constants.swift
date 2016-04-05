@@ -18,18 +18,18 @@ let unitsPerGameGridCell: Int = actualGridSize / gameGridSize
 let countdownTimerStart = 3
 
 // Probabilities of obstacles appearing
-let floatingProbability = Float(0.25)
-let nonfloatingProbability = Float(0.25)
+let floatingProbability = Float(0.05)
+let nonfloatingProbability = Float(0.05)
 
 let obstacleSpaceMultiplier = 1.5
 
 let initialGameSpeed = 1
-let speedMultiplier = 0.337768 * 5
+let speedMultiplier = 0.337768 * 8
 
-let framerate = 60
-let jumpTimeSteps = 54
-let duckTimeSteps = 54
-let invulnerableTimeSteps = 54
+let framerate = 30
+let jumpTimeSteps = 21
+let duckTimeSteps = 30
+let invulnerableTimeSteps = 30
 
 let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
 let duckDuration = Double(jumpTimeSteps) / Double(framerate)
