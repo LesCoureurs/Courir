@@ -32,15 +32,21 @@ class GameScene: SKScene {
     var players = [Int: SKSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
 
-    var seed: String?
-    var isMultiplayer = false
-    var peers = [MCPeerID]()
+    private var gameSetupData: GameSetupData!
+
+    private var isMultiplayer: Bool {
+        return gameSetupData.mode == GameMode.SinglePlayer || gameSetupData.mode == GameMode.SpecialMultiplayer
+    }
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
 
     
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine = LogicEngine(seed: seed, isMultiplayer: isMultiplayer, peers: peers)
+        logicEngine = LogicEngine(seed: gameSetupData.seed, mode: .Multiplayer, peers: gameSetupData.peers!)
         gameState = logicEngine.state
         gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
@@ -108,7 +114,9 @@ class GameScene: SKScene {
                                            y: (-size.height / 2 + pauseButtonNode.frame.height))
         grid.addChild(pauseButtonNode)
     }
-    
+
+    // MARK: Rendering
+
     private func renderIsoGrid() {
         func createGridTileAt(withPosition: CGPoint) {
             let tileSprite = SKSpriteNode(imageNamed: "iso_grid_tile")
@@ -128,7 +136,7 @@ class GameScene: SKScene {
             }
         }
     }
-    
+
     /// Convert point to respective screen coordinate in an isometric projection
     private func pointToIso(p: CGPoint) -> CGPoint {
         return CGPointMake(p.x + p.y, (p.y - p.x) / 2)
@@ -175,7 +183,6 @@ class GameScene: SKScene {
         return isoPoint
     }
 
-    
     // MARK: Gesture handling methods
 
     private func setupGestureRecognizers(view: SKView) {

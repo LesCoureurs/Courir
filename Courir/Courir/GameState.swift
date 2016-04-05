@@ -24,7 +24,10 @@ class GameState: Observed {
     var currentSpeed = initialGameSpeed
     var distance = 0 // Score
 
-    var isMultiplayer: Bool
+    var mode: GameMode
+    var isMultiplayer: Bool {
+        return mode == .Multiplayer || mode == .SpecialMultiplayer
+    }
     var gameIsOver = false {
         didSet {
             observer?.didChangeProperty("gameIsOver", from: self)
@@ -33,8 +36,8 @@ class GameState: Observed {
     
     weak var observer: Observer?
     
-    init(isMultiplayer: Bool = false) {
-        self.isMultiplayer = isMultiplayer
+    init(mode: GameMode = .SinglePlayer) {
+        self.mode = mode
     }
 
     var objects: [GameObject] {
