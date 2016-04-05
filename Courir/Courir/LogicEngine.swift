@@ -299,8 +299,7 @@ class LogicEngine {
         state.players.append(player)
     }
     
-    func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int,
-                                    otherData: AnyObject? = nil) {
+    func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int, otherData: AnyObject? = nil) {
         eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep,
             otherData: otherData))
         eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
