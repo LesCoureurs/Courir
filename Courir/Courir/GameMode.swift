@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum GameMode {
-    case SinglePlayer, Multiplayer, SpecialMultiplayer
+enum GameMode: Int {
+    case SinglePlayer = 0, Multiplayer, SpecialMultiplayer
 }

@@ -50,6 +50,7 @@ class RoomViewController: UIViewController {
         let seedString = "\(arc4random())"
         seed = seedString.dataUsingEncoding(NSUTF8StringEncoding)
         startData["seed"] = seedString
+        startData["mode"] = mode.rawValue
         GameNetworkPortal._instance.send(.GameDidStart, data: startData)
         presentGameScene()
     }
@@ -126,10 +127,11 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
         guard let dataDict = data as? [String: AnyObject],
-            seed = dataDict["seed"] as? String else {
+            seed = dataDict["seed"] as? String, modeValue = dataDict["mode"] as? Int, mode = GameMode(rawValue: modeValue) else {
             return
         }
         self.seed = seed.dataUsingEncoding(NSUTF8StringEncoding)
+        self.mode = mode
         presentGameScene()
     }
 }
