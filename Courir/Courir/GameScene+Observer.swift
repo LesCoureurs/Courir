@@ -59,13 +59,19 @@ extension GameScene: Observer {
     private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
         switch player.physicalState {
             case .Ducking(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerDuckTexture
             case .Jumping(_):
-                removeGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    removeGestureRecognizers()
+                }
                 node.texture = playerJumpTexture
             case .Running, .Stationary, .Invulnerable(_):
-                addGestureRecognizers()
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    addGestureRecognizers()
+                }
                 node.texture = playerTexture
         }
     }
@@ -79,7 +85,6 @@ extension GameScene: Observer {
                 return
         }
     }
-    
     
     // MARK: Methods for observing Obstacles
     
@@ -107,15 +112,24 @@ extension GameScene: Observer {
                 gameDidEnd()
             case "obstacles":
                 handleChangesToObstacles()
+            case "distance":
+                updateScore()
             default:
                 return
         }
     }
     
     private func gameDidEnd() {
-        let gameOverData = ["eventRawValue": GameEvent.GameDidEnd.rawValue, "gameResult": gameState.scoreTracking]
+        let gameOverData = [
+            "eventRawValue": GameEvent.GameDidEnd.rawValue,
+            "gameResult": gameState.scoreTracking,
+            "ghostStore": gameState.ghostStore
+        ]
         
-        NSNotificationCenter.defaultCenter().postNotificationName("showEndGameMenu", object: self, userInfo: gameOverData as [NSObject : AnyObject])
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName("showEndGameMenu",
+                                  object: self,
+                                  userInfo: gameOverData as [NSObject : AnyObject])
     }
     
     private func handleChangesToObstacles() {
@@ -136,5 +150,10 @@ extension GameScene: Observer {
             obstacleNode.removeFromParent()
             obstacles.removeValueForKey(id)
         }
+    }
+    
+    // Update the score
+    private func updateScore() {
+        scoreNode.text = "\(gameState.distance)"
     }
 }

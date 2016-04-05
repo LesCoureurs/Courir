@@ -18,6 +18,8 @@ class GameScene: SKScene {
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
+    let scoreNode = SKLabelNode(text: "0")
+    
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
     
@@ -42,11 +44,12 @@ class GameScene: SKScene {
         gameSetupData = data
     }
 
-    
+    var initialGhostStore: GhostStore?
+
     // MARK: Overridden methods
     
     override func didMoveToView(view: SKView) {
-        logicEngine = LogicEngine(seed: gameSetupData.seed, mode: .Multiplayer, peers: gameSetupData.peers!)
+        initLogicEngine()
         gameState = logicEngine.state
         gameState.observer = self
         myPlayerNumber = gameState.myPlayer.playerNumber
@@ -58,6 +61,7 @@ class GameScene: SKScene {
         initGrid()
         initCountdownTimer()
         initPauseButton()
+        initScore()
 
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
@@ -75,6 +79,14 @@ class GameScene: SKScene {
     }
 
     // MARK: Initialisers
+    
+    private func initLogicEngine() {
+        if initialGhostStore == nil {
+            logicEngine = LogicEngine(mode: gameSetupData.mode, peers: gameSetupData.peers, seed: gameSetupData.seed)
+        } else {
+            logicEngine = LogicEngine(ghostStore: initialGhostStore!)
+        }
+    }
 
     private func initObstacles() {
         for obstacle in gameState.obstacles {
@@ -115,6 +127,15 @@ class GameScene: SKScene {
         grid.addChild(pauseButtonNode)
     }
 
+    private func initScore() {
+        scoreNode.horizontalAlignmentMode = .Right
+        scoreNode.fontName = "HelveticaNeue-Medium"
+        scoreNode.zPosition = 990
+        scoreNode.position = CGPoint(x: size.width - 20,
+                                     y: size.height / 2 - scoreNode.frame.height * 2)
+        grid.addChild(scoreNode)
+    }
+    
     // MARK: Rendering
 
     private func renderIsoGrid() {

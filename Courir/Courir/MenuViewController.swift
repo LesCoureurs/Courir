@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import MultipeerConnectivity
 
 class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
@@ -34,14 +35,6 @@ class MenuViewController: UIViewController {
         return true
     }
 
-    @IBAction func handleSinglePlayerStart(sender: AnyObject) {
-        performSegueWithIdentifier("startGameSegue", sender: self)
-    }
-
-    @IBAction func handleMultiplayerStart(sender: AnyObject) {
-        performSegueWithIdentifier("selectRoomSegue", sender: self)
-    }
-
     @IBAction func handleExitGame(sender: UIStoryboardSegue) {
         
     }
@@ -55,7 +48,7 @@ class MenuViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
-            let singlePlayerData = GameSetupData(mode: .SinglePlayer, isHost: false, peers: nil, seed: nil)
+            let singlePlayerData = GameSetupData(mode: .SinglePlayer, isHost: false, peers: [MCPeerID](), seed: nil)
             destination.setUpWith(singlePlayerData)
         }
     }

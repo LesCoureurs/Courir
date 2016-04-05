@@ -15,6 +15,6 @@ struct GameSetupData {
         return mode == GameMode.Multiplayer || mode == GameMode.SpecialMultiplayer
     }
     private (set) var isHost: Bool
-    private (set) var peers: [MCPeerID]?
-    private (set) var seed: String?
+    private (set) var peers: [MCPeerID]
+    private (set) var seed: NSData?
 }

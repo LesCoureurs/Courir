@@ -23,10 +23,19 @@ class LogicEngine {
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()
 
-    init(seed: String? = nil, mode: GameMode, peers: [MCPeerID]) {
+    init(mode: GameMode, peers: [MCPeerID] = [MCPeerID](), seed: NSData? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
-        state = GameState(mode: mode)
+        state = GameState(seed: obstacleGenerator.seed, mode: mode)
         state.initPlayers(peers)
+    }
+    
+    convenience init(ghostStore: GhostStore) {
+        let ghostID = MCPeerID(displayName: "Ghost Player")
+        self.init(mode: .SinglePlayer, peers: [ghostID], seed: ghostStore.seed)
+        let ghostPlayerNumber = state.peerMapping[ghostID]
+        state.getPlayer(withPeerID: ghostID)?.ready()
+        state.updatePlayerScore(ghostID, score: ghostStore.score)
+        initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
     var score: Int {
@@ -35,6 +44,15 @@ class LogicEngine {
     
     var speed: Int {
         return state.currentSpeed
+    }
+    
+    private func initGhostEventQueue(eventSequence: [PlayerEvent], ghostPlayerNumber: Int) {
+        let ghostSequence = eventSequence.map {
+            (event: $0.event, playerNumber: ghostPlayerNumber, timeStep: $0.timeStep,
+                otherData: $0.otherData)
+        }
+        eventQueue.appendContentsOf(ghostSequence)
+        eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
     }
     
 
@@ -68,16 +86,8 @@ class LogicEngine {
         }
         
         switch event {
-        case .PlayerDidJump:
-            player.jump(occurrence)
-            if isValidToSend(player) {
-                sendActionData(.PlayerDidJump)
-            }
-        case .PlayerDidDuck:
-            player.duck(occurrence)
-            if isValidToSend(player) {
-                sendActionData(.PlayerDidDuck)
-            }
+        case .PlayerDidJump, .PlayerDidDuck:
+            handlePlayerActionEvent(player, timeStep: occurrence, action: event)
         case .PlayerDidCollide:
             handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
         case .FloatingObstacleGenerated:
@@ -95,10 +105,36 @@ class LogicEngine {
         }
     }
     
+    func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
+        assert (action == .PlayerDidJump || action == .PlayerDidDuck)
+        
+        if action == .PlayerDidJump {
+            player.jump(occurrence)
+        } else {
+            player.duck(occurrence)
+        }
+        
+        if isValidToSend(player) {
+            sendActionData(action)
+        }
+        
+        if player.playerNumber == state.myPlayer.playerNumber {
+            switch action {
+            case .PlayerDidJump:
+                state.addJumpEvent(occurrence)
+            case .PlayerDidDuck:
+                state.addDuckEvent(occurrence)
+            default:
+                break
+            }
+        }
+    }
+    
     func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
         player.run()
         if player.playerNumber == state.myPlayer.playerNumber {
             player.fallBehind()
+            state.addCollideEvent(timeStep, xCoordinate: player.xCoordinate)
             player.becomeInvulnerable(timeStep)
             if isValidToSend(player) {
                 sendCollisionData(player.xCoordinate)
