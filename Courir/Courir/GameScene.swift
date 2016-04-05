@@ -18,6 +18,8 @@ class GameScene: SKScene {
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
+    let scoreNode = SKLabelNode(text: "0")
+    
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
     
@@ -52,6 +54,7 @@ class GameScene: SKScene {
         initGrid()
         initCountdownTimer()
         initPauseButton()
+        initScore()
 
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
@@ -107,6 +110,15 @@ class GameScene: SKScene {
         pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
                                            y: (-size.height / 2 + pauseButtonNode.frame.height))
         grid.addChild(pauseButtonNode)
+    }
+    
+    private func initScore() {
+        scoreNode.horizontalAlignmentMode = .Right
+        scoreNode.fontName = "HelveticaNeue-Medium"
+        scoreNode.zPosition = 990
+        scoreNode.position = CGPoint(x: size.width - 20,
+                                     y: size.height / 2 - scoreNode.frame.height * 2)
+        grid.addChild(scoreNode)
     }
     
     private func renderIsoGrid() {

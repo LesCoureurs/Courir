@@ -22,7 +22,11 @@ class GameState: Observed {
     }
     
     var currentSpeed = initialGameSpeed
-    var distance = 0 // Score
+    var distance = 0 {
+        didSet {
+            observer?.didChangeProperty("distance", from: self)
+        }
+    } // Score
 
     var isMultiplayer: Bool
     var gameIsOver = false {
