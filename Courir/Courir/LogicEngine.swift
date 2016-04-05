@@ -60,7 +60,6 @@ class LogicEngine {
     
     func update() {
         guard !state.gameIsOver else {
-            print("game is over")
             return
         }
         updateEventQueue()
@@ -302,7 +301,6 @@ class LogicEngine {
     
     private func checkRaceFinished() {
         if state.everyoneFinished() {
-            print("everyone finished")
             // Stop the update() method
             state.gameIsOver = true
             
@@ -362,7 +360,6 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
         // Stop the update() method
-        print("game end signal received")
         state.gameIsOver = true
     }
     
