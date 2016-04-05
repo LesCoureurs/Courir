@@ -17,6 +17,8 @@ class GameViewController: UIViewController {
     var seed: NSData?
     var initialGhostStore: GhostStore?
     var gameEndGhostStore: GhostStore?
+    
+    private let portal = GameNetworkPortal._instance
 
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
@@ -114,6 +116,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func mainMenuButtonPressed(sender: AnyObject) {
+        portal.disconnectFromRoom()
         performSegueWithIdentifier("exitGameSegue", sender: self)
     }
     
