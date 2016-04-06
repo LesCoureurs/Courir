@@ -182,7 +182,12 @@ class LogicEngine {
     }
     
     private func updateEnvironmentPosition() {
-        state.environment.xCoordinate -= speed
+        for environmentObject in state.environmentObjects {
+            environmentObject.xCoordinate -= speed
+            if environmentObject.xCoordinate < -1400 {
+                environmentObject.resetXCoordinate()
+            }
+        }
     }
     
     private func updateObstaclePositions() {
