@@ -86,9 +86,14 @@ class GameNetworkPortal {
         coulombNetwork.connectToHost(host)
     }
     
+    func getFoundHosts() -> [MCPeerID] {
+        return coulombNetwork.getFoundHosts()
+    }
+    
     // MARK: Common methods
     func disconnectFromRoom() {
         coulombNetwork.disconnect()
+        disconnectedFromSession()
     }
     
     // MARK: Data transfer
