@@ -138,8 +138,10 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        stopHosting()
-        beginSearchingForHosts()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.stopHosting()
+            self.beginSearchingForHosts()
+        }
         print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
         gameStateDelegate?.disconnectedFromGame()
