@@ -6,8 +6,6 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import UIKit
-
 enum ObstacleType {
     case NonFloating, Floating
 }
