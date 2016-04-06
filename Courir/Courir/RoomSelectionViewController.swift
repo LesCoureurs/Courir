@@ -20,8 +20,8 @@ class RoomSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        roomsAvailableTableView.registerClass(UITableViewCell.self,
-                                              forCellReuseIdentifier: cellIdentifier)
+//        roomsAvailableTableView.registerClass(UITableViewCell.self,
+//                                              forCellReuseIdentifier: cellIdentifier)
         
         portal.connectionDelegate = self
         
@@ -43,8 +43,6 @@ class RoomSelectionViewController: UIViewController {
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
         portal.disconnectFromRoom()
-        portal.stopHosting()
-        portal.beginSearchingForHosts()
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -52,10 +50,8 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
+        portal.stopSearchingForHosts()
         portal.beginSearchingForHosts()
-        dispatch_async(dispatch_get_main_queue(), {
-            self.roomsAvailableTableView.reloadData()
-        })
     }
 }
 
