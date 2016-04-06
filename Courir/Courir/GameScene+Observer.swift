@@ -10,7 +10,9 @@ import SpriteKit
 
 extension GameScene: Observer {
     
+    // ==============================================
     // MARK: Overridden methods
+    // ==============================================
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
         if let object = from as? Player {
@@ -19,11 +21,15 @@ extension GameScene: Observer {
             handleUpdateObstacleNode(object, propertyName: propertyName)
         } else if let _ = from as? GameState {
             handleUpdateGameState(propertyName)
+        } else if let object = from as? Environment {
+            handleUpdateEnvironment(object, propertyName: propertyName)
         }
     }
     
     
+    // ==============================================
     // MARK: Methods for observing Players
+    // ==============================================
     
     /// Handle the updating of the player node whose property has changed
     private func handleUpdatePlayerNode(player: Player, propertyName: String) {
@@ -75,7 +81,9 @@ extension GameScene: Observer {
         }
     }
     
+    // ==============================================
     // MARK: Methods for observing Obstacles
+    // ==============================================
     
     /// Handle the updating of the obstacle node whose property has changed
     private func handleUpdateObstacleNode(obstacle: Obstacle, propertyName: String) {
@@ -92,7 +100,9 @@ extension GameScene: Observer {
     }
     
     
+    // ==============================================
     // MARK: Methods for observing GameState
+    // ==============================================
     
     /// Handle the updating of appropriate nodes when changes are made to the game state
     private func handleUpdateGameState(propertyName: String) {
@@ -145,4 +155,19 @@ extension GameScene: Observer {
     private func updateScore() {
         scoreNode.text = "\(gameState.distance)"
     }
+    
+    
+    // ==============================================
+    // MARK: Methods for observing Environment
+    // ==============================================
+    
+    private func handleUpdateEnvironment(environment: Environment, propertyName: String) {
+        switch propertyName {
+            case "xCoordinate", "yCoordinate":
+                updatePositionFor(environment, withNode: environmentNode)
+            default:
+                return
+        }
+    }
+    
 }
