@@ -20,6 +20,10 @@
 		6524A7331C9C7F4B00D8CC48 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7321C9C7F4B00D8CC48 /* Constants.swift */; };
 		6BD94A50D521179C4B947F38 /* Pods_Courir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */; };
 		6E2CEE4B1CB0FF8D003DD41D /* GameScene+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */; };
+		6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */; };
+		6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */; };
+		6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4E1CB4D2E1003DD41D /* PlayerRunning.atlas */; };
+		6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4F1CB4D2E1003DD41D /* PlayerStationary.atlas */; };
 		6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54B1C9D505A00E0ED9F /* Player.swift */; };
 		6E48F54E1C9D506C00E0ED9F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */; };
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
@@ -69,6 +73,10 @@
 		6524A7271C9C7EB800D8CC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6524A7321C9C7F4B00D8CC48 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+Observer.swift"; sourceTree = "<group>"; };
+		6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDucking.atlas; sourceTree = "<group>"; };
+		6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerJumping.atlas; sourceTree = "<group>"; };
+		6E2CEE4E1CB4D2E1003DD41D /* PlayerRunning.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerRunning.atlas; sourceTree = "<group>"; };
+		6E2CEE4F1CB4D2E1003DD41D /* PlayerStationary.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerStationary.atlas; sourceTree = "<group>"; };
 		6E48F54B1C9D505A00E0ED9F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
@@ -143,6 +151,10 @@
 				6EF577661CA3CA93003FB063 /* Observer.swift */,
 				6524A7141C9C7EB800D8CC48 /* Main.storyboard */,
 				6524A7171C9C7EB800D8CC48 /* Assets.xcassets */,
+				6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */,
+				6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */,
+				6E2CEE4E1CB4D2E1003DD41D /* PlayerRunning.atlas */,
+				6E2CEE4F1CB4D2E1003DD41D /* PlayerStationary.atlas */,
 				6524A7191C9C7EB800D8CC48 /* LaunchScreen.storyboard */,
 				6524A71C1C9C7EB800D8CC48 /* Info.plist */,
 			);
@@ -305,8 +317,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
+				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
+				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
 				6524A7181C9C7EB800D8CC48 /* Assets.xcassets in Resources */,
+				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
