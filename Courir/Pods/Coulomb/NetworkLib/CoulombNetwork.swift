@@ -121,10 +121,8 @@ public class CoulombNetwork: NSObject {
     // This method is async
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
-//            DLog("%@", "send data to host: \(data)")
             try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
         } catch {
-//            DLog("%@", "send data failed: \(data)")
             return false
         }
         
@@ -222,7 +220,6 @@ extension CoulombNetwork: MCSessionDelegate {
     // Handles incomming NSData
     public func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
-//            DLog("%@", "Data received: \(data)")
             delegate?.handleDataPacket(data, peerID: peerID)
     }
     
