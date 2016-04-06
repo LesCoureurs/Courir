@@ -70,7 +70,9 @@ class RoomViewController: UIViewController {
     }
     
     @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
-        portal.beginHosting()
+        if isHost {
+            portal.beginHosting()
+        }
     }
 }
 
