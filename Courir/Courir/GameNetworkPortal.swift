@@ -125,10 +125,6 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
-//        guard let _ = host else {
-//            return
-//        }
-//        print("Portal received conn peers changed: \(peers) \(host)")
         connectionDelegate?.playersInRoomChanged(peers)
     }
     
