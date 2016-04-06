@@ -12,14 +12,14 @@ class EnvironmentSpriteNode: SKSpriteNode {
     
     init(environment: Environment) {
         let texture = SKTexture(imageNamed: "background")
-        let size = CGSize(width: texture.size().width, height: texture.size().height)
-        super.init(texture: texture, color: UIColor.clearColor(), size: size)
         
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        setScale(1.05)
         position = IsoViewConverter.calculateRenderPositionFor(environment)
         anchorPoint = CGPointMake(0, 0)
-        zPosition = -99
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
