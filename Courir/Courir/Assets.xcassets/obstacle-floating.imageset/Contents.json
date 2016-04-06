@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iso_non_floating_obstacle.png",
+      "filename" : "obstacle-floating.png",
       "scale" : "1x"
     },
     {
