@@ -37,7 +37,7 @@ class MenuViewController: UIViewController {
         
     }
 
-    @IBAction func unwindToMenuFromRoomSelection(sender: UIStoryboardSegue) {
+    @IBAction func unwindToMenu(sender: UIStoryboardSegue) {
         
     }
 
