@@ -7,8 +7,8 @@
 //
 
 class Environment: GameObject {
-    static let spawnXCoordinate = 0 * unitsPerGameGridCell
-    static let spawnYCoordinate = 0 * unitsPerGameGridCell
+    static let spawnXCoordinate = 32 * unitsPerGameGridCell
+    static let spawnYCoordinate = -64 * unitsPerGameGridCell
     
     let xWidth = 64 * unitsPerGameGridCell
     let yWidth = 64 * unitsPerGameGridCell
