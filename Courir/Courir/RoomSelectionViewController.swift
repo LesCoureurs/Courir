@@ -41,13 +41,11 @@ class RoomSelectionViewController: UIViewController {
     }
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
-        print("unwindToRoomSelectionFromRoomView")
         portal.connectionDelegate = self
         portal.disconnectFromRoom()
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
-        print("unwindToRoomSelectionFromGameView")
         portal.connectionDelegate = self
         portal.disconnectFromRoom()
     }
