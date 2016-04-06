@@ -197,18 +197,18 @@ class LogicEngine {
         for player in state.players {
             switch player.physicalState {
                 case .Stationary:
-                    player.run(timeStep)
+                    player.run()
                 case let .Jumping(startTimeStep):
                     if timeStep - startTimeStep > jumpTimeSteps {
-                        player.run(timeStep)
+                        player.run()
                     }
                 case let .Ducking(startTimeStep):
                     if timeStep - startTimeStep > duckTimeSteps {
-                        player.run(timeStep)
+                        player.run()
                     }
                 case let .Invulnerable(startTimeStep):
                     if timeStep - startTimeStep > invulnerableTimeSteps {
-                        player.run(timeStep)
+                        player.run()
                     }
                 default:
                     continue
