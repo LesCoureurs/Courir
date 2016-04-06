@@ -162,9 +162,14 @@ extension GameScene: Observer {
     // ==============================================
     
     private func handleUpdateEnvironment(environment: Environment, propertyName: String) {
+        guard let node = environmentNodes[environment.identifier] else {
+            return
+        }
         switch propertyName {
             case "xCoordinate", "yCoordinate":
-                updatePositionFor(environment, withNode: environmentNode)
+                updatePositionFor(environment, withNode: node)
+            case "zPosition":
+                node.zPosition = CGFloat(environment.zPosition)
             default:
                 return
         }
