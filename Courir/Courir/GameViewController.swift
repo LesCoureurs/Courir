@@ -25,6 +25,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameTable: UITableView!
     @IBOutlet weak var replayOrUnwindButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
+    @IBOutlet weak var unwindButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +96,9 @@ class GameViewController: UIViewController {
     private func setUpGameEndMenu() {
         let title = isMultiplayer ? "Back To Room" : "Play Again"
         replayOrUnwindButton.setTitle(title, forState: .Normal)
+        
+        let unwindButtonTitle = isMultiplayer ? "Quit Room" : "Main Menu"
+        unwindButton.setTitle(unwindButtonTitle, forState: .Normal)
         
         endGameTable.dataSource = endGameMenu
         endGameTable.delegate = endGameMenu
