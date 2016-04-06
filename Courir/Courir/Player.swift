@@ -19,7 +19,7 @@ enum PhysicalState {
 
 class Player: GameObject {
     static let spawnXCoordinate = 12 * unitsPerGameGridCell
-    static let minSpawnYCoordinate = 2 * unitsPerGameGridCell
+    static let minSpawnYCoordinate = 4 * unitsPerGameGridCell
     static let spawnYCoordinateIncrement = 4 * unitsPerGameGridCell
     static let spawnYOffset = [1: 3 * spawnYCoordinateIncrement / 2,
                                2: spawnYCoordinateIncrement,
