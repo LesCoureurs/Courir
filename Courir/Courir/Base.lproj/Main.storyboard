@@ -269,6 +269,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KsT-g5-pnT">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items>
+                                    <navigationItem title="Settings" id="d5f-We-aem">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="HBE-xk-vHW">
+                                            <connections>
+                                                <segue destination="Kc5-yy-bck" kind="unwind" identifier="unwindToMenuFromSettingsView" unwindAction="unwindToMenu:" id="oNL-gj-iyM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Av4-9g-X62">
                                 <rect key="frame" x="489" y="369" width="46" height="30"/>
                                 <state key="normal" title="Name"/>
@@ -283,8 +295,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="roI-DW-gmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Kc5-yy-bck" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="245" y="-553"/>
+            <point key="canvasLocation" x="245" y="-621"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -386,7 +399,7 @@
                                     <navigationItem id="Bk9-L9-1at">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="ed4-ub-CNw">
                                             <connections>
-                                                <segue destination="rsb-1F-LAp" kind="unwind" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
+                                                <segue destination="rsb-1F-LAp" kind="unwind" identifier="unwindToMenuFromRoomSelectionSegue" unwindAction="unwindToMenu:" id="066-Ut-mS8"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -437,7 +450,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
