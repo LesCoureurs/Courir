@@ -13,7 +13,7 @@ enum PlayerState {
 }
 
 enum PhysicalState {
-    case Stationary, Running, Invulnerable(Int), Jumping(Int), Ducking(Int)
+    case Stationary, Running(Int), Invulnerable(Int), Jumping(Int), Ducking(Int)
 }
 
 
@@ -81,8 +81,8 @@ class Player: GameObject {
         xCoordinate -= 1 * unitsPerGameGridCell
     }
     
-    func run() {
-        physicalState = .Running
+    func run(startTimeStep: Int) {
+        physicalState = .Running(startTimeStep)
     }
     
     func jump(startTimeStep: Int) {
