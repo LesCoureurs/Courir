@@ -55,7 +55,9 @@ class GameScene: SKScene {
         initCountdownTimer()
         initPauseButton()
         initScore()
-
+        
+        // Set game to 30FPS
+        view.frameInterval = 2
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
     }
@@ -122,7 +124,7 @@ class GameScene: SKScene {
     
     private func initScore() {
         scoreNode.horizontalAlignmentMode = .Right
-        scoreNode.fontName = "HelveticaNeue-Medium"
+        scoreNode.fontName = "Menlo-Regular"
         scoreNode.zPosition = 990
         scoreNode.position = CGPoint(x: size.width - 20,
                                      y: size.height / 2 - scoreNode.frame.height * 2)

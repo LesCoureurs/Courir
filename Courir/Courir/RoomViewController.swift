@@ -102,10 +102,6 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func playersInRoomChanged(peerIDs: [MCPeerID]) {
-//        if host == myPeerID {
-//            print("Currnet host is myself \(host.displayName)")
-//            isHost = true
-//        }
         peers = peerIDs
         
         if isHost {
@@ -113,7 +109,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
                 self.startButton.enabled = self.peers.count > 0
             }
         }
-        
+
         dispatch_async(dispatch_get_main_queue()) {
             self.peersTableView.reloadData()
         }
