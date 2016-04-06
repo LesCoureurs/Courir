@@ -81,7 +81,7 @@ class Player: GameObject {
         xCoordinate -= 1 * unitsPerGameGridCell
     }
     
-    func run(startTimeStep: Int) {
+    func run() {
         physicalState = .Running
     }
     
