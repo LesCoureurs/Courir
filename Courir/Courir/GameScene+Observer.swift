@@ -61,7 +61,7 @@ extension GameScene: Observer {
                     removeGestureRecognizers()
                 }
                 node.texture = playerJumpingFrames.first
-            case .Running, .Invulnerable(_):
+            case .Running(_), .Invulnerable(_):
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     addGestureRecognizers()
                 }

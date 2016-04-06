@@ -18,7 +18,7 @@ class LogicEngine {
     
     private let gameNetworkPortal = GameNetworkPortal._instance
     
-    private var timeStep = 0
+    private(set) var timeStep = 0
     private var lastObstacleTimeStep: Int?
     private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
         otherData: AnyObject?)]()

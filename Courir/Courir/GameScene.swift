@@ -77,9 +77,26 @@ class GameScene: SKScene {
             countdownNode.updateCountdownTime(currentTime)
         } else if hasGameStarted {
             logicEngine.update()
+            updatePlayerTextures()
         }
     }
 
+    private func updatePlayerTextures() {
+        for player in gameState.players {
+            switch player.physicalState {
+            case let .Running(startTimeStep):
+                players[player.playerNumber]?.texture = playerRunningFrames[(logicEngine.timeStep - startTimeStep) % numRunFrames]
+            case let .Invulnerable(startTimeStep):
+                players[player.playerNumber]?.texture = playerRunningFrames[(logicEngine.timeStep - startTimeStep) % numRunFrames]
+            case let .Jumping(startTimeStep):
+                players[player.playerNumber]?.texture = playerJumpingFrames[(logicEngine.timeStep - startTimeStep) % numJumpFrames]
+            case let .Ducking(startTimeStep):
+                players[player.playerNumber]?.texture = playerDuckingFrames[(logicEngine.timeStep - startTimeStep) % numDuckFrames]
+            case .Stationary:
+                players[player.playerNumber]?.texture = playerStationaryFrames.first
+            }
+        }
+    }
     // MARK: Initialisers
     
     private func initLogicEngine() {
@@ -91,16 +108,16 @@ class GameScene: SKScene {
     }
     
     private func initTextures() {
-        func populateFrames(atlas: SKTextureAtlas, inout frames: [SKTexture]) {
-            for textureName in atlas.textureNames {
-                frames.append(atlas.textureNamed(textureName))
+        func populateFrames(atlas: SKTextureAtlas, inout frames: [SKTexture], textureBaseName: String) {
+            for i in 0..<atlas.textureNames.count {
+                frames.append(atlas.textureNamed("\(textureBaseName)\(i)"))
             }
         }
         
-        populateFrames(playerRunningAtlas, frames: &playerRunningFrames)
-        populateFrames(playerJumpingAtlas, frames: &playerJumpingFrames)
-        populateFrames(playerDuckingAtlas, frames: &playerDuckingFrames)
-        populateFrames(playerStationaryAtlas, frames: &playerStationaryFrames)
+        populateFrames(playerRunningAtlas, frames: &playerRunningFrames, textureBaseName: "running")
+        populateFrames(playerJumpingAtlas, frames: &playerJumpingFrames, textureBaseName: "jumping")
+        populateFrames(playerDuckingAtlas, frames: &playerDuckingFrames, textureBaseName: "ducking")
+        populateFrames(playerStationaryAtlas, frames: &playerStationaryFrames, textureBaseName: "stationary")
     }
 
     private func initObstacles() {
