@@ -45,7 +45,7 @@ extension GameScene: Observer {
     
     /// Update screen coordinates for object whose x and/or y coordinate has changed
     private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
-        node.position = calculateRenderPositionFor(object)
+        node.position = IsoViewConverter.calculateRenderPositionFor(object)
     }
     
     /// Update the player's texture based on state

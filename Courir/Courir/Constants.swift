@@ -35,16 +35,10 @@ let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
 let duckDuration = Double(jumpTimeSteps) / Double(framerate)
 
 // Textures
-let numRunFrames = 30
-let numJumpFrames = 21
-let numDuckFrames = 15
 let playerRunningAtlas = SKTextureAtlas(named: "PlayerRunning")
 let playerJumpingAtlas = SKTextureAtlas(named: "PlayerJumping")
 let playerDuckingAtlas = SKTextureAtlas(named: "PlayerDucking")
 let playerStationaryAtlas = SKTextureAtlas(named: "PlayerStationary")
-
-let obstacleNonFloatingTexture = SKTexture(imageNamed: "iso_non_floating_obstacle")
-let obstacleFloatingTexture = SKTexture(imageNamed: "iso_floating_obstacle")
 
 // My Details
 var myName: String?
