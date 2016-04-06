@@ -58,7 +58,7 @@ class Player: GameObject {
     
     
     // Range of playerNumber = [0, 3]
-    init(playerNumber: Int, isMultiplayer: Bool, numPlayers: Int) {
+    init(playerNumber: Int, numPlayers: Int) {
         // TODO: Positioning for multiplayer mode
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
