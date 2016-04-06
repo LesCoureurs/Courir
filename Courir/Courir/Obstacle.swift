@@ -13,7 +13,7 @@ enum ObstacleType {
 class Obstacle: GameObject {
     static var uniqueId = 0
     static let spawnXCoordinate = 31 * unitsPerGameGridCell
-    static let spawnYCoordinate = 5 * unitsPerGameGridCell
+    static let spawnYCoordinate = -8 * unitsPerGameGridCell
 
     let type: ObstacleType
     let identifier: Int

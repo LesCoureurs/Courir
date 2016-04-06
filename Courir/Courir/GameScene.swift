@@ -106,7 +106,6 @@ class GameScene: SKScene {
     private func initGrid() {
         grid.position = CGPoint(x: 0, y: size.height/2)
         addChild(grid)
-        renderIsoGrid()
     }
     
     private func initCountdownTimer() {
@@ -136,77 +135,20 @@ class GameScene: SKScene {
         grid.addChild(scoreNode)
     }
     
-    private func renderIsoGrid() {
-        func createGridTileAt(withPosition: CGPoint) {
-            let tileSprite = SKSpriteNode(imageNamed: "iso_grid_tile")
-            
-            tileSprite.position = withPosition
-            tileSprite.anchorPoint = CGPoint(x: 0, y: 0)
-            tileSprite.size = CGSize(width: 32, height: 16)
-            
-            grid.addChild(tileSprite)
-        }
-        
-        for i in 0..<gameGridSize {
-            for j in 0..<gameGridSize {
-                let point = pointToIso(CGPoint(x: (j * tileSize.width / 2),
-                                               y: (i * tileSize.height / 2)))
-                createGridTileAt(point)
-            }
-        }
-    }
-    
-    /// Convert point to respective screen coordinate in an isometric projection
-    private func pointToIso(p: CGPoint) -> CGPoint {
-        return CGPointMake(p.x + p.y, (p.y - p.x) / 2)
-    }
+    // MARK: Rendering
 
-    private func createGameObjectNode(object: GameObject, imageName: String) -> SKSpriteNode {
-        let sprite = SKSpriteNode(imageNamed: imageName)
-        sprite.position = calculateRenderPositionFor(object)
-        sprite.anchorPoint = CGPointMake(0, 0)
-        grid.addChild(sprite)
-        return sprite
-    }
-    
-    private func createPlayerNode(player: Player) -> SKSpriteNode {
-        let playerSprite = SKSpriteNode(texture: playerStationaryFrames.first)
-        playerSprite.position = calculateRenderPositionFor(player)
-        playerSprite.anchorPoint = CGPointMake(0, 0)
-        playerSprite.zPosition = 2
+    private func createPlayerNode(player: Player) -> PlayerSpriteNode {
+        let playerSprite = PlayerSpriteNode(player: player)
         grid.addChild(playerSprite)
-
         return playerSprite
     }
     
     func createObstacleNode(obstacle: Obstacle) -> SKSpriteNode {
-        let obstacleSprite: SKSpriteNode
-        switch obstacle.type {
-            case .NonFloating:
-                obstacleSprite = createGameObjectNode(obstacle, imageName: "iso_non_floating_obstacle")
-                obstacleSprite.zPosition = 1
-            case .Floating:
-                obstacleSprite = createGameObjectNode(obstacle, imageName: "iso_floating_obstacle")
-                obstacleSprite.zPosition = 3
-        }
-        
+        let obstacleSprite = ObstacleSpriteNode(obstacle: obstacle)
+        grid.addChild(obstacleSprite)
         return obstacleSprite
     }
-    
-    /// Convert world coordinates of object to screen coordinates
-    func calculateRenderPositionFor(object: GameObject) -> CGPoint {
-        // multiple is to convert object's coordinates to coordinates in the actual larger grid
-        let multiple = Double(tileSize.width / unitsPerGameGridCell) / 2
-        let x = CGFloat(Double(object.xCoordinate) * multiple)
-        let y = CGFloat(Double(object.yCoordinate) * multiple)
-        
-        var isoPoint = pointToIso(CGPointMake(x, y))
-        // offset as a result of having objects that take up multiple tiles
-        isoPoint.y -= (CGFloat(object.xWidth)/CGFloat(tileSize.height) - 1) * 8
-        return isoPoint
-    }
 
-    
     // MARK: Gesture handling methods
 
     private func setupGestureRecognizers(view: SKView) {
