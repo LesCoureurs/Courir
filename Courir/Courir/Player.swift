@@ -13,14 +13,14 @@ enum PlayerState {
 }
 
 enum PhysicalState {
-    case Stationary, Running(Int), Invulnerable(Int), Jumping(Int), Ducking(Int)
+    case Stationary, Running, Invulnerable(Int), Jumping(Int), Ducking(Int)
 }
 
 
 class Player: GameObject {
     static let spawnXCoordinate = 12 * unitsPerGameGridCell
-    static let minSpawnYCoordinate = 5 * unitsPerGameGridCell
-    static let spawnYCoordinateIncrement = 6 * unitsPerGameGridCell
+    static let minSpawnYCoordinate = 2 * unitsPerGameGridCell
+    static let spawnYCoordinateIncrement = 4 * unitsPerGameGridCell
     static let spawnYOffset = [1: 3 * spawnYCoordinateIncrement / 2,
                                2: spawnYCoordinateIncrement,
                                3: spawnYCoordinateIncrement / 2,
@@ -82,7 +82,7 @@ class Player: GameObject {
     }
     
     func run(startTimeStep: Int) {
-        physicalState = .Running(startTimeStep)
+        physicalState = .Running
     }
     
     func jump(startTimeStep: Int) {

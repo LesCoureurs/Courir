@@ -27,18 +27,11 @@ class GameScene: SKScene {
     
     private let grid = SKSpriteNode()
     private var logicEngine: LogicEngine!
-    private var myPlayer: SKSpriteNode!
     private var myPlayerNumber: Int!
     
     var gameState: GameState!
-    var players = [Int: SKSpriteNode]()
+    var players = [Int: PlayerSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
-    
-    // Textures
-    var playerRunningFrames = [SKTexture]()
-    var playerJumpingFrames = [SKTexture]()
-    var playerDuckingFrames = [SKTexture]()
-    var playerStationaryFrames = [SKTexture]()
 
     var initialGhostStore: GhostStore?
     var seed: NSData?
@@ -55,7 +48,6 @@ class GameScene: SKScene {
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
-        initTextures()
         initObstacles()
         initPlayers()
         initGrid()
@@ -82,19 +74,8 @@ class GameScene: SKScene {
     }
 
     private func updatePlayerTextures() {
-        for player in gameState.players {
-            switch player.physicalState {
-            case let .Running(startTimeStep):
-                players[player.playerNumber]?.texture = playerRunningFrames[(logicEngine.timeStep - startTimeStep) % numRunFrames]
-            case let .Invulnerable(startTimeStep):
-                players[player.playerNumber]?.texture = playerRunningFrames[(logicEngine.timeStep - startTimeStep) % numRunFrames]
-            case let .Jumping(startTimeStep):
-                players[player.playerNumber]?.texture = playerJumpingFrames[(logicEngine.timeStep - startTimeStep) % numJumpFrames]
-            case let .Ducking(startTimeStep):
-                players[player.playerNumber]?.texture = playerDuckingFrames[(logicEngine.timeStep - startTimeStep) % numDuckFrames]
-            case .Stationary:
-                players[player.playerNumber]?.texture = playerStationaryFrames.first
-            }
+        for (_, player) in players {
+            player.showNextAnimationFrame()
         }
     }
     // MARK: Initialisers
@@ -105,19 +86,6 @@ class GameScene: SKScene {
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }
-    }
-    
-    private func initTextures() {
-        func populateFrames(atlas: SKTextureAtlas, inout frames: [SKTexture], textureBaseName: String) {
-            for i in 0..<atlas.textureNames.count {
-                frames.append(atlas.textureNamed("\(textureBaseName)\(i)"))
-            }
-        }
-        
-        populateFrames(playerRunningAtlas, frames: &playerRunningFrames, textureBaseName: "running")
-        populateFrames(playerJumpingAtlas, frames: &playerJumpingFrames, textureBaseName: "jumping")
-        populateFrames(playerDuckingAtlas, frames: &playerDuckingFrames, textureBaseName: "ducking")
-        populateFrames(playerStationaryAtlas, frames: &playerStationaryFrames, textureBaseName: "stationary")
     }
 
     private func initObstacles() {
