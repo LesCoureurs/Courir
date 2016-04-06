@@ -55,17 +55,22 @@ extension GameScene: Observer {
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     removeGestureRecognizers()
                 }
-                node.texture = playerDuckTexture
+                node.texture = playerDuckingFrames.first
             case .Jumping(_):
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     removeGestureRecognizers()
                 }
-                node.texture = playerJumpTexture
-            case .Running, .Stationary, .Invulnerable(_):
+                node.texture = playerJumpingFrames.first
+            case .Running, .Invulnerable(_):
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     addGestureRecognizers()
                 }
-                node.texture = playerTexture
+                node.texture = playerRunningFrames.first
+            case .Stationary:
+                if player.playerNumber == gameState.myPlayer.playerNumber {
+                    addGestureRecognizers()
+                }
+                node.texture = playerStationaryFrames.first
         }
     }
     

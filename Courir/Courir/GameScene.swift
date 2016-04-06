@@ -33,6 +33,12 @@ class GameScene: SKScene {
     var gameState: GameState!
     var players = [Int: SKSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
+    
+    // Textures
+    var playerRunningFrames = [SKTexture]()
+    var playerJumpingFrames = [SKTexture]()
+    var playerDuckingFrames = [SKTexture]()
+    var playerStationaryFrames = [SKTexture]()
 
     var initialGhostStore: GhostStore?
     var seed: NSData?
@@ -49,6 +55,7 @@ class GameScene: SKScene {
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
+        initTextures()
         initObstacles()
         initPlayers()
         initGrid()
@@ -81,6 +88,19 @@ class GameScene: SKScene {
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }
+    }
+    
+    private func initTextures() {
+        func populateFrames(atlas: SKTextureAtlas, inout frames: [SKTexture]) {
+            for textureName in atlas.textureNames {
+                frames.append(atlas.textureNamed(textureName))
+            }
+        }
+        
+        populateFrames(playerRunningAtlas, frames: &playerRunningFrames)
+        populateFrames(playerJumpingAtlas, frames: &playerJumpingFrames)
+        populateFrames(playerDuckingAtlas, frames: &playerDuckingFrames)
+        populateFrames(playerStationaryAtlas, frames: &playerStationaryFrames)
     }
 
     private func initObstacles() {
@@ -165,8 +185,12 @@ class GameScene: SKScene {
     }
     
     private func createPlayerNode(player: Player) -> SKSpriteNode {
-        let playerSprite = createGameObjectNode(player, imageName: "iso_player")
+        let playerSprite = SKSpriteNode(texture: playerStationaryFrames.first)
+        playerSprite.position = calculateRenderPositionFor(player)
+        playerSprite.anchorPoint = CGPointMake(0, 0)
         playerSprite.zPosition = 2
+        grid.addChild(playerSprite)
+
         return playerSprite
     }
     
