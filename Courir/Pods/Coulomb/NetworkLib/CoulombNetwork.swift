@@ -208,14 +208,14 @@ extension CoulombNetwork: MCSessionDelegate {
                 } else {
                     DLog("%@", "not connected to \(session.hashValue)")
                     // If self is disconnected or current host is disconnected
-                    if self.session.connectedPeers.isEmpty || self.host == peerID {
-                        DLog("%@", "Self was removed")
-                        
+                    if self.host == peerID {
+                        DLog("%@", "Host was removed")
+                        session.disconnect()
                         delegate?.disconnectedFromSession()
                     }
                 }
                 
-                delegate?.connectedPeersInSessionChanged(self.session.connectedPeers)
+                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
             }
     }
     
