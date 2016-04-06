@@ -10,6 +10,9 @@ import Foundation
 import MultipeerConnectivity
 
 class GameState: Observed {
+    
+    var environment = Environment()
+    
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()

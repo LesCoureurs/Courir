@@ -32,6 +32,7 @@ class GameScene: SKScene {
     var gameState: GameState!
     var players = [Int: PlayerSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
+    var environmentNode: EnvironmentSpriteNode!
 
     var initialGhostStore: GhostStore?
     var seed: NSData?
@@ -48,6 +49,7 @@ class GameScene: SKScene {
         // Assign the delegate to the logic engine to begin receiving updates
         GameNetworkPortal._instance.gameStateDelegate = logicEngine
 
+        initEnvironment()
         initObstacles()
         initPlayers()
         initGrid()
@@ -86,6 +88,11 @@ class GameScene: SKScene {
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }
+    }
+    
+    private func initEnvironment() {
+        gameState.environment.observer = self
+        environmentNode = createEnvironmentNode(gameState.environment)
     }
 
     private func initObstacles() {
@@ -137,6 +144,12 @@ class GameScene: SKScene {
     
     // MARK: Rendering
 
+    private func createEnvironmentNode(environment: Environment) -> EnvironmentSpriteNode {
+        let environmentSpriteNode = EnvironmentSpriteNode(environment: environment)
+        grid.addChild(environmentSpriteNode)
+        return environmentSpriteNode
+    }
+    
     private func createPlayerNode(player: Player) -> PlayerSpriteNode {
         let playerSprite = PlayerSpriteNode(player: player)
         grid.addChild(playerSprite)
