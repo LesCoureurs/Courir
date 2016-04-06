@@ -32,7 +32,7 @@ class GameScene: SKScene {
     var gameState: GameState!
     var players = [Int: PlayerSpriteNode]()
     var obstacles = [Int: SKSpriteNode]()
-    var environmentNode: EnvironmentSpriteNode!
+    var environmentNodes = [Int: EnvironmentSpriteNode]()
 
     var initialGhostStore: GhostStore?
     var seed: NSData?
@@ -91,8 +91,10 @@ class GameScene: SKScene {
     }
     
     private func initEnvironment() {
-        gameState.environment.observer = self
-        environmentNode = createEnvironmentNode(gameState.environment)
+        for environmentObject in gameState.environmentObjects {
+            environmentObject.observer = self
+            environmentNodes[environmentObject.identifier] = createEnvironmentNode(environmentObject)
+        }
     }
 
     private func initObstacles() {

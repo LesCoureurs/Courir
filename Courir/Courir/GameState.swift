@@ -11,7 +11,7 @@ import MultipeerConnectivity
 
 class GameState: Observed {
     
-    var environment = Environment()
+    var environmentObjects = [Environment]()
     
     var myPlayer: Player!
     var players = [Player]()
@@ -46,6 +46,9 @@ class GameState: Observed {
     init(seed: NSData, isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer
         self.seed = seed
+        for i in 0...2 {
+            environmentObjects.append(Environment(identifier: i))
+        }
     }
 
     var objects: [GameObject] {
