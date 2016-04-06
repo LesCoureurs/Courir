@@ -51,6 +51,6 @@ let obstacleFloatingTexture = SKTexture(imageNamed: "iso_floating_obstacle")
 // My Details
 var myName: String?
 let myDeviceName = UIDevice.currentDevice().name
-let myDefaultPlayerNumber = 1
-let myMultiplayerModeNumber = 0
 let myPeerID = MCPeerID(displayName: myName ?? myDeviceName)
+
+let defaultHostNumber = 3

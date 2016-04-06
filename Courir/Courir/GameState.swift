@@ -77,13 +77,11 @@ class GameState: Observed {
 
     func initPlayers(peers: [MCPeerID], withHost hostID: MCPeerID) {
         var allPeerIDs = Array(Set(peers).union([myPeerID]).subtract([hostID]))
-        print(hostID)
-        print("Peers for \(myPeerID): \(allPeerIDs)")
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
         initPlayersHelper(allPeerIDs)
 
-        self.host = Player(playerNumber: 3, isMultiplayer: true, numPlayers: allPeerIDs.count)
+        self.host = Player(playerNumber: defaultHostNumber, isMultiplayer: true, numPlayers: allPeerIDs.count)
         self.hostID = hostID
 
         if myPeerID == hostID {
@@ -117,7 +115,7 @@ class GameState: Observed {
     func getPlayer(withPlayerNumber playerNumber: Int?) -> Player? {
         if let player = players.filter({ $0.playerNumber == playerNumber }).first {
             return player
-        } else if let host = host where playerNumber == 3 {
+        } else if let host = host where playerNumber == defaultHostNumber {
             return host
         }
         return nil
