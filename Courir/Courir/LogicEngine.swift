@@ -201,8 +201,6 @@ class LogicEngine {
                 case let .Jumping(startTimeStep):
                     if timeStep - startTimeStep > jumpTimeSteps {
                         player.run()
-                    } else {
-                        updateJumpingPlayerPosition(player, startTimeStep)
                     }
                 case let .Ducking(startTimeStep):
                     if timeStep - startTimeStep > duckTimeSteps {
@@ -216,12 +214,6 @@ class LogicEngine {
                     continue
             }
         }
-    }
-    
-    private func updateJumpingPlayerPosition(player: Player, _ startTimeStep: Int) {
-        let time = CGFloat(timeStep - startTimeStep)/CGFloat(framerate)
-        // using the formula x = x0 + vt + 0.5*at^2
-        player.zCoordinate = velocity * time + 0.5 * acceleration * time * time
     }
     
     private func handleCollisions() {

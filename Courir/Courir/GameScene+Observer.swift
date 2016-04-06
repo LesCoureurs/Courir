@@ -34,8 +34,6 @@ extension GameScene: Observer {
         switch propertyName {
             case "xCoordinate", "yCoordinate":
                 updatePositionFor(player, withNode: node)
-            case "zCoordinate":
-                updateJumpingPositionFor(player, withNode: node)
             case "physicalState":
                 updatePlayerTexture(player, withNode: node)
             case "state":
@@ -48,11 +46,6 @@ extension GameScene: Observer {
     /// Update screen coordinates for object whose x and/or y coordinate has changed
     private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
         node.position = calculateRenderPositionFor(object)
-    }
-    
-    /// Update screen y coordinate for the jumping player
-    private func updateJumpingPositionFor(player: Player, withNode node: SKSpriteNode) {
-        node.position.y = calculateRenderPositionFor(player).y + CGFloat(player.zCoordinate)
     }
     
     /// Update the player's texture based on state

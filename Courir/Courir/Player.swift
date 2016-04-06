@@ -6,8 +6,6 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import UIKit
-
 // Connected: Joined the room, but has not entered the GameScene
 // Ready: Player has entered GameScene and/or is in an ongoing game
 enum PlayerState {
@@ -43,12 +41,6 @@ class Player: GameObject {
     var yCoordinate: Int {
         didSet {
             observer?.didChangeProperty("yCoordinate", from: self)
-        }
-    }
-    
-    var zCoordinate: CGFloat = 0 {
-        didSet {
-            observer?.didChangeProperty("zCoordinate", from: self)
         }
     }
     
