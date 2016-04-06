@@ -63,6 +63,7 @@ class LogicEngine {
             return
         }
         updateEventQueue()
+        updateEnvironmentPosition()
         updateObstaclePositions()
         handleCollisions()
         updatePlayerStates()
@@ -178,6 +179,10 @@ class LogicEngine {
             handleEvent(front.event, playerNumber: front.playerNumber,
                         occurringTimeStep: front.timeStep, otherData: front.otherData)
         }
+    }
+    
+    private func updateEnvironmentPosition() {
+        state.environment.xCoordinate -= speed
     }
     
     private func updateObstaclePositions() {
