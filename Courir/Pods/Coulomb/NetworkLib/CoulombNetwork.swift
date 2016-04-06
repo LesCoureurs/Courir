@@ -67,9 +67,7 @@ public class CoulombNetwork: NSObject {
     }
     
     public func stopAdvertisingHost() {
-        if let advertiser = serviceAdvertiser {
-            advertiser.stopAdvertisingPeer()
-        }
+        serviceAdvertiser?.stopAdvertisingPeer()
     }
     
     // MARK: Methods for guest
@@ -84,9 +82,7 @@ public class CoulombNetwork: NSObject {
     }
     
     public func stopSearchingForHosts() {
-        if let browser = serviceBrowser {
-            browser.stopBrowsingForPeers()
-        }
+        serviceBrowser?.stopBrowsingForPeers()
     }
     
     public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
