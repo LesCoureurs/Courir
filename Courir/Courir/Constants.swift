@@ -32,7 +32,7 @@ let duckTimeSteps = 21
 let invulnerableTimeSteps = 30
 
 let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
-let duckDuration = Double(jumpTimeSteps) / Double(framerate)
+let duckDuration = Double(duckTimeSteps) / Double(framerate)
 
 // Textures
 let playerRunningAtlas = SKTextureAtlas(named: "PlayerRunning")
