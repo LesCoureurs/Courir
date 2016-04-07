@@ -209,15 +209,15 @@ class LogicEngine {
                 case .Stationary:
                     player.run()
                 case let .Jumping(startTimeStep):
-                    if timeStep - startTimeStep > jumpTimeSteps {
+                    if timeStep - startTimeStep >= jumpTimeSteps {
                         player.run()
                     }
                 case let .Ducking(startTimeStep):
-                    if timeStep - startTimeStep > duckTimeSteps {
+                    if timeStep - startTimeStep >= duckTimeSteps {
                         player.run()
                     }
                 case let .Invulnerable(startTimeStep):
-                    if timeStep - startTimeStep > invulnerableTimeSteps {
+                    if timeStep - startTimeStep >= invulnerableTimeSteps {
                         player.run()
                     }
                 default:

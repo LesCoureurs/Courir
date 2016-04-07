@@ -64,8 +64,6 @@ class PlayerSpriteNode: SKSpriteNode {
             case .Stationary(_):
                 currentAnimationFrames = PlayerSpriteNode.playerStationaryFrames
             }
-            
-            texture = currentAnimationFrames[currentAnimationStep]
         }
     }
     
@@ -86,8 +84,8 @@ class PlayerSpriteNode: SKSpriteNode {
     }
     
     func showNextAnimationFrame() {
-        currentAnimationStep = (currentAnimationStep + 1) % currentAnimationFrames.count
         texture = currentAnimationFrames[currentAnimationStep]
+        currentAnimationStep = (currentAnimationStep + 1) % currentAnimationFrames.count
     }
     
     required init?(coder aDecoder: NSCoder) {
