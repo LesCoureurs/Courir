@@ -20,7 +20,7 @@ class ObstacleSpriteNode: SKSpriteNode {
             zPosition = PlayerSpriteNode.firstZPosition + 1
         case .NonFloating:
             texture = SKTexture(imageNamed: "obstacle-non-floating")
-            zPosition = 0
+            zPosition = 1
         }
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
