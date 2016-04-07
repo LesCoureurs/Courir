@@ -55,9 +55,8 @@ extension GameScene: Observer {
     }
     
     /// Update the player's texture based on state
-    private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
-        let playerNode = node as! PlayerSpriteNode
-        playerNode.currentState = player.physicalState
+    private func updatePlayerTexture(player: Player, withNode node: PlayerSpriteNode) {
+        node.currentState = player.physicalState
         
         switch player.physicalState {
             case .Ducking(_), .Jumping(_):
