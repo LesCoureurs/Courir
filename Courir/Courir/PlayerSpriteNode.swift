@@ -16,6 +16,8 @@ class PlayerSpriteNode: SKSpriteNode {
     static let firstZPosition: CGFloat = 10
     static let zPositionDifference: CGFloat = 3 // To allow obstacles to have zPositions between players
     
+    static let invulnerableAlpha: CGFloat = 0.5
+    
     static private var hasInitTextures = false
     static private var playerRunningFrames = [SKTexture]()
     static private var playerJumpingFrames = [SKTexture]()
@@ -87,6 +89,12 @@ class PlayerSpriteNode: SKSpriteNode {
     }
     
     func showNextAnimationFrame() {
+        switch currentState {
+        case .Invulnerable(_):
+            alpha = PlayerSpriteNode.invulnerableAlpha
+        default:
+            alpha = 1
+        }
         texture = currentAnimationFrames[currentAnimationStep]
         currentAnimationStep = (currentAnimationStep + 1) % currentAnimationFrames.count
     }
