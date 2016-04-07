@@ -13,6 +13,8 @@ class PlayerSpriteNode: SKSpriteNode {
     // ==============================================
     // Static variables and methods
     // ==============================================
+    static let firstZPosition: CGFloat = 10
+    static let zPositionDifference: CGFloat = 3 // To allow obstacles to have zPositions between players
     
     static private var hasInitTextures = false
     static private var playerRunningFrames = [SKTexture]()
@@ -80,7 +82,8 @@ class PlayerSpriteNode: SKSpriteNode {
         
         position = IsoViewConverter.calculateRenderPositionFor(player)
         anchorPoint = CGPointMake(0, 0)
-        zPosition = 2
+        zPosition = PlayerSpriteNode.firstZPosition -
+            PlayerSpriteNode.zPositionDifference * CGFloat(player.playerNumber)
     }
     
     func showNextAnimationFrame() {
