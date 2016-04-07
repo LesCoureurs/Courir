@@ -71,7 +71,7 @@ class GameState: Observed {
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
         for (playerNum, peer) in allPeerIDs.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: allPeerIDs.count)
+            let player = Player(playerNumber: playerNum, numPlayers: allPeerIDs.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()
