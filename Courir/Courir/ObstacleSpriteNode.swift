@@ -17,10 +17,10 @@ class ObstacleSpriteNode: SKSpriteNode {
         switch obstacle.type {
         case .Floating:
             texture = SKTexture(imageNamed: "obstacle-floating")
-            zPosition = 3
+            zPosition = PlayerSpriteNode.firstZPosition + 1
         case .NonFloating:
             texture = SKTexture(imageNamed: "obstacle-non-floating")
-            zPosition = 1
+            zPosition = 0
         }
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
