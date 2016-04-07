@@ -214,6 +214,8 @@ extension GameScene: CountdownDelegate {
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
         isGamePaused = true
+        removeGestureRecognizers()
+        
         let pauseMenu = PauseMenuNode()
         pauseMenu.position = CGPoint(x: size.width / 2, y: 0)
         pauseMenu.delegate = self
@@ -231,6 +233,7 @@ extension GameScene: PauseMenuDelegate {
         if countdownNode.parent == nil {
             grid.addChild(countdownNode)
         }
+        addGestureRecognizers()
     }
     
     func leaveGameSelected() {
