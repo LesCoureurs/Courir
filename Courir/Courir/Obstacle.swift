@@ -12,12 +12,14 @@ enum ObstacleType {
 
 class Obstacle: GameObject {
     static var uniqueId = 0
+    
     static let spawnXCoordinate = 64 * unitsPerGameGridCell
     static let spawnYCoordinate = -4 * unitsPerGameGridCell
+    static let removalXCoordinate = -16 * unitsPerGameGridCell
 
     let type: ObstacleType
     let identifier: Int
-    let xWidth = 1 * unitsPerGameGridCell
+    let xWidth = 5 * unitsPerGameGridCell
     let yWidth = 21 * unitsPerGameGridCell
     
     weak var observer: Observer?

@@ -193,7 +193,7 @@ class LogicEngine {
     private func updateObstaclePositions() {
         
         func shouldKeepObstacle(obstacle: Obstacle) -> Bool {
-            return obstacle.xCoordinate + obstacle.xWidth - 1 >= 0
+            return obstacle.xCoordinate + obstacle.xWidth - 1 >= Obstacle.removalXCoordinate
         }
         
         for obstacle in state.obstacles {
