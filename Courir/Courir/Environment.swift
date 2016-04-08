@@ -7,6 +7,11 @@
 //
 import UIKit
 class Environment: GameObject {
+    
+    // ==============================================
+    // Static constants & variables
+    // ==============================================
+    
     static let spawnXCoordinate = 15 * unitsPerGameGridCell
     static let spawnYCoordinate = -66 * unitsPerGameGridCell
     static let spawnXCoordinateIncrement = 65 * unitsPerGameGridCell
@@ -19,6 +24,10 @@ class Environment: GameObject {
              + (Environment.numEnvironmentObjects - 1)
              * Environment.spawnXCoordinateIncrement
     }
+    
+    // ==============================================
+    // Instance variables and methods
+    // ==============================================
     
     let xWidth = 128 * unitsPerGameGridCell
     let yWidth = 96 * unitsPerGameGridCell

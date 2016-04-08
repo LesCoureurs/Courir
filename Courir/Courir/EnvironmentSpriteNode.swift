@@ -9,13 +9,14 @@
 import SpriteKit
 
 class EnvironmentSpriteNode: SKSpriteNode {
+    static private let defaultScale: CGFloat = 1.05
     
     init(environment: Environment) {
         let texture = SKTexture(imageNamed: "background")
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        setScale(1.05)
+        setScale(EnvironmentSpriteNode.defaultScale)
         position = IsoViewConverter.calculateRenderPositionFor(environment)
         anchorPoint = CGPointMake(0, 0)
         zPosition = CGFloat(environment.zPosition)
