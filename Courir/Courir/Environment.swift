@@ -7,9 +7,18 @@
 //
 import UIKit
 class Environment: GameObject {
-    static let spawnXCoordinate = 15 * unitsPerGameGridCell // 32
-    static let spawnYCoordinate = -66 * unitsPerGameGridCell // -118
-    static let spawnXCoordinateIncrement = 66 * unitsPerGameGridCell
+    static let spawnXCoordinate = 15 * unitsPerGameGridCell
+    static let spawnYCoordinate = -66 * unitsPerGameGridCell
+    static let spawnXCoordinateIncrement = 65 * unitsPerGameGridCell
+    
+    static let lowestZPosition: CGFloat = -99999
+    static var numEnvironmentObjects = 0
+    
+    static var lastObjectXCoordinate: Int {
+        return Environment.spawnXCoordinate
+             + (Environment.numEnvironmentObjects - 1)
+             * Environment.spawnXCoordinateIncrement
+    }
     
     let xWidth = 128 * unitsPerGameGridCell
     let yWidth = 96 * unitsPerGameGridCell
@@ -29,7 +38,7 @@ class Environment: GameObject {
         }
     }
     
-    var zPosition = -99999 {
+    var zPosition = Environment.lowestZPosition {
         didSet {
             observer?.didChangeProperty("zPosition", from: self)
         }
@@ -37,12 +46,13 @@ class Environment: GameObject {
     
     init(identifier: Int) {
         self.identifier = identifier
-        self.zPosition = -99999 + identifier
+        zPosition = Environment.lowestZPosition + CGFloat(identifier)
         xCoordinate = Environment.spawnXCoordinate + identifier * Environment.spawnXCoordinateIncrement
+        Environment.numEnvironmentObjects += 1
     }
     
     func resetXCoordinate() {
-        xCoordinate = Environment.spawnXCoordinate + 2 * Environment.spawnXCoordinateIncrement
-        zPosition += 4
+        xCoordinate = Environment.lastObjectXCoordinate
+        zPosition += CGFloat(Environment.numEnvironmentObjects)
     }
 }

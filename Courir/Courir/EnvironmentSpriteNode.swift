@@ -18,6 +18,7 @@ class EnvironmentSpriteNode: SKSpriteNode {
         setScale(1.05)
         position = IsoViewConverter.calculateRenderPositionFor(environment)
         anchorPoint = CGPointMake(0, 0)
+        zPosition = CGFloat(environment.zPosition)
     }
 
     required init?(coder aDecoder: NSCoder) {
