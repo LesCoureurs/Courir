@@ -92,7 +92,9 @@ class GameNetworkPortal {
     
     // MARK: Common methods
     func disconnectFromRoom() {
-        coulombNetwork.disconnect()
+        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            self.coulombNetwork.disconnect()
+        })
         disconnectedFromSession()
     }
     
@@ -134,7 +136,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.stopHosting()
             self.beginSearchingForHosts()
         }
