@@ -19,6 +19,7 @@ class PlayerSpriteNode: SKSpriteNode {
     static private let size = CGSize(width: 160, height: 160)
     static private let plumbobSize = CGSize(width: 28, height: 28)
     static private let plumbobPosition = CGPoint(x: 90, y: 180)
+    static private let maxColorBlendFactor: CGFloat = 0.8
     static private let invulnerableAlpha: CGFloat = 0.5    
     
     static private var hasInitTextures = false
@@ -139,8 +140,10 @@ class PlayerSpriteNode: SKSpriteNode {
     
     /// Updates player sprite's plumbob color; plumbob becomes red when player's x coordinate is 0
     func updatePlumbobColor(playerXCoordinate: Int) {
-        plumbob?.colorBlendFactor = 1 - (CGFloat(playerXCoordinate)
-                                         / CGFloat(Player.spawnXCoordinate))
+        plumbob?.colorBlendFactor =
+            PlayerSpriteNode.maxColorBlendFactor
+            - (CGFloat(playerXCoordinate) / CGFloat(Player.spawnXCoordinate))
+            * PlayerSpriteNode.maxColorBlendFactor
     }
     
     required init?(coder aDecoder: NSCoder) {
