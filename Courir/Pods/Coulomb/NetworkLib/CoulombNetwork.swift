@@ -53,6 +53,7 @@ public class CoulombNetwork: NSObject {
     deinit {
         stopAdvertisingHost()
         stopSearchingForHosts()
+        session.disconnect()
     }
     
     // MARK: Methods for host
@@ -206,9 +207,10 @@ extension CoulombNetwork: MCSessionDelegate {
             } else {
                 DLog("%@", "not connected to \(session.hashValue)")
                 // If self is disconnected or current host is disconnected
+                session.disconnect()
                 if self.host == peerID {
                     DLog("%@", "Host was removed")
-                    session.disconnect()
+//                    session.disconnect()
                     delegate?.disconnectedFromSession()
                 }
             }
