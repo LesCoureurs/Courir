@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
                                                          selector: #selector(self.exitGame),
                                                          name: "exitGame", object: nil)
         setUpGameEndMenu()
-        SKTextureAtlas.preloadTextureAtlases([playerRunningAtlas, playerJumpingAtlas, playerDuckingAtlas], withCompletionHandler: presentGameScene)
+        SKTextureAtlas.preloadTextureAtlases(textureAtlases, withCompletionHandler: presentGameScene)
     }
 
     override func didReceiveMemoryWarning() {

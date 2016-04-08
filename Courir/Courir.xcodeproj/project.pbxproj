@@ -19,6 +19,7 @@
 		6524A7261C9C7EB800D8CC48 /* CourirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7251C9C7EB800D8CC48 /* CourirTests.swift */; };
 		6524A7331C9C7F4B00D8CC48 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524A7321C9C7F4B00D8CC48 /* Constants.swift */; };
 		6BD94A50D521179C4B947F38 /* Pods_Courir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */; };
+		6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2B0F351CB7C2AF001E957D /* Digits.atlas */; };
 		6E2CEE4B1CB0FF8D003DD41D /* GameScene+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */; };
 		6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */; };
 		6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */; };
@@ -78,6 +79,7 @@
 		6524A7251C9C7EB800D8CC48 /* CourirTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourirTests.swift; sourceTree = "<group>"; };
 		6524A7271C9C7EB800D8CC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6524A7321C9C7F4B00D8CC48 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6E2B0F351CB7C2AF001E957D /* Digits.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Digits.atlas; sourceTree = "<group>"; };
 		6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+Observer.swift"; sourceTree = "<group>"; };
 		6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDucking.atlas; sourceTree = "<group>"; };
 		6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerJumping.atlas; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				6EF577661CA3CA93003FB063 /* Observer.swift */,
 				6524A7141C9C7EB800D8CC48 /* Main.storyboard */,
 				6524A7171C9C7EB800D8CC48 /* Assets.xcassets */,
+				6E2B0F351CB7C2AF001E957D /* Digits.atlas */,
 				6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */,
 				6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */,
 				6E2CEE4E1CB4D2E1003DD41D /* PlayerRunning.atlas */,
@@ -338,6 +341,7 @@
 				6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */,
 				6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
+				6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
 				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
 				6524A7181C9C7EB800D8CC48 /* Assets.xcassets in Resources */,

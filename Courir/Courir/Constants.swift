@@ -35,11 +35,14 @@ let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
 let duckDuration = Double(duckTimeSteps) / Double(framerate)
 
 // Textures
+let textureAtlases = [playerRunningAtlas, playerJumpingAtlas, playerDuckingAtlas,
+                      playerStationaryAtlas, plumbobAtlas, digitsAtlas]
 let playerRunningAtlas = SKTextureAtlas(named: "PlayerRunning")
 let playerJumpingAtlas = SKTextureAtlas(named: "PlayerJumping")
 let playerDuckingAtlas = SKTextureAtlas(named: "PlayerDucking")
 let playerStationaryAtlas = SKTextureAtlas(named: "PlayerStationary")
 let plumbobAtlas = SKTextureAtlas(named: "Plumbob")
+let digitsAtlas = SKTextureAtlas(named: "Digits")
 
 // My Details
 var myName: String?
