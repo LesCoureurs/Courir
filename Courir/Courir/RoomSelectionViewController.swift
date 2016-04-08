@@ -42,12 +42,18 @@ class RoomSelectionViewController: UIViewController {
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
+//        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//            self.portal.stopHosting()
+//            self.portal.beginSearchingForHosts()
+//        }
         portal.disconnectFromRoom()
+        refreshButtonPressed(self)
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
         portal.disconnectFromRoom()
+        refreshButtonPressed(self)
     }
     
     override func prefersStatusBarHidden() -> Bool {

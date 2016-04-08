@@ -138,7 +138,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Call delegate to take further actions e.g. segue
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.stopHosting()
-            self.beginSearchingForHosts()
+//            self.beginSearchingForHosts()
         }
         print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
