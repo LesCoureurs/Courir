@@ -13,6 +13,7 @@ class ScoreSpriteNode: SKSpriteNode {
     // ==============================================
     // Static variables and methods
     // ==============================================
+    
     static private var hasInitTextures = false
     static private var digits = [SKTexture]()
     

@@ -46,7 +46,7 @@ class GameState: Observed {
     init(seed: NSData, isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer
         self.seed = seed
-        for i in 0...2 {
+        for i in 0..<numEnvironmentObjects {
             environmentObjects.append(Environment(identifier: i))
         }
     }

@@ -44,6 +44,8 @@ let playerStationaryAtlas = SKTextureAtlas(named: "PlayerStationary")
 let plumbobAtlas = SKTextureAtlas(named: "Plumbob")
 let digitsAtlas = SKTextureAtlas(named: "Digits")
 
+let numEnvironmentObjects = 3
+
 // My Details
 var myName: String?
 let myDeviceName = UIDevice.currentDevice().name

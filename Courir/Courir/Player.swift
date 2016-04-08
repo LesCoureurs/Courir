@@ -18,6 +18,11 @@ enum PhysicalState {
 
 
 class Player: GameObject {
+    
+    // ==============================================
+    // Static constants & variables
+    // ==============================================
+    
     static let spawnXCoordinate = 12 * unitsPerGameGridCell
     static let minSpawnYCoordinate = 4 * unitsPerGameGridCell
     static let spawnYCoordinateIncrement = 4 * unitsPerGameGridCell
@@ -25,6 +30,10 @@ class Player: GameObject {
                                2: spawnYCoordinateIncrement,
                                3: spawnYCoordinateIncrement / 2,
                                4: 0]
+    
+    // ==============================================
+    // Instance variables and methods
+    // ==============================================
     
     let playerNumber: Int
     let xWidth = 3 * unitsPerGameGridCell
@@ -57,13 +66,13 @@ class Player: GameObject {
     }
     
     
-    // Range of playerNumber = [0, 3]
+    /// Range of playerNumber = [0, 3]
     init(playerNumber: Int, numPlayers: Int) {
-        // TODO: Positioning for multiplayer mode
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
-        yCoordinate = Player.minSpawnYCoordinate +
-            playerNumber * Player.spawnYCoordinateIncrement
+        yCoordinate = Player.minSpawnYCoordinate
+                    + playerNumber * Player.spawnYCoordinateIncrement
+        
         if let centeringOffset = Player.spawnYOffset[numPlayers] {
             yCoordinate += centeringOffset
         }
