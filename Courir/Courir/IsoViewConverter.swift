@@ -21,9 +21,9 @@ class IsoViewConverter {
         return pointToIso(CGPointMake(x, y))
     }
     
-    static func calculateRenderPositionFor(point: CGPoint) -> CGPoint {
-        let x = CGFloat(Double(point.x) * multiple)
-        let y = CGFloat(Double(point.y) * multiple)
+    static func calculateRenderPositionFor(x: Int, _ y: Int) -> CGPoint {
+        let x = CGFloat(Double(x) * multiple)
+        let y = CGFloat(Double(y) * multiple)
         
         return pointToIso(CGPointMake(x, y))
     }
