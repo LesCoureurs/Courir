@@ -34,6 +34,7 @@
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
 		6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F5511C9D7C3000E0ED9F /* GameObject.swift */; };
 		6E772DE91CA44A0C00A0B755 /* ObstacleGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */; };
+		6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6EB679411CB7A09600C52F5B /* Plumbob.atlas */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
 		7266DF021CA566A9002216C9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7266DF011CA566A9002216C9 /* GameViewController.swift */; };
 		7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFBA1C9E92A400FA4198 /* GameEvent.swift */; };
@@ -92,6 +93,7 @@
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
 		6E48F5511C9D7C3000E0ED9F /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGeneratorTests.swift; sourceTree = "<group>"; };
+		6EB679411CB7A09600C52F5B /* Plumbob.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Plumbob.atlas; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		7266DF011CA566A9002216C9 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				6E2CEE4D1CB4D2E1003DD41D /* PlayerJumping.atlas */,
 				6E2CEE4E1CB4D2E1003DD41D /* PlayerRunning.atlas */,
 				6E2CEE4F1CB4D2E1003DD41D /* PlayerStationary.atlas */,
+				6EB679411CB7A09600C52F5B /* Plumbob.atlas */,
 				6524A7191C9C7EB800D8CC48 /* LaunchScreen.storyboard */,
 				6524A71C1C9C7EB800D8CC48 /* Info.plist */,
 			);
@@ -333,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */,
+				6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
 				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
