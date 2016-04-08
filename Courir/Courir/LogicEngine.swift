@@ -65,6 +65,7 @@ class LogicEngine {
         updateEventQueue()
         updateEnvironmentPosition()
         updateObstaclePositions()
+        updateLoserPositions()
         handleCollisions()
         updatePlayerStates()
         generateObstacle()
@@ -201,6 +202,12 @@ class LogicEngine {
         }
         
         state.obstacles = state.obstacles.filter {shouldKeepObstacle($0)}
+    }
+    
+    private func updateLoserPositions() {
+        for loser in state.players.filter({$0.state == PlayerState.Lost}) {
+            loser.xCoordinate -= speed
+        }
     }
     
     private func updatePlayerStates() {
