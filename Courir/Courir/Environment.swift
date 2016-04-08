@@ -10,10 +10,10 @@ class Environment: GameObject {
     static let spawnXCoordinate = 15 * unitsPerGameGridCell
     static let spawnYCoordinate = -66 * unitsPerGameGridCell
     static let spawnXCoordinateIncrement = 65 * unitsPerGameGridCell
-    
+    static let removalXCoordinate = -45 * unitsPerGameGridCell
     static let lowestZPosition: CGFloat = -99999
-    static var numEnvironmentObjects = 0
     
+    static var numEnvironmentObjects = 0
     static var lastObjectXCoordinate: Int {
         return Environment.spawnXCoordinate
              + (Environment.numEnvironmentObjects - 1)

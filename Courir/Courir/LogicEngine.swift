@@ -184,7 +184,7 @@ class LogicEngine {
     private func updateEnvironmentPosition() {
         for environmentObject in state.environmentObjects {
             environmentObject.xCoordinate -= speed
-            if environmentObject.xCoordinate < -1400 {
+            if environmentObject.xCoordinate < Environment.removalXCoordinate {
                 environmentObject.resetXCoordinate()
             }
         }
