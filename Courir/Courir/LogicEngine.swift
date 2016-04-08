@@ -33,8 +33,9 @@ class LogicEngine {
         let ghostID = MCPeerID(displayName: "Ghost Player")
         self.init(isMultiplayer: false, peers: [ghostID], seed: ghostStore.seed)
         let ghostPlayerNumber = state.peerMapping[ghostID]
-        state.getPlayer(withPeerID: ghostID)?.ready()
-        state.updatePlayerScore(ghostID, score: ghostStore.score)
+        let ghostPlayer = state.getPlayer(withPeerID: ghostID)!
+        ghostPlayer.ready()
+        state.updatePlayerScore(ghostPlayer, score: ghostStore.score)
         initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
@@ -90,6 +91,11 @@ class LogicEngine {
             handlePlayerActionEvent(player, timeStep: occurrence, action: event)
         case .PlayerDidCollide:
             handlePlayerCollisionEvent(player, xCoordinate: data as? Int)
+        case .PlayerLost:
+            guard let score = data as? Int else {
+                break
+            }
+            handlePlayerLostEvent(player, timeStep: occurrence, score: score)
         default:
             break
         }
@@ -120,6 +126,18 @@ class LogicEngine {
         }
     }
     
+    func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
+        state.updatePlayerScore(player, score: score)
+        player.lost()
+        
+        if isValidToSend(player) {
+            sendPlayerLostData(occurrence, score: score)
+        }
+        if player.playerNumber == state.myPlayer.playerNumber {
+            checkRaceFinished()
+        }
+    }
+    
     func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
         player.run()
         if player.playerNumber == state.myPlayer.playerNumber {
@@ -131,14 +149,9 @@ class LogicEngine {
             }
             // If player fell off the grid, he finished the race
             if player.xCoordinate < 0 {
-                state.updatePlayerScore(myPeerID, score: score)
-                player.lost()
-                
-                if isValidToSend(player) {
-                    sendPlayerLostData(score)
-                }
-                
-                checkRaceFinished()
+                appendToEventQueue(.PlayerLost, playerNumber: player.playerNumber,
+                                   occurringTimeStep: timeStep, otherData: state.distance)
+                state.addLostEvent(timeStep, score: state.distance)
             }
         } else {
             player.xCoordinate = xCoordinate!
@@ -165,8 +178,9 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
-    private func sendPlayerLostData(score: Int) {
+    private func sendPlayerLostData(timeStep: Int, score: Int) {
         var playerLostData = [String: AnyObject]()
+        playerLostData["time_step"] = timeStep
         playerLostData["score"] = score
         gameNetworkPortal.send(.PlayerLost, data: playerLostData)
     }
@@ -356,12 +370,14 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
         guard let dataDict = data as? [String: AnyObject],
-            score = dataDict["score"] as? Int else {
+            playerNumber = state.peerMapping[peer],
+            score = dataDict["score"] as? Int,
+            occurringTimeStep = dataDict["time_step"] as? Int else {
             return
         }
         
-        state.updatePlayerScore(peer, score: score)
-        state.getPlayer(withPeerID: peer)!.lost()
+        appendToEventQueue(.PlayerLost, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep, otherData: score)
     }
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
