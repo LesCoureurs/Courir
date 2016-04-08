@@ -14,12 +14,12 @@ class PlayerSpriteNode: SKSpriteNode {
     // Static variables and methods
     // ==============================================
     
-    static let size = CGSize(width: 160, height: 160)
-    static let plumbobSize = CGSize(width: 28, height: 28)
-    static let plumbobPosition = CGPoint(x: 90, y: 180)
-    static let invulnerableAlpha: CGFloat = 0.5
-    
     static let firstZPosition: CGFloat = 10
+
+    static private let size = CGSize(width: 160, height: 160)
+    static private let plumbobSize = CGSize(width: 28, height: 28)
+    static private let plumbobPosition = CGPoint(x: 90, y: 180)
+    static private let invulnerableAlpha: CGFloat = 0.5    
     
     static private var hasInitTextures = false
     static private var playerRunningFrames = [SKTexture]()
@@ -49,6 +49,8 @@ class PlayerSpriteNode: SKSpriteNode {
                        frames: &playerStationaryFrames, textureBaseName: "stationary")
         populateFrames(plumbobAtlas,
                        frames: &plumbobFrames, textureBaseName: "plumbob")
+        
+        hasInitTextures = true
     }
     
     
