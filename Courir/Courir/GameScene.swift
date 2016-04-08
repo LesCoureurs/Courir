@@ -11,7 +11,10 @@ import MultipeerConnectivity
 
 class GameScene: SKScene {
 
+    // ==============================================
     // MARK: Properties
+    // ==============================================
+
     private let countdownNode = CountdownNode()
     private var hasGameStarted = false
     
@@ -23,15 +26,13 @@ class GameScene: SKScene {
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
     
-    private let tileSize = (width: 32, height: 32)
-    
     private let grid = SKSpriteNode()
     private var logicEngine: LogicEngine!
     private var myPlayerNumber: Int!
     
     var gameState: GameState!
     var players = [Int: PlayerSpriteNode]()
-    var obstacles = [Int: SKSpriteNode]()
+    var obstacles = [Int: ObstacleSpriteNode]()
     var environmentNodes = [Int: EnvironmentSpriteNode]()
 
     var initialGhostStore: GhostStore?
@@ -39,7 +40,10 @@ class GameScene: SKScene {
     var isMultiplayer = false
     var peers = [MCPeerID]()
     
+    
+    // ==============================================
     // MARK: Overridden methods
+    // ==============================================
     
     override func didMoveToView(view: SKView) {
         initLogicEngine()
@@ -80,7 +84,11 @@ class GameScene: SKScene {
             player.showNextAnimationFrame()
         }
     }
+    
+    
+    // ==============================================
     // MARK: Initialisers
+    // ==============================================
     
     private func initLogicEngine() {
         if initialGhostStore == nil {
@@ -139,7 +147,10 @@ class GameScene: SKScene {
         grid.addChild(scoreNode)
     }
     
-    // MARK: Rendering
+    
+    // ==============================================
+    // MARK: Methods to create custom sprite nodes
+    // ==============================================
 
     private func createEnvironmentNode(environment: Environment) -> EnvironmentSpriteNode {
         let environmentSpriteNode = EnvironmentSpriteNode(environment: environment)
@@ -153,13 +164,16 @@ class GameScene: SKScene {
         return playerSprite
     }
     
-    func createObstacleNode(obstacle: Obstacle) -> SKSpriteNode {
+    func createObstacleNode(obstacle: Obstacle) -> ObstacleSpriteNode {
         let obstacleSprite = ObstacleSpriteNode(obstacle: obstacle)
         grid.addChild(obstacleSprite)
         return obstacleSprite
     }
+    
 
+    // ==============================================
     // MARK: Gesture handling methods
+    // ==============================================
 
     private func setupGestureRecognizers(view: SKView) {
         jumpRecognizer = UISwipeGestureRecognizer(target: self,
