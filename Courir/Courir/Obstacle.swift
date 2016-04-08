@@ -19,7 +19,7 @@ class Obstacle: GameObject {
 
     let type: ObstacleType
     let identifier: Int
-    let xWidth = 5 * unitsPerGameGridCell
+    let xWidth = 3 * unitsPerGameGridCell
     let yWidth = 21 * unitsPerGameGridCell
     
     weak var observer: Observer?

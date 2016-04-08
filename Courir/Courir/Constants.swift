@@ -27,9 +27,9 @@ let initialGameSpeed = 1
 let speedMultiplier = 3.5
 
 let framerate = 30
-let jumpTimeSteps = 21
-let duckTimeSteps = 21
-let invulnerableTimeSteps = 30
+let jumpTimeSteps = 15
+let duckTimeSteps = 15
+let invulnerableTimeSteps = 15
 
 let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
 let duckDuration = Double(duckTimeSteps) / Double(framerate)
