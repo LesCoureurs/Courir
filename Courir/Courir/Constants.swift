@@ -21,32 +21,30 @@ let countdownTimerStart = 3
 let floatingProbability = Float(0.05)
 let nonfloatingProbability = Float(0.05)
 
-let obstacleSpaceMultiplier = 1.5
+let obstacleSpaceMultiplier = 1.2
 
 let initialGameSpeed = 1
-let speedMultiplier = 3.5
+let speedMultiplier = 10.0
 
 let framerate = 30
-let jumpTimeSteps = 21
-let duckTimeSteps = 30
-let invulnerableTimeSteps = 30
+let jumpTimeSteps = 15
+let duckTimeSteps = 15
+let invulnerableTimeSteps = 15
 
 let jumpDuration = Double(jumpTimeSteps) / Double(framerate)
-let duckDuration = Double(jumpTimeSteps) / Double(framerate)
-
-// For calculation of player's position when jumping
-let maxJumpHeight = -CGFloat(3 * unitsPerGameGridCell)
-// acceleration to reach max height in duration a = 4x/t^2
-let acceleration = 4 * maxJumpHeight / (CGFloat(jumpDuration) * CGFloat(jumpDuration))
-// initial velocity to reach max height in duration v = -at/2
-let velocity = -CGFloat(jumpDuration) * acceleration / 2
+let duckDuration = Double(duckTimeSteps) / Double(framerate)
 
 // Textures
-let playerJumpTexture = SKTexture(imageNamed: "iso_player_jump")
-let playerDuckTexture = SKTexture(imageNamed: "iso_player_duck")
-let playerTexture = SKTexture(imageNamed: "iso_player")
-let obstacleNonFloatingTexture = SKTexture(imageNamed: "iso_non_floating_obstacle")
-let obstacleFloatingTexture = SKTexture(imageNamed: "iso_floating_obstacle")
+let textureAtlases = [playerRunningAtlas, playerJumpingAtlas, playerDuckingAtlas,
+                      playerStationaryAtlas, plumbobAtlas, digitsAtlas]
+let playerRunningAtlas = SKTextureAtlas(named: "PlayerRunning")
+let playerJumpingAtlas = SKTextureAtlas(named: "PlayerJumping")
+let playerDuckingAtlas = SKTextureAtlas(named: "PlayerDucking")
+let playerStationaryAtlas = SKTextureAtlas(named: "PlayerStationary")
+let plumbobAtlas = SKTextureAtlas(named: "Plumbob")
+let digitsAtlas = SKTextureAtlas(named: "Digits")
+
+let numEnvironmentObjects = 3
 
 // My Details
 var myName = SettingsManager._instance.get("myName") as? String

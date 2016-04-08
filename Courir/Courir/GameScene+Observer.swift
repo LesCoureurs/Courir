@@ -10,7 +10,9 @@ import SpriteKit
 
 extension GameScene: Observer {
     
+    // ==============================================
     // MARK: Overridden methods
+    // ==============================================
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
         if let object = from as? Player {
@@ -19,11 +21,15 @@ extension GameScene: Observer {
             handleUpdateObstacleNode(object, propertyName: propertyName)
         } else if let _ = from as? GameState {
             handleUpdateGameState(propertyName)
+        } else if let object = from as? Environment {
+            handleUpdateEnvironment(object, propertyName: propertyName)
         }
     }
     
     
+    // ==============================================
     // MARK: Methods for observing Players
+    // ==============================================
     
     /// Handle the updating of the player node whose property has changed
     private func handleUpdatePlayerNode(player: Player, propertyName: String) {
@@ -34,8 +40,7 @@ extension GameScene: Observer {
         switch propertyName {
             case "xCoordinate", "yCoordinate":
                 updatePositionFor(player, withNode: node)
-            case "zCoordinate":
-                updateJumpingPositionFor(player, withNode: node)
+                node.updatePlumbobColor(player.xCoordinate)
             case "physicalState":
                 updatePlayerTexture(player, withNode: node)
             case "state":
@@ -47,32 +52,22 @@ extension GameScene: Observer {
     
     /// Update screen coordinates for object whose x and/or y coordinate has changed
     private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
-        node.position = calculateRenderPositionFor(object)
-    }
-    
-    /// Update screen y coordinate for the jumping player
-    private func updateJumpingPositionFor(player: Player, withNode node: SKSpriteNode) {
-        node.position.y = calculateRenderPositionFor(player).y + CGFloat(player.zCoordinate)
+        node.position = IsoViewConverter.calculateRenderPositionFor(object)
     }
     
     /// Update the player's texture based on state
-    private func updatePlayerTexture(player: Player, withNode node: SKSpriteNode) {
+    private func updatePlayerTexture(player: Player, withNode node: PlayerSpriteNode) {
+        node.currentState = player.physicalState
+        
         switch player.physicalState {
-            case .Ducking(_):
+            case .Ducking(_), .Jumping(_):
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     removeGestureRecognizers()
                 }
-                node.texture = playerDuckTexture
-            case .Jumping(_):
-                if player.playerNumber == gameState.myPlayer.playerNumber {
-                    removeGestureRecognizers()
-                }
-                node.texture = playerJumpTexture
-            case .Running, .Stationary, .Invulnerable(_):
+            case .Running, .Invulnerable(_), .Stationary:
                 if player.playerNumber == gameState.myPlayer.playerNumber {
                     addGestureRecognizers()
                 }
-                node.texture = playerTexture
         }
     }
     
@@ -86,7 +81,9 @@ extension GameScene: Observer {
         }
     }
     
+    // ==============================================
     // MARK: Methods for observing Obstacles
+    // ==============================================
     
     /// Handle the updating of the obstacle node whose property has changed
     private func handleUpdateObstacleNode(obstacle: Obstacle, propertyName: String) {
@@ -103,7 +100,9 @@ extension GameScene: Observer {
     }
     
     
+    // ==============================================
     // MARK: Methods for observing GameState
+    // ==============================================
     
     /// Handle the updating of appropriate nodes when changes are made to the game state
     private func handleUpdateGameState(propertyName: String) {
@@ -154,6 +153,26 @@ extension GameScene: Observer {
     
     // Update the score
     private func updateScore() {
-        scoreNode.text = "\(gameState.distance)"
+        scoreNode.setScore(gameState.distance)
     }
+    
+    
+    // ==============================================
+    // MARK: Methods for observing Environment
+    // ==============================================
+    
+    private func handleUpdateEnvironment(environment: Environment, propertyName: String) {
+        guard let node = environmentNodes[environment.identifier] else {
+            return
+        }
+        switch propertyName {
+            case "xCoordinate", "yCoordinate":
+                updatePositionFor(environment, withNode: node)
+            case "zPosition":
+                node.zPosition = CGFloat(environment.zPosition)
+            default:
+                return
+        }
+    }
+    
 }

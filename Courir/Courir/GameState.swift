@@ -10,6 +10,9 @@ import Foundation
 import MultipeerConnectivity
 
 class GameState: Observed {
+    
+    var environmentObjects = [Environment]()
+    
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
@@ -43,6 +46,9 @@ class GameState: Observed {
     init(seed: NSData, isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer
         self.seed = seed
+        for i in 0..<numEnvironmentObjects {
+            environmentObjects.append(Environment(identifier: i))
+        }
     }
 
     var objects: [GameObject] {
@@ -65,7 +71,7 @@ class GameState: Observed {
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
         for (playerNum, peer) in allPeerIDs.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: allPeerIDs.count)
+            let player = Player(playerNumber: playerNum, numPlayers: allPeerIDs.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()

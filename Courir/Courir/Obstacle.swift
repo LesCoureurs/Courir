@@ -6,20 +6,20 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import UIKit
-
 enum ObstacleType {
     case NonFloating, Floating
 }
 
 class Obstacle: GameObject {
     static var uniqueId = 0
-    static let spawnXCoordinate = 31 * unitsPerGameGridCell
-    static let spawnYCoordinate = 5 * unitsPerGameGridCell
+    
+    static let spawnXCoordinate = 64 * unitsPerGameGridCell
+    static let spawnYCoordinate = -4 * unitsPerGameGridCell
+    static let removalXCoordinate = -16 * unitsPerGameGridCell
 
     let type: ObstacleType
     let identifier: Int
-    let xWidth = 1 * unitsPerGameGridCell
+    let xWidth = 3 * unitsPerGameGridCell
     let yWidth = 21 * unitsPerGameGridCell
     
     weak var observer: Observer?

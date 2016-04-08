@@ -63,7 +63,9 @@ class LogicEngine {
             return
         }
         updateEventQueue()
+        updateEnvironmentPosition()
         updateObstaclePositions()
+        updateLoserPositions()
         handleCollisions()
         updatePlayerStates()
         generateObstacle()
@@ -180,10 +182,19 @@ class LogicEngine {
         }
     }
     
+    private func updateEnvironmentPosition() {
+        for environmentObject in state.environmentObjects {
+            environmentObject.xCoordinate -= speed
+            if environmentObject.xCoordinate < Environment.removalXCoordinate {
+                environmentObject.resetXCoordinate()
+            }
+        }
+    }
+    
     private func updateObstaclePositions() {
         
         func shouldKeepObstacle(obstacle: Obstacle) -> Bool {
-            return obstacle.xCoordinate + obstacle.xWidth - 1 >= 0
+            return obstacle.xCoordinate + obstacle.xWidth - 1 >= Obstacle.removalXCoordinate
         }
         
         for obstacle in state.obstacles {
@@ -193,35 +204,33 @@ class LogicEngine {
         state.obstacles = state.obstacles.filter {shouldKeepObstacle($0)}
     }
     
+    private func updateLoserPositions() {
+        for loser in state.players.filter({$0.state == PlayerState.Lost}) {
+            loser.xCoordinate -= speed
+        }
+    }
+    
     private func updatePlayerStates() {
         for player in state.players {
             switch player.physicalState {
                 case .Stationary:
                     player.run()
                 case let .Jumping(startTimeStep):
-                    if timeStep - startTimeStep > jumpTimeSteps {
+                    if timeStep - startTimeStep >= jumpTimeSteps {
                         player.run()
-                    } else {
-                        updateJumpingPlayerPosition(player, startTimeStep)
                     }
                 case let .Ducking(startTimeStep):
-                    if timeStep - startTimeStep > duckTimeSteps {
+                    if timeStep - startTimeStep >= duckTimeSteps {
                         player.run()
                     }
                 case let .Invulnerable(startTimeStep):
-                    if timeStep - startTimeStep > invulnerableTimeSteps {
+                    if timeStep - startTimeStep >= invulnerableTimeSteps {
                         player.run()
                     }
                 default:
                     continue
             }
         }
-    }
-    
-    private func updateJumpingPlayerPosition(player: Player, _ startTimeStep: Int) {
-        let time = CGFloat(timeStep - startTimeStep)/CGFloat(framerate)
-        // using the formula x = x0 + vt + 0.5*at^2
-        player.zCoordinate = velocity * time + 0.5 * acceleration * time * time
     }
     
     private func handleCollisions() {
