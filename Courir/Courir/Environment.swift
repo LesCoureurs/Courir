@@ -51,6 +51,10 @@ class Environment: GameObject {
         Environment.numEnvironmentObjects += 1
     }
     
+    deinit {
+        Environment.numEnvironmentObjects -= 1
+    }
+    
     func resetXCoordinate() {
         xCoordinate = Environment.lastObjectXCoordinate
         zPosition += CGFloat(Environment.numEnvironmentObjects)
