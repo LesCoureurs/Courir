@@ -153,7 +153,7 @@ class GameScene: SKScene {
     }
     
     private func createPlayerNode(player: Player) -> PlayerSpriteNode {
-        let playerSprite = PlayerSpriteNode(player: player)
+        let playerSprite = PlayerSpriteNode(player: player, isMe: player === gameState.myPlayer)
         grid.addChild(playerSprite)
         return playerSprite
     }

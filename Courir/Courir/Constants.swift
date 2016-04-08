@@ -39,6 +39,7 @@ let playerRunningAtlas = SKTextureAtlas(named: "PlayerRunning")
 let playerJumpingAtlas = SKTextureAtlas(named: "PlayerJumping")
 let playerDuckingAtlas = SKTextureAtlas(named: "PlayerDucking")
 let playerStationaryAtlas = SKTextureAtlas(named: "PlayerStationary")
+let plumbobAtlas = SKTextureAtlas(named: "Plumbob")
 
 // My Details
 var myName: String?

@@ -13,16 +13,20 @@ class PlayerSpriteNode: SKSpriteNode {
     // ==============================================
     // Static variables and methods
     // ==============================================
-    static let firstZPosition: CGFloat = 10
-    static let zPositionDifference: CGFloat = 3 // To allow obstacles to have zPositions between players
     
+    static let size = CGSize(width: 160, height: 160)
+    static let plumbobSize = CGSize(width: 28, height: 28)
+    static let plumbobPosition = CGPoint(x: 90, y: 180)
     static let invulnerableAlpha: CGFloat = 0.5
+    
+    static let firstZPosition: CGFloat = 10
     
     static private var hasInitTextures = false
     static private var playerRunningFrames = [SKTexture]()
     static private var playerJumpingFrames = [SKTexture]()
     static private var playerDuckingFrames = [SKTexture]()
     static private var playerStationaryFrames = [SKTexture]()
+    static private var plumbobFrames = [SKTexture]()
     
     static private func initTextures() {
         
@@ -43,6 +47,8 @@ class PlayerSpriteNode: SKSpriteNode {
                        frames: &playerDuckingFrames, textureBaseName: "ducking")
         populateFrames(playerStationaryAtlas,
                        frames: &playerStationaryFrames, textureBaseName: "stationary")
+        populateFrames(plumbobAtlas,
+                       frames: &plumbobFrames, textureBaseName: "plumbob")
     }
     
     
@@ -71,24 +77,54 @@ class PlayerSpriteNode: SKSpriteNode {
         }
     }
     
-    init(player: Player) {
+    private var isMe: Bool
+    private var currentPlumbobStep = 0
+    private var plumbob: SKSpriteNode?
+    
+    init(player: Player, isMe: Bool) {
         if !PlayerSpriteNode.hasInitTextures {
             PlayerSpriteNode.initTextures()
         }
         
         currentState = player.physicalState
+        self.isMe = isMe
         
         super.init(texture: PlayerSpriteNode.playerStationaryFrames.first,
                    color: UIColor.clearColor(),
-                   size: CGSize(width: 160, height: 160))
+                   size: PlayerSpriteNode.size)
         
+        // Set position of player sprite node
         position = IsoViewConverter.calculateRenderPositionFor(player)
         anchorPoint = CGPointMake(0, 0)
-        zPosition = PlayerSpriteNode.firstZPosition -
-            PlayerSpriteNode.zPositionDifference * CGFloat(player.playerNumber)
+        zPosition = PlayerSpriteNode.firstZPosition - CGFloat(player.playerNumber)
+        
+        // Add plumbob if player is myself
+        if isMe {
+            plumbob = SKSpriteNode(texture: PlayerSpriteNode.plumbobFrames.first,
+                                   size: PlayerSpriteNode.plumbobSize)
+            plumbob?.color = UIColor.redColor()
+            plumbob?.colorBlendFactor = 0
+            plumbob?.position = PlayerSpriteNode.plumbobPosition
+            self.addChild(plumbob!)
+        }
     }
     
+    /// Updates player sprite to show the next animation frame
     func showNextAnimationFrame() {
+        updatePlumbobAnimation()
+        updatePlayerAnimation()
+    }
+    
+    private func updatePlumbobAnimation() {
+        guard isMe else {
+            return
+        }
+        
+        plumbob?.texture = PlayerSpriteNode.plumbobFrames[currentPlumbobStep]
+        currentPlumbobStep = (currentPlumbobStep + 1) % PlayerSpriteNode.plumbobFrames.count
+    }
+    
+    private func updatePlayerAnimation() {
         switch currentState {
         case .Invulnerable(_):
             alpha = PlayerSpriteNode.invulnerableAlpha
@@ -97,6 +133,12 @@ class PlayerSpriteNode: SKSpriteNode {
         }
         texture = currentAnimationFrames[currentAnimationStep]
         currentAnimationStep = (currentAnimationStep + 1) % currentAnimationFrames.count
+    }
+    
+    /// Updates player sprite's plumbob color; plumbob becomes red when player's x coordinate is 0
+    func updatePlumbobColor(playerXCoordinate: Int) {
+        plumbob?.colorBlendFactor = 1 - (CGFloat(playerXCoordinate)
+                                         / CGFloat(Player.spawnXCoordinate))
     }
     
     required init?(coder aDecoder: NSCoder) {

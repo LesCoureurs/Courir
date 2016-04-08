@@ -40,6 +40,7 @@ extension GameScene: Observer {
         switch propertyName {
             case "xCoordinate", "yCoordinate":
                 updatePositionFor(player, withNode: node)
+                node.updatePlumbobColor(player.xCoordinate)
             case "physicalState":
                 updatePlayerTexture(player, withNode: node)
             case "state":
