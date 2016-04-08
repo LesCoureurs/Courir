@@ -49,7 +49,7 @@ let obstacleNonFloatingTexture = SKTexture(imageNamed: "iso_non_floating_obstacl
 let obstacleFloatingTexture = SKTexture(imageNamed: "iso_floating_obstacle")
 
 // My Details
-var myName: String?
+var myName = SettingsManager._instance.get("myName") as? String
 let myDeviceName = UIDevice.currentDevice().name
 let myDefaultPlayerNumber = 1
 let myMultiplayerModeNumber = 0

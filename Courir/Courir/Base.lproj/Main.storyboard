@@ -257,6 +257,48 @@
             </objects>
             <point key="canvasLocation" x="2801" y="761"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="KC7-xu-7Op">
+            <objects>
+                <viewController id="1An-48-oCl" customClass="SettingsViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i4u-5l-n0a"/>
+                        <viewControllerLayoutGuide type="bottom" id="OcZ-WB-Bq9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pKw-GN-aaF">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KsT-g5-pnT">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items>
+                                    <navigationItem title="Settings" id="d5f-We-aem">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="HBE-xk-vHW">
+                                            <connections>
+                                                <segue destination="Kc5-yy-bck" kind="unwind" identifier="unwindToMenuFromSettingsView" unwindAction="unwindToMenu:" id="oNL-gj-iyM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Av4-9g-X62">
+                                <rect key="frame" x="489" y="369" width="46" height="30"/>
+                                <state key="normal" title="Name"/>
+                                <connections>
+                                    <action selector="handleSetName:" destination="1An-48-oCl" eventType="touchUpInside" id="c07-gu-5bF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="roI-DW-gmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Kc5-yy-bck" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="245" y="-621"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -269,28 +311,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
-                                <rect key="frame" x="465" y="380" width="95" height="30"/>
-                                <state key="normal" title="Multiplayer"/>
-                                <connections>
-                                    <segue destination="QGq-uN-4Jv" kind="show" identifier="selectRoomSegue" id="ZQM-sO-I1v"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
-                                <rect key="frame" x="489" y="350" width="46" height="30"/>
-                                <state key="normal" title="Play"/>
-                                <connections>
-                                    <segue destination="NDO-N5-e4O" kind="show" id="M5C-wf-hOM"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
+                                <rect key="frame" x="474" y="339" width="76" height="90"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
+                                        <rect key="frame" x="23" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="Play"/>
+                                        <connections>
+                                            <segue destination="NDO-N5-e4O" kind="show" id="M5C-wf-hOM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
+                                        <rect key="frame" x="0.0" y="30" width="76" height="30"/>
+                                        <state key="normal" title="Multiplayer"/>
+                                        <connections>
+                                            <segue destination="QGq-uN-4Jv" kind="show" identifier="selectRoomSegue" id="ZQM-sO-I1v"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
+                                        <rect key="frame" x="9.5" y="60" width="57" height="30"/>
+                                        <state key="normal" title="Settings"/>
+                                        <connections>
+                                            <segue destination="1An-48-oCl" kind="show" id="P3X-e6-tPY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="LHG-0O-4k1" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="4eg-rD-gBp"/>
+                                    <constraint firstItem="5Eg-J1-1Ed" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="X34-3N-zf7"/>
+                                    <constraint firstItem="rPV-OW-Ra7" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="j4F-wS-t7v"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="21C-f9-vwf"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="pLA-GU-raG"/>
+                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="sQz-iL-jnx"/>
                         <outletCollection property="menuButtons" destination="rPV-OW-Ra7" collectionClass="NSMutableArray" id="HDx-Wl-nCP"/>
+                        <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="sQz-iL-jnx"/>
+                        <outletCollection property="menuButtons" destination="5Eg-J1-1Ed" collectionClass="NSMutableArray" id="GUy-As-zob"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -335,7 +399,7 @@
                                     <navigationItem id="Bk9-L9-1at">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="ed4-ub-CNw">
                                             <connections>
-                                                <segue destination="rsb-1F-LAp" kind="unwind" unwindAction="unwindToMenuFromRoomSelection:" id="UCT-Md-AQ6"/>
+                                                <segue destination="rsb-1F-LAp" kind="unwind" identifier="unwindToMenuFromRoomSelectionSegue" unwindAction="unwindToMenu:" id="066-Ut-mS8"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -386,7 +450,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

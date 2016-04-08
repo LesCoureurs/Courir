@@ -12,7 +12,6 @@ import SpriteKit
 class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
     
-    private let menuOptions = ["Play", "Multiplayer"]
     @IBOutlet var menuButtons: [UIButton]!
 
     override func viewDidLoad() {
@@ -38,7 +37,7 @@ class MenuViewController: UIViewController {
         
     }
 
-    @IBAction func unwindToMenuFromRoomSelection(sender: UIStoryboardSegue) {
+    @IBAction func unwindToMenu(sender: UIStoryboardSegue) {
         
     }
 
@@ -70,7 +69,9 @@ class MenuViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         saveAction = UIAlertAction(title: "Save", style: .Default) { action -> Void in
-            myName = nameTextField?.text
+            if let value = nameTextField?.text {
+                SettingsManager._instance.put("myName", value: value)
+            }
         }
         
         alertController.addAction(saveAction!)
