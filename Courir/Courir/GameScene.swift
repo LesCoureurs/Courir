@@ -18,7 +18,7 @@ class GameScene: SKScene {
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
-    let scoreNode = SKLabelNode(text: "0")
+    let scoreNode = ScoreSpriteNode()
     
     private var jumpRecognizer: UISwipeGestureRecognizer!
     private var duckRecognizer: UISwipeGestureRecognizer!
@@ -136,11 +136,6 @@ class GameScene: SKScene {
     }
     
     private func initScore() {
-        scoreNode.horizontalAlignmentMode = .Right
-        scoreNode.fontName = "HelveticaNeue-Medium"
-        scoreNode.zPosition = 990
-        scoreNode.position = CGPoint(x: size.width - 20,
-                                     y: size.height / 2 - scoreNode.frame.height * 2)
         grid.addChild(scoreNode)
     }
     

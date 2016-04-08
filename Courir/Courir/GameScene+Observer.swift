@@ -153,7 +153,7 @@ extension GameScene: Observer {
     
     // Update the score
     private func updateScore() {
-        scoreNode.text = "\(gameState.distance)"
+        scoreNode.setScore(gameState.distance)
     }
     
     
