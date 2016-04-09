@@ -107,7 +107,6 @@ class GameScene: SKScene {
 
     private func initObstacles() {
         for obstacle in gameState.obstacles {
-            obstacle.observer = self
             obstacles[obstacle.identifier] = createObstacleNode(obstacle)
         }
     }

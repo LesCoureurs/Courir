@@ -15,9 +15,7 @@ extension GameScene: Observer {
     // ==============================================
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
-        if let object = from as? Obstacle {
-            handleUpdateObstacleNode(object, propertyName: propertyName)
-        } else if let _ = from as? GameState {
+        if let _ = from as? GameState {
             handleUpdateGameState(propertyName)
         } else if let object = from as? Environment {
             handleUpdateEnvironment(object, propertyName: propertyName)
@@ -29,26 +27,7 @@ extension GameScene: Observer {
     private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
         node.position = IsoViewConverter.calculateRenderPositionFor(object)
     }
-    
-    
-    // ==============================================
-    // MARK: Methods for observing Obstacles
-    // ==============================================
-    
-    /// Handle the updating of the obstacle node whose property has changed
-    private func handleUpdateObstacleNode(obstacle: Obstacle, propertyName: String) {
-        guard let node = obstacles[obstacle.identifier] else {
-            return
-        }
-        
-        switch propertyName {
-            case "xCoordinate", "yCoordinate":
-                updatePositionFor(obstacle, withNode: node)
-            default:
-                return
-        }
-    }
-    
+
     
     // ==============================================
     // MARK: Methods for observing GameState

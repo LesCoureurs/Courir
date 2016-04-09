@@ -24,6 +24,7 @@ class ObstacleSpriteNode: SKSpriteNode {
         }
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        obstacle.observer = self
         
         self.position = IsoViewConverter.calculateRenderPositionFor(obstacle)
         self.anchorPoint = CGPointMake(0, 0)
@@ -33,5 +34,21 @@ class ObstacleSpriteNode: SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ObstacleSpriteNode: Observer {
+    func didChangeProperty(propertyName: String, from: AnyObject?) {
+        guard let obstacle = from as? Obstacle else {
+            return
+        }
+        
+        switch propertyName {
+        case "xCoordinate", "yCoordinate":
+            position = IsoViewConverter.calculateRenderPositionFor(obstacle)
+        default:
+            return
+        }
+        
     }
 }
