@@ -17,17 +17,8 @@ extension GameScene: Observer {
     func didChangeProperty(propertyName: String, from: AnyObject?) {
         if let _ = from as? GameState {
             handleUpdateGameState(propertyName)
-        } else if let object = from as? Environment {
-            handleUpdateEnvironment(object, propertyName: propertyName)
         }
     }
-    
-    
-    /// Update screen coordinates for object whose x and/or y coordinate has changed
-    private func updatePositionFor(object: GameObject, withNode node: SKSpriteNode) {
-        node.position = IsoViewConverter.calculateRenderPositionFor(object)
-    }
-
     
     // ==============================================
     // MARK: Methods for observing GameState
@@ -83,25 +74,6 @@ extension GameScene: Observer {
     // Update the score
     private func updateScore() {
         scoreNode.setScore(gameState.distance)
-    }
-    
-    
-    // ==============================================
-    // MARK: Methods for observing Environment
-    // ==============================================
-    
-    private func handleUpdateEnvironment(environment: Environment, propertyName: String) {
-        guard let node = environmentNodes[environment.identifier] else {
-            return
-        }
-        switch propertyName {
-            case "xCoordinate", "yCoordinate":
-                updatePositionFor(environment, withNode: node)
-            case "zPosition":
-                node.zPosition = CGFloat(environment.zPosition)
-            default:
-                return
-        }
     }
     
 }
