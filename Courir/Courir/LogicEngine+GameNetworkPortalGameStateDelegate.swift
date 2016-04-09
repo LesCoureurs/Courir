@@ -63,16 +63,15 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        guard let dataDict = data as? [String: AnyObject] else {
-            return
+        guard let dataDict = data as? [String: AnyObject],
+            playerNumber = state.peerMapping[peer],
+            score = dataDict["score"] as? Int,
+            occurringTimeStep = dataDict["time_step"] as? Int else {
+                return
         }
-
-        guard let score = dataDict["score"] as? Int else {
-            return
-        }
-
-        state.updatePlayerScore(peer, score: score)
-        state.getPlayer(withPeerID: peer)!.lost()
+        
+        appendToEventQueue(.PlayerLost, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep, otherData: score)
     }
 
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
