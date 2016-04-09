@@ -37,8 +37,9 @@ class LogicEngine {
         let ghostID = MCPeerID(displayName: "Ghost Player")
         self.init(mode: .SinglePlayer, peers: [ghostID], seed: ghostStore.seed)
         let ghostPlayerNumber = state.peerMapping[ghostID]
-        state.getPlayer(withPeerID: ghostID)?.ready()
-        state.updatePlayerScore(ghostID, score: ghostStore.score)
+        let ghostPlayer = state.getPlayer(withPeerID: ghostID)!
+        ghostPlayer.ready()
+        state.updatePlayerScore(ghostPlayer, score: ghostStore.score)
         initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
@@ -68,7 +69,9 @@ class LogicEngine {
             return
         }
         updateEventQueue()
+        updateEnvironmentPosition()
         updateObstaclePositions()
+        updateLoserPositions()
         handleCollisions()
         updatePlayerStates()
         if state.mode != .SpecialMultiplayer {
@@ -105,6 +108,11 @@ class LogicEngine {
             if isValidToSend(player) {
                 sendActionData(.NonFloatingObstacleGenerated)
             }
+        case .PlayerLost:
+            guard let score = data as? Int else {
+                break
+            }
+            handlePlayerLostEvent(player, timeStep: occurrence, score: score)
         default:
             break
         }
@@ -112,6 +120,10 @@ class LogicEngine {
     
     func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
         assert (action == .PlayerDidJump || action == .PlayerDidDuck)
+        
+        guard !player.isJumpingOrDucking() else {
+            return
+        }
         
         if action == .PlayerDidJump {
             player.jump(occurrence)
@@ -135,6 +147,18 @@ class LogicEngine {
         }
     }
     
+    func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
+        state.updatePlayerScore(player, score: score)
+        player.lost()
+        
+        if isValidToSend(player) {
+            sendPlayerLostData(occurrence, score: score)
+        }
+        if player.playerNumber == state.myPlayer.playerNumber {
+            checkRaceFinished()
+        }
+    }
+    
     func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
         player.run()
         let validToSend = isValidToSend(player)
@@ -148,15 +172,9 @@ class LogicEngine {
             }
             // If player fell off the grid, he finished the race
             if player.xCoordinate < 0 {
-                state.updatePlayerScore(myPeerID, score: score)
-                
-                if validToSend {
-                    sendPlayerLostData(score)
-                }
-                
-                player.lost()
-
-                checkRaceFinished()
+                appendToEventQueue(.PlayerLost, playerNumber: player.playerNumber,
+                                   occurringTimeStep: timeStep, otherData: state.distance)
+                state.addLostEvent(timeStep, score: state.distance)
             }
         } else {
             player.xCoordinate = xCoordinate!
@@ -183,8 +201,9 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
-    private func sendPlayerLostData(score: Int) {
+    private func sendPlayerLostData(timeStep: Int, score: Int) {
         var playerLostData = [String: AnyObject]()
+        playerLostData["time_step"] = timeStep
         playerLostData["score"] = score
         gameNetworkPortal.send(.PlayerLost, data: playerLostData)
     }
@@ -200,10 +219,19 @@ class LogicEngine {
         }
     }
     
+    private func updateEnvironmentPosition() {
+        for environmentObject in state.environmentObjects {
+            environmentObject.xCoordinate -= speed
+            if environmentObject.xCoordinate < Environment.removalXCoordinate {
+                environmentObject.resetXCoordinate()
+            }
+        }
+    }
+    
     private func updateObstaclePositions() {
         
         func shouldKeepObstacle(obstacle: Obstacle) -> Bool {
-            return obstacle.xCoordinate + obstacle.xWidth - 1 >= 0
+            return obstacle.xCoordinate + obstacle.xWidth - 1 >= Obstacle.removalXCoordinate
         }
         
         for obstacle in state.obstacles {
@@ -213,35 +241,33 @@ class LogicEngine {
         state.obstacles = state.obstacles.filter {shouldKeepObstacle($0)}
     }
     
+    private func updateLoserPositions() {
+        for loser in state.players.filter({$0.state == PlayerState.Lost}) {
+            loser.xCoordinate -= speed
+        }
+    }
+    
     private func updatePlayerStates() {
         for player in state.players {
             switch player.physicalState {
                 case .Stationary:
                     player.run()
                 case let .Jumping(startTimeStep):
-                    if timeStep - startTimeStep > jumpTimeSteps {
+                    if timeStep - startTimeStep >= jumpTimeSteps {
                         player.run()
-                    } else {
-                        updateJumpingPlayerPosition(player, startTimeStep)
                     }
                 case let .Ducking(startTimeStep):
-                    if timeStep - startTimeStep > duckTimeSteps {
+                    if timeStep - startTimeStep >= duckTimeSteps {
                         player.run()
                     }
                 case let .Invulnerable(startTimeStep):
-                    if timeStep - startTimeStep > invulnerableTimeSteps {
+                    if timeStep - startTimeStep >= invulnerableTimeSteps {
                         player.run()
                     }
                 default:
                     continue
             }
         }
-    }
-    
-    private func updateJumpingPlayerPosition(player: Player, _ startTimeStep: Int) {
-        let time = CGFloat(timeStep - startTimeStep)/CGFloat(framerate)
-        // using the formula x = x0 + vt + 0.5*at^2
-        player.zCoordinate = velocity * time + 0.5 * acceleration * time * time
     }
     
     private func handleCollisions() {

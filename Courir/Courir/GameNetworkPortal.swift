@@ -30,7 +30,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
 }
 
 class GameNetworkPortal {
-    static let _instance = GameNetworkPortal(playerName: myName ?? myDeviceName)
+    static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
 
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?

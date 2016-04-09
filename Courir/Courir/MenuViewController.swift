@@ -20,7 +20,7 @@ class MenuViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if myName == nil {
+        if me.name == nil {
             askForName()
         }
     }

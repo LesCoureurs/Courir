@@ -6,8 +6,6 @@
 //  Copyright © 2016 NUS CS3217. All rights reserved.
 //
 
-import UIKit
-
 // Connected: Joined the room, but has not entered the GameScene
 // Ready: Player has entered GameScene and/or is in an ongoing game
 enum PlayerState {
@@ -20,13 +18,22 @@ enum PhysicalState {
 
 
 class Player: GameObject {
+    
+    // ==============================================
+    // Static constants & variables
+    // ==============================================
+    
     static let spawnXCoordinate = 12 * unitsPerGameGridCell
-    static let minSpawnYCoordinate = 5 * unitsPerGameGridCell
-    static let spawnYCoordinateIncrement = 6 * unitsPerGameGridCell
+    static let minSpawnYCoordinate = 4 * unitsPerGameGridCell
+    static let spawnYCoordinateIncrement = 4 * unitsPerGameGridCell
     static let spawnYOffset = [1: 3 * spawnYCoordinateIncrement / 2,
                                2: spawnYCoordinateIncrement,
                                3: spawnYCoordinateIncrement / 2,
                                4: 0]
+    
+    // ==============================================
+    // Instance variables and methods
+    // ==============================================
     
     let playerNumber: Int
     let xWidth = 3 * unitsPerGameGridCell
@@ -46,12 +53,6 @@ class Player: GameObject {
         }
     }
     
-    var zCoordinate: CGFloat = 0 {
-        didSet {
-            observer?.didChangeProperty("zCoordinate", from: self)
-        }
-    }
-    
     private(set) var physicalState = PhysicalState.Stationary {
         didSet {
             observer?.didChangeProperty("physicalState", from: self)
@@ -65,13 +66,13 @@ class Player: GameObject {
     }
     
     
-    // Range of playerNumber = [0, 3]
-    init(playerNumber: Int, isMultiplayer: Bool, numPlayers: Int) {
-        // TODO: Positioning for multiplayer mode
+    /// Range of playerNumber = [0, 3]
+    init(playerNumber: Int, numPlayers: Int) {
         assert(0 <= playerNumber && playerNumber <= 3)
         self.playerNumber = playerNumber
-        yCoordinate = Player.minSpawnYCoordinate +
-            playerNumber * Player.spawnYCoordinateIncrement
+        yCoordinate = Player.minSpawnYCoordinate
+                    + playerNumber * Player.spawnYCoordinateIncrement
+        
         if let centeringOffset = Player.spawnYOffset[numPlayers] {
             yCoordinate += centeringOffset
         }
@@ -103,5 +104,14 @@ class Player: GameObject {
     
     func becomeInvulnerable(startTimeStep: Int) {
         physicalState = .Invulnerable(startTimeStep)
+    }
+    
+    func isJumpingOrDucking() -> Bool {
+        switch physicalState {
+        case .Jumping(_), .Ducking(_):
+            return true
+        default:
+            return false
+        }
     }
 }
