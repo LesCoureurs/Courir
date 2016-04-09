@@ -11,7 +11,6 @@ import MultipeerConnectivity
 
 struct MyPlayer {
     var name: String? {
-        print(SettingsManager._instance.get("myName") as? String)
         return SettingsManager._instance.get("myName") as? String
     }
     var deviceName: String {
