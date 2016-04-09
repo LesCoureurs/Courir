@@ -99,8 +99,8 @@ class GameScene: SKScene {
     }
     
     private func initEnvironment() {
-        for environmentObject in gameState.environmentObjects {
-            environmentNodes[environmentObject.identifier] = createEnvironmentNode(environmentObject)
+        for environment in gameState.environmentObjects {
+            environmentNodes[environment.identifier] = createEnvironmentNode(environment)
         }
     }
 
