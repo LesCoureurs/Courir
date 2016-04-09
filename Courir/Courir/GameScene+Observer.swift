@@ -26,6 +26,7 @@ extension GameScene: Observer {
             handleChangesToObstacles()
         case "distance":
             updateScore()
+            updatePlayerTextures()
         default:
             return
         }
@@ -66,5 +67,11 @@ extension GameScene: Observer {
     // Update the score
     private func updateScore() {
         scoreNode.setScore(gameState.distance)
+    }
+    
+    private func updatePlayerTextures() {
+        for (_, player) in players {
+            player.showNextAnimationFrame()
+        }
     }
 }

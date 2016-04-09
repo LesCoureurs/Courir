@@ -75,16 +75,9 @@ class GameScene: SKScene {
             countdownNode.updateCountdownTime(currentTime)
         } else if hasGameStarted {
             logicEngine.update()
-            updatePlayerTextures()
         }
     }
 
-    private func updatePlayerTextures() {
-        for (_, player) in players {
-            player.showNextAnimationFrame()
-        }
-    }
-    
     
     // ==============================================
     // MARK: Initialisers
