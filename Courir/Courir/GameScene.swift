@@ -27,7 +27,7 @@ class GameScene: SKScene {
     private var duckRecognizer: UISwipeGestureRecognizer!
     
     private let grid = SKSpriteNode()
-    private var logicEngine: LogicEngine!
+    var logicEngine: LogicEngine!
     private var myPlayerNumber: Int!
     
     var gameState: GameState!

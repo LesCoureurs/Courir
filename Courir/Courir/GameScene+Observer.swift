@@ -34,6 +34,7 @@ extension GameScene: Observer {
     }
     
     private func gameDidEnd() {
+        logicEngine.stopTick()
         let gameOverData = [
             "eventRawValue": GameEvent.GameDidEnd.rawValue,
             "gameResult": gameState.scoreTracking,
