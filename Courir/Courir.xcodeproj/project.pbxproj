@@ -42,6 +42,7 @@
 		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
 		7266DF021CA566A9002216C9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7266DF011CA566A9002216C9 /* GameViewController.swift */; };
 		7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFBA1C9E92A400FA4198 /* GameEvent.swift */; };
+		728082041CB8CC0E00795C53 /* MyPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728082031CB8CC0E00795C53 /* MyPlayer.swift */; };
 		7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */; };
 		7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */; };
 		7A4812061CB2C7B10063CC8B /* SinglePlayerStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */; };
@@ -105,6 +106,7 @@
 		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7266DF011CA566A9002216C9 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
+		728082031CB8CC0E00795C53 /* MyPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlayer.swift; sourceTree = "<group>"; };
 		7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSelectionViewController.swift; sourceTree = "<group>"; };
 		7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerStartViewController.swift; sourceTree = "<group>"; };
@@ -205,9 +207,6 @@
 		720CB0D41CB4E514002AE231 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				7AF09BF91CB14C14001B0A5B /* CoundownNode.swift */,
-				7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */,
-				7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -220,10 +219,8 @@
 				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
 				6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */,
 				7266DF011CA566A9002216C9 /* GameViewController.swift */,
-				7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */,
 				024D82431CAC37E400D9CB53 /* GameEndTableCell.swift */,
 				024D82411CAC256500D9CB53 /* GameEndView.swift */,
-				7A4812071CB2C9D30063CC8B /* PreviousRunTableViewCell.swift */,
 				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
 				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
 				720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */,
@@ -251,6 +248,7 @@
 				7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */,
 				7A8C65C01CB28BB100EF6117 /* GhostStore.swift */,
 				6E2CEE5E1CB539F7003DD41D /* Environment.swift */,
+				728082031CB8CC0E00795C53 /* MyPlayer.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -468,6 +466,7 @@
 				024D82441CAC37E400D9CB53 /* GameEndTableCell.swift in Sources */,
 				7A8839321C9E7BA1007434E8 /* GameState.swift in Sources */,
 				7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */,
+				728082041CB8CC0E00795C53 /* MyPlayer.swift in Sources */,
 				7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */,
 				7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */,
 				720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */,
