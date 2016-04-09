@@ -15,6 +15,7 @@ class EnvironmentSpriteNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "background")
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        environment.observer = self
         
         setScale(EnvironmentSpriteNode.defaultScale)
         position = IsoViewConverter.calculateRenderPositionFor(environment)
@@ -24,5 +25,22 @@ class EnvironmentSpriteNode: SKSpriteNode {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension EnvironmentSpriteNode: Observer {
+    func didChangeProperty(propertyName: String, from: AnyObject?) {
+        guard let environment = from as? Environment else {
+            return
+        }
+        
+        switch propertyName {
+        case "xCoordinate", "yCoordinate":
+            position = IsoViewConverter.calculateRenderPositionFor(environment)
+        case "zPosition":
+            zPosition = CGFloat(environment.zPosition)
+        default:
+            return
+        }
     }
 }

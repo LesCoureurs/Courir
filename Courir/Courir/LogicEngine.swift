@@ -104,6 +104,10 @@ class LogicEngine {
     func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
         assert (action == .PlayerDidJump || action == .PlayerDidDuck)
         
+        guard !player.isJumpingOrDucking() else {
+            return
+        }
+        
         if action == .PlayerDidJump {
             player.jump(occurrence)
         } else {

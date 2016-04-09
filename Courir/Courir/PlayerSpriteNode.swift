@@ -95,6 +95,7 @@ class PlayerSpriteNode: SKSpriteNode {
         super.init(texture: PlayerSpriteNode.playerStationaryFrames.first,
                    color: UIColor.clearColor(),
                    size: PlayerSpriteNode.size)
+        player.observer = self
         
         // Set position of player sprite node
         position = IsoViewConverter.calculateRenderPositionFor(player)
@@ -139,7 +140,7 @@ class PlayerSpriteNode: SKSpriteNode {
     }
     
     /// Updates player sprite's plumbob color; plumbob becomes red when player's x coordinate is 0
-    func updatePlumbobColor(playerXCoordinate: Int) {
+    private func updatePlumbobColor(playerXCoordinate: Int) {
         plumbob?.colorBlendFactor =
             PlayerSpriteNode.maxColorBlendFactor
             - (CGFloat(playerXCoordinate) / CGFloat(Player.spawnXCoordinate))
@@ -148,5 +149,23 @@ class PlayerSpriteNode: SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension PlayerSpriteNode: Observer {
+    func didChangeProperty(propertyName: String, from: AnyObject?) {
+        guard let player = from as? Player else {
+            return
+        }
+        
+        switch propertyName {
+        case "xCoordinate", "yCoordinate":
+            position = IsoViewConverter.calculateRenderPositionFor(player)
+            updatePlumbobColor(player.xCoordinate)
+        case "physicalState":
+            currentState = player.physicalState
+        default:
+            return
+        }
     }
 }
