@@ -87,7 +87,7 @@ class GameState: Observed {
 
         initPlayersHelper(allPeerIDs)
 
-        self.host = Player(playerNumber: defaultHostNumber, isMultiplayer: true, numPlayers: allPeerIDs.count)
+        self.host = Player(playerNumber: defaultHostNumber, numPlayers: allPeerIDs.count)
         self.hostID = hostID
 
         if myPeerID == hostID {
@@ -97,7 +97,7 @@ class GameState: Observed {
 
     private func initPlayersHelper(peers: [MCPeerID]) {
         for (playerNum, peer) in peers.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: peers.count)
+            let player = Player(playerNumber: playerNum, numPlayers: peers.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()

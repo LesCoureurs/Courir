@@ -46,10 +46,7 @@ class GameScene: SKScene {
     }
 
     var initialGhostStore: GhostStore?
-    var seed: NSData?
-    var isMultiplayer = false
-    var peers = [MCPeerID]()
-    
+
     
     // ==============================================
     // MARK: Overridden methods
