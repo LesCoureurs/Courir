@@ -105,4 +105,13 @@ class Player: GameObject {
     func becomeInvulnerable(startTimeStep: Int) {
         physicalState = .Invulnerable(startTimeStep)
     }
+    
+    func isJumpingOrDucking() -> Bool {
+        switch physicalState {
+        case .Jumping(_), .Ducking(_):
+            return true
+        default:
+            return false
+        }
+    }
 }
