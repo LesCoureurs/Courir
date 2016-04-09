@@ -12,6 +12,7 @@ import MultipeerConnectivity
 class LogicEngine {
 
     // MARK: Properties
+    private var timer: NSTimer?
 
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
@@ -59,7 +60,21 @@ class LogicEngine {
 
     // MARK: Logic Handling
     
-    func update() {
+    func startTick() {
+        timer?.invalidate() // Ensure only 1 timer exists
+        timer = NSTimer.scheduledTimerWithTimeInterval(tickInterval, target: self,
+                                                       selector: #selector(LogicEngine.update),
+                                                       userInfo: nil, repeats: true)
+    }
+    
+    func stopTick() {
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
+        }
+    }
+    
+    @objc func update() {
         guard !state.gameIsOver else {
             return
         }
