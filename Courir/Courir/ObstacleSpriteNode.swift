@@ -42,13 +42,13 @@ extension ObstacleSpriteNode: Observer {
         guard let obstacle = from as? Obstacle else {
             return
         }
-        
-        switch propertyName {
-        case "xCoordinate", "yCoordinate":
-            position = IsoViewConverter.calculateRenderPositionFor(obstacle)
-        default:
-            return
+        dispatch_async(dispatch_get_main_queue()) {
+            switch propertyName {
+            case "xCoordinate", "yCoordinate":
+                self.position = IsoViewConverter.calculateRenderPositionFor(obstacle)
+            default:
+                return
+            }
         }
-        
     }
 }

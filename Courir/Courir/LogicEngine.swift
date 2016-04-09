@@ -12,7 +12,7 @@ import MultipeerConnectivity
 class LogicEngine {
 
     // MARK: Properties
-    private var timer: NSTimer?
+    private var dispatchTimer: dispatch_source_t?
 
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
@@ -61,16 +61,18 @@ class LogicEngine {
     // MARK: Logic Handling
     
     func startTick() {
-        timer?.invalidate() // Ensure only 1 timer exists
-        timer = NSTimer.scheduledTimerWithTimeInterval(tickInterval, target: self,
-                                                       selector: #selector(LogicEngine.update),
-                                                       userInfo: nil, repeats: true)
+        stopTick()
+        dispatchTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
+        
+        dispatch_source_set_timer(dispatchTimer!, dispatch_walltime(nil, 0), NSEC_PER_SEC / 30, NSEC_PER_SEC / 60)
+        dispatch_source_set_event_handler(dispatchTimer!, update)
+        dispatch_resume(dispatchTimer!)
     }
     
     func stopTick() {
-        if let timer = timer {
-            timer.invalidate()
-            self.timer = nil
+        if let timer = dispatchTimer {
+            dispatch_source_cancel(timer)
+            dispatchTimer = nil
         }
     }
     

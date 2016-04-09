@@ -18,17 +18,18 @@ extension GameScene: Observer {
         guard let _ = from as? GameState else {
             return
         }
-        
-        switch propertyName {
-        case "gameIsOver":
-            gameDidEnd()
-        case "obstacles":
-            handleChangesToObstacles()
-        case "distance":
-            updateScore()
-            updatePlayerTextures()
-        default:
-            return
+        dispatch_async(dispatch_get_main_queue()) {
+            switch propertyName {
+            case "gameIsOver":
+                self.gameDidEnd()
+            case "obstacles":
+                self.handleChangesToObstacles()
+            case "distance":
+                self.updateScore()
+                self.updatePlayerTextures()
+            default:
+                return
+            }
         }
     }
     
