@@ -47,8 +47,6 @@ let digitsAtlas = SKTextureAtlas(named: "Digits")
 let numEnvironmentObjects = 3
 
 // My Details
-var myName = SettingsManager._instance.get("myName") as? String
-let myDeviceName = UIDevice.currentDevice().name
-let myDefaultPlayerNumber = 1
-let myMultiplayerModeNumber = 0
-let myPeerID = MCPeerID(displayName: myName ?? myDeviceName)
+let me = MyPlayer()
+let myDeviceName = me.deviceName
+let myPeerID = me.peerID
