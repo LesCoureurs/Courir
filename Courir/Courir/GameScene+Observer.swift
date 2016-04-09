@@ -11,30 +11,23 @@ import SpriteKit
 extension GameScene: Observer {
     
     // ==============================================
-    // MARK: Overridden methods
+    // MARK: Observe GameState
     // ==============================================
     
     func didChangeProperty(propertyName: String, from: AnyObject?) {
-        if let _ = from as? GameState {
-            handleUpdateGameState(propertyName)
+        guard let _ = from as? GameState else {
+            return
         }
-    }
-    
-    // ==============================================
-    // MARK: Methods for observing GameState
-    // ==============================================
-    
-    /// Handle the updating of appropriate nodes when changes are made to the game state
-    private func handleUpdateGameState(propertyName: String) {
+        
         switch propertyName {
-            case "gameIsOver":
-                gameDidEnd()
-            case "obstacles":
-                handleChangesToObstacles()
-            case "distance":
-                updateScore()
-            default:
-                return
+        case "gameIsOver":
+            gameDidEnd()
+        case "obstacles":
+            handleChangesToObstacles()
+        case "distance":
+            updateScore()
+        default:
+            return
         }
     }
     
@@ -57,7 +50,6 @@ extension GameScene: Observer {
         let addedObstacles = gameState.obstacles.filter {obstacles[$0.identifier] == nil}
         
         for obstacle in addedObstacles {
-            obstacle.observer = self
             obstacles[obstacle.identifier] = createObstacleNode(obstacle)
         }
         
@@ -75,5 +67,4 @@ extension GameScene: Observer {
     private func updateScore() {
         scoreNode.setScore(gameState.distance)
     }
-    
 }
