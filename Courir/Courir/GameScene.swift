@@ -114,9 +114,7 @@ class GameScene: SKScene {
     
     private func initPlayers() {
         for player in gameState.players {
-            player.observer = self
-            let node = createPlayerNode(player)
-            players[player.playerNumber] = node
+            players[player.playerNumber] = createPlayerNode(player)
         }
     }
     
