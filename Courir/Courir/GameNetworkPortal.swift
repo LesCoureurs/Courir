@@ -40,7 +40,7 @@ class GameNetworkPortal {
             }
         }
     }
-    var coulombNetwork: CoulombNetwork!
+    let coulombNetwork: CoulombNetwork!
 
     private var messageBacklog = [(data: NSData, peer: MCPeerID)]()
 
