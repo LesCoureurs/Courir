@@ -390,7 +390,13 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
         // Stop the update() method
-        state.gameIsOver = true
+        guard let dataDict = data as? [String: AnyObject],
+            playerNumber = state.peerMapping[peer],
+            occurringTimeStep = dataDict["time_step"] as? Int else {
+                return
+        }
+        appendToEventQueue(.GameDidEnd, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep + 30)
     }
     
     func disconnectedFromGame() {
