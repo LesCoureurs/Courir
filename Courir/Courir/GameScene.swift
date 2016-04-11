@@ -214,7 +214,10 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        let event: GameEvent = gameSetupData.isHost ? .FloatingObstacleGenerated : .PlayerDidJump
+        var event: GameEvent = .PlayerDidJump
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .FloatingObstacleGenerated
+        }
         logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 
@@ -222,7 +225,10 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        let event: GameEvent = gameSetupData.isHost ? .NonFloatingObstacleGenerated : .PlayerDidDuck
+        var event: GameEvent = .PlayerDidDuck
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .NonFloatingObstacleGenerated
+        }
         logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 }
