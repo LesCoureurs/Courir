@@ -20,7 +20,8 @@ class PlayerSpriteNode: SKSpriteNode {
     static private let plumbobSize = CGSize(width: 28, height: 28)
     static private let plumbobPosition = CGPoint(x: 90, y: 180)
     static private let maxColorBlendFactor: CGFloat = 0.8
-    static private let invulnerableAlpha: CGFloat = 0.5    
+    static private let minInvulnerableAlpha: CGFloat = 0.3
+    static private let maxInvulnerableAlpha: CGFloat = 0.8
     
     static private var hasInitTextures = false
     static private var playerRunningFrames = [SKTexture]()
@@ -131,7 +132,11 @@ class PlayerSpriteNode: SKSpriteNode {
     private func updatePlayerAnimation() {
         switch currentState {
         case .Invulnerable(_):
-            alpha = PlayerSpriteNode.invulnerableAlpha
+            if currentAnimationStep % 2 == 0 {
+                alpha = PlayerSpriteNode.minInvulnerableAlpha
+            } else {
+                alpha = PlayerSpriteNode.maxInvulnerableAlpha
+            }
         default:
             alpha = 1
         }
