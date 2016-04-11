@@ -21,7 +21,7 @@ class RoomViewController: UIViewController {
 
     private(set) var mode: GameMode = .Multiplayer
     private(set) var isHost = true
-    var host: MCPeerID = myPeerID
+    var host: MCPeerID? = myPeerID
     
     private var peers = [MCPeerID]()
 
@@ -64,6 +64,7 @@ class RoomViewController: UIViewController {
     
     func playerIsNotHost() {
         isHost = false
+        host = nil
     }
 
     func setMode(mode: GameMode) {
