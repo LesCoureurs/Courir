@@ -132,11 +132,13 @@ class LogicEngine {
     
     func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
         state.updatePlayerScore(player, score: score)
-        player.lost()
         
         if isValidToSend(player) {
             sendPlayerLostData(occurrence, score: score)
         }
+        
+        player.lost()
+        
         if player.playerNumber == state.myPlayer.playerNumber {
             checkRaceFinished()
         }
