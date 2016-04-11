@@ -38,7 +38,7 @@ class RoomSelectionViewController: UIViewController {
             roomViewController.setMode(.Multiplayer)
             if segue.identifier == "specialModeRoomSegue" {
                 roomViewController.setMode(.SpecialMultiplayer)
-            } else {
+            } else if segue.identifier == "enterRoomSegue" {
                 roomViewController.playerIsNotHost()
             }
         }
