@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="86P-9b-tAT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -257,6 +257,26 @@
             </objects>
             <point key="canvasLocation" x="2801" y="761"/>
         </scene>
+        <!--Scan View Controller-->
+        <scene sceneID="djd-DF-rVh">
+            <objects>
+                <viewController id="cfX-JI-Tjy" customClass="ScanViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NRV-uB-r48"/>
+                        <viewControllerLayoutGuide type="bottom" id="liY-wY-zPT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fqt-O7-3Xi">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wtM-BH-JRf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1501" y="-1629"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="KC7-xu-7Op">
             <objects>
@@ -297,7 +317,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="roI-DW-gmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Kc5-yy-bck" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="245" y="-621"/>
+            <point key="canvasLocation" x="1501" y="-621"/>
+        </scene>
+        <!--Share View Controller-->
+        <scene sceneID="98v-ed-jXc">
+            <objects>
+                <viewController id="86P-9b-tAT" customClass="ShareViewController" customModule="Courir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bOX-EA-Whu"/>
+                        <viewControllerLayoutGuide type="bottom" id="blg-h3-F2q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E5A-8P-b64">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Iix-SE-3xq">
+                                <rect key="frame" x="120" y="184" width="400" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="CmD-ys-eyg"/>
+                                    <constraint firstAttribute="width" constant="400" id="dQk-qO-y8n"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rvd-nk-RPp">
+                                <rect key="frame" x="639" y="184" width="265" height="400"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="265" id="JLD-f2-aE8"/>
+                                    <constraint firstAttribute="height" constant="400" id="gCG-Em-fsb"/>
+                                </constraints>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Olv-F4-GH0">
+                                <rect key="frame" x="743" y="607" width="57" height="30"/>
+                                <state key="normal" title="Animate"/>
+                                <connections>
+                                    <action selector="animatePressed:" destination="86P-9b-tAT" eventType="touchUpInside" id="N9S-ZK-GTy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMm-uE-noa">
+                                <rect key="frame" x="754" y="645" width="35" height="30"/>
+                                <state key="normal" title="Scan"/>
+                                <connections>
+                                    <segue destination="cfX-JI-Tjy" kind="show" id="pSo-f5-j3t"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="rvd-nk-RPp" secondAttribute="trailing" constant="100" id="6Ko-VA-q5d"/>
+                            <constraint firstItem="zMm-uE-noa" firstAttribute="top" secondItem="Olv-F4-GH0" secondAttribute="bottom" constant="8" id="WWw-aY-Vqr"/>
+                            <constraint firstItem="rvd-nk-RPp" firstAttribute="centerY" secondItem="E5A-8P-b64" secondAttribute="centerY" id="ZZz-OR-g5B"/>
+                            <constraint firstItem="zMm-uE-noa" firstAttribute="centerX" secondItem="Olv-F4-GH0" secondAttribute="centerX" id="aHj-1r-sCx"/>
+                            <constraint firstItem="Iix-SE-3xq" firstAttribute="centerY" secondItem="E5A-8P-b64" secondAttribute="centerY" id="aTx-wa-gRx"/>
+                            <constraint firstItem="Olv-F4-GH0" firstAttribute="top" secondItem="rvd-nk-RPp" secondAttribute="bottom" constant="23" id="rPI-sJ-M22"/>
+                            <constraint firstItem="Iix-SE-3xq" firstAttribute="leading" secondItem="E5A-8P-b64" secondAttribute="leadingMargin" constant="100" id="vtr-WY-UUT"/>
+                            <constraint firstItem="Olv-F4-GH0" firstAttribute="centerX" secondItem="rvd-nk-RPp" secondAttribute="centerX" id="x3i-rr-6ld"/>
+                        </constraints>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="ghostsTableView" destination="rvd-nk-RPp" id="KSl-6A-QZh"/>
+                        <outlet property="qrImageView" destination="Iix-SE-3xq" id="e77-PW-AZG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ML8-4w-foo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253" y="-1629"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -502,6 +587,9 @@
             <point key="canvasLocation" x="1501" y="1253"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="2048" height="1536"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ob5-ck-MbV"/>
         <segue reference="ph3-8p-GxT"/>

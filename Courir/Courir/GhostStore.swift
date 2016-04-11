@@ -36,6 +36,26 @@ class GhostStore {
         self.init(seed: storedSeed, score: storedScore, eventSequence: storedEventSequence)
     }
     
+    convenience init?(data: NSData) {
+        guard let ghostData = NSKeyedUnarchiver
+            .unarchiveObjectWithData(data) as? [String: NSObject],
+            storedSeed = ghostData[GhostStore.seedKey] as? NSData,
+            storedScore = ghostData[GhostStore.scoreKey] as? Int,
+            storedEventSequence = ghostData[GhostStore.eventSequenceKey] as? [PlayerEvent] else {
+            return nil
+        }
+        self.init(seed: storedSeed, score: storedScore, eventSequence: storedEventSequence)
+    }
+    
+    func convertToData() -> NSData {
+        let ghostStoreData: [String: NSObject] = [
+            GhostStore.seedKey: seed,
+            GhostStore.scoreKey: score,
+            GhostStore.eventSequenceKey: eventSequence
+        ]
+        return NSKeyedArchiver.archivedDataWithRootObject(ghostStoreData)
+    }
+    
     func storeGhostData(completion : ((Bool) -> Void)?) {
         var ghostDictionary = GhostStore.loadGhostDictionary()
         let currentDate = NSDate()
