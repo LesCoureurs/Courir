@@ -248,6 +248,7 @@
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
                         <outlet property="saveRunButtton" destination="QaN-3f-Tot" id="xLX-9I-XJW"/>
+                        <outlet property="unwindButton" destination="5rN-cr-Xkg" id="72e-Vl-kJg"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
                     </connections>
@@ -504,6 +505,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Ob5-ck-MbV"/>
-        <segue reference="ph3-8p-GxT"/>
+        <segue reference="GLd-B4-ZeP"/>
     </inferredMetricsTieBreakers>
 </document>
