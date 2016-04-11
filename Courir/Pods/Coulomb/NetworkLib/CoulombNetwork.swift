@@ -22,7 +22,9 @@ public class CoulombNetwork: NSObject {
     public var debugMode = false
     public var autoAcceptGuests = true
     
-    static let defaultTimeout: NSTimeInterval = 30
+    static let defaultTimeout: NSTimeInterval = 10
+//    private let _serviceAdvertiser: MCNearbyServiceAdvertiser!
+//    private let _serviceBrowser: MCNearbyServiceBrowser!
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
@@ -35,14 +37,19 @@ public class CoulombNetwork: NSObject {
         session.delegate = self
         return session
     }()
-    
     private let myPeerId: MCPeerID
     private var host: MCPeerID?
     private let serviceType: String
     
     public init(serviceType: String, myPeerId: MCPeerID) {
         self.serviceType = serviceType
+
         self.myPeerId = myPeerId
+
+//        _serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
+//                                                       discoveryInfo: ["peerType": "host"], serviceType: serviceType)
+//        _serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
+
     }
     
 //    public convenience init(serviceType: String) {
@@ -51,28 +58,36 @@ public class CoulombNetwork: NSObject {
 //    }
     
     deinit {
+        print("Coulomb deinit")
         stopAdvertisingHost()
         stopSearchingForHosts()
         session.disconnect()
     }
     
+    func setUpSession() {
+        session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .Required)
+        session.delegate = self
+    }
     // MARK: Methods for host
     public func startAdvertisingHost() {
+        stopSearchingForHosts()
         self.host = myPeerId
-        if serviceAdvertiser == nil {
+        if self.serviceAdvertiser == nil {
             serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
                                                           discoveryInfo: ["peerType": "host"], serviceType: serviceType)
-            serviceAdvertiser?.delegate = self
+            self.serviceAdvertiser?.delegate = self
         }
-        serviceAdvertiser?.startAdvertisingPeer()
+        self.serviceAdvertiser?.startAdvertisingPeer()
     }
     
     public func stopAdvertisingHost() {
         serviceAdvertiser?.stopAdvertisingPeer()
+        serviceAdvertiser = nil
     }
     
     // MARK: Methods for guest
     public func startSearchingForHosts() {
+        stopAdvertisingHost()
         self.host = nil
         if serviceBrowser == nil {
             serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
@@ -84,6 +99,7 @@ public class CoulombNetwork: NSObject {
     
     public func stopSearchingForHosts() {
         serviceBrowser?.stopBrowsingForPeers()
+        serviceBrowser = nil
     }
     
     public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
@@ -94,7 +110,7 @@ public class CoulombNetwork: NSObject {
         guard let browser = serviceBrowser else {
             return
         }
-        
+        DLog("%@", "connect to host: \(host)")
         browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
         
         // If the session is still without host, assign a new one
@@ -116,6 +132,7 @@ public class CoulombNetwork: NSObject {
     // Disconnect from current session, browse for another host
     public func disconnect() {
         session.disconnect()
+        host = nil
         DLog("%@", "disconnected from \(session.hashValue)")
     }
     
@@ -174,7 +191,6 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
             return
         }
         
-        DLog("%@", "invitePeer: \(peerID)")
         foundHosts.append(peerID)
         delegate?.foundHostsChanged(foundHosts)
     }
@@ -207,10 +223,19 @@ extension CoulombNetwork: MCSessionDelegate {
             } else {
                 DLog("%@", "not connected to \(session.hashValue)")
                 // If self is disconnected or current host is disconnected
-                session.disconnect()
+                print("passed in \(session.connectedPeers)")
+                print("self: \(self.session.connectedPeers)")
+                print(session == self.session)
+//                session.disconnect()
+                
                 if self.host == peerID {
                     DLog("%@", "Host was removed")
-//                    session.disconnect()
+                    
+                    dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+                        self.session.disconnect()
+                    }
+//                    browser(serviceBrowser!, lostPeer: peerID)
+//                    setUpSession()
                     delegate?.disconnectedFromSession()
                 }
             }
