@@ -12,6 +12,7 @@ import MultipeerConnectivity
 class LogicEngine {
 
     // MARK: Properties
+    private var dispatchTimer: dispatch_source_t?
 
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
@@ -63,7 +64,23 @@ class LogicEngine {
 
     // MARK: Logic Handling
     
-    func update() {
+    func startTick() {
+        stopTick()
+        dispatchTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0))
+        
+        dispatch_source_set_timer(dispatchTimer!, dispatch_walltime(nil, 0), NSEC_PER_SEC / 30, NSEC_PER_SEC / 60)
+        dispatch_source_set_event_handler(dispatchTimer!, update)
+        dispatch_resume(dispatchTimer!)
+    }
+    
+    func stopTick() {
+        if let timer = dispatchTimer {
+            dispatch_source_cancel(timer)
+            dispatchTimer = nil
+        }
+    }
+    
+    @objc func update() {
         guard !state.gameIsOver else {
             print("game is over")
             return

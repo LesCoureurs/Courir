@@ -27,7 +27,7 @@ class GameScene: SKScene {
     private var duckRecognizer: UISwipeGestureRecognizer!
     
     private let grid = SKSpriteNode()
-    private var logicEngine: LogicEngine!
+    var logicEngine: LogicEngine!
     private var myPlayerNumber: Int!
     
     var gameState: GameState!
@@ -72,17 +72,35 @@ class GameScene: SKScene {
         view.frameInterval = 2
         setupGestureRecognizers(view)
         GameNetworkPortal._instance.send(.GameReady)
+        startGame()
     }
 
-    override func update(currentTime: CFTimeInterval) {
-        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-            return
+//    override func update(currentTime: CFTimeInterval) {
+//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
+//            return
+//        }
+//        if gameState.allPlayersReady && !hasGameStarted{
+//            countdownNode.updateCountdownTime(currentTime)
+//        } else if hasGameStarted {
+//            logicEngine.update()
+//        }
+//    }
+    
+    private func startGame() {
+//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
+//            return
+//        }
+        print("Start game")
+        
+        while !(gameState.allPlayersReady && !hasGameStarted) {
+            print("waiting")
         }
-        if gameState.allPlayersReady && !hasGameStarted{
-            countdownNode.updateCountdownTime(currentTime)
-        } else if hasGameStarted {
-            logicEngine.update()
-        }
+        countdownNode.start()
+//        if gameState.allPlayersReady && !hasGameStarted {
+//            countdownNode.start()
+//        } else if hasGameStarted {
+//            logicEngine.startTick()
+//        }
     }
 
     
@@ -213,13 +231,16 @@ class GameScene: SKScene {
 extension GameScene: CountdownDelegate {
     func didCountdownEnd() {
         hasGameStarted = true
+        logicEngine.startTick()
     }
 }
 
 // MARK: PauseButtonDelegate
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
-        isGamePaused = true
+//        isGamePaused = true
+        logicEngine.stopTick()
+        countdownNode.reset()
         removeGestureRecognizers()
         
         let pauseMenu = PauseMenuNode()
@@ -233,12 +254,12 @@ extension GameScene: PauseButtonDelegate {
 // MARK: PauseMenuDelegate
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
-        isGamePaused = false
+//        isGamePaused = false
         hasGameStarted = false
-        countdownNode.reset()
         if countdownNode.parent == nil {
             grid.addChild(countdownNode)
         }
+        countdownNode.start()
         addGestureRecognizers()
     }
     

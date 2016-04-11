@@ -26,7 +26,8 @@ let obstacleSpaceMultiplier = 1.2
 let initialGameSpeed = 1
 let speedMultiplier = 10.0
 
-let framerate = 30
+let framerate = 30.0
+let tickInterval = 1.0/framerate
 let jumpTimeSteps = 15
 let duckTimeSteps = 15
 let invulnerableTimeSteps = 15
