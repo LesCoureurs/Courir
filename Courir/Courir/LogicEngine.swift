@@ -165,14 +165,17 @@ class LogicEngine {
     }
     
     func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
-        state.updatePlayerScore(player, score: score)
-        player.lost()
-        
         if isValidToSend(player) {
             sendPlayerLostData(occurrence, score: score)
         }
-        if player.playerNumber == state.myPlayer.playerNumber {
-            checkRaceFinished()
+        
+        state.updatePlayerScore(player, score: score)
+        player.lost()
+        
+        let isSinglePlayerEndable = !state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber
+        let isMultiPlayerEndable = state.isMultiplayer && state.everyoneFinished()
+        if isSinglePlayerEndable || isMultiPlayerEndable {
+            state.gameIsOver = true
         }
     }
     
@@ -354,18 +357,5 @@ class LogicEngine {
         eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep,
             otherData: otherData))
         eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
-    }
-    
-    private func checkRaceFinished() {
-        if state.everyoneFinished() {
-            print("everyone finished")
-            // Stop the update() method
-            state.gameIsOver = true
-            
-            if state.isMultiplayer {
-                // Send game end signal
-                gameNetworkPortal.send(.GameDidEnd)
-            }
-        }
     }
 }

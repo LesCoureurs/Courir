@@ -74,10 +74,6 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
                            occurringTimeStep: occurringTimeStep, otherData: score)
     }
 
-    func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        // Stop the update() method
-        state.gameIsOver = true
-    }
 
     func disconnectedFromGame() {
         
