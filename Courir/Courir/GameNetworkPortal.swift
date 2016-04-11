@@ -28,7 +28,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
 }
 
 class GameNetworkPortal {
-    static let _instance = GameNetworkPortal(playerName: myName ?? myDeviceName)
+    static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
 
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
@@ -48,7 +48,7 @@ class GameNetworkPortal {
         // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
         // If autoAcceptGuests is set to false, implement 
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
-        coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
+        coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
         coulombNetwork.debugMode = true
     }

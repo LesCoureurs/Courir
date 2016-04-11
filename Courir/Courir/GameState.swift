@@ -10,6 +10,9 @@ import Foundation
 import MultipeerConnectivity
 
 class GameState: Observed {
+    
+    var environmentObjects = [Environment]()
+    
     var myPlayer: Player!
     var players = [Player]()
     var peerMapping = [MCPeerID: Int]()
@@ -43,6 +46,9 @@ class GameState: Observed {
     init(seed: NSData, isMultiplayer: Bool = false) {
         self.isMultiplayer = isMultiplayer
         self.seed = seed
+        for i in 0..<numEnvironmentObjects {
+            environmentObjects.append(Environment(identifier: i))
+        }
     }
 
     var objects: [GameObject] {
@@ -65,7 +71,7 @@ class GameState: Observed {
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
         for (playerNum, peer) in allPeerIDs.enumerate() {
-            let player = Player(playerNumber: playerNum, isMultiplayer: isMultiplayer, numPlayers: allPeerIDs.count)
+            let player = Player(playerNumber: playerNum, numPlayers: allPeerIDs.count)
             if peer == myPeerID {
                 myPlayer = player
                 player.ready()
@@ -95,8 +101,13 @@ class GameState: Observed {
         return myPlayer.state != PlayerState.Lost
     }
     
-    func updatePlayerScore(peerID: MCPeerID, score: Int) {
-        scoreTracking[peerID] = score
+    func updatePlayerScore(player: Player, score: Int) {
+        for (peerID, playerNumber) in peerMapping {
+            if playerNumber == player.playerNumber {
+                scoreTracking[peerID] = score
+                break
+            }
+        }
     }
     
     // MARK: Player event methods
@@ -111,6 +122,10 @@ class GameState: Observed {
     
     func addCollideEvent(timeStep: Int, xCoordinate: Int) {
         addGameEvent(.PlayerDidCollide, timeStep: timeStep, otherData: xCoordinate)
+    }
+    
+    func addLostEvent(timeStep: Int, score: Int) {
+        addGameEvent(.PlayerLost, timeStep: timeStep, otherData: score)
     }
     
     private func addGameEvent(event: GameEvent, timeStep: Int, otherData: AnyObject? = nil) {

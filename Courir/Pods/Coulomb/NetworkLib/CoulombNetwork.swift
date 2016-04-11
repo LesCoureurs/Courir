@@ -40,15 +40,15 @@ public class CoulombNetwork: NSObject {
     private var host: MCPeerID?
     private let serviceType: String
     
-    public init(serviceType: String, deviceId: String) {
+    public init(serviceType: String, myPeerId: MCPeerID) {
         self.serviceType = serviceType
-        myPeerId = MCPeerID(displayName: deviceId)
+        self.myPeerId = myPeerId
     }
     
-    public convenience init(serviceType: String) {
-        let myDeviceId = UIDevice.currentDevice().name
-        self.init(serviceType: serviceType, deviceId: myDeviceId)
-    }
+//    public convenience init(serviceType: String) {
+//        let myDeviceId = UIDevice.currentDevice().name
+//        self.init(serviceType: serviceType, myPeerId: myDeviceId)
+//    }
     
     deinit {
         stopAdvertisingHost()
