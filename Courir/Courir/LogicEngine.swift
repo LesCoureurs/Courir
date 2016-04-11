@@ -96,8 +96,6 @@ class LogicEngine {
                 break
             }
             handlePlayerLostEvent(player, timeStep: occurrence, score: score)
-        case .GameDidEnd:
-            handleGameEndEvent(player)
         default:
             break
         }
@@ -140,15 +138,10 @@ class LogicEngine {
         state.updatePlayerScore(player, score: score)
         player.lost()
         
-        if player.playerNumber == state.myPlayer.playerNumber {
-            checkRaceFinished()
-        }
-    }
-    
-    func handleGameEndEvent(player: Player) {
-        state.gameIsOver = true
-        if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
-            gameNetworkPortal.send(.GameDidEnd, data: ["time_step": timeStep])
+        let isSinglePlayerEndable = !state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber
+        let isMultiPlayerEndable = state.isMultiplayer && state.everyoneFinished()
+        if isSinglePlayerEndable || isMultiPlayerEndable {
+            state.gameIsOver = true
         }
     }
     
@@ -332,13 +325,6 @@ class LogicEngine {
             otherData: otherData))
         eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
     }
-    
-    private func checkRaceFinished() {
-        if state.everyoneFinished() {
-            appendToEventQueue(.GameDidEnd, playerNumber: state.myPlayer.playerNumber,
-                               occurringTimeStep: timeStep)
-        }
-    }
 }
 
 // MARK: GameNetworkPortalGameStateDelegate
@@ -386,17 +372,6 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
         }
         appendToEventQueue(.PlayerLost, playerNumber: playerNumber,
                            occurringTimeStep: occurringTimeStep, otherData: score)
-    }
-    
-    func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
-        // Stop the update() method
-        guard let dataDict = data as? [String: AnyObject],
-            playerNumber = state.peerMapping[peer],
-            occurringTimeStep = dataDict["time_step"] as? Int else {
-                return
-        }
-        appendToEventQueue(.GameDidEnd, playerNumber: playerNumber,
-                           occurringTimeStep: occurringTimeStep)
     }
     
     func disconnectedFromGame() {
