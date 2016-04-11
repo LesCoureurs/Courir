@@ -121,6 +121,9 @@ class GameViewController: UIViewController {
     
     @IBAction func mainMenuButtonPressed(sender: AnyObject) {
         let identifier = isMultiplayer ? "unwindToRoomSelectionFromGameView" : "exitGameSegue"
+        if identifier == "unwindToRoomSelectionFromGameView" {
+            portal.disconnectFromRoom()
+        }
         
         dispatch_async(dispatch_get_main_queue(), {
             self.performSegueWithIdentifier(identifier, sender: self)
