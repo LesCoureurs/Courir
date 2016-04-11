@@ -27,7 +27,7 @@ class LogicEngine {
     init(mode: GameMode, peers: [MCPeerID] = [MCPeerID](), seed: NSData? = nil, host: MCPeerID? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
         state = GameState(seed: obstacleGenerator.seed, mode: mode)
-        if let hostID = host {
+        if let hostID = host where mode == .SpecialMultiplayer {
             state.initPlayers(peers, withHost: hostID)
         } else {
             state.initPlayers(peers)
