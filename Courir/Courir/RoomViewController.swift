@@ -120,7 +120,7 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
 //        portal.stopSearchingForHosts()
 //        portal.beginSearchingForHosts()
         dispatch_async(dispatch_get_main_queue(), {
-            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomView", sender: self)
+            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
         })
     }
     

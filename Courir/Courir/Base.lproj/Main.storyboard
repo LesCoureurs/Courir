@@ -42,7 +42,7 @@
                                         <rect key="frame" x="0.0" y="28" width="490" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3AC-AN-3Tu" id="TX3-vR-nM4">
-                                            <rect key="frame" x="0.0" y="0.0" width="490" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="490" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-nW-6Ni">
@@ -81,8 +81,8 @@
                                     <segue destination="4ES-gW-g9a" kind="show" identifier="startNewGameSegue" id="GLd-B4-ZeP"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previously Saved Runs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2K4-Up-cYq">
-                                <rect key="frame" x="201.5" y="68" width="270" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Previously Saved Runs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2K4-Up-cYq">
+                                <rect key="frame" x="202" y="68" width="270" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -140,7 +140,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HeI-hA-VMh" id="P2m-F1-hKD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cH-Q0-lTJ">
@@ -329,7 +329,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
-                                        <rect key="frame" x="9.5" y="60" width="57" height="30"/>
+                                        <rect key="frame" x="10" y="60" width="57" height="30"/>
                                         <state key="normal" title="Settings"/>
                                         <connections>
                                             <segue destination="1An-48-oCl" kind="show" id="P3X-e6-tPY"/>
@@ -450,7 +450,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="x5q-mw-hYT"/>
+                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="Ai9-mo-rt2"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

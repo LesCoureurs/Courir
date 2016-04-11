@@ -333,7 +333,7 @@
 				TargetAttributes = {
 					6524A7081C9C7EB800D8CC48 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 94W7JMMWL2;
+						DevelopmentTeam = 5Q2K45WZP8;
 					};
 					6524A7201C9C7EB800D8CC48 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -609,7 +609,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Courir/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.groupfive.Courir;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0127828.Courir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -624,7 +624,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Courir/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.groupfive.Courir;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0127828.Courir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

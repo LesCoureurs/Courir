@@ -27,7 +27,7 @@ class RoomSelectionViewController: UIViewController {
         
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
-        
+        portal.stopHosting()
         portal.beginSearchingForHosts()
     }
 
@@ -42,18 +42,22 @@ class RoomSelectionViewController: UIViewController {
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
+//        roomsAvailableTableView.delegate = self
+//        roomsAvailableTableView.dataSource = self
 //        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 //            self.portal.stopHosting()
 //            self.portal.beginSearchingForHosts()
 //        }
         portal.disconnectFromRoom()
-        refreshButtonPressed(self)
+//        refreshButtonPressed(self)
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
+//        roomsAvailableTableView.delegate = self
+//        roomsAvailableTableView.dataSource = self
         portal.disconnectFromRoom()
-        refreshButtonPressed(self)
+//        refreshButtonPressed(self)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -61,8 +65,13 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
+        print("refresh")
         portal.stopSearchingForHosts()
         portal.beginSearchingForHosts()
+        hosts = portal.getFoundHosts()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.roomsAvailableTableView.reloadData()
+        })
     }
 }
 

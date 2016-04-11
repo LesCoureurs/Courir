@@ -50,7 +50,7 @@ class GameNetworkPortal {
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
-        coulombNetwork.debugMode = true
+//        coulombNetwork.debugMode = true
     }
 
     deinit {
@@ -136,9 +136,9 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             self.stopHosting()
-//            self.beginSearchingForHosts()
+            self.beginSearchingForHosts()
         }
         print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
