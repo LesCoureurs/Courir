@@ -96,6 +96,8 @@ class LogicEngine {
                 break
             }
             handlePlayerLostEvent(player, timeStep: occurrence, score: score)
+        case .GameDidEnd:
+            handleGameEndEvent(player)
         default:
             break
         }
@@ -131,14 +133,22 @@ class LogicEngine {
     }
     
     func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
-        state.updatePlayerScore(player, score: score)
-        player.lost()
-        
         if isValidToSend(player) {
             sendPlayerLostData(occurrence, score: score)
         }
+        
+        state.updatePlayerScore(player, score: score)
+        player.lost()
+        
         if player.playerNumber == state.myPlayer.playerNumber {
             checkRaceFinished()
+        }
+    }
+    
+    func handleGameEndEvent(player: Player) {
+        state.gameIsOver = true
+        if state.isMultiplayer && player.playerNumber == state.myPlayer.playerNumber {
+            gameNetworkPortal.send(.GameDidEnd, data: ["time_step": timeStep])
         }
     }
     
@@ -325,13 +335,8 @@ class LogicEngine {
     
     private func checkRaceFinished() {
         if state.everyoneFinished() {
-            // Stop the update() method
-            state.gameIsOver = true
-            
-            if state.isMultiplayer {
-                // Send game end signal
-                gameNetworkPortal.send(.GameDidEnd)
-            }
+            appendToEventQueue(.GameDidEnd, playerNumber: state.myPlayer.playerNumber,
+                               occurringTimeStep: timeStep)
         }
     }
 }
@@ -379,14 +384,19 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
             occurringTimeStep = dataDict["time_step"] as? Int else {
             return
         }
-        
         appendToEventQueue(.PlayerLost, playerNumber: playerNumber,
                            occurringTimeStep: occurringTimeStep, otherData: score)
     }
     
     func gameEndSignalReceived(data: AnyObject?, peer: MCPeerID) {
         // Stop the update() method
-        state.gameIsOver = true
+        guard let dataDict = data as? [String: AnyObject],
+            playerNumber = state.peerMapping[peer],
+            occurringTimeStep = dataDict["time_step"] as? Int else {
+                return
+        }
+        appendToEventQueue(.GameDidEnd, playerNumber: playerNumber,
+                           occurringTimeStep: occurringTimeStep)
     }
     
     func disconnectedFromGame() {
