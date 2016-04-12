@@ -51,3 +51,7 @@ let numEnvironmentObjects = 3
 let me = MyPlayer()
 let myDeviceName = me.deviceName
 let myPeerID = me.peerID
+
+// Colors
+let blue = UIColor(red: 95, green: 174, blue: 190)
+let brown = UIColor(red: 73, green: 60, blue: 48)

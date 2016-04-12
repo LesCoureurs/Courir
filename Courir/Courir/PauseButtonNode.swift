@@ -17,7 +17,9 @@ class PauseButtonNode: SKLabelNode {
     
     override init() {
         super.init()
-        text = "Pause"
+        text = "PAUSE"
+        fontName = "Raleway-ExtraLight"
+        fontSize = 25
         userInteractionEnabled = true
     }
     

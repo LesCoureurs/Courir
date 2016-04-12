@@ -16,8 +16,8 @@ protocol PauseMenuDelegate: class {
 class PauseMenuNode: SKNode {
     weak var delegate: PauseMenuDelegate?
     var overlayNode: SKShapeNode!
-    let resumeNode = SKLabelNode(text: "Resume")
-    let leaveNode = SKLabelNode(text: "Leave")
+    let resumeNode = SKLabelNode(text: "RESUME")
+    let leaveNode = SKLabelNode(text: "LEAVE")
     
     override init() {
         super.init()
@@ -52,7 +52,7 @@ class PauseMenuNode: SKNode {
         let mainScreenBounds = UIScreen.mainScreen().bounds
         overlayNode = SKShapeNode(rect: mainScreenBounds)
         overlayNode.fillColor = SKColor.whiteColor()
-        overlayNode.alpha = 0.8
+        overlayNode.alpha = 0.85
         overlayNode.position = CGPoint(x: -CGRectGetMidX(mainScreenBounds),
                                        y: -CGRectGetMidY(mainScreenBounds))
         overlayNode.zPosition = 998
@@ -61,8 +61,9 @@ class PauseMenuNode: SKNode {
     }
     
     private func initResumeNode() {
-        resumeNode.fontName = "HelveticaNeue-Bold"
-        resumeNode.fontColor = UIColor.blackColor()
+        resumeNode.fontName = "Raleway-ExtraLight"
+        resumeNode.fontColor = blue
+        resumeNode.fontSize = 40
         resumeNode.name = "resume"
         resumeNode.position = CGPoint(x: 0, y: resumeNode.frame.height)
         resumeNode.zPosition = 999
@@ -71,8 +72,9 @@ class PauseMenuNode: SKNode {
     }
     
     private func initLeaveNode() {
-        leaveNode.fontName = "HelveticaNeue-Bold"
-        leaveNode.fontColor = UIColor.blackColor()
+        leaveNode.fontName = "Raleway-ExtraLight"
+        leaveNode.fontColor = blue
+        leaveNode.fontSize = 40
         leaveNode.name = "leave"
         leaveNode.position = CGPoint(x: 0, y: -leaveNode.frame.height)
         leaveNode.zPosition = 999
