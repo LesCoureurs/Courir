@@ -42,6 +42,7 @@
 		6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */; };
 		6ED65C3E1CBD0AC300D51103 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */; };
 		6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */; };
+		6ED65C431CBD12BB00D51103 /* CourirUINodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
 		720CB0D11CB4DDFC002AE231 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */; };
 		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
@@ -111,6 +112,7 @@
 		6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-SemiBold.otf"; sourceTree = "<group>"; };
 		6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
+		6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourirUINodes.swift; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				6E2CEE5A1CB52783003DD41D /* IsoViewConverter.swift */,
 				6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */,
 				6E2B0F371CB7C466001E957D /* ScoreSpriteNode.swift */,
+				6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */,
 				6524A70D1C9C7EB800D8CC48 /* AppDelegate.swift in Sources */,
 				6E2CEE4B1CB0FF8D003DD41D /* GameScene+Observer.swift in Sources */,
+				6ED65C431CBD12BB00D51103 /* CourirUINodes.swift in Sources */,
 				7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */,
 				6E2CEE5F1CB539F7003DD41D /* Environment.swift in Sources */,
 			);

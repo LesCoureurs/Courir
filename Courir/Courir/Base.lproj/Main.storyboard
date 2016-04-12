@@ -5,6 +5,13 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Raleway-ExtraLight.ttf">
+            <string>Raleway-ExtraLight</string>
+            <string>Raleway-ExtraLight</string>
+            <string>Raleway-ExtraLight</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Single Player Start View Controller-->
         <scene sceneID="Rq7-ri-2q9">
@@ -319,53 +326,64 @@
                                     <constraint firstAttribute="width" constant="1024" id="RQZ-Vm-Ufe"/>
                                 </constraints>
                             </webView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
-                                <rect key="frame" x="474" y="339" width="76" height="90"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
+                                <rect key="frame" x="175" y="340" width="201" height="170"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
-                                        <rect key="frame" x="23" y="0.0" width="30" height="30"/>
-                                        <state key="normal" title="Play"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
+                                        <rect key="frame" x="0.0" y="0.0" width="74" height="48"/>
+                                        <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
+                                        <state key="normal" title="PLAY">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <segue destination="NDO-N5-e4O" kind="show" id="M5C-wf-hOM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
-                                        <rect key="frame" x="0.0" y="30" width="76" height="30"/>
-                                        <state key="normal" title="Multiplayer"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
+                                        <rect key="frame" x="0.0" y="61" width="201" height="48"/>
+                                        <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
+                                        <state key="normal" title="MULTIPLAYER">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <segue destination="QGq-uN-4Jv" kind="show" identifier="selectRoomSegue" id="ZQM-sO-I1v"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
-                                        <rect key="frame" x="10" y="60" width="57" height="30"/>
-                                        <state key="normal" title="Settings"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
+                                        <rect key="frame" x="0.0" y="122" width="144" height="48"/>
+                                        <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
+                                        <state key="normal" title="SETTINGS">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <segue destination="1An-48-oCl" kind="show" id="P3X-e6-tPY"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="LHG-0O-4k1" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="4eg-rD-gBp"/>
-                                    <constraint firstItem="5Eg-J1-1Ed" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="X34-3N-zf7"/>
-                                    <constraint firstItem="rPV-OW-Ra7" firstAttribute="centerX" secondItem="EHY-4o-Z25" secondAttribute="centerX" id="j4F-wS-t7v"/>
-                                </constraints>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-1J-OLL">
+                                <rect key="frame" x="175" y="164" width="404" height="79"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glD-AB-Fqb">
+                                <rect key="frame" x="175" y="281" width="500" height="3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="21C-f9-vwf"/>
                             <constraint firstItem="PDj-Td-quJ" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="D9m-TQ-iKL"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="155" id="VBj-yA-3eZ"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="320" id="Wi3-sP-HpY"/>
                             <constraint firstItem="PDj-Td-quJ" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="d6l-91-MAR"/>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="pLA-GU-raG"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="menuBg" destination="PDj-Td-quJ" id="KID-SN-LVl"/>
-                        <outletCollection property="menuButtons" destination="rPV-OW-Ra7" collectionClass="NSMutableArray" id="HDx-Wl-nCP"/>
-                        <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="sQz-iL-jnx"/>
-                        <outletCollection property="menuButtons" destination="5Eg-J1-1Ed" collectionClass="NSMutableArray" id="GUy-As-zob"/>
+                        <outletCollection property="menuButtons" destination="rPV-OW-Ra7" collectionClass="NSMutableArray" id="7RY-Ed-H3h"/>
+                        <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="rW1-Ht-3JN"/>
+                        <outletCollection property="menuButtons" destination="5Eg-J1-1Ed" collectionClass="NSMutableArray" id="324-Ay-NDk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -513,6 +531,9 @@
             <point key="canvasLocation" x="1501" y="1253"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="756" height="147"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lU1-jC-2Ut"/>
         <segue reference="ph3-8p-GxT"/>
