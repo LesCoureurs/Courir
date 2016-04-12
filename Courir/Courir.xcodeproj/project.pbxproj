@@ -38,6 +38,10 @@
 		6E772DE91CA44A0C00A0B755 /* ObstacleGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */; };
 		6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6EB679411CB7A09600C52F5B /* Plumbob.atlas */; };
 		6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C351CBCF98600D51103 /* menu-bg.gif */; };
+		6ED65C3C1CBD0AC300D51103 /* FiraSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */; };
+		6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */; };
+		6ED65C3E1CBD0AC300D51103 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */; };
+		6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
 		720CB0D11CB4DDFC002AE231 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */; };
 		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
@@ -103,6 +107,10 @@
 		6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGeneratorTests.swift; sourceTree = "<group>"; };
 		6EB679411CB7A09600C52F5B /* Plumbob.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Plumbob.atlas; sourceTree = "<group>"; };
 		6ED65C351CBCF98600D51103 /* menu-bg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "menu-bg.gif"; sourceTree = "<group>"; };
+		6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.otf"; sourceTree = "<group>"; };
+		6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-SemiBold.otf"; sourceTree = "<group>"; };
+		6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +174,7 @@
 		6524A70B1C9C7EB800D8CC48 /* Courir */ = {
 			isa = PBXGroup;
 			children = (
+				6ED65C371CBD0A4A00D51103 /* Fonts */,
 				720CB0CF1CB4DDE8002AE231 /* Helpers */,
 				7A6233021CA44177007FEF08 /* Logic */,
 				7A6233011CA44122007FEF08 /* Model */,
@@ -197,6 +206,17 @@
 				6524A7271C9C7EB800D8CC48 /* Info.plist */,
 			);
 			path = CourirTests;
+			sourceTree = "<group>";
+		};
+		6ED65C371CBD0A4A00D51103 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */,
+				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
+				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
+				6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		720CB0CF1CB4DDE8002AE231 /* Helpers */ = {
@@ -370,8 +390,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */,
+				6ED65C3E1CBD0AC300D51103 /* Raleway-Bold.ttf in Resources */,
 				6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */,
 				6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */,
+				6ED65C3C1CBD0AC300D51103 /* FiraSans-Light.otf in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
 				6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
@@ -379,6 +401,8 @@
 				6524A7181C9C7EB800D8CC48 /* Assets.xcassets in Resources */,
 				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
+				6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */,
+				6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
