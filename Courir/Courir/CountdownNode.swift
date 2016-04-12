@@ -16,6 +16,9 @@ class CountdownNode: SKLabelNode {
     private var coundownStartTimeInterval: CFTimeInterval?
     weak var delegate: CountdownDelegate?
     
+    private var timer: NSTimer?
+    private var countdownValue = countdownTimerStart
+    
     override init() {
         super.init()
         text = "\(countdownTimerStart)"
@@ -28,23 +31,47 @@ class CountdownNode: SKLabelNode {
         super.init(coder: aDecoder)
     }
     
-    func updateCountdownTime(currentTime: CFTimeInterval) {
-        if let start = coundownStartTimeInterval {
-            let timeSinceStart = Int(currentTime - start)
-            let countdownValue = countdownTimerStart - timeSinceStart
-            if countdownValue > 0 {
-                text = "\(countdownValue)"
-            } else {
-                removeFromParent()
-                delegate?.didCountdownEnd()
-            }
+//    func updateCountdownTime(currentTime: CFTimeInterval) {
+//        if let start = coundownStartTimeInterval {
+//            let timeSinceStart = Int(currentTime - start)
+//            let countdownValue = countdownTimerStart - timeSinceStart
+//            if countdownValue > 0 {
+//                text = "\(countdownValue)"
+//            } else {
+//                removeFromParent()
+//                delegate?.didCountdownEnd()
+//            }
+//        } else {
+//            coundownStartTimeInterval = currentTime
+//        }
+//    }
+    
+    func start() {
+        timer?.invalidate()
+        timer = NSTimer(timeInterval: 1.0, target: self,
+                        selector: #selector(CountdownNode.timerAction),
+                        userInfo: nil, repeats: false)
+        NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+    }
+    
+    func timerAction() {
+        countdownValue -= 1
+        if countdownValue <= 0 {
+            timer?.invalidate()
+            removeFromParent()
+            delegate?.didCountdownEnd()
+            reset()
         } else {
-            coundownStartTimeInterval = currentTime
+            text = "\(countdownValue)"
+            start()
         }
     }
     
     func reset() {
-        coundownStartTimeInterval = nil
+//        coundownStartTimeInterval = nil
+        timer?.invalidate()
+        removeFromParent()
+        countdownValue = countdownTimerStart
         text = "\(countdownTimerStart)"
     }
 }
