@@ -6,6 +6,7 @@
 //  Copyright (c) 2016 NUS CS3217. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import SpriteKit
 
@@ -13,9 +14,19 @@ class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
     
     @IBOutlet var menuButtons: [UIButton]!
-
+    
+    @IBOutlet var menuBg: UIWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadMenuBg()
+    }
+    
+    private func loadMenuBg() {
+        let filePath = NSBundle.mainBundle().pathForResource("menu-bg", ofType: "gif")
+        let menuBgGif = NSData(contentsOfFile: filePath!)
+        menuBg.loadData(menuBgGif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
+        menuBg.userInteractionEnabled = false;
     }
     
     override func viewDidAppear(animated: Bool) {

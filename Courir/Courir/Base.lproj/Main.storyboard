@@ -311,6 +311,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <webView contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDj-Td-quJ">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="768" id="Gmq-x3-AoL"/>
+                                    <constraint firstAttribute="width" constant="1024" id="RQZ-Vm-Ufe"/>
+                                </constraints>
+                            </webView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
                                 <rect key="frame" x="474" y="339" width="76" height="90"/>
                                 <subviews>
@@ -329,7 +337,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
-                                        <rect key="frame" x="9.5" y="60" width="57" height="30"/>
+                                        <rect key="frame" x="10" y="60" width="57" height="30"/>
                                         <state key="normal" title="Settings"/>
                                         <connections>
                                             <segue destination="1An-48-oCl" kind="show" id="P3X-e6-tPY"/>
@@ -346,12 +354,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EHY-4o-Z25" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="21C-f9-vwf"/>
+                            <constraint firstItem="PDj-Td-quJ" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="D9m-TQ-iKL"/>
+                            <constraint firstItem="PDj-Td-quJ" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="d6l-91-MAR"/>
                             <constraint firstItem="EHY-4o-Z25" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="pLA-GU-raG"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="menuBg" destination="PDj-Td-quJ" id="KID-SN-LVl"/>
                         <outletCollection property="menuButtons" destination="rPV-OW-Ra7" collectionClass="NSMutableArray" id="HDx-Wl-nCP"/>
                         <outletCollection property="menuButtons" destination="LHG-0O-4k1" collectionClass="NSMutableArray" id="sQz-iL-jnx"/>
                         <outletCollection property="menuButtons" destination="5Eg-J1-1Ed" collectionClass="NSMutableArray" id="GUy-As-zob"/>
@@ -503,7 +514,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ob5-ck-MbV"/>
+        <segue reference="lU1-jC-2Ut"/>
         <segue reference="ph3-8p-GxT"/>
     </inferredMetricsTieBreakers>
 </document>

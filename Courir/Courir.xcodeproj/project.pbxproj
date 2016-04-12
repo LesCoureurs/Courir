@@ -37,6 +37,7 @@
 		6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F5511C9D7C3000E0ED9F /* GameObject.swift */; };
 		6E772DE91CA44A0C00A0B755 /* ObstacleGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */; };
 		6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6EB679411CB7A09600C52F5B /* Plumbob.atlas */; };
+		6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C351CBCF98600D51103 /* menu-bg.gif */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
 		720CB0D11CB4DDFC002AE231 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */; };
 		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
@@ -101,6 +102,7 @@
 		6E48F5511C9D7C3000E0ED9F /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGeneratorTests.swift; sourceTree = "<group>"; };
 		6EB679411CB7A09600C52F5B /* Plumbob.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Plumbob.atlas; sourceTree = "<group>"; };
+		6ED65C351CBCF98600D51103 /* menu-bg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "menu-bg.gif"; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				02814D8B1CA0F7B7006D9029 /* GameNetworkPortal.swift */,
 				6EF577661CA3CA93003FB063 /* Observer.swift */,
 				6524A7141C9C7EB800D8CC48 /* Main.storyboard */,
+				6ED65C351CBCF98600D51103 /* menu-bg.gif */,
 				6524A7171C9C7EB800D8CC48 /* Assets.xcassets */,
 				6E2B0F351CB7C2AF001E957D /* Digits.atlas */,
 				6E2CEE4C1CB4D2E1003DD41D /* PlayerDucking.atlas */,
@@ -368,6 +371,7 @@
 			files = (
 				6E2CEE501CB4D2E1003DD41D /* PlayerDucking.atlas in Resources */,
 				6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */,
+				6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
 				6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
