@@ -239,8 +239,8 @@ extension GameScene: PauseButtonDelegate {
         isGamePaused = true
         if !gameState.isMultiplayer {
             logicEngine.stopTick()
+            countdownNode.reset()
         }
-        countdownNode.reset()
         removeGestureRecognizers()
         
         let pauseMenu = PauseMenuNode()
