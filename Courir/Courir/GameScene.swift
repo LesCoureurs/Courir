@@ -254,14 +254,19 @@ extension GameScene: PauseButtonDelegate {
 // MARK: PauseMenuDelegate
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
-        hasGameStarted = false
         isGamePaused = false
-        if countdownNode.parent == nil {
-            grid.addChild(countdownNode)
-        }
-        if !gameState.isMultiplayer {
+
+        if gameState.isMultiplayer {
+            hasGameStarted = true
+            logicEngine.startTick()
+        } else {
+            hasGameStarted = false
+            if countdownNode.parent == nil {
+                grid.addChild(countdownNode)
+            }
             countdownNode.start()
         }
+        
         addGestureRecognizers()
     }
     
