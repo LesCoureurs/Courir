@@ -15,11 +15,13 @@ protocol PauseMenuDelegate: class {
 
 class PauseMenuNode: SKNode {
     weak var delegate: PauseMenuDelegate?
+    var overlayNode: SKShapeNode!
     let resumeNode = SKLabelNode(text: "Resume")
     let leaveNode = SKLabelNode(text: "Leave")
     
     override init() {
         super.init()
+        initBackground()
         initResumeNode()
         initLeaveNode()
     }
@@ -44,6 +46,18 @@ class PauseMenuNode: SKNode {
                     break
             }
         }
+    }
+    
+    private func initBackground() {
+        let mainScreenBounds = UIScreen.mainScreen().bounds
+        overlayNode = SKShapeNode(rect: mainScreenBounds)
+        overlayNode.fillColor = SKColor.whiteColor()
+        overlayNode.alpha = 0.8
+        overlayNode.position = CGPoint(x: -CGRectGetMidX(mainScreenBounds),
+                                       y: -CGRectGetMidY(mainScreenBounds))
+        overlayNode.zPosition = 998
+        overlayNode.userInteractionEnabled = false
+        addChild(overlayNode)
     }
     
     private func initResumeNode() {
