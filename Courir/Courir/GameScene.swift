@@ -68,33 +68,14 @@ class GameScene: SKScene {
         GameNetworkPortal._instance.send(.GameReady)
         startGame()
     }
-
-//    override func update(currentTime: CFTimeInterval) {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
-//        if gameState.allPlayersReady && !hasGameStarted{
-//            countdownNode.updateCountdownTime(currentTime)
-//        } else if hasGameStarted {
-//            logicEngine.update()
-//        }
-//    }
     
     private func startGame() {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
         print("Start game")
         
         while !(gameState.allPlayersReady && !hasGameStarted) {
             print("waiting")
         }
         countdownNode.start()
-//        if gameState.allPlayersReady && !hasGameStarted {
-//            countdownNode.start()
-//        } else if hasGameStarted {
-//            logicEngine.startTick()
-//        }
     }
 
     
