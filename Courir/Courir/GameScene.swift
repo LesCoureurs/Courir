@@ -60,6 +60,7 @@ class GameScene: SKScene {
         initCountdownTimer()
         initPauseButton()
         initScore()
+        initResignActiveNotificationObserver()
         
         // Set game to 30FPS
         view.frameInterval = 2
@@ -140,9 +141,6 @@ class GameScene: SKScene {
     }
     
     private func initPauseButton() {
-        guard !isMultiplayer else {
-            return
-        }
         pauseButtonNode.delegate = self
         pauseButtonNode.zPosition = 990
         pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
@@ -154,6 +152,11 @@ class GameScene: SKScene {
         grid.addChild(scoreNode)
     }
     
+    private func initResignActiveNotificationObserver() {
+        NSNotificationCenter.defaultCenter()
+            .addObserver(self, selector: #selector(self.pauseButtonTouched),
+                         name: UIApplicationWillResignActiveNotification, object: nil)
+    }
     
     // ==============================================
     // MARK: Methods to create custom sprite nodes
@@ -230,8 +233,13 @@ extension GameScene: CountdownDelegate {
 // MARK: PauseButtonDelegate
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
-//        isGamePaused = true
-        logicEngine.stopTick()
+        guard !isGamePaused else {
+            return
+        }
+        isGamePaused = true
+        if !gameState.isMultiplayer {
+            logicEngine.stopTick()
+        }
         countdownNode.reset()
         removeGestureRecognizers()
         
@@ -246,16 +254,22 @@ extension GameScene: PauseButtonDelegate {
 // MARK: PauseMenuDelegate
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
-//        isGamePaused = false
         hasGameStarted = false
+        isGamePaused = false
         if countdownNode.parent == nil {
             grid.addChild(countdownNode)
         }
-        countdownNode.start()
+        if !gameState.isMultiplayer {
+            countdownNode.start()
+        }
         addGestureRecognizers()
     }
     
     func leaveGameSelected() {
+        logicEngine.stopTick()
+        if gameState.isMultiplayer {
+            GameNetworkPortal._instance.disconnectFromRoom()
+        }
         NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
     }
 }
