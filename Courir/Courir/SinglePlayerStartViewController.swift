@@ -29,6 +29,12 @@ class SinglePlayerStartViewController: UIViewController {
     }
 
     // MARK: - Navigation
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startNewGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
