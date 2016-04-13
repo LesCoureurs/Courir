@@ -67,6 +67,7 @@ class GameScene: SKScene {
         initCountdownTimer()
         initPauseButton()
         initScore()
+        initResignActiveNotificationObserver()
         
         // Set game to 30FPS
         view.frameInterval = 2
@@ -74,33 +75,14 @@ class GameScene: SKScene {
         GameNetworkPortal._instance.send(.GameReady)
         startGame()
     }
-
-//    override func update(currentTime: CFTimeInterval) {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
-//        if gameState.allPlayersReady && !hasGameStarted{
-//            countdownNode.updateCountdownTime(currentTime)
-//        } else if hasGameStarted {
-//            logicEngine.update()
-//        }
-//    }
     
     private func startGame() {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
         print("Start game")
         
         while !(gameState.allPlayersReady && !hasGameStarted) {
             print("waiting")
         }
         countdownNode.start()
-//        if gameState.allPlayersReady && !hasGameStarted {
-//            countdownNode.start()
-//        } else if hasGameStarted {
-//            logicEngine.startTick()
-//        }
     }
 
     
@@ -147,9 +129,6 @@ class GameScene: SKScene {
     }
     
     private func initPauseButton() {
-        guard !isMultiplayer else {
-            return
-        }
         pauseButtonNode.delegate = self
         pauseButtonNode.zPosition = 990
         pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
@@ -160,7 +139,13 @@ class GameScene: SKScene {
     private func initScore() {
         grid.addChild(scoreNode)
     }
-    
+
+    private func initResignActiveNotificationObserver() {
+        NSNotificationCenter.defaultCenter()
+            .addObserver(self, selector: #selector(self.pauseButtonTouched),
+                         name: UIApplicationWillResignActiveNotification, object: nil)
+    }
+
     // ==============================================
     // MARK: Methods to create custom sprite nodes
     // ==============================================
@@ -244,9 +229,14 @@ extension GameScene: CountdownDelegate {
 // MARK: PauseButtonDelegate
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
-//        isGamePaused = true
-        logicEngine.stopTick()
-        countdownNode.reset()
+        guard !isGamePaused else {
+            return
+        }
+        isGamePaused = true
+        if !gameState.isMultiplayer {
+            logicEngine.stopTick()
+            countdownNode.reset()
+        }
         removeGestureRecognizers()
         
         let pauseMenu = PauseMenuNode()
@@ -260,16 +250,27 @@ extension GameScene: PauseButtonDelegate {
 // MARK: PauseMenuDelegate
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
-//        isGamePaused = false
-        hasGameStarted = false
-        if countdownNode.parent == nil {
-            grid.addChild(countdownNode)
+        isGamePaused = false
+
+        if gameState.isMultiplayer {
+            hasGameStarted = true
+            logicEngine.startTick()
+        } else {
+            hasGameStarted = false
+            if countdownNode.parent == nil {
+                grid.addChild(countdownNode)
+            }
+            countdownNode.start()
         }
-        countdownNode.start()
+        
         addGestureRecognizers()
     }
     
     func leaveGameSelected() {
+        logicEngine.stopTick()
+        if gameState.isMultiplayer {
+            GameNetworkPortal._instance.disconnectFromRoom()
+        }
         NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
     }
 }
