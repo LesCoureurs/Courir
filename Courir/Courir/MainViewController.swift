@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
 
     private var viewControllerStack = [UIViewController]()
 
+    private var isProcessingTransition = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMenuBg()
@@ -35,7 +37,32 @@ class MainViewController: UIViewController {
         menuBg.userInteractionEnabled = false;
     }
 
+    func prepareForTransitionInto(newScreen: Screen) -> UIViewController? {
+        guard !isProcessingTransition else {
+            return nil
+        }
+
+        let newVCIdentifier = newScreen.rawValue
+        if let newVC = storyboard?.instantiateViewControllerWithIdentifier(newVCIdentifier) {
+            isProcessingTransition = true
+            return newVC
+        }
+        return nil
+    }
+
+    func completeTransition(to newVC: UIViewController, from oldVC: UIViewController) {
+        if isProcessingTransition {
+            viewControllerStack.append(newVC)
+            cycleFromViewController(oldVC, to: newVC)
+            isProcessingTransition = false
+        }
+    }
+
     func transitionInto(newScreen: Screen, from oldVC: UIViewController) {
+        guard !isProcessingTransition else {
+            return
+        }
+
         let newVCIdentifier = newScreen.rawValue
         if let newVC = storyboard?.instantiateViewControllerWithIdentifier(newVCIdentifier) {
             viewControllerStack.append(newVC)
@@ -44,6 +71,10 @@ class MainViewController: UIViewController {
     }
 
     func transitionOut() {
+        guard !isProcessingTransition else {
+            return
+        }
+        
         if let top = viewControllerStack.popLast() {
             removeActiveViewController(top)
             updateActiveViewController(viewControllerStack.last)
