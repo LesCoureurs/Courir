@@ -62,9 +62,16 @@ extension RoomSelectionViewController: UITableViewDataSource {
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = roomsAvailableTableView
             .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let hostLabel = UILabel(frame: cell.frame)
-        hostLabel.text = hosts[indexPath.row].displayName
-        cell.addSubview(hostLabel)
+        let hostLabelTag = 1
+        
+        if let label = cell.contentView.viewWithTag(hostLabelTag) as? UILabel {
+            label.text = hosts[indexPath.row].displayName
+        } else {
+            let hostLabel = UILabel(frame: cell.frame)
+            hostLabel.text = hosts[indexPath.row].displayName
+            hostLabel.tag = hostLabelTag
+            cell.addSubview(hostLabel)
+        }
         return cell
     }
     

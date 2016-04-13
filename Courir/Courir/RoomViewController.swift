@@ -79,9 +79,16 @@ extension RoomViewController: UITableViewDataSource {
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = peersTableView
             .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let peerLabel = UILabel(frame: cell.frame)
-        peerLabel.text = peers[indexPath.row].displayName
-        cell.addSubview(peerLabel)
+        let peerLabelTag = 1
+        
+        if let label = cell.contentView.viewWithTag(peerLabelTag) as? UILabel {
+            label.text = peers[indexPath.row].displayName
+        } else {
+            let peerLabel = UILabel(frame: cell.frame)
+            peerLabel.text = peers[indexPath.row].displayName
+            peerLabel.tag = peerLabelTag
+            cell.addSubview(peerLabel)
+        }
         return cell
     }
     
