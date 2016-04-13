@@ -35,11 +35,18 @@ class GameScene: SKScene {
     var obstacles = [Int: ObstacleSpriteNode]()
     var environmentNodes = [Int: EnvironmentSpriteNode]()
 
+    private var gameSetupData: GameSetupData!
+
+    private var isMultiplayer: Bool {
+        return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
+    }
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
+
     var initialGhostStore: GhostStore?
-    var seed: NSData?
-    var isMultiplayer = false
-    var peers = [MCPeerID]()
-    
+
     
     // ==============================================
     // MARK: Overridden methods
@@ -85,7 +92,7 @@ class GameScene: SKScene {
     
     private func initLogicEngine() {
         if initialGhostStore == nil {
-            logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
+            logicEngine = LogicEngine(mode: gameSetupData.mode, peers: gameSetupData.peers, seed: gameSetupData.seed, host: gameSetupData.host)
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }
@@ -128,17 +135,17 @@ class GameScene: SKScene {
                                            y: (-size.height / 2 + pauseButtonNode.frame.height))
         grid.addChild(pauseButtonNode)
     }
-    
+
     private func initScore() {
         grid.addChild(scoreNode)
     }
-    
+
     private func initResignActiveNotificationObserver() {
         NSNotificationCenter.defaultCenter()
             .addObserver(self, selector: #selector(self.pauseButtonTouched),
                          name: UIApplicationWillResignActiveNotification, object: nil)
     }
-    
+
     // ==============================================
     // MARK: Methods to create custom sprite nodes
     // ==============================================
@@ -161,7 +168,7 @@ class GameScene: SKScene {
         return obstacleSprite
     }
     
-
+    
     // ==============================================
     // MARK: Gesture handling methods
     // ==============================================
@@ -192,14 +199,22 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidJump, playerNumber: myPlayerNumber)
+        var event: GameEvent = .PlayerDidJump
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .FloatingObstacleGenerated
+        }
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
+        var event: GameEvent = .PlayerDidDuck
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .NonFloatingObstacleGenerated
+        }
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 }
 

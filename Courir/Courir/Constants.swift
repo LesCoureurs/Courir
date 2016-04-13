@@ -51,3 +51,5 @@ let numEnvironmentObjects = 3
 let me = MyPlayer()
 let myDeviceName = me.deviceName
 let myPeerID = me.peerID
+
+let defaultHostNumber = 3

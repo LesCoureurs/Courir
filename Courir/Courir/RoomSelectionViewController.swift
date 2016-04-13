@@ -34,9 +34,13 @@ class RoomSelectionViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "enterRoomSegue" {
-            let roomViewController = segue.destinationViewController as! RoomViewController
-            roomViewController.playerIsNotHost()
+        if let roomViewController = segue.destinationViewController as? RoomViewController {
+            roomViewController.setMode(.Multiplayer)
+            if segue.identifier == "specialModeRoomSegue" {
+                roomViewController.setMode(.SpecialMultiplayer)
+            } else if segue.identifier == "enterRoomSegue" {
+                roomViewController.playerIsNotHost()
+            }
         }
     }
 
