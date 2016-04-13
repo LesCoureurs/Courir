@@ -49,7 +49,7 @@ class RoomSelectionViewController: UIViewController {
 //            self.portal.stopHosting()
 //            self.portal.beginSearchingForHosts()
 //        }
-//        portal.disconnectFromRoom()
+        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
@@ -58,7 +58,7 @@ class RoomSelectionViewController: UIViewController {
         portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
-//        portal.disconnectFromRoom()
+        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
@@ -70,10 +70,10 @@ class RoomSelectionViewController: UIViewController {
         print("refresh")
         portal.stopSearchingForHosts()
         portal.beginSearchingForHosts()
-//        hosts = portal.getFoundHosts()
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.roomsAvailableTableView.reloadData()
-//        })
+        hosts = portal.getFoundHosts()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.roomsAvailableTableView.reloadData()
+        })
     }
 }
 

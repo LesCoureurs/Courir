@@ -101,11 +101,11 @@ public class CoulombNetwork: NSObject {
             return
         }
         
-        guard let browser = serviceBrowser else {
-            return
-        }
+//        guard let browser = serviceBrowser else {
+//            return
+//        }
         DLog("%@", "connect to host: \(host)")
-        browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
+        serviceBrowser?.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
         
         // If the session is still without host, assign a new one
         if self.host == nil {
@@ -224,12 +224,10 @@ extension CoulombNetwork: MCSessionDelegate {
                 print(session == self.session)
                 
                 if self.host == nil {
-                    DLog("%@", "Host was removed")
-                    
-                    if self.host == peerID {
-                        dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-                            self.session.disconnect()
-                        }
+                    delegate?.disconnectedFromSession()
+                } else if self.host == peerID {
+                    dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+                        self.session.disconnect()
                     }
                     delegate?.disconnectedFromSession()
                 }
