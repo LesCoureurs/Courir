@@ -45,6 +45,11 @@ class MenuViewController: UIViewController {
     }
 
     // MARK: - Navigation
+    @IBAction func handlePlayAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.SinglePlayer, from: self)
+        }
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
