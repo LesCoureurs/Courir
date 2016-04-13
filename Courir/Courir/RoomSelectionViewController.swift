@@ -63,15 +63,15 @@ extension RoomSelectionViewController: UITableViewDataSource {
         let cell = roomsAvailableTableView
             .dequeueReusableCellWithIdentifier(cellIdentifier)!
         let hostLabelTag = 1
+        var hostLabel = cell.viewWithTag(hostLabelTag) as? UILabel
         
-        if let label = cell.contentView.viewWithTag(hostLabelTag) as? UILabel {
-            label.text = hosts[indexPath.row].displayName
-        } else {
-            let hostLabel = UILabel(frame: cell.frame)
-            hostLabel.text = hosts[indexPath.row].displayName
-            hostLabel.tag = hostLabelTag
-            cell.addSubview(hostLabel)
+        if hostLabel == nil {
+            hostLabel = UILabel(frame: cell.frame)
+            hostLabel!.tag = hostLabelTag
+            cell.addSubview(hostLabel!)
         }
+        
+        hostLabel!.text = hosts[indexPath.row].displayName
         return cell
     }
     
