@@ -27,10 +27,6 @@ class SinglePlayerStartViewController: UIViewController {
         previousRunTableView.dataSource = self
         previousRunTableView.delegate = self
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

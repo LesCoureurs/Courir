@@ -45,10 +45,6 @@ class MenuViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
     @IBAction func handleExitGame(sender: UIStoryboardSegue) {
         
     }

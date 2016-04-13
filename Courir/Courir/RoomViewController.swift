@@ -55,10 +55,6 @@ class RoomViewController: UIViewController {
     func playerIsNotHost() {
         isHost = false
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {

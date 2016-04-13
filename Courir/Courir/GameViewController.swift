@@ -41,10 +41,6 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
     private func presentGameScene() {
         let gameScene = GameScene(size: view.bounds.size)
         gameScene.initialGhostStore = initialGhostStore

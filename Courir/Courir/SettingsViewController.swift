@@ -55,11 +55,6 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
-
     /*
     // MARK: - Navigation
 
