@@ -40,10 +40,6 @@ class MenuViewController: UIViewController {
         
     }
 
-    @IBAction func unwindToMenu(sender: UIStoryboardSegue) {
-        
-    }
-
     // MARK: - Navigation
     @IBAction func handlePlayAction(sender: AnyObject) {
         if let parentVC = parentViewController as? MainViewController {
