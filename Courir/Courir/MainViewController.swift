@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMenuBg()
-        let menuVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(Screen.Main.rawValue)
+        let menuVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(Screen.Menu.rawValue)
         updateActiveViewController(menuVC)
         viewControllerStack.append(menuVC)
     }
@@ -69,7 +69,7 @@ class MainViewController: UIViewController {
         if let viewController = newViewController {
             addChildViewController(viewController)
             viewController.view.frame = contentView.bounds
-            self.contentView.addSubview(viewController.view)
+            contentView.addSubview(viewController.view)
             viewController.didMoveToParentViewController(self)
         }
     }
