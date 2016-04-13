@@ -14,26 +14,17 @@ class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
     
     @IBOutlet var menuButtons: [UIButton]!
-    @IBOutlet var menuBg: UIWebView!
-    
+
     private let buttonTitles = ["PLAY", "MULTIPLAYER", "SETTINGS"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMenuBg()
         for (button, title) in zip(menuButtons, buttonTitles) {
             button.setAttributedTitle(CourirUINodes.generateAttributedString(title, UIColor.whiteColor()),
                                       forState: UIControlState.Normal)
         }
     }
-    
-    private func loadMenuBg() {
-        let filePath = NSBundle.mainBundle().pathForResource("menu-bg", ofType: "gif")
-        let menuBgGif = NSData(contentsOfFile: filePath!)
-        menuBg.loadData(menuBgGif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
-        menuBg.userInteractionEnabled = false;
-    }
-    
+
     override func viewDidAppear(animated: Bool) {
         if me.name == nil {
             askForName()
