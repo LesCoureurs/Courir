@@ -13,7 +13,13 @@ protocol CountdownDelegate: class {
 }
 
 class CountdownNode: SKLabelNode {
-    private var coundownStartTimeInterval: CFTimeInterval?
+    private static let growAndFadeActions =
+        SKAction.group([SKAction.scaleTo(2, duration: 1),
+                        SKAction.fadeAlphaTo(0.4, duration: 1)])
+    private static let resetGrowAndFadeActions =
+        SKAction.group([SKAction.scaleTo(1, duration: 0),
+                        SKAction.fadeAlphaTo(1, duration: 0)])
+    
     weak var delegate: CountdownDelegate?
     
     private var timer: NSTimer?
@@ -22,29 +28,14 @@ class CountdownNode: SKLabelNode {
     override init() {
         super.init()
         text = "\(countdownTimerStart)"
-        fontName = "HelveticaNeue-Bold"
+        fontName = "Raleway-Bold"
         fontSize *= 3
-        fontColor = UIColor.blackColor()
+        fontColor = UIColor.whiteColor()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-//    func updateCountdownTime(currentTime: CFTimeInterval) {
-//        if let start = coundownStartTimeInterval {
-//            let timeSinceStart = Int(currentTime - start)
-//            let countdownValue = countdownTimerStart - timeSinceStart
-//            if countdownValue > 0 {
-//                text = "\(countdownValue)"
-//            } else {
-//                removeFromParent()
-//                delegate?.didCountdownEnd()
-//            }
-//        } else {
-//            coundownStartTimeInterval = currentTime
-//        }
-//    }
     
     func start() {
         timer?.invalidate()
@@ -52,26 +43,27 @@ class CountdownNode: SKLabelNode {
                         selector: #selector(CountdownNode.timerAction),
                         userInfo: nil, repeats: false)
         NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+        runAction(CountdownNode.growAndFadeActions)
     }
     
     func timerAction() {
         countdownValue -= 1
         if countdownValue <= 0 {
-            timer?.invalidate()
-            removeFromParent()
-            delegate?.didCountdownEnd()
             reset()
+            delegate?.didCountdownEnd()
         } else {
             text = "\(countdownValue)"
+            runAction(CountdownNode.resetGrowAndFadeActions)
+            runAction(CountdownNode.growAndFadeActions)
             start()
         }
     }
     
     func reset() {
-//        coundownStartTimeInterval = nil
         timer?.invalidate()
         removeFromParent()
         countdownValue = countdownTimerStart
         text = "\(countdownTimerStart)"
+        runAction(CountdownNode.resetGrowAndFadeActions)
     }
 }
