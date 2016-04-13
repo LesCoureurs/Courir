@@ -20,6 +20,7 @@
             <string>Raleway-ExtraLight</string>
             <string>Raleway-ExtraLight</string>
             <string>Raleway-ExtraLight</string>
+            <string>Raleway-ExtraLight</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -286,14 +287,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Av4-9g-X62">
-                                <rect key="frame" x="248" y="107" width="103" height="30"/>
-                                <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="15"/>
-                                <state key="normal" title="Set Name"/>
-                                <connections>
-                                    <action selector="handleSetName:" destination="1An-48-oCl" eventType="touchUpInside" id="c07-gu-5bF"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FxS-uX-Mht">
+                                <rect key="frame" x="60" y="0.0" width="400" height="768"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Av4-9g-X62">
+                                        <rect key="frame" x="149" y="102" width="103" height="30"/>
+                                        <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="15"/>
+                                        <state key="normal" title="Set Name">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleSetName:" destination="1An-48-oCl" eventType="touchUpInside" id="c07-gu-5bF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWo-9i-nH9">
+                                        <rect key="frame" x="177" y="700" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="15"/>
+                                        <state key="normal" title="BACK">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleBackAction:" destination="1An-48-oCl" eventType="touchUpInside" id="3gm-MK-5Zb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
