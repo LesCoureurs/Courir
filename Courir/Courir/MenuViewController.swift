@@ -51,6 +51,18 @@ class MenuViewController: UIViewController {
         }
     }
 
+    @IBAction func handleMultiplayerAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.RoomSelection, from: self)
+        }
+    }
+
+    @IBAction func handleSettingsAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.Settings, from: self)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController

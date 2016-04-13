@@ -36,7 +36,15 @@ class RoomViewController: UIViewController {
         }
     }
 
-    @IBAction func startGame(sender: AnyObject) {
+    // MARK: - Navigation
+
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+    
+    @IBAction func handleStartGameAction(sender: AnyObject) {
         portal.stopHosting()
         portal.stopSearchingForHosts()
         var startData = [String: AnyObject]()

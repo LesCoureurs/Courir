@@ -33,6 +33,18 @@ class RoomSelectionViewController: UIViewController {
 
     // MARK: - Navigation
 
+    @IBAction func handleNewRoomAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.Room, from: self)
+        }
+    }
+    
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "enterRoomSegue" {
             let roomViewController = segue.destinationViewController as! RoomViewController
