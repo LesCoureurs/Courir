@@ -44,25 +44,16 @@ class RoomSelectionViewController: UIViewController {
             parentVC.transitionOut()
         }
     }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "enterRoomSegue" {
-            let roomViewController = segue.destinationViewController as! RoomViewController
-            roomViewController.playerIsNotHost()
-        }
-    }
-
-    @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
-        
-    }
-    
 }
 
 // MARK: UITableViewDelegate
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
-        performSegueWithIdentifier("enterRoomSegue", sender: self)
+        if let parentVC = parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
+            newVC.playerIsNotHost()
+            parentVC.completeTransition(to: newVC, from: self)
+        }
     }
 }
 
