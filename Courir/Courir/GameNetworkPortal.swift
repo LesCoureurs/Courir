@@ -14,6 +14,7 @@ protocol GameNetworkPortalConnectionDelegate: class {
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
     func playersInRoomChanged(peerIDs: [MCPeerID])
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID)
+    func connectedToRoom(peer: MCPeerID)
     func disconnectedFromRoom()
 }
 
@@ -130,16 +131,18 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playersInRoomChanged(peers)
     }
     
-    func connectedToPeer(peer: MCPeerID) {}
+    func connectedToPeer(peer: MCPeerID) {
+        connectionDelegate?.connectedToRoom(peer)
+    }
     
     func disconnectedFromSession() {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.stopHosting()
-            self.beginSearchingForHosts()
-        }
+//        dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+//            self.stopHosting()
+//            self.beginSearchingForHosts()
+//        }
         print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
         gameStateDelegate?.disconnectedFromGame()

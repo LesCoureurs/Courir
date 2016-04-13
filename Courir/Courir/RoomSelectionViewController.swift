@@ -42,21 +42,23 @@ class RoomSelectionViewController: UIViewController {
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
+        portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
 //        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 //            self.portal.stopHosting()
 //            self.portal.beginSearchingForHosts()
 //        }
-        portal.disconnectFromRoom()
+//        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
         portal.connectionDelegate = self
+        portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
-        portal.disconnectFromRoom()
+//        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
@@ -68,10 +70,10 @@ class RoomSelectionViewController: UIViewController {
         print("refresh")
         portal.stopSearchingForHosts()
         portal.beginSearchingForHosts()
-        hosts = portal.getFoundHosts()
-        dispatch_async(dispatch_get_main_queue(), {
-            self.roomsAvailableTableView.reloadData()
-        })
+//        hosts = portal.getFoundHosts()
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.roomsAvailableTableView.reloadData()
+//        })
     }
 }
 
@@ -79,7 +81,6 @@ class RoomSelectionViewController: UIViewController {
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
-        performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
 
@@ -122,5 +123,9 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
         
+    }
+    
+    func connectedToRoom(peer: MCPeerID) {
+        performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
