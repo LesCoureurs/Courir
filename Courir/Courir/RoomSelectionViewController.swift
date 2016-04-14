@@ -32,9 +32,8 @@ class RoomSelectionViewController: UIViewController {
     // MARK: - Navigation
 
     @IBAction func handleNewRoomAction(sender: AnyObject) {
-        if let parentVC = parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
-            newVC.setMode(.SpecialMultiplayer)
-            parentVC.completeTransition(to: newVC, from: self)
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.Room, from: self)
         }
     }
     
