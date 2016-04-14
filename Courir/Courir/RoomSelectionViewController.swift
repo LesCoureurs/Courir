@@ -23,12 +23,10 @@ class RoomSelectionViewController: UIViewController {
 //        roomsAvailableTableView.registerClass(UITableViewCell.self,
 //                                              forCellReuseIdentifier: cellIdentifier)
         
-        portal.connectionDelegate = self
         
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
-        portal.stopHosting()
-        portal.beginSearchingForHosts()
+        
     }
 
     // MARK: - Navigation
@@ -39,10 +37,17 @@ class RoomSelectionViewController: UIViewController {
             roomViewController.playerIsNotHost()
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        portal.connectionDelegate = self
+        portal.stopHosting()
+        portal.beginSearchingForHosts()
+    }
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
-        portal.connectionDelegate = self
-        portal.beginSearchingForHosts()
+//        portal.connectionDelegate = self
+//        portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
 //        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
@@ -54,8 +59,8 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
-        portal.connectionDelegate = self
-        portal.beginSearchingForHosts()
+//        portal.connectionDelegate = self
+//        portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
 //        portal.disconnectFromRoom()
@@ -126,6 +131,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func connectedToRoom(peer: MCPeerID) {
+        print("Rm sel: conencted to room")
         performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
