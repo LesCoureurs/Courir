@@ -468,7 +468,7 @@
                                     <navigationItem id="sXN-C6-Xib">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Kxx-ho-L7R">
                                             <connections>
-                                                <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="Ai9-mo-rt2"/>
+                                                <action selector="backButtonPressed:" destination="40i-zX-uIe" id="dxL-Jf-X7X"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -512,6 +512,7 @@
                         <outlet property="peersTableView" destination="VR5-bS-gWq" id="LaQ-kD-ehb"/>
                         <outlet property="startButton" destination="aXg-kf-Igw" id="9wn-nr-uvy"/>
                         <segue destination="4ES-gW-g9a" kind="show" identifier="startGameSegue" id="ph3-8p-GxT"/>
+                        <segue destination="lX0-Zn-Dt3" kind="unwind" identifier="unwindToRoomSelectionFromRoomViewSegue" unwindAction="unwindToRoomSelectionFromRoomView:" id="pSz-zq-jx5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAm-ww-Rl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -522,6 +523,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Ob5-ck-MbV"/>
-        <segue reference="GLd-B4-ZeP"/>
+        <segue reference="ph3-8p-GxT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -74,6 +74,12 @@ class RoomViewController: UIViewController {
             portal.beginHosting()
         }
     }
+    
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        print("Room: backbtnpressed")
+        portal.disconnectFromRoom()
+        performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
+    }
 }
 
 extension RoomViewController: UITableViewDataSource {

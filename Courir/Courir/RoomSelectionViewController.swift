@@ -49,7 +49,7 @@ class RoomSelectionViewController: UIViewController {
 //            self.portal.stopHosting()
 //            self.portal.beginSearchingForHosts()
 //        }
-        portal.disconnectFromRoom()
+//        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
@@ -58,7 +58,7 @@ class RoomSelectionViewController: UIViewController {
         portal.beginSearchingForHosts()
 //        roomsAvailableTableView.delegate = self
 //        roomsAvailableTableView.dataSource = self
-        portal.disconnectFromRoom()
+//        portal.disconnectFromRoom()
 //        refreshButtonPressed(self)
     }
     
@@ -118,7 +118,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func disconnectedFromRoom() {
-        
+        print("sel view disconn frm rm")
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
