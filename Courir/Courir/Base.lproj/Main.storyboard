@@ -6,7 +6,18 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="FiraSans-Light.otf">
+            <string>FiraSans-Light</string>
+            <string>FiraSans-Light</string>
+            <string>FiraSans-Light</string>
+            <string>FiraSans-Light</string>
+        </mutableArray>
         <mutableArray key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+            <string>Raleway-Bold</string>
+            <string>Raleway-Bold</string>
+            <string>Raleway-Bold</string>
+            <string>Raleway-Bold</string>
             <string>Raleway-Bold</string>
             <string>Raleway-Bold</string>
             <string>Raleway-Bold</string>
@@ -59,42 +70,57 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dIw-k0-B97">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dIw-k0-B97">
                                         <rect key="frame" x="5" y="143" width="380" height="520"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="previousRunCell" id="3AC-AN-3Tu" customClass="PreviousRunTableViewCell" customModule="Courir" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="380" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="380" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3AC-AN-3Tu" id="TX3-vR-nM4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="69.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-nW-6Ni">
-                                                            <rect key="frame" x="330" y="7" width="45" height="30"/>
-                                                            <state key="normal" title="Delete"/>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uR7-XB-Hpz">
-                                                            <rect key="frame" x="16" y="11" width="85" height="21"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 314159" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bja-Tp-cf5">
+                                                            <rect key="frame" x="18" y="11" width="307" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="9rQ-uL-1Le"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="20"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11 April 11.59pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbQ-Rr-fB7">
+                                                            <rect key="frame" x="18" y="40" width="307" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="307" id="4J7-xd-fzs"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="FiraSans-Light" family="Fira Sans" pointSize="15"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-nW-6Ni">
+                                                            <rect key="frame" x="327" y="20" width="45" height="30"/>
+                                                            <state key="normal" title="Delete"/>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="uR7-XB-Hpz" firstAttribute="centerY" secondItem="TX3-vR-nM4" secondAttribute="centerY" id="BhM-y7-r5X"/>
-                                                        <constraint firstItem="uR7-XB-Hpz" firstAttribute="leading" secondItem="TX3-vR-nM4" secondAttribute="leadingMargin" constant="8" id="N4l-3s-vqB"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="1sF-nW-6Ni" secondAttribute="trailing" constant="-3" id="osF-bw-jJy"/>
-                                                        <constraint firstItem="1sF-nW-6Ni" firstAttribute="baseline" secondItem="uR7-XB-Hpz" secondAttribute="baseline" id="tFI-8k-QgL"/>
+                                                        <constraint firstItem="Bja-Tp-cf5" firstAttribute="trailing" secondItem="dbQ-Rr-fB7" secondAttribute="trailing" id="8Ne-xR-oO5"/>
+                                                        <constraint firstItem="1sF-nW-6Ni" firstAttribute="trailing" secondItem="TX3-vR-nM4" secondAttribute="trailingMargin" id="EQ6-HI-md1"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="dbQ-Rr-fB7" secondAttribute="bottom" constant="0.5" id="UcG-Aw-fpg"/>
+                                                        <constraint firstItem="1sF-nW-6Ni" firstAttribute="leading" secondItem="dbQ-Rr-fB7" secondAttribute="trailing" constant="2" id="WD5-pC-K9R"/>
+                                                        <constraint firstItem="Bja-Tp-cf5" firstAttribute="leading" secondItem="dbQ-Rr-fB7" secondAttribute="leading" id="fTL-Vh-QeI"/>
+                                                        <constraint firstItem="1sF-nW-6Ni" firstAttribute="centerY" secondItem="TX3-vR-nM4" secondAttribute="centerY" id="fnO-9i-tO7"/>
+                                                        <constraint firstItem="dbQ-Rr-fB7" firstAttribute="top" secondItem="Bja-Tp-cf5" secondAttribute="bottom" constant="8" symbolic="YES" id="uLa-EM-QAE"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="dateLabel" destination="dbQ-Rr-fB7" id="cEn-ff-h4F"/>
                                                     <outlet property="deleteButton" destination="1sF-nW-6Ni" id="cHF-dd-c3k"/>
-                                                    <outlet property="infoLabel" destination="uR7-XB-Hpz" id="FIY-cS-mZF"/>
+                                                    <outlet property="scoreLabel" destination="Bja-Tp-cf5" id="wq4-yd-5Ak"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -163,36 +189,37 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NZD-Wm-f2y" customClass="GameEndView" customModule="Courir" customModuleProvider="target">
                                 <rect key="frame" x="181" y="168" width="661" height="432"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-x2-Wwr">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-x2-Wwr">
                                         <rect key="frame" x="100" y="93" width="460" height="245"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="460" id="4z1-ML-Jnq"/>
                                             <constraint firstAttribute="height" constant="245" id="G2B-1K-W7B"/>
                                         </constraints>
+                                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="endGameTableCell" id="HeI-hA-VMh" customClass="GameEndTableCell" customModule="Courir" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HeI-hA-VMh" id="P2m-F1-hKD">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="HeI-hA-VMh" id="P2m-F1-hKD">
                                                     <rect key="frame" x="0.0" y="0.0" width="460" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cH-Q0-lTJ">
                                                             <rect key="frame" x="27" y="11" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="FiraSans-Light" family="Fira Sans" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YK6-Lz-axd">
                                                             <rect key="frame" x="132" y="11" width="196" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="FiraSans-Light" family="Fira Sans" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vs6-mr-T7j">
                                                             <rect key="frame" x="382" y="11" width="61" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="FiraSans-Light" family="Fira Sans" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -212,7 +239,7 @@
                                             <constraint firstAttribute="height" constant="54" id="LEe-nS-8HS"/>
                                             <constraint firstAttribute="width" constant="342" id="qFg-cz-5rH"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -222,9 +249,12 @@
                                             <constraint firstAttribute="width" constant="108" id="4Yk-NC-x9a"/>
                                             <constraint firstAttribute="height" constant="30" id="GHS-k5-hTT"/>
                                         </constraints>
-                                        <state key="normal" title="Main Menu"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
-                                            <action selector="mainMenuButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="I6h-y3-wHY"/>
+                                            <action selector="handleBackAction:" destination="4ES-gW-g9a" eventType="touchUpInside" id="RFw-Yi-aQE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaN-3f-Tot">
@@ -235,7 +265,10 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="l9U-TM-4nw"/>
                                             <constraint firstAttribute="height" constant="30" id="t7f-hC-M1L"/>
                                         </constraints>
-                                        <state key="normal" title="Save Run"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
+                                        <state key="normal" title="Save Run">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="saveRunButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="XOw-Hs-i0J"/>
                                         </connections>
@@ -246,13 +279,16 @@
                                             <constraint firstAttribute="width" constant="103" id="Ke5-hR-u0M"/>
                                             <constraint firstAttribute="height" constant="30" id="dB2-VI-Yy9"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="CDt-cz-TQL"/>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="bottom" secondItem="5rN-cr-Xkg" secondAttribute="bottom" id="MaU-gr-CxG"/>
@@ -283,8 +319,8 @@
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
                         <outlet property="saveRunButtton" destination="QaN-3f-Tot" id="xLX-9I-XJW"/>
-                        <segue destination="Y48-kV-EJR" kind="unwind" identifier="exitGameSegue" unwindAction="handleExitGame:" id="G2h-O1-FU3"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
+                        <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToSinglePlayerStart" unwindAction="unwindToSinglePlayerStart:" id="H0a-fi-yPa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bc-X6-3wY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -681,6 +717,6 @@
         <image name="logo" width="756" height="147"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ph3-8p-GxT"/>
+        <segue reference="GLd-B4-ZeP"/>
     </inferredMetricsTieBreakers>
 </document>
