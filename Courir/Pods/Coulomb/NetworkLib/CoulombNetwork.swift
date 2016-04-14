@@ -44,11 +44,6 @@ public class CoulombNetwork: NSObject {
         self.myPeerId = myPeerId
     }
     
-//    public convenience init(serviceType: String) {
-//        let myDeviceId = UIDevice.currentDevice().name
-//        self.init(serviceType: serviceType, myPeerId: myDeviceId)
-//    }
-    
     deinit {
         print("Coulomb deinit")
         stopAdvertisingHost()
