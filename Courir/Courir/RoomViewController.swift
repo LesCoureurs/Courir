@@ -37,6 +37,8 @@ class RoomViewController: UIViewController {
         super.viewDidLoad()
         portal.connectionDelegate = self
         peersTableView.dataSource = self
+
+        startButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.2), forState: .Disabled)
         
         if isHost {
             portal.beginHosting()
