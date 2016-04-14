@@ -91,7 +91,7 @@ class GameNetworkPortal {
         return coulombNetwork.getFoundHosts()
     }
     
-    func stophostingWithClosure(closure: () -> ()) {
+    func stopHostingWithClosure(closure: () -> ()) {
         self.stopHosting()
         self.beginSearchingForHosts()
         closure()
@@ -102,7 +102,7 @@ class GameNetworkPortal {
         let sema = dispatch_semaphore_create(0)
 //
 //        let stopHost =
-        stophostingWithClosure({
+        stopHostingWithClosure({
             dispatch_semaphore_signal(sema)
         })
 //        self.stopHosting()
