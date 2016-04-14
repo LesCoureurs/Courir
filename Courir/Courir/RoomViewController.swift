@@ -76,7 +76,6 @@ class RoomViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
-        print("Room: backbtnpressed")
         portal.disconnectFromRoom()
         performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
     }
@@ -121,10 +120,8 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         }
     }
     
+    // When self is disconnected from a room
     func disconnectedFromRoom() {
-        print("Room View received disconn from session")
-//        portal.stopSearchingForHosts()
-//        portal.beginSearchingForHosts()
         dispatch_async(dispatch_get_main_queue(), {
             self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
         })
