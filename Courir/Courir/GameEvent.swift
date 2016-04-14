@@ -9,5 +9,5 @@
 import Foundation
 
 enum GameEvent: Int {
-    case GameDidStart = 0, GameReady, GameDidEnd, ObstacleDidAppear, PlayerDidJump, PlayerDidDuck, PlayerDidCollide, PlayerLost, PlayerLeft
+    case GameDidStart = 0, GameReady, GameDidEnd, FloatingObstacleGenerated, NonFloatingObstacleGenerated, PlayerDidJump, PlayerDidDuck, PlayerDidCollide, PlayerLost, PlayerLeft
 }

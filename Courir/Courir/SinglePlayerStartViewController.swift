@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 private let cellIdentifier = "previousRunCell"
 
@@ -36,13 +37,13 @@ class SinglePlayerStartViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "startNewGameSegue" {
-            let destination = segue.destinationViewController as! GameViewController
-            destination.isMultiplayer = false
-        } else if segue.identifier == "startGhostGameSegue" {
-            let destination = segue.destinationViewController as! GameViewController
-            destination.initialGhostStore = selectedGhostStore
-            destination.isMultiplayer = false
+        if let destination = segue.destinationViewController as? GameViewController where segue.identifier == "startNewGameSegue" || segue.identifier == "startGhostGameSegue" {
+            let singlePlayerData = GameSetupData(mode: .SinglePlayer, host: nil, peers: [MCPeerID](), seed: nil)
+            destination.setUpWith(singlePlayerData)
+
+            if segue.identifier == "startGhostGameSegue" {
+                destination.initialGhostStore = selectedGhostStore
+            }
         }
     }
     

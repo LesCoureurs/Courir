@@ -35,11 +35,18 @@ class GameScene: SKScene {
     var obstacles = [Int: ObstacleSpriteNode]()
     var environmentNodes = [Int: EnvironmentSpriteNode]()
 
+    private var gameSetupData: GameSetupData!
+
+    private var isMultiplayer: Bool {
+        return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
+    }
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
+
     var initialGhostStore: GhostStore?
-    var seed: NSData?
-    var isMultiplayer = false
-    var peers = [MCPeerID]()
-    
+
     
     // ==============================================
     // MARK: Overridden methods
@@ -60,6 +67,7 @@ class GameScene: SKScene {
         initCountdownTimer()
         initPauseButton()
         initScore()
+        initResignActiveNotificationObserver()
         
         // Set game to 30FPS
         view.frameInterval = 2
@@ -67,33 +75,14 @@ class GameScene: SKScene {
         GameNetworkPortal._instance.send(.GameReady)
         startGame()
     }
-
-//    override func update(currentTime: CFTimeInterval) {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
-//        if gameState.allPlayersReady && !hasGameStarted{
-//            countdownNode.updateCountdownTime(currentTime)
-//        } else if hasGameStarted {
-//            logicEngine.update()
-//        }
-//    }
     
     private func startGame() {
-//        guard logicEngine != nil && gameState != nil && !isGamePaused else {
-//            return
-//        }
         print("Start game")
         
         while !(gameState.allPlayersReady && !hasGameStarted) {
             print("waiting")
         }
         countdownNode.start()
-//        if gameState.allPlayersReady && !hasGameStarted {
-//            countdownNode.start()
-//        } else if hasGameStarted {
-//            logicEngine.startTick()
-//        }
     }
 
     
@@ -103,7 +92,7 @@ class GameScene: SKScene {
     
     private func initLogicEngine() {
         if initialGhostStore == nil {
-            logicEngine = LogicEngine(isMultiplayer: isMultiplayer, peers: peers, seed: seed)
+            logicEngine = LogicEngine(mode: gameSetupData.mode, peers: gameSetupData.peers, seed: gameSetupData.seed, host: gameSetupData.host)
         } else {
             logicEngine = LogicEngine(ghostStore: initialGhostStore!)
         }
@@ -140,21 +129,23 @@ class GameScene: SKScene {
     }
     
     private func initPauseButton() {
-        guard !isMultiplayer else {
-            return
-        }
         pauseButtonNode.delegate = self
         pauseButtonNode.zPosition = 990
         pauseButtonNode.position = CGPoint(x: pauseButtonNode.frame.width / 2 + 20,
                                            y: (-size.height / 2 + pauseButtonNode.frame.height))
         grid.addChild(pauseButtonNode)
     }
-    
+
     private func initScore() {
         grid.addChild(scoreNode)
     }
-    
-    
+
+    private func initResignActiveNotificationObserver() {
+        NSNotificationCenter.defaultCenter()
+            .addObserver(self, selector: #selector(self.pauseButtonTouched),
+                         name: UIApplicationWillResignActiveNotification, object: nil)
+    }
+
     // ==============================================
     // MARK: Methods to create custom sprite nodes
     // ==============================================
@@ -177,7 +168,7 @@ class GameScene: SKScene {
         return obstacleSprite
     }
     
-
+    
     // ==============================================
     // MARK: Gesture handling methods
     // ==============================================
@@ -208,14 +199,22 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidJump, playerNumber: myPlayerNumber)
+        var event: GameEvent = .PlayerDidJump
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .FloatingObstacleGenerated
+        }
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        logicEngine.handleEvent(.PlayerDidDuck, playerNumber: myPlayerNumber)
+        var event: GameEvent = .PlayerDidDuck
+        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
+            event = .NonFloatingObstacleGenerated
+        }
+        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 }
 
@@ -230,9 +229,14 @@ extension GameScene: CountdownDelegate {
 // MARK: PauseButtonDelegate
 extension GameScene: PauseButtonDelegate {
     func pauseButtonTouched() {
-//        isGamePaused = true
-        logicEngine.stopTick()
-        countdownNode.reset()
+        guard !isGamePaused else {
+            return
+        }
+        isGamePaused = true
+        if !gameState.isMultiplayer {
+            logicEngine.stopTick()
+            countdownNode.reset()
+        }
         removeGestureRecognizers()
         
         let pauseMenu = PauseMenuNode()
@@ -246,16 +250,27 @@ extension GameScene: PauseButtonDelegate {
 // MARK: PauseMenuDelegate
 extension GameScene: PauseMenuDelegate {
     func pauseMenuDismissed() {
-//        isGamePaused = false
-        hasGameStarted = false
-        if countdownNode.parent == nil {
-            grid.addChild(countdownNode)
+        isGamePaused = false
+
+        if gameState.isMultiplayer {
+            hasGameStarted = true
+            logicEngine.startTick()
+        } else {
+            hasGameStarted = false
+            if countdownNode.parent == nil {
+                grid.addChild(countdownNode)
+            }
+            countdownNode.start()
         }
-        countdownNode.start()
+        
         addGestureRecognizers()
     }
     
     func leaveGameSelected() {
+        logicEngine.stopTick()
+        if gameState.isMultiplayer {
+            GameNetworkPortal._instance.disconnectFromRoom()
+        }
         NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
     }
 }

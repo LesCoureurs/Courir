@@ -12,9 +12,12 @@ import MultipeerConnectivity
 
 class GameViewController: UIViewController {
 
-    var isMultiplayer = false
-    var peers = [MCPeerID]()
-    var seed: NSData?
+    private var isMultiplayer: Bool {
+        return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
+    }
+
+    private var gameSetupData: GameSetupData!
+
     var initialGhostStore: GhostStore?
     var gameEndGhostStore: GhostStore?
 
@@ -22,8 +25,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
     @IBOutlet weak var replayOrUnwindButton: UIButton!
+
     @IBOutlet weak var saveRunButtton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self,
@@ -41,20 +45,20 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: Start Game
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
+
     private func presentGameScene() {
         let gameScene = GameScene(size: view.bounds.size)
+        gameScene.setUpWith(gameSetupData)
         gameScene.initialGhostStore = initialGhostStore
-        gameScene.isMultiplayer = isMultiplayer
-        gameScene.peers = peers
-        gameScene.seed = seed
         let skView = self.view as! SKView!
         skView.ignoresSiblingOrder = true
         gameScene.scaleMode = .AspectFill
         skView.presentScene(gameScene)
-    }
-    
-    func exitGame() {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
     }
 
     func receiveEvent(notification: NSNotification) {
@@ -85,7 +89,13 @@ class GameViewController: UIViewController {
             }
         }
     }
-    
+
+    // MARK: End Game
+
+    func exitGame() {
+        performSegueWithIdentifier("exitGameSegue", sender: self)
+    }
+
     private func setUpGameEndMenu() {
         let title = isMultiplayer ? "Back To Room" : "Play Again"
         replayOrUnwindButton.setTitle(title, forState: .Normal)
