@@ -61,40 +61,29 @@ class GameNetworkPortal {
 
     // Some of the following methods are safe: they only execute when applicable, else just return
     // MARK: Hosting
-    // Safe
     func beginHosting() {
         coulombNetwork.startAdvertisingHost()
     }
     
-    // Safe
     func stopHosting() {
         coulombNetwork.stopAdvertisingHost()
     }
     
     // MARK: Looking for hosts
-    // Safe
     func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
-    // Safe
     func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
-    // Safe
     func connectToHost(host: MCPeerID) {
         coulombNetwork.connectToHost(host)
     }
     
     func getFoundHosts() -> [MCPeerID] {
         return coulombNetwork.getFoundHosts()
-    }
-    
-    func stopHostingWithClosure(closure: () -> ()) {
-        self.stopHosting()
-        self.beginSearchingForHosts()
-        closure()
     }
     
     // MARK: Common methods
@@ -146,11 +135,6 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-//        dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-//            self.stopHosting()
-//            self.beginSearchingForHosts()
-//        }
-        print("Portal received disconn from session")
         connectionDelegate?.disconnectedFromRoom()
         gameStateDelegate?.disconnectedFromGame()
     }
