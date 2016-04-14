@@ -23,6 +23,7 @@ public class CoulombNetwork: NSObject {
     public var autoAcceptGuests = true
     
     static let defaultTimeout: NSTimeInterval = 10
+    private let maxNumPeerInRoom = 4
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
@@ -202,8 +203,13 @@ extension CoulombNetwork: MCSessionDelegate {
                 stopSearchingForHosts()
                 
                 if self.host == peerID {
-                    // Pass to delegate
-                    delegate?.connectedToPeer(peerID)
+                    if session.connectedPeers.count >= maxNumPeerInRoom {
+                        disconnect()
+                        return
+                    } else {
+                        // Pass to delegate
+                        delegate?.connectedToPeer(peerID)
+                    }
                 }
             } else {
                 DLog("%@", "not connected to \(session.hashValue)")
