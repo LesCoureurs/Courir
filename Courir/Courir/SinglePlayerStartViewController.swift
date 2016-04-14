@@ -15,7 +15,7 @@ class SinglePlayerStartViewController: UIViewController {
 
     private lazy var dateFormatter: NSDateFormatter = {
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MMM-yyyy hh:mm:ss a"
+        dateFormatter.dateFormat = "dd MMMM hh:mm a"
         return dateFormatter
     }()
     
@@ -77,7 +77,8 @@ extension SinglePlayerStartViewController: UITableViewDataSource {
         let date = ghostStoreDates[indexPath.row]
         if let ghostStore = GhostStore.init(date: date) {
             let score = ghostStore.score
-            cell.infoLabel.text = "\(dateFormatter.stringFromDate(date)) Score: \(score)"
+            cell.scoreLabel.text = "Score: \(score)"
+            cell.dateLabel.text = "\(dateFormatter.stringFromDate(date))"
         }
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteButtonPressed(_:)),

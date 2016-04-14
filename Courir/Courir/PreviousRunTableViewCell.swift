@@ -10,7 +10,8 @@ import UIKit
 
 class PreviousRunTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
 
     override func awakeFromNib() {
