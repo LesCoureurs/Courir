@@ -37,10 +37,6 @@ class MenuViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    @IBAction func handleExitGame(sender: UIStoryboardSegue) {
-        
-    }
-
     // MARK: - Navigation
     @IBAction func handlePlayAction(sender: AnyObject) {
         if let parentVC = parentViewController as? MainViewController {
