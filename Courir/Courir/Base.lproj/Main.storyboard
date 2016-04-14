@@ -38,6 +38,9 @@
             <string>Raleway-ExtraLight</string>
             <string>Raleway-ExtraLight</string>
         </mutableArray>
+        <mutableArray key="ionicons.ttf">
+            <string>Ionicons</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Single Player Start View Controller-->
@@ -113,8 +116,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-nW-6Ni">
-                                                            <rect key="frame" x="277" y="20" width="45" height="30"/>
-                                                            <state key="normal" title="Delete">
+                                                            <rect key="frame" x="292" y="14" width="30" height="42"/>
+                                                            <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="30"/>
+                                                            <state key="normal" title="">
                                                                 <color key="titleColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                         </button>

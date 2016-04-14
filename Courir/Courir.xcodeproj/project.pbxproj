@@ -31,6 +31,7 @@
 		6E2CEE5B1CB52783003DD41D /* IsoViewConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE5A1CB52783003DD41D /* IsoViewConverter.swift */; };
 		6E2CEE5D1CB53885003DD41D /* EnvironmentSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */; };
 		6E2CEE5F1CB539F7003DD41D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE5E1CB539F7003DD41D /* Environment.swift */; };
+		6E4503FB1CBFA16200FDB2BA /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */; };
 		6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54B1C9D505A00E0ED9F /* Player.swift */; };
 		6E48F54E1C9D506C00E0ED9F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */; };
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
@@ -44,11 +45,11 @@
 		6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */; };
 		6ED65C431CBD12BB00D51103 /* CourirUINodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
+		720CB0D11CB4DDFC002AE231 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */; };
+		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
 		72243E021CB3404100D8AF9D /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72243E011CB3404100D8AF9D /* GameMode.swift */; };
 		72243E041CB34AF400D8AF9D /* GameSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72243E031CB34AF400D8AF9D /* GameSetupData.swift */; };
 		72243E061CB356EE00D8AF9D /* LogicEngine+GameNetworkPortalGameStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72243E051CB356EE00D8AF9D /* LogicEngine+GameNetworkPortalGameStateDelegate.swift */; };
-		720CB0D11CB4DDFC002AE231 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */; };
-		720CB0D81CB4EF25002AE231 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */; };
 		7266DF021CA566A9002216C9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7266DF011CA566A9002216C9 /* GameViewController.swift */; };
 		7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFBA1C9E92A400FA4198 /* GameEvent.swift */; };
 		728082041CB8CC0E00795C53 /* MyPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728082031CB8CC0E00795C53 /* MyPlayer.swift */; };
@@ -107,6 +108,7 @@
 		6E2CEE5A1CB52783003DD41D /* IsoViewConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsoViewConverter.swift; sourceTree = "<group>"; };
 		6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentSpriteNode.swift; sourceTree = "<group>"; };
 		6E2CEE5E1CB539F7003DD41D /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		6E48F54B1C9D505A00E0ED9F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
@@ -120,11 +122,11 @@
 		6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
 		6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourirUINodes.swift; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		72243E011CB3404100D8AF9D /* GameMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		72243E031CB34AF400D8AF9D /* GameSetupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSetupData.swift; sourceTree = "<group>"; };
 		72243E051CB356EE00D8AF9D /* LogicEngine+GameNetworkPortalGameStateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LogicEngine+GameNetworkPortalGameStateDelegate.swift"; sourceTree = "<group>"; };
-		720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
-		720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7266DF011CA566A9002216C9 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
 		728082031CB8CC0E00795C53 /* MyPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlayer.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
 				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
 				6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */,
+				6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				7286F7951CBE7E670024B45E /* MainViewController.xib in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
 				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
+				6E4503FB1CBFA16200FDB2BA /* ionicons.ttf in Resources */,
 				6524A7181C9C7EB800D8CC48 /* Assets.xcassets in Resources */,
 				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
