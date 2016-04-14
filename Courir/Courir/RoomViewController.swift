@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import MultipeerConnectivity
 
-private let cellIdentifier = "host-cell-identifer"
+private let cellIdentifier = "peerCell"
 
 class RoomViewController: UIViewController {
 
@@ -33,7 +33,6 @@ class RoomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        peersTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         portal.connectionDelegate = self
         peersTableView.dataSource = self
         
@@ -96,18 +95,9 @@ class RoomViewController: UIViewController {
 extension RoomViewController: UITableViewDataSource {
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = peersTableView
-            .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let peerLabelTag = 1
-        var peerLabel = cell.viewWithTag(peerLabelTag) as? UILabel
-        
-        if peerLabel == nil {
-            peerLabel = UILabel(frame: cell.frame)
-            peerLabel!.tag = peerLabelTag
-            cell.addSubview(peerLabel!)
-        }
-        
-        peerLabel!.text = peers[indexPath.row].displayName
+        let cell = tableView
+            .dequeueReusableCellWithIdentifier(cellIdentifier)! as! PeerTableViewCell
+        cell.peerName.text = peers[indexPath.row].displayName
         return cell
     }
     
