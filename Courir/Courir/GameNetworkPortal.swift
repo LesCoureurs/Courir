@@ -99,24 +99,11 @@ class GameNetworkPortal {
     
     // MARK: Common methods
     func disconnectFromRoom() {
-        let sema = dispatch_semaphore_create(0)
-//
-//        let stopHost =
-        stopHostingWithClosure({
-            dispatch_semaphore_signal(sema)
-        })
-//        self.stopHosting()
-//        self.beginSearchingForHosts()
-        
-        let timeout = dispatch_time(DISPATCH_TIME_NOW, 4000)
-        if dispatch_semaphore_wait(sema, timeout) != 0 {
-            print("Timeout!")
-        }
-        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            print("Portal: disconnectFromRoom")
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
             self.coulombNetwork.disconnect()
+            self.stopHosting()
+            self.beginSearchingForHosts()
         })
-//        disconnectedFromSession()
     }
     
     // MARK: Data transfer
