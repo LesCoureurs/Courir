@@ -93,7 +93,11 @@ class GameViewController: UIViewController {
     // MARK: End Game
 
     func exitGame() {
-        performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+        }
     }
 
     private func setUpGameEndMenu() {
