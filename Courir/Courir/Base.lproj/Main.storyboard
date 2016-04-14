@@ -570,11 +570,6 @@
                             <constraint firstItem="iL6-xO-cFd" firstAttribute="top" secondItem="nGb-ro-cUO" secondAttribute="bottom" constant="372" id="leZ-MY-Vez"/>
                             <constraint firstItem="nGb-ro-cUO" firstAttribute="top" secondItem="wzu-bz-DwX" secondAttribute="bottom" constant="346" id="qx3-dc-lOw"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="cLa-M4-3sa"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
