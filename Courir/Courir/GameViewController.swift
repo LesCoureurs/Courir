@@ -125,9 +125,9 @@ class GameViewController: UIViewController {
 
     @IBAction func handleBackAction(sender: AnyObject) {
         if isMultiplayer {
-            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+            performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
         } else {
-            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+            performSegueWithIdentifier("unwindToMenuViaSinglePlayerStart", sender: self)
         }
     }
     

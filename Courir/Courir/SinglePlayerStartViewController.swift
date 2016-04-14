@@ -51,6 +51,12 @@ class SinglePlayerStartViewController: UIViewController {
 
     }
 
+    @IBAction func unwindToMenuViaSinglePlayerStart(sender: UIStoryboardSegue) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+
     // MARK: Button press method
     func deleteButtonPressed(sender: UIButton) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {

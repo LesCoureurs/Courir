@@ -81,6 +81,20 @@ class MainViewController: UIViewController {
         }
     }
 
+    func transitionOut(times: Int) {
+        guard !isProcessingTransition else {
+            return
+        }
+
+        for _ in 0..<times {
+            if let top = viewControllerStack.popLast() {
+                removeActiveViewController(top)
+            }
+        }
+
+        updateActiveViewController(viewControllerStack.last)
+    }
+
     private func cycleFromViewController(oldVC: UIViewController, to newVC: UIViewController) {
         oldVC.willMoveToParentViewController(nil)
         addChildViewController(newVC)

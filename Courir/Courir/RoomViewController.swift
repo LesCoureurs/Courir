@@ -14,6 +14,8 @@ private let cellIdentifier = "peerCell"
 
 class RoomViewController: UIViewController {
 
+    static let numberOfVCsToMenu = 2
+
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
 
@@ -87,8 +89,14 @@ class RoomViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
+    @IBAction func unwindToRoomViewFromGameView(sender: UIStoryboardSegue) {
         
+    }
+
+    @IBAction func unwindToMenuViaRoomView(sender: UIStoryboardSegue) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut(RoomViewController.numberOfVCsToMenu)
+        }
     }
 }
 
