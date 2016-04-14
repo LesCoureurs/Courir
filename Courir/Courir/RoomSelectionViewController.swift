@@ -20,10 +20,6 @@ class RoomSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        roomsAvailableTableView.registerClass(UITableViewCell.self,
-//                                              forCellReuseIdentifier: cellIdentifier)
-        
-        
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
         
@@ -46,25 +42,9 @@ class RoomSelectionViewController: UIViewController {
     }
 
     @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
-//        portal.connectionDelegate = self
-//        portal.beginSearchingForHosts()
-//        roomsAvailableTableView.delegate = self
-//        roomsAvailableTableView.dataSource = self
-//        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//            self.portal.stopHosting()
-//            self.portal.beginSearchingForHosts()
-//        }
-//        portal.disconnectFromRoom()
-//        refreshButtonPressed(self)
     }
     
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
-//        portal.connectionDelegate = self
-//        portal.beginSearchingForHosts()
-//        roomsAvailableTableView.delegate = self
-//        roomsAvailableTableView.dataSource = self
-//        portal.disconnectFromRoom()
-//        refreshButtonPressed(self)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -72,7 +52,6 @@ class RoomSelectionViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
-        print("refresh")
         portal.stopSearchingForHosts()
         portal.beginSearchingForHosts()
         hosts = portal.getFoundHosts()
@@ -123,7 +102,7 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func disconnectedFromRoom() {
-        print("sel view disconn frm rm")
+        
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
@@ -131,7 +110,6 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func connectedToRoom(peer: MCPeerID) {
-        print("Rm sel: conencted to room")
         performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
