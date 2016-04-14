@@ -45,6 +45,17 @@ class RoomViewController: UIViewController {
         }
     }
 
+    // MARK: Setup
+
+    func playerIsNotHost() {
+        isHost = false
+        host = nil
+    }
+
+    func setMode(mode: GameMode) {
+        self.mode = mode
+    }
+
     // MARK: - Navigation
 
     @IBAction func handleBackAction(sender: AnyObject) {
@@ -68,15 +79,6 @@ class RoomViewController: UIViewController {
     private func presentGameScene() {
         dispatch_async(dispatch_get_main_queue(), { self.performSegueWithIdentifier("startGameSegue", sender: self) })
 
-    }
-    
-    func playerIsNotHost() {
-        isHost = false
-        host = nil
-    }
-
-    func setMode(mode: GameMode) {
-        self.mode = mode
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
