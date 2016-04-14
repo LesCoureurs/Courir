@@ -63,12 +63,11 @@ public class CoulombNetwork: NSObject {
     public func startAdvertisingHost() {
         stopSearchingForHosts()
         self.host = myPeerId
-        if self.serviceAdvertiser == nil {
-            serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
-                                                          discoveryInfo: ["peerType": "host"], serviceType: serviceType)
-//            self.serviceAdvertiser?.delegate = self
-        }
+
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
+                                                      discoveryInfo: ["peerType": "host"], serviceType: serviceType)
         self.serviceAdvertiser?.delegate = self
+        
         self.serviceAdvertiser?.startAdvertisingPeer()
     }
     
@@ -81,19 +80,16 @@ public class CoulombNetwork: NSObject {
     // MARK: Methods for guest
     public func startSearchingForHosts() {
         self.host = nil
-        if serviceBrowser == nil {
-            serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
-//            serviceBrowser?.delegate = self
-        }
-//        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
+
+        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
         serviceBrowser?.delegate = self
+
         foundHosts = []
         serviceBrowser?.startBrowsingForPeers()
     }
     
     public func stopSearchingForHosts() {
         serviceBrowser?.stopBrowsingForPeers()
-        serviceBrowser?.delegate = nil
     }
     
     public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
@@ -101,9 +97,6 @@ public class CoulombNetwork: NSObject {
             return
         }
         
-//        guard let browser = serviceBrowser else {
-//            return
-//        }
         DLog("%@", "connect to host: \(host)")
         serviceBrowser?.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
         
@@ -144,6 +137,7 @@ public class CoulombNetwork: NSObject {
     public func getMyPeerID() -> MCPeerID {
         return myPeerId
     }
+    
     // Debug mode
     private func DLog(message: String, _ function: String) {
         if debugMode {
