@@ -207,18 +207,13 @@ extension CoulombNetwork: MCSessionDelegate {
                 }
             } else {
                 DLog("%@", "not connected to \(session.hashValue)")
-                // If self is disconnected or current host is disconnected
-                print("passed in \(session.connectedPeers)")
-                print("self: \(self.session.connectedPeers)")
-                print(session == self.session)
                 
-                if self.host == nil {
+                // If self is disconnected from current host
+                if self.host == peerID {
+                    DLog("%@", "disconnected from host")
+                    session.disconnect()
                     delegate?.disconnectedFromSession()
-                } else if self.host == peerID {
-                    dispatch_sync(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-                        self.session.disconnect()
-                    }
-                    delegate?.disconnectedFromSession()
+                    return
                 }
             }
             
