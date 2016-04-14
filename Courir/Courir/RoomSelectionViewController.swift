@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-private let cellIdentifier = "host-cell-identifer"
+private let cellIdentifier = "roomCell"
 
 class RoomSelectionViewController: UIViewController {
     
@@ -20,8 +20,6 @@ class RoomSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        roomsAvailableTableView.registerClass(UITableViewCell.self,
-                                              forCellReuseIdentifier: cellIdentifier)
         
         portal.connectionDelegate = self
         
@@ -61,18 +59,9 @@ extension RoomSelectionViewController: UITableViewDelegate {
 extension RoomSelectionViewController: UITableViewDataSource {
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = roomsAvailableTableView
-            .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let hostLabelTag = 1
-        var hostLabel = cell.viewWithTag(hostLabelTag) as? UILabel
-        
-        if hostLabel == nil {
-            hostLabel = UILabel(frame: cell.frame)
-            hostLabel!.tag = hostLabelTag
-            cell.addSubview(hostLabel!)
-        }
-        
-        hostLabel!.text = hosts[indexPath.row].displayName
+        let cell = tableView
+            .dequeueReusableCellWithIdentifier(cellIdentifier)! as! RoomTableViewCell
+        cell.hostName.text = hosts[indexPath.row].displayName
         return cell
     }
     

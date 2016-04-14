@@ -32,6 +32,7 @@
 		6E2CEE5D1CB53885003DD41D /* EnvironmentSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */; };
 		6E2CEE5F1CB539F7003DD41D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CEE5E1CB539F7003DD41D /* Environment.swift */; };
 		6E4503FB1CBFA16200FDB2BA /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */; };
+		6E4503FD1CBFA4F500FDB2BA /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */; };
 		6E48F54C1C9D505A00E0ED9F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54B1C9D505A00E0ED9F /* Player.swift */; };
 		6E48F54E1C9D506C00E0ED9F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */; };
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
@@ -109,6 +110,7 @@
 		6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentSpriteNode.swift; sourceTree = "<group>"; };
 		6E2CEE5E1CB539F7003DD41D /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
+		6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
 		6E48F54B1C9D505A00E0ED9F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				6ED65C421CBD12BB00D51103 /* CourirUINodes.swift */,
 				7286F7921CBE7E670024B45E /* MainViewController.swift */,
 				7286F7931CBE7E670024B45E /* MainViewController.xib */,
+				6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				6524A7331C9C7F4B00D8CC48 /* Constants.swift in Sources */,
 				72243E041CB34AF400D8AF9D /* GameSetupData.swift in Sources */,
 				6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */,
+				6E4503FD1CBFA4F500FDB2BA /* RoomTableViewCell.swift in Sources */,
 				7266DF021CA566A9002216C9 /* GameViewController.swift in Sources */,
 				72243E021CB3404100D8AF9D /* GameMode.swift in Sources */,
 				6E2CEE571CB503FD003DD41D /* ObstacleSpriteNode.swift in Sources */,

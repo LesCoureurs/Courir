@@ -14,6 +14,7 @@
         </mutableArray>
         <mutableArray key="FiraSans-SemiBold.otf">
             <string>FiraSans-SemiBold</string>
+            <string>FiraSans-SemiBold</string>
         </mutableArray>
         <mutableArray key="Raleway-Bold.ttf">
             <string>Raleway-Bold</string>
@@ -559,10 +560,10 @@
                                 <rect key="frame" x="0.0" y="281" width="551" height="3"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
                                 <rect key="frame" x="0.0" y="320" width="201" height="170"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
                                         <rect key="frame" x="0.0" y="0.0" width="74" height="48"/>
                                         <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
                                         <state key="normal" title="PLAY">
@@ -572,7 +573,7 @@
                                             <action selector="handlePlayAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="IsW-2n-Yp2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-0O-4k1">
                                         <rect key="frame" x="0.0" y="61" width="201" height="48"/>
                                         <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
                                         <state key="normal" title="MULTIPLAYER">
@@ -582,7 +583,7 @@
                                             <action selector="handleMultiplayerAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="cp1-TK-s7W"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-J1-1Ed">
                                         <rect key="frame" x="0.0" y="122" width="144" height="48"/>
                                         <fontDescription key="fontDescription" name="Raleway-ExtraLight" family="Raleway" pointSize="30"/>
                                         <state key="normal" title="SETTINGS">
@@ -669,11 +670,6 @@
                                             <constraint firstAttribute="width" constant="330" id="g1h-OR-Ctu"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nDT-gx-lAt">
-                                        <rect key="frame" x="35" y="146" width="330" height="495"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvh-VK-LaZ">
                                         <rect key="frame" x="35" y="691" width="67" height="42"/>
                                         <constraints>
@@ -692,6 +688,39 @@
                                             <action selector="handleBackAction:" destination="QGq-uN-4Jv" eventType="touchUpInside" id="BSt-Rj-fvH"/>
                                         </connections>
                                     </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nDT-gx-lAt">
+                                        <rect key="frame" x="35" y="146" width="330" height="495"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="roomCell" id="6QN-Bc-xf2" customClass="RoomTableViewCell" customModule="Courir" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="330" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6QN-Bc-xf2" id="lOF-ol-RTd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owx-Md-CfC">
+                                                            <rect key="frame" x="8" y="7.5" width="98" height="28"/>
+                                                            <fontDescription key="fontDescription" name="FiraSans-SemiBold" family="Fira Sans" pointSize="20"/>
+                                                            <color key="textColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Owx-Md-CfC" firstAttribute="centerY" secondItem="lOF-ol-RTd" secondAttribute="centerY" id="awc-Bd-JnW"/>
+                                                        <constraint firstItem="Owx-Md-CfC" firstAttribute="leading" secondItem="lOF-ol-RTd" secondAttribute="leadingMargin" id="eTo-lS-aE6"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="hostName" destination="Owx-Md-CfC" id="FR0-de-aiw"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
