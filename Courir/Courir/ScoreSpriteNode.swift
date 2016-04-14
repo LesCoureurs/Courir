@@ -55,13 +55,15 @@ class ScoreSpriteNode: SKSpriteNode {
     }
     
     func setScore(score: Int) {
-        removeAllChildren()
-        for (i, digit) in score.digits.enumerate() {
-            let node = SKSpriteNode(texture: ScoreSpriteNode.digits[digit])
-            node.anchorPoint = CGPointMake(0, 0)
-            node.position = ScoreSpriteNode.generatePositionForNthDigit(i)
-            node.size = ScoreSpriteNode.size
-            addChild(node)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.removeAllChildren()
+            for (i, digit) in score.digits.enumerate() {
+                let node = SKSpriteNode(texture: ScoreSpriteNode.digits[digit])
+                node.anchorPoint = CGPointMake(0, 0)
+                node.position = ScoreSpriteNode.generatePositionForNthDigit(i)
+                node.size = ScoreSpriteNode.size
+                self.addChild(node)
+            }
         }
     }
     

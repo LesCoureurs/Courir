@@ -33,14 +33,15 @@ extension EnvironmentSpriteNode: Observer {
         guard let environment = from as? Environment else {
             return
         }
-        
-        switch propertyName {
-        case "xCoordinate", "yCoordinate":
-            position = IsoViewConverter.calculateRenderPositionFor(environment)
-        case "zPosition":
-            zPosition = CGFloat(environment.zPosition)
-        default:
-            return
+        dispatch_async(dispatch_get_main_queue()) {
+            switch propertyName {
+            case "xCoordinate", "yCoordinate":
+                self.position = IsoViewConverter.calculateRenderPositionFor(environment)
+            case "zPosition":
+                self.zPosition = CGFloat(environment.zPosition)
+            default:
+                return
+            }
         }
     }
 }

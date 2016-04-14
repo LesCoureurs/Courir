@@ -16,11 +16,20 @@ class RoomViewController: UIViewController {
 
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
-    
-    private(set) var isHost = true
-    private var peers = [MCPeerID]()
-    private let portal = GameNetworkPortal._instance
+
     private var seed: NSData?
+
+    private(set) var mode: GameMode = .Multiplayer
+    private(set) var isHost = true
+    var host: MCPeerID? = myPeerID
+    
+    private var peers = [MCPeerID]()
+
+    private var gameSetupData: GameSetupData {
+        return GameSetupData(mode: mode, host: host, peers: peers, seed: seed)
+    }
+
+    private let portal = GameNetworkPortal._instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +52,7 @@ class RoomViewController: UIViewController {
         let seedString = "\(arc4random())"
         seed = seedString.dataUsingEncoding(NSUTF8StringEncoding)
         startData["seed"] = seedString
+        startData["mode"] = mode.rawValue
         GameNetworkPortal._instance.send(.GameDidStart, data: startData)
         presentGameScene()
     }
@@ -54,6 +64,11 @@ class RoomViewController: UIViewController {
     
     func playerIsNotHost() {
         isHost = false
+        host = nil
+    }
+
+    func setMode(mode: GameMode) {
+        self.mode = mode
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -63,9 +78,7 @@ class RoomViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
             let destination = segue.destinationViewController as! GameViewController
-            destination.isMultiplayer = true
-            destination.peers = peers
-            destination.seed = seed
+            destination.setUpWith(gameSetupData)
         }
     }
     
@@ -129,10 +142,15 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
         guard let dataDict = data as? [String: AnyObject],
-            seed = dataDict["seed"] as? String else {
+            seed = dataDict["seed"] as? String, modeValue = dataDict["mode"] as? Int, mode = GameMode(rawValue: modeValue) else {
             return
         }
         self.seed = seed.dataUsingEncoding(NSUTF8StringEncoding)
+        self.mode = mode
+
+        if mode == .SpecialMultiplayer {
+            self.host = peer
+        }
         presentGameScene()
     }
     
