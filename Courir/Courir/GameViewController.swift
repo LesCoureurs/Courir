@@ -118,9 +118,13 @@ class GameViewController: UIViewController {
             self.endGameMenu.alpha = 1
         }
     }
-    
-    @IBAction func mainMenuButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
+
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+        }
     }
     
     @IBAction func saveRunButtonPressed(sender: AnyObject) {
