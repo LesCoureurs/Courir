@@ -69,7 +69,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="380" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3AC-AN-3Tu" id="TX3-vR-nM4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-nW-6Ni">
@@ -458,18 +458,28 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-1J-OLL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-1J-OLL">
                                 <rect key="frame" x="175" y="164" width="404" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="404" id="bRz-dg-lvL"/>
+                                </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glD-AB-Fqb">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glD-AB-Fqb">
                                 <rect key="frame" x="175" y="281" width="500" height="3"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="155" id="VBj-yA-3eZ"/>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="320" id="Wi3-sP-HpY"/>
+                            <constraint firstAttribute="trailing" secondItem="glD-AB-Fqb" secondAttribute="trailing" constant="349" id="3k3-QB-uhd"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="EHY-4o-Z25" secondAttribute="bottom" constant="258" id="Ma7-Jg-K6v"/>
+                            <constraint firstItem="6b9-1J-OLL" firstAttribute="leading" secondItem="glD-AB-Fqb" secondAttribute="leading" id="NM8-I4-Hdo"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="top" secondItem="glD-AB-Fqb" secondAttribute="bottom" constant="56" id="OSD-Fc-Htb"/>
+                            <constraint firstItem="6b9-1J-OLL" firstAttribute="leading" secondItem="EHY-4o-Z25" secondAttribute="leading" id="Tk0-q9-I9P"/>
+                            <constraint firstItem="glD-AB-Fqb" firstAttribute="top" secondItem="6b9-1J-OLL" secondAttribute="bottom" constant="38" id="Vbb-yj-vtF"/>
+                            <constraint firstItem="glD-AB-Fqb" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="281" id="Xyv-nm-j9S"/>
+                            <constraint firstItem="6b9-1J-OLL" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="144" id="ckJ-Zp-xzD"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="175" id="fuG-Y8-GfE"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
