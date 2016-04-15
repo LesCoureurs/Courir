@@ -10,13 +10,13 @@ import UIKit
 
 class PeerTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var peerName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         backgroundColor = UIColor.clearColor()
+        selectionStyle = UITableViewCellSelectionStyle.None
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

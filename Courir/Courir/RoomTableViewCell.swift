@@ -16,6 +16,9 @@ class RoomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         backgroundColor = UIColor.clearColor()
+        let selectedView = UIView(frame: frame)
+        selectedView.backgroundColor = selectedCellColor
+        selectedBackgroundView = selectedView
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
