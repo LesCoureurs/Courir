@@ -609,17 +609,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-1J-OLL">
-                                <rect key="frame" x="0.0" y="164" width="404" height="79"/>
+                                <rect key="frame" x="0.0" y="220" width="404" height="105"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="404" id="bRz-dg-lvL"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glD-AB-Fqb">
-                                <rect key="frame" x="0.0" y="281" width="551" height="3"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-4o-Z25">
-                                <rect key="frame" x="0.0" y="334" width="193" height="166"/>
+                                <rect key="frame" x="0.0" y="370" width="193" height="166"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-OW-Ra7">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="42"/>
@@ -656,22 +652,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="glD-AB-Fqb" secondAttribute="trailing" constant="349" id="1Pt-Rq-Acw"/>
-                            <constraint firstItem="glD-AB-Fqb" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="281" id="9wr-am-eYS"/>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="leading" secondItem="glD-AB-Fqb" secondAttribute="leading" id="Alu-a4-Leq"/>
-                            <constraint firstItem="EHY-4o-Z25" firstAttribute="top" secondItem="glD-AB-Fqb" secondAttribute="bottom" constant="50" id="EXb-OT-DbX"/>
-                            <constraint firstItem="glD-AB-Fqb" firstAttribute="leading" secondItem="6b9-1J-OLL" secondAttribute="leading" id="M52-Ni-qNU"/>
-                            <constraint firstItem="glD-AB-Fqb" firstAttribute="top" secondItem="6b9-1J-OLL" secondAttribute="bottom" constant="38" id="VsC-R3-M4E"/>
-                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="glD-AB-Fqb" secondAttribute="bottom" constant="484" id="cah-BH-9Nr"/>
-                            <constraint firstItem="6b9-1J-OLL" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="144" id="ckJ-Zp-xzD"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="leading" secondItem="6b9-1J-OLL" secondAttribute="leading" id="acT-tb-dpU"/>
+                            <constraint firstItem="6b9-1J-OLL" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="200" id="ckJ-Zp-xzD"/>
                             <constraint firstItem="6b9-1J-OLL" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="rg7-AR-w7T"/>
-                            <constraint firstItem="glD-AB-Fqb" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="175" id="wSq-Og-SB1"/>
+                            <constraint firstItem="EHY-4o-Z25" firstAttribute="top" secondItem="6b9-1J-OLL" secondAttribute="bottom" constant="45" id="u2y-pH-Pkr"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="wSq-Og-SB1"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
