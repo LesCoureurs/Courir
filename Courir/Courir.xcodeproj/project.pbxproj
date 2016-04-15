@@ -37,6 +37,9 @@
 		6E48F54E1C9D506C00E0ED9F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */; };
 		6E48F5501C9D507C00E0ED9F /* ObstacleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */; };
 		6E48F5521C9D7C3000E0ED9F /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E48F5511C9D7C3000E0ED9F /* GameObject.swift */; };
+		6E637D0A1CC13CA300FF40C2 /* Baron Neue Normal 50.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6E637D091CC13CA300FF40C2 /* Baron Neue Normal 50.otf */; };
+		6E637D0C1CC13E7600FF40C2 /* Baron Neue Italic 50.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6E637D0B1CC13E7600FF40C2 /* Baron Neue Italic 50.otf */; };
+		6E637D0E1CC13F3900FF40C2 /* Baron Neue Bold 60.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6E637D0D1CC13F3900FF40C2 /* Baron Neue Bold 60.otf */; };
 		6E772DE91CA44A0C00A0B755 /* ObstacleGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */; };
 		6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6EB679411CB7A09600C52F5B /* Plumbob.atlas */; };
 		6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C351CBCF98600D51103 /* menu-bg.gif */; };
@@ -116,6 +119,9 @@
 		6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGenerator.swift; sourceTree = "<group>"; };
 		6E48F5511C9D7C3000E0ED9F /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		6E637D091CC13CA300FF40C2 /* Baron Neue Normal 50.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baron Neue Normal 50.otf"; sourceTree = "<group>"; };
+		6E637D0B1CC13E7600FF40C2 /* Baron Neue Italic 50.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baron Neue Italic 50.otf"; sourceTree = "<group>"; };
+		6E637D0D1CC13F3900FF40C2 /* Baron Neue Bold 60.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baron Neue Bold 60.otf"; sourceTree = "<group>"; };
 		6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleGeneratorTests.swift; sourceTree = "<group>"; };
 		6EB679411CB7A09600C52F5B /* Plumbob.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Plumbob.atlas; sourceTree = "<group>"; };
 		6ED65C351CBCF98600D51103 /* menu-bg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "menu-bg.gif"; sourceTree = "<group>"; };
@@ -231,6 +237,9 @@
 		6ED65C371CBD0A4A00D51103 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				6E637D0D1CC13F3900FF40C2 /* Baron Neue Bold 60.otf */,
+				6E637D091CC13CA300FF40C2 /* Baron Neue Normal 50.otf */,
+				6E637D0B1CC13E7600FF40C2 /* Baron Neue Italic 50.otf */,
 				6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */,
 				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
 				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
@@ -424,13 +433,16 @@
 				6EB679421CB7A09600C52F5B /* Plumbob.atlas in Resources */,
 				6ED65C361CBCF98600D51103 /* menu-bg.gif in Resources */,
 				6ED65C3C1CBD0AC300D51103 /* FiraSans-Light.otf in Resources */,
+				6E637D0C1CC13E7600FF40C2 /* Baron Neue Italic 50.otf in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
 				6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */,
 				7286F7951CBE7E670024B45E /* MainViewController.xib in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
+				6E637D0A1CC13CA300FF40C2 /* Baron Neue Normal 50.otf in Resources */,
 				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
 				6E4503FB1CBFA16200FDB2BA /* ionicons.ttf in Resources */,
 				6524A7181C9C7EB800D8CC48 /* Assets.xcassets in Resources */,
+				6E637D0E1CC13F3900FF40C2 /* Baron Neue Bold 60.otf in Resources */,
 				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
 				6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */,

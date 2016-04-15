@@ -24,6 +24,9 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Baron Neue Normal 50.otf</string>
+		<string>Baron Neue Italic 50.otf</string>
+		<string>Baron Neue Bold 60.otf</string>
 		<string>FiraSans-Light.otf</string>
 		<string>FiraSans-SemiBold.otf</string>
 		<string>Raleway-Bold.ttf</string>
