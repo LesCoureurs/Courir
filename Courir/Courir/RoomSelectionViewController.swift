@@ -69,10 +69,6 @@ class RoomSelectionViewController: UIViewController {
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
-        if let parentVC = parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
-            newVC.playerIsNotHost()
-            parentVC.completeTransition(to: newVC, from: self)
-        }
     }
 }
 
@@ -116,6 +112,12 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func connectedToRoom(peer: MCPeerID) {
-        performSegueWithIdentifier("enterRoomSegue", sender: self)
+        dispatch_async(dispatch_get_main_queue(), {
+            if let parentVC = self.parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
+                newVC.playerIsNotHost()
+                parentVC.completeTransition(to: newVC, from: self)
+            }
+        })
+//        performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
