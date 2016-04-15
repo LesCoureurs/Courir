@@ -97,7 +97,7 @@ class RoomViewController: UIViewController {
 
     @IBAction func unwindToMenuViaRoomView(sender: UIStoryboardSegue) {
         if let parentVC = parentViewController as? MainViewController {
-            parentVC.transitionOut(RoomViewController.numberOfVCsToMenu)
+            parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
         }
     }
 }

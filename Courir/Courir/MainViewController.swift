@@ -75,31 +75,32 @@ class MainViewController: UIViewController {
             return
         }
         
-        if let top = viewControllerStack.popLast() {
-            removeActiveViewController(top)
-            updateActiveViewController(viewControllerStack.last)
+        if let oldVC = viewControllerStack.last {
+            transitionOut(from: oldVC, downLevels: 1)
         }
     }
 
-    func transitionOut(times: Int) {
+    func transitionOut(from oldVC: UIViewController, downLevels times: Int) {
         guard !isProcessingTransition else {
             return
         }
 
         for _ in 0..<times {
-            if let top = viewControllerStack.popLast() {
-                removeActiveViewController(top)
-            }
+            viewControllerStack.popLast()
         }
 
-        updateActiveViewController(viewControllerStack.last)
+        if let newVC = viewControllerStack.last {
+            cycleFromViewController(oldVC, to: newVC)
+        }
     }
 
     private func cycleFromViewController(oldVC: UIViewController, to newVC: UIViewController) {
         oldVC.willMoveToParentViewController(nil)
         addChildViewController(newVC)
 
-        transitionFromViewController(oldVC, toViewController: newVC, duration: 0, options: .TransitionNone, animations: nil, completion: nil)
+        transitionFromViewController(oldVC, toViewController: newVC, duration: 0.2, options: .TransitionCrossDissolve, animations: nil, completion: { _ in
+            oldVC.removeFromParentViewController()
+            newVC.didMoveToParentViewController(self) })
     }
 
     private func removeActiveViewController(oldViewController: UIViewController?) {
