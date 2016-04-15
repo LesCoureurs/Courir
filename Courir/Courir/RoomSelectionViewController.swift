@@ -14,6 +14,8 @@ private let cellIdentifier = "roomCell"
 class RoomSelectionViewController: UIViewController {
     
     @IBOutlet weak var roomsAvailableTableView: UITableView!
+    @IBOutlet weak var newRoomButton: UIButton!
+    
     var hosts = [MCPeerID]()
     
     let portal = GameNetworkPortal._instance
@@ -25,6 +27,8 @@ class RoomSelectionViewController: UIViewController {
         
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
+        
+        newRoomButton.setLetterSpacing(defaultLetterSpacing)
         
         portal.beginSearchingForHosts()
     }

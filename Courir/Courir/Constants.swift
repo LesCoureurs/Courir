@@ -57,3 +57,6 @@ let defaultHostNumber = 3
 let blue = UIColor(red: 95, green: 174, blue: 190)
 let brown = UIColor(red: 73, green: 60, blue: 48)
 let selectedCellColor = UIColor(white: 1, alpha: 0.2)
+
+let defaultLetterSpacing: CGFloat = 5
+

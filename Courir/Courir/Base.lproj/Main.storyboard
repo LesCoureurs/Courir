@@ -254,6 +254,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="900" height="768"/>
                     <connections>
+                        <outlet property="newGameButton" destination="Rsc-jI-x1h" id="rkJ-UQ-XJD"/>
                         <outlet property="previousRunTableView" destination="dIw-k0-B97" id="dKY-w3-S9g"/>
                         <segue destination="4ES-gW-g9a" kind="show" identifier="startGhostGameSegue" id="G49-i9-vA8"/>
                     </connections>
@@ -688,7 +689,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ro-cUO">
-                                <rect key="frame" x="520" y="320" width="254" height="59"/>
+                                <rect key="frame" x="520" y="320" width="230" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="254" id="9cz-kH-F3x"/>
                                 </constraints>
@@ -696,6 +697,11 @@
                                 <state key="normal" title="NEW ROOM">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9cz-kH-F3x"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="handleNewRoomAction:" destination="QGq-uN-4Jv" eventType="touchUpInside" id="adb-kU-6FN"/>
                                 </connections>
@@ -853,6 +859,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="900" height="768"/>
                     <connections>
+                        <outlet property="newRoomButton" destination="nGb-ro-cUO" id="48m-KB-Evr"/>
                         <outlet property="roomsAvailableTableView" destination="nDT-gx-lAt" id="HXS-GL-CNY"/>
                         <segue destination="40i-zX-uIe" kind="show" identifier="enterRoomSegue" id="Ob5-ck-MbV"/>
                     </connections>
@@ -977,7 +984,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-kf-Igw">
-                                <rect key="frame" x="520" y="200" width="250" height="59"/>
+                                <rect key="frame" x="520" y="200" width="249" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="2Fp-MD-LaE"/>
                                 </constraints>
@@ -985,6 +992,11 @@
                                 <state key="normal" title="START GAME">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2Fp-MD-LaE"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="handleStartGameAction:" destination="40i-zX-uIe" eventType="touchUpInside" id="DSQ-tH-Say"/>
                                 </connections>

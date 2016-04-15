@@ -15,16 +15,11 @@ class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
     
     @IBOutlet var menuButtons: [UIButton]!
-
-    private let buttonTitles = ["PLAY", "MULTIPLAYER", "SETTINGS"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for (button, title) in zip(menuButtons, buttonTitles) {
-            button.setAttributedTitle(CourirUINodes.generateAttributedString(title, UIColor.whiteColor()),
-                                      forState: UIControlState.Normal)
-            button.setAttributedTitle(CourirUINodes.generateAttributedString(title, UIColor(white: 1, alpha: 0.4)),
-                                      forState: UIControlState.Highlighted)
+        for button in menuButtons {
+            button.setLetterSpacing(defaultLetterSpacing)
         }
     }
 

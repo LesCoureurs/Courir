@@ -20,6 +20,8 @@ class SinglePlayerStartViewController: UIViewController {
     }()
     
     @IBOutlet weak var previousRunTableView: UITableView!
+    @IBOutlet weak var newGameButton: UIButton!
+
     var ghostStoreDates = GhostStore.storedGhostDates
     var selectedGhostStore: GhostStore?
     
@@ -27,6 +29,7 @@ class SinglePlayerStartViewController: UIViewController {
         super.viewDidLoad()
         previousRunTableView.dataSource = self
         previousRunTableView.delegate = self
+        newGameButton.setLetterSpacing(defaultLetterSpacing)
     }
 
     // MARK: - Navigation
