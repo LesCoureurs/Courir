@@ -62,6 +62,7 @@ class RoomViewController: UIViewController {
     // MARK: - Navigation
 
     @IBAction func handleBackAction(sender: AnyObject) {
+        portal.disconnectFromRoom()
         if let parentVC = parentViewController as? MainViewController {
             parentVC.transitionOut()
         }
@@ -149,7 +150,10 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     // When self is disconnected from a room
     func disconnectedFromRoom() {
         dispatch_async(dispatch_get_main_queue(), {
-            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
+            if let parentVC = self.parentViewController as? MainViewController {
+                parentVC.transitionOut()
+            }
+//            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
         })
     }
     
