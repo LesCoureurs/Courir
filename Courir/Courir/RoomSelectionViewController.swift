@@ -28,6 +28,10 @@ class RoomSelectionViewController: UIViewController {
         
         portal.beginSearchingForHosts()
     }
+    
+    @IBAction func refreshButtonPressed(sender: UIButton) {
+        // TODO: Add logic for refresh button
+    }
 
     // MARK: - Navigation
 
