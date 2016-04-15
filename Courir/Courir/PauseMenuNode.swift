@@ -16,8 +16,8 @@ protocol PauseMenuDelegate: class {
 class PauseMenuNode: SKNode {
     weak var delegate: PauseMenuDelegate?
     var overlayNode: SKShapeNode!
-    let resumeNode = SKLabelNode(text: "RESUME")
-    let leaveNode = SKLabelNode(text: "LEAVE")
+    let resumeNode = SKLabelNode(text: "resume")
+    let leaveNode = SKLabelNode(text: "leave")
     
     override init() {
         super.init()
@@ -61,7 +61,7 @@ class PauseMenuNode: SKNode {
     }
     
     private func initResumeNode() {
-        resumeNode.fontName = "Raleway-ExtraLight"
+        resumeNode.fontName = "Baron Neue Bold 60"
         resumeNode.fontColor = blue
         resumeNode.fontSize = 40
         resumeNode.name = "resume"
@@ -72,7 +72,7 @@ class PauseMenuNode: SKNode {
     }
     
     private func initLeaveNode() {
-        leaveNode.fontName = "Raleway-ExtraLight"
+        leaveNode.fontName = "Baron Neue Bold 60"
         leaveNode.fontColor = blue
         leaveNode.fontSize = 40
         leaveNode.name = "leave"
