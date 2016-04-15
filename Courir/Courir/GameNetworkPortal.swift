@@ -89,10 +89,15 @@ class GameNetworkPortal {
     
     // MARK: Common methods
     func disconnectFromRoom() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
-            self.coulombNetwork.disconnect()
+        let group = dispatch_group_create()
+        
+        dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
             self.stopHosting()
             self.beginSearchingForHosts()
+        })
+        
+        dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            self.coulombNetwork.disconnect()
         })
     }
     
