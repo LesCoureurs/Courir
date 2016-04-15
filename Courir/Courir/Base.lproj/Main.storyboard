@@ -185,7 +185,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-jI-x1h">
-                                <rect key="frame" x="510" y="200" width="287" height="59"/>
+                                <rect key="frame" x="540" y="200" width="287" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="287" id="Acf-NM-yAO"/>
                                 </constraints>
@@ -218,7 +218,7 @@
                             <constraint firstItem="Iex-sz-3fP" firstAttribute="centerY" secondItem="tIo-Bv-AOE" secondAttribute="centerY" id="3eo-oK-Q08"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Iex-sz-3fP" secondAttribute="trailing" id="4Aw-Ju-oB7"/>
                             <constraint firstItem="6pC-Ud-aTX" firstAttribute="leading" secondItem="tIo-Bv-AOE" secondAttribute="leading" id="C9p-kC-cA5"/>
-                            <constraint firstItem="Rsc-jI-x1h" firstAttribute="leading" secondItem="6pC-Ud-aTX" secondAttribute="trailing" constant="110" id="HpJ-hM-61K"/>
+                            <constraint firstItem="Rsc-jI-x1h" firstAttribute="leading" secondItem="6pC-Ud-aTX" secondAttribute="trailing" constant="140" id="HpJ-hM-61K"/>
                             <constraint firstItem="Iex-sz-3fP" firstAttribute="leading" secondItem="tIo-Bv-AOE" secondAttribute="leadingMargin" id="Jkm-5v-0vs"/>
                             <constraint firstAttribute="trailing" secondItem="Iex-sz-3fP" secondAttribute="trailing" id="Lh8-p0-WhZ"/>
                             <constraint firstItem="Iex-sz-3fP" firstAttribute="top" secondItem="tIo-Bv-AOE" secondAttribute="topMargin" id="LjI-xf-kDH"/>
