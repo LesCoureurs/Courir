@@ -27,10 +27,6 @@ class RoomSelectionViewController: UIViewController {
         
         newRoomButton.setLetterSpacing(defaultLetterSpacing)
     }
-    
-    @IBAction func refreshButtonPressed(sender: UIButton) {
-        // TODO: Add logic for refresh button
-    }
 
     // MARK: - Navigation
 
