@@ -222,8 +222,10 @@ extension CoulombNetwork: MCSessionDelegate {
                     return
                 }
             }
-            
-            delegate?.connectedPeersInSessionChanged(session.connectedPeers)
+            // If self did not disconnect deliberately
+            if self.host != nil {
+                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
+            }
         }
     }
     
