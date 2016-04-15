@@ -80,7 +80,7 @@ class GameScene: SKScene {
         print("Start game")
         
         while !(gameState.allPlayersReady && !hasGameStarted) {
-            print("waiting")
+//            print("waiting")
         }
         countdownNode.start()
     }
