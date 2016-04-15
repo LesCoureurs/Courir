@@ -26,10 +26,11 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
-    @IBOutlet weak var replayOrUnwindButton: UIButton!
 
+    @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
-    @IBOutlet weak var unwindButton: UIButton!
+
+    @IBOutlet weak var replayOrUnwindButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,14 +49,28 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
     // MARK: Start Game
 
     func setUpWith(data: GameSetupData) {
         gameSetupData = data
+    }
+
+    private func setUpGameEndMenu() {
+        let title = isMultiplayer ? "Back To Room" : "Play Again"
+        replayOrUnwindButton.setTitle(title, forState: .Normal)
+
+        let menuButtons = [mainMenuButton, saveRunButtton, replayOrUnwindButton]
+        for btn in menuButtons {
+            let fadedColor = btn.currentTitleColor.colorWithAlphaComponent(0.2)
+            btn.setTitleColor(fadedColor, forState: .Highlighted)
+            btn.setTitleColor(fadedColor, forState: .Disabled)
+        }
+
+        endGameTable.dataSource = endGameMenu
+        endGameTable.delegate = endGameMenu
+        endGameMenu.hidden = true
+        endGameMenu.alpha = 0
+        endGameMenu.layer.cornerRadius = 10
     }
 
     private func presentGameScene() {
@@ -100,21 +115,11 @@ class GameViewController: UIViewController {
     // MARK: End Game
 
     func exitGame() {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
-    }
-
-    private func setUpGameEndMenu() {
-        let title = isMultiplayer ? "Back To Room" : "Play Again"
-        replayOrUnwindButton.setTitle(title, forState: .Normal)
-        
-        let unwindButtonTitle = isMultiplayer ? "Quit Room" : "Main Menu"
-        unwindButton.setTitle(unwindButtonTitle, forState: .Normal)
-        
-        endGameTable.dataSource = endGameMenu
-        endGameTable.delegate = endGameMenu
-        endGameMenu.hidden = true
-        endGameMenu.alpha = 0
-        endGameMenu.layer.cornerRadius = 10
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+        }
     }
     
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
@@ -128,16 +133,13 @@ class GameViewController: UIViewController {
             self.endGameMenu.alpha = 1
         }
     }
-    
-    @IBAction func mainMenuButtonPressed(sender: AnyObject) {
-        let identifier = isMultiplayer ? "unwindToRoomSelectionFromGameView" : "exitGameSegue"
-        if identifier == "unwindToRoomSelectionFromGameView" {
-            portal.disconnectFromRoom()
+
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToMenuViaSinglePlayerStart", sender: self)
         }
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.performSegueWithIdentifier(identifier, sender: self)
-        })
     }
     
     @IBAction func saveRunButtonPressed(sender: AnyObject) {

@@ -15,11 +15,13 @@ class SinglePlayerStartViewController: UIViewController {
 
     private lazy var dateFormatter: NSDateFormatter = {
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MMM-yyyy hh:mm:ss a"
+        dateFormatter.dateFormat = "dd MMMM hh:mm a"
         return dateFormatter
     }()
     
     @IBOutlet weak var previousRunTableView: UITableView!
+    @IBOutlet weak var newGameButton: UIButton!
+
     var ghostStoreDates = GhostStore.storedGhostDates
     var selectedGhostStore: GhostStore?
     
@@ -27,13 +29,16 @@ class SinglePlayerStartViewController: UIViewController {
         super.viewDidLoad()
         previousRunTableView.dataSource = self
         previousRunTableView.delegate = self
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+        newGameButton.setLetterSpacing(defaultLetterSpacing)
     }
 
     // MARK: - Navigation
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? GameViewController where segue.identifier == "startNewGameSegue" || segue.identifier == "startGhostGameSegue" {
             let singlePlayerData = GameSetupData(mode: .SinglePlayer, host: nil, peers: [MCPeerID](), seed: nil)
@@ -44,7 +49,17 @@ class SinglePlayerStartViewController: UIViewController {
             }
         }
     }
-    
+
+    @IBAction func unwindToSinglePlayerStart(sender: UIStoryboardSegue) {
+
+    }
+
+    @IBAction func unwindToMenuViaSinglePlayerStart(sender: UIStoryboardSegue) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+
     // MARK: Button press method
     func deleteButtonPressed(sender: UIButton) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
@@ -71,7 +86,8 @@ extension SinglePlayerStartViewController: UITableViewDataSource {
         let date = ghostStoreDates[indexPath.row]
         if let ghostStore = GhostStore.init(date: date) {
             let score = ghostStore.score
-            cell.infoLabel.text = "\(dateFormatter.stringFromDate(date)) Score: \(score)"
+            cell.scoreLabel.text = "Score: \(score)"
+            cell.dateLabel.text = "\(dateFormatter.stringFromDate(date))"
         }
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteButtonPressed(_:)),

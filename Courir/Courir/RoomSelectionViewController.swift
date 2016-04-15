@@ -9,11 +9,13 @@
 import UIKit
 import MultipeerConnectivity
 
-private let cellIdentifier = "host-cell-identifer"
+private let cellIdentifier = "roomCell"
 
 class RoomSelectionViewController: UIViewController {
     
     @IBOutlet weak var roomsAvailableTableView: UITableView!
+    @IBOutlet weak var newRoomButton: UIButton!
+    
     var hosts = [MCPeerID]()
     
     let portal = GameNetworkPortal._instance
@@ -23,18 +25,18 @@ class RoomSelectionViewController: UIViewController {
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
         
+        newRoomButton.setLetterSpacing(defaultLetterSpacing)
+    }
+    
+    @IBAction func refreshButtonPressed(sender: UIButton) {
+        // TODO: Add logic for refresh button
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let roomViewController = segue.destinationViewController as? RoomViewController {
-            roomViewController.setMode(.Multiplayer)
-            if segue.identifier == "specialModeRoomSegue" {
-                roomViewController.setMode(.SpecialMultiplayer)
-            } else if segue.identifier == "enterRoomSegue" {
-                roomViewController.playerIsNotHost()
-            }
+    @IBAction func handleNewRoomAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.Room, from: self)
         }
     }
     
@@ -51,8 +53,10 @@ class RoomSelectionViewController: UIViewController {
     @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
     }
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
@@ -69,17 +73,19 @@ class RoomSelectionViewController: UIViewController {
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
+        if let parentVC = parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
+            newVC.playerIsNotHost()
+            parentVC.completeTransition(to: newVC, from: self)
+        }
     }
 }
 
 extension RoomSelectionViewController: UITableViewDataSource {
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = roomsAvailableTableView
-            .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let hostLabel = UILabel(frame: cell.frame)
-        hostLabel.text = hosts[indexPath.row].displayName
-        cell.addSubview(hostLabel)
+        let cell = tableView
+            .dequeueReusableCellWithIdentifier(cellIdentifier)! as! RoomTableViewCell
+        cell.hostName.text = hosts[indexPath.row].displayName
         return cell
     }
     
