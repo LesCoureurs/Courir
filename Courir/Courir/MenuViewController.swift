@@ -23,6 +23,8 @@ class MenuViewController: UIViewController {
         for (button, title) in zip(menuButtons, buttonTitles) {
             button.setAttributedTitle(CourirUINodes.generateAttributedString(title, UIColor.whiteColor()),
                                       forState: UIControlState.Normal)
+            button.setAttributedTitle(CourirUINodes.generateAttributedString(title, UIColor(white: 1, alpha: 0.4)),
+                                      forState: UIControlState.Highlighted)
         }
     }
 
