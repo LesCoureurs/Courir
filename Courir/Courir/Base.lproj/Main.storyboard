@@ -1065,7 +1065,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="756" height="147"/>
+        <image name="logo" width="510" height="105"/>
         <image name="obstacles-overlay" width="1800" height="1536"/>
     </resources>
     <inferredMetricsTieBreakers>
