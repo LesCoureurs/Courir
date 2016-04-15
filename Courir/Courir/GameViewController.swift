@@ -24,9 +24,10 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
-    @IBOutlet weak var replayOrUnwindButton: UIButton!
 
+    @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
+    @IBOutlet weak var replayOrUnwindButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,24 @@ class GameViewController: UIViewController {
 
     func setUpWith(data: GameSetupData) {
         gameSetupData = data
+    }
+
+    private func setUpGameEndMenu() {
+        let title = isMultiplayer ? "Back To Room" : "Play Again"
+        replayOrUnwindButton.setTitle(title, forState: .Normal)
+
+        let menuButtons = [mainMenuButton, saveRunButtton, replayOrUnwindButton]
+        for btn in menuButtons {
+            let fadedColor = btn.currentTitleColor.colorWithAlphaComponent(0.2)
+            btn.setTitleColor(fadedColor, forState: .Highlighted)
+            btn.setTitleColor(fadedColor, forState: .Disabled)
+        }
+
+        endGameTable.dataSource = endGameMenu
+        endGameTable.delegate = endGameMenu
+        endGameMenu.hidden = true
+        endGameMenu.alpha = 0
+        endGameMenu.layer.cornerRadius = 10
     }
 
     private func presentGameScene() {
@@ -98,17 +117,6 @@ class GameViewController: UIViewController {
         } else {
             performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
         }
-    }
-
-    private func setUpGameEndMenu() {
-        let title = isMultiplayer ? "Back To Room" : "Play Again"
-        replayOrUnwindButton.setTitle(title, forState: .Normal)
-        
-        endGameTable.dataSource = endGameMenu
-        endGameTable.delegate = endGameMenu
-        endGameMenu.hidden = true
-        endGameMenu.alpha = 0
-        endGameMenu.layer.cornerRadius = 10
     }
     
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
