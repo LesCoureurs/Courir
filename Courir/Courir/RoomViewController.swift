@@ -18,10 +18,17 @@ class RoomViewController: UIViewController {
 
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
+    @IBOutlet weak var lobbyTitle: UILabel!
+
+    @IBOutlet weak var switchModeButton: UIButton!
 
     private var seed: NSData?
 
-    private(set) var mode: GameMode = .Multiplayer
+    private(set) var mode: GameMode! {
+        didSet {
+            updateLobbyTitle(mode)
+        }
+    }
     private(set) var isHost = true
     var host: MCPeerID? = myPeerID
     
@@ -39,12 +46,29 @@ class RoomViewController: UIViewController {
         peersTableView.dataSource = self
 
         startButton.setLetterSpacing(defaultLetterSpacing)
+        switchModeButton.setFadeForUserActions()
         
+        mode = .Multiplayer
+
         if isHost {
             portal.beginHosting()
             startButton.enabled = peers.count > 0
         } else {
+            lobbyTitle.text = "Lobby"
             startButton.enabled = false
+            switchModeButton.enabled = false
+        }
+    }
+
+    @IBAction func handleSwitchModeAction(sender: AnyObject) {
+        let newMode: GameMode = mode == .Multiplayer ? .SpecialMultiplayer : .Multiplayer
+        setMode(newMode)
+    }
+
+    private func updateLobbyTitle(mode: GameMode) {
+        if isHost {
+            let gameType = mode == .SpecialMultiplayer ? "Special" : ""
+            lobbyTitle.text = "Hosting \(gameType) Multiplayer"
         }
     }
 
