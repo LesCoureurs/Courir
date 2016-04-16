@@ -54,7 +54,7 @@ class GameNetworkPortal {
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
-        coulombNetwork.debugMode = true
+        // coulombNetwork.debugMode = true
         createSemaphore()
     }
 
