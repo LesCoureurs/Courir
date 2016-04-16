@@ -150,12 +150,11 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
     }
     
     // When self is disconnected from a room
-    func disconnectedFromRoom() {
+    func disconnectedFromRoom(peer: MCPeerID) {
         dispatch_async(dispatch_get_main_queue(), {
             if let parentVC = self.parentViewController as? MainViewController {
                 parentVC.transitionOut()
             }
-//            self.performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
         })
     }
     
