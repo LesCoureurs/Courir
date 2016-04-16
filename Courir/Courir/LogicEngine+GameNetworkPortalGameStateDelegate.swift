@@ -75,7 +75,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
 
-    func disconnectedFromGame() {
+    func disconnectedFromGame(peer: MCPeerID) {
         
     }
 }

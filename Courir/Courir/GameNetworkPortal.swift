@@ -15,7 +15,7 @@ protocol GameNetworkPortalConnectionDelegate: class {
     func playersInRoomChanged(peerIDs: [MCPeerID])
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID)
     func connectedToRoom(peer: MCPeerID)
-    func disconnectedFromRoom()
+    func disconnectedFromRoom(peer: MCPeerID)
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
@@ -26,7 +26,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
     func collideActionReceived(data: AnyObject?, peer: MCPeerID)
     func floatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
     func nonfloatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
-    func disconnectedFromGame()
+    func disconnectedFromGame(peer: MCPeerID)
 }
 
 class GameNetworkPortal {
@@ -132,7 +132,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
-        print("Portal: Connected Peers in sesison changed: \(peers)")        
+        print("Portal: Connected Peers in sesison changed: \(peers)")
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         connectionDelegate?.playersInRoomChanged(peers)
     }
@@ -141,12 +141,12 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.connectedToRoom(peer)
     }
     
-    func disconnectedFromSession() {
+    func disconnectedFromSession(peer: MCPeerID) {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        connectionDelegate?.disconnectedFromRoom()
-        gameStateDelegate?.disconnectedFromGame()
+        connectionDelegate?.disconnectedFromRoom(peer)
+        gameStateDelegate?.disconnectedFromGame(peer)
     }
     
     // Receives NSData and converts it into a dictionary of type [String: AnyObject]
