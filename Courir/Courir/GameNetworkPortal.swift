@@ -31,7 +31,8 @@ protocol GameNetworkPortalGameStateDelegate: class {
 
 class GameNetworkPortal {
     static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
-
+    var semaphore: dispatch_semaphore_t!
+    let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
@@ -53,6 +54,7 @@ class GameNetworkPortal {
         coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
         coulombNetwork.debugMode = true
+        semaphore = dispatch_semaphore_create(0)
     }
 
     deinit {
@@ -130,6 +132,8 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
+        print("Portal: Connected Peers in sesison changed: \(peers)")        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         connectionDelegate?.playersInRoomChanged(peers)
     }
     

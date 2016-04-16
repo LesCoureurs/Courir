@@ -46,6 +46,8 @@ class RoomViewController: UIViewController {
         } else {
             startButton.enabled = false
         }
+        
+        dispatch_semaphore_signal(portal.semaphore)
     }
 
     // MARK: Setup
