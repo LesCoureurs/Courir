@@ -1,5 +1,5 @@
 //
-//  Sploosh.swift
+//  CoulombNetwork.swift
 //  NetworkLib
 //
 //  Created by Ian Ngiaw on 3/14/16.
@@ -23,7 +23,7 @@ public class CoulombNetwork: NSObject {
     public var debugMode = false
     public var autoAcceptGuests = true
     
-    static let defaultTimeout: NSTimeInterval = 10
+    static let defaultTimeout: NSTimeInterval = 7
     private let maxNumPeerInRoom = 4
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
