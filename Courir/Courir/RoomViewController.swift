@@ -21,6 +21,7 @@ class RoomViewController: UIViewController {
     @IBOutlet weak var lobbyTitle: UILabel!
 
     @IBOutlet weak var switchModeButton: UIButton!
+    @IBOutlet weak var helpText: UILabel!
 
     private var seed: NSData?
 
@@ -67,8 +68,13 @@ class RoomViewController: UIViewController {
 
     private func updateLobbyTitle(mode: GameMode) {
         if isHost {
-            let gameType = mode == .SpecialMultiplayer ? "Special" : ""
+            let isSpecial = mode == .SpecialMultiplayer
+            let gameType = isSpecial ? "Special" : ""
             lobbyTitle.text = "Hosting \(gameType) Multiplayer"
+            let newAlpha: CGFloat = isSpecial ? 1 : 0
+            UIView.animateWithDuration(0.5) {
+                self.helpText.alpha = newAlpha
+            }
         }
     }
 
