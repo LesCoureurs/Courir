@@ -34,6 +34,7 @@ class GameNetworkPortal {
     var semaphore: dispatch_semaphore_t!
     let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
+    var isConnecting = true
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
         didSet {
@@ -133,11 +134,19 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
         print("Portal: Connected Peers in sesison changed: \(peers)")
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+//        let timeout = dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout)
+        
+        // Only wait when connecting
+        if isConnecting {
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+            isConnecting = false
+        }
+        print("Portal: semaphore finished waiting")
         connectionDelegate?.playersInRoomChanged(peers)
     }
     
     func connectedToPeer(peer: MCPeerID) {
+        isConnecting = true
         connectionDelegate?.connectedToRoom(peer)
     }
     
@@ -145,6 +154,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
+        
         connectionDelegate?.disconnectedFromRoom(peer)
         gameStateDelegate?.disconnectedFromGame(peer)
     }
