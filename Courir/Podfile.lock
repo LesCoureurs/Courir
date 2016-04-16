@@ -1,20 +1,23 @@
 PODS:
-  - Coulomb (0.0.7)
+  - Coulomb (0.0.6)
+  - SwiftyGif (1.0.2)
 
 DEPENDENCIES:
-  - Coulomb (from `https://github.com/SplooshKit/Coulomb.git`, tag `0.0.7`)
+  - Coulomb (from `https://github.com/SplooshKit/Coulomb.git`, tag `0.0.6`)
+  - SwiftyGif
 
 EXTERNAL SOURCES:
   Coulomb:
     :git: https://github.com/SplooshKit/Coulomb.git
-    :tag: 0.0.7
+    :tag: 0.0.6
 
 CHECKOUT OPTIONS:
   Coulomb:
     :git: https://github.com/SplooshKit/Coulomb.git
-    :tag: 0.0.7
+    :tag: 0.0.6
 
 SPEC CHECKSUMS:
-  Coulomb: 2a0f4d84c82667c9c5fcbb95e31a1db662d688b9
+  Coulomb: 0206a4ee4e145bdfac49e9ea183618e2b6391741
+  SwiftyGif: 57d06538eec2bd038af061ad07f1200f519c3fcb
 
 COCOAPODS: 0.39.0

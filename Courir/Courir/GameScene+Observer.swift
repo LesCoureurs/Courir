@@ -27,6 +27,8 @@ extension GameScene: Observer {
             case "distance":
                 self.updateScore()
                 self.updatePlayerTextures()
+            case "arePlayersReady":
+                self.startGame()
             default:
                 return
             }

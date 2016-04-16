@@ -16,7 +16,7 @@ class GameScene: SKScene {
     // ==============================================
 
     private let countdownNode = CountdownNode()
-    private var hasGameStarted = false
+    private(set) var hasGameStarted = false
     
     private let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
@@ -72,16 +72,18 @@ class GameScene: SKScene {
         // Set game to 30FPS
         view.frameInterval = 2
         setupGestureRecognizers(view)
-        GameNetworkPortal._instance.send(.GameReady)
-        startGame()
+        gameSceneReady()
     }
     
-    private func startGame() {
-        print("Start game")
-        
-        while !(gameState.allPlayersReady && !hasGameStarted) {
-//            print("waiting")
+    private func gameSceneReady() {
+        if gameState.isMultiplayer {
+            GameNetworkPortal._instance.send(.GameReady)
+        } else {
+            startGame()
         }
+    }
+    
+    func startGame() {
         countdownNode.start()
     }
 

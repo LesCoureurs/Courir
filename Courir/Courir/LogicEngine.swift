@@ -21,8 +21,7 @@ class LogicEngine {
     
     private var timeStep = 0
     private var lastObstacleTimeStep: Int?
-    private var eventQueue = [(event: GameEvent, playerNumber: Int, timeStep: Int,
-        otherData: AnyObject?)]()
+    private var eventQueue = EventQueue()
 
     init(mode: GameMode, peers: [MCPeerID] = [MCPeerID](), seed: NSData? = nil, host: MCPeerID? = nil) {
         obstacleGenerator = ObstacleGenerator(seed: seed)
@@ -57,8 +56,7 @@ class LogicEngine {
             (event: $0.event, playerNumber: ghostPlayerNumber, timeStep: $0.timeStep,
                 otherData: $0.otherData)
         }
-        eventQueue.appendContentsOf(ghostSequence)
-        eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
+        eventQueue = EventQueue(initalEvents: ghostSequence)
     }
     
 
@@ -82,7 +80,8 @@ class LogicEngine {
     
     @objc func update() {
         guard !state.gameIsOver else {
-            print("game is over")
+            // Stop updating when game is over
+            stopTick()
             return
         }
         updateEventQueue()
@@ -230,8 +229,8 @@ class LogicEngine {
     
     // MARK: Internal update methods
     private func updateEventQueue() {
-        while eventQueue.last?.timeStep <= timeStep {
-            guard let front = eventQueue.popLast() else {
+        while eventQueue.head?.timeStep <= timeStep {
+            guard let front = eventQueue.removeHead() else {
                 break
             }
             handleEvent(front.event, playerNumber: front.playerNumber,
@@ -354,8 +353,7 @@ class LogicEngine {
     }
     
     func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int, otherData: AnyObject? = nil) {
-        eventQueue.append((event: event, playerNumber: playerNumber, timeStep: occurringTimeStep,
-            otherData: otherData))
-        eventQueue.sortInPlace { $0.timeStep > $1.timeStep }
+        eventQueue.insert(event, playerNumber: playerNumber, timeStep: occurringTimeStep,
+                          otherData: otherData)
     }
 }

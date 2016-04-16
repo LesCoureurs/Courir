@@ -46,7 +46,6 @@
 		6ED65C3C1CBD0AC300D51103 /* FiraSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */; };
 		6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */; };
 		6ED65C3E1CBD0AC300D51103 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */; };
-		6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */; };
 		6ED65C431CBD12BB00D51103 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED65C421CBD12BB00D51103 /* UIKitExtensions.swift */; };
 		6ED6BAC51CBFC4D10037230B /* PeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
@@ -69,6 +68,7 @@
 		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
 		7A8C65BF1CB2839200EF6117 /* PlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */; };
 		7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65C01CB28BB100EF6117 /* GhostStore.swift */; };
+		7AA0E6FD1CC2473A00FF4148 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */; };
 		7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */; };
 		7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */; };
 		7AF09BFA1CB14C14001B0A5B /* CountdownNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */; };
@@ -128,7 +128,6 @@
 		6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.otf"; sourceTree = "<group>"; };
 		6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-SemiBold.otf"; sourceTree = "<group>"; };
 		6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
-		6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
 		6ED65C421CBD12BB00D51103 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerTableViewCell.swift; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
@@ -151,6 +150,7 @@
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
 		7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEvent.swift; sourceTree = "<group>"; };
 		7A8C65C01CB28BB100EF6117 /* GhostStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GhostStore.swift; sourceTree = "<group>"; };
+		7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseButtonNode.swift; sourceTree = "<group>"; };
 		7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseMenuNode.swift; sourceTree = "<group>"; };
 		7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownNode.swift; sourceTree = "<group>"; };
@@ -243,7 +243,6 @@
 				6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */,
 				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
 				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
-				6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */,
 				6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */,
 			);
 			name = Fonts;
@@ -315,6 +314,7 @@
 		7A6233021CA44177007FEF08 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */,
 				72243E011CB3404100D8AF9D /* GameMode.swift */,
 				72243E031CB34AF400D8AF9D /* GameSetupData.swift */,
 				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
@@ -445,7 +445,6 @@
 				6E637D0E1CC13F3900FF40C2 /* Baron Neue Bold 60.otf in Resources */,
 				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
-				6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */,
 				6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +533,7 @@
 				6E2CEE591CB52585003DD41D /* PlayerSpriteNode.swift in Sources */,
 				7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */,
 				72243E061CB356EE00D8AF9D /* LogicEngine+GameNetworkPortalGameStateDelegate.swift in Sources */,
+				7AA0E6FD1CC2473A00FF4148 /* EventQueue.swift in Sources */,
 				6524A7131C9C7EB800D8CC48 /* MenuViewController.swift in Sources */,
 				7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */,
 				7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */,
