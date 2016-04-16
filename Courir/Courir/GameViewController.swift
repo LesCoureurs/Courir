@@ -28,6 +28,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
     @IBOutlet weak var replayOrUnwindButton: UIButton!
+    
+    @IBOutlet weak var saveConfirmationLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,9 +144,34 @@ class GameViewController: UIViewController {
             return
         }
         saveRunButtton.enabled = false
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            ghostStore.storeGhostData(nil)
+            ghostStore.storeGhostData() { complete in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.showConfirmationLabel()
+                }
+            }
         }
+    }
+    
+    private func showConfirmationLabel() {
+        UIView.animateWithDuration(0.5,
+            animations: {
+                self.saveConfirmationLabel.alpha = 1
+                self.saveConfirmationLabel.transform = CGAffineTransformMakeTranslation(0, -20)
+            },
+            completion: { finished in
+                UIView.animateWithDuration(1,
+                    delay: 5,
+                    options: UIViewAnimationOptions.BeginFromCurrentState,
+                    animations: {
+                        self.saveConfirmationLabel.alpha = 0
+                        self.saveConfirmationLabel.transform = CGAffineTransformMakeTranslation(0, 0)
+                    },
+                    completion: nil
+                )
+            }
+        )
     }
     
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {

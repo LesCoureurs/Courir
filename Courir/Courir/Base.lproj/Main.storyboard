@@ -24,6 +24,7 @@
             <string>BaronNeue-Italic</string>
             <string>BaronNeue-Italic</string>
             <string>BaronNeue-Italic</string>
+            <string>BaronNeue-Italic</string>
         </mutableArray>
         <mutableArray key="Baron Neue Normal 50.otf">
             <string>BaronNeue-Normal</string>
@@ -378,13 +379,21 @@
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="saved!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgP-GS-H8a">
+                                        <rect key="frame" x="312.5" y="375" width="35.5" height="11"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Italic" family="Baron Neue" pointSize="11"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="CDt-cz-TQL"/>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="bottom" secondItem="5rN-cr-Xkg" secondAttribute="bottom" id="MaU-gr-CxG"/>
+                                    <constraint firstItem="mgP-GS-H8a" firstAttribute="centerY" secondItem="QaN-3f-Tot" secondAttribute="centerY" id="Q7e-rA-I35"/>
                                     <constraint firstAttribute="height" constant="432" id="VxF-jr-Qwd"/>
                                     <constraint firstItem="pyj-x2-Wwr" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="ebG-gE-j78"/>
+                                    <constraint firstItem="mgP-GS-H8a" firstAttribute="centerX" secondItem="QaN-3f-Tot" secondAttribute="centerX" id="enW-U7-P1W"/>
                                     <constraint firstAttribute="bottom" secondItem="QaN-3f-Tot" secondAttribute="bottom" constant="36" id="fr9-g9-UYM"/>
                                     <constraint firstItem="MLM-bK-lrE" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="g54-As-paC"/>
                                     <constraint firstAttribute="width" constant="661" id="gM9-L0-HeF"/>
@@ -410,6 +419,7 @@
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="mainMenuButton" destination="5rN-cr-Xkg" id="RRz-Ox-fq4"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
+                        <outlet property="saveConfirmationLabel" destination="mgP-GS-H8a" id="136-1P-1Sq"/>
                         <outlet property="saveRunButtton" destination="QaN-3f-Tot" id="xLX-9I-XJW"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToSinglePlayerStart" unwindAction="unwindToSinglePlayerStart:" id="H0a-fi-yPa"/>
