@@ -69,6 +69,7 @@
 		7A8839341C9E7BBD007434E8 /* LogicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8839331C9E7BBD007434E8 /* LogicEngine.swift */; };
 		7A8C65BF1CB2839200EF6117 /* PlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */; };
 		7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C65C01CB28BB100EF6117 /* GhostStore.swift */; };
+		7AA0E6FD1CC2473A00FF4148 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */; };
 		7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */; };
 		7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */; };
 		7AF09BFA1CB14C14001B0A5B /* CountdownNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */; };
@@ -151,6 +152,7 @@
 		7A8839331C9E7BBD007434E8 /* LogicEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicEngine.swift; sourceTree = "<group>"; };
 		7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEvent.swift; sourceTree = "<group>"; };
 		7A8C65C01CB28BB100EF6117 /* GhostStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GhostStore.swift; sourceTree = "<group>"; };
+		7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseButtonNode.swift; sourceTree = "<group>"; };
 		7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseMenuNode.swift; sourceTree = "<group>"; };
 		7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownNode.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		7A6233021CA44177007FEF08 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */,
 				72243E011CB3404100D8AF9D /* GameMode.swift */,
 				72243E031CB34AF400D8AF9D /* GameSetupData.swift */,
 				7279DFBA1C9E92A400FA4198 /* GameEvent.swift */,
@@ -534,6 +537,7 @@
 				6E2CEE591CB52585003DD41D /* PlayerSpriteNode.swift in Sources */,
 				7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */,
 				72243E061CB356EE00D8AF9D /* LogicEngine+GameNetworkPortalGameStateDelegate.swift in Sources */,
+				7AA0E6FD1CC2473A00FF4148 /* EventQueue.swift in Sources */,
 				6524A7131C9C7EB800D8CC48 /* MenuViewController.swift in Sources */,
 				7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */,
 				7A8C65C11CB28BB100EF6117 /* GhostStore.swift in Sources */,
