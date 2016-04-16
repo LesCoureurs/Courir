@@ -40,6 +40,9 @@ class EventQueue {
     
     func removeHead() -> Element? {
         guard count > 1 else {
+            return nil
+        }
+        guard count != 1 else {
             return queue.removeLast()
         }
         let head = self.head!
