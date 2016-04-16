@@ -118,6 +118,5 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
                 parentVC.completeTransition(to: newVC, from: self)
             }
         })
-//        performSegueWithIdentifier("enterRoomSegue", sender: self)
     }
 }
