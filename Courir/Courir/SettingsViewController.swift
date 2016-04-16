@@ -9,6 +9,7 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+
     @IBAction func handleSetName(sender: AnyObject) {
         presentViewController(generateFormFor("New Name", withSaveKey: "myName", andPlaceholder: SettingsManager._instance.get("myName") as! String), animated: true, completion: nil)
     }
@@ -55,19 +56,12 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
     }
-    */
-
 }

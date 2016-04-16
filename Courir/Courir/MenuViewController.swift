@@ -6,6 +6,7 @@
 //  Copyright (c) 2016 NUS CS3217. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import SpriteKit
 import MultipeerConnectivity
@@ -14,11 +15,14 @@ class MenuViewController: UIViewController {
     private var saveAction: UIAlertAction?
     
     @IBOutlet var menuButtons: [UIButton]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        for button in menuButtons {
+            button.setLetterSpacing(defaultLetterSpacing)
+        }
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         if me.name == nil {
             askForName()
@@ -30,25 +34,22 @@ class MenuViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
-    @IBAction func handleExitGame(sender: UIStoryboardSegue) {
-        
-    }
-
-    @IBAction func unwindToMenu(sender: UIStoryboardSegue) {
-        
-    }
-
     // MARK: - Navigation
+    @IBAction func handlePlayAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.SinglePlayer, from: self)
+        }
+    }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "startGameSegue" {
-            let destination = segue.destinationViewController as! GameViewController
-            let singlePlayerData = GameSetupData(mode: .SinglePlayer, host: nil, peers: [MCPeerID](), seed: nil)
-            destination.setUpWith(singlePlayerData)
+    @IBAction func handleMultiplayerAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.RoomSelection, from: self)
+        }
+    }
+
+    @IBAction func handleSettingsAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionInto(.Settings, from: self)
         }
     }
     

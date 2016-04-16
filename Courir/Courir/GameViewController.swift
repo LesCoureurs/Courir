@@ -24,9 +24,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
     @IBOutlet weak var endGameTable: UITableView!
-    @IBOutlet weak var replayOrUnwindButton: UIButton!
 
+    @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
+    @IBOutlet weak var replayOrUnwindButton: UIButton!
+    
+    @IBOutlet weak var saveConfirmationLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +48,28 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
     // MARK: Start Game
 
     func setUpWith(data: GameSetupData) {
         gameSetupData = data
+    }
+
+    private func setUpGameEndMenu() {
+        let title = isMultiplayer ? "back to room" : "play again"
+        replayOrUnwindButton.setTitle(title, forState: .Normal)
+
+        let menuButtons = [mainMenuButton, saveRunButtton, replayOrUnwindButton]
+        for btn in menuButtons {
+            let fadedColor = btn.currentTitleColor.colorWithAlphaComponent(0.2)
+            btn.setTitleColor(fadedColor, forState: .Highlighted)
+            btn.setTitleColor(fadedColor, forState: .Disabled)
+        }
+
+        endGameTable.dataSource = endGameMenu
+        endGameTable.delegate = endGameMenu
+        endGameMenu.hidden = true
+        endGameMenu.alpha = 0
+        endGameMenu.layer.cornerRadius = 10
     }
 
     private func presentGameScene() {
@@ -97,34 +114,29 @@ class GameViewController: UIViewController {
     // MARK: End Game
 
     func exitGame() {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
-    }
-
-    private func setUpGameEndMenu() {
-        let title = isMultiplayer ? "Back To Room" : "Play Again"
-        replayOrUnwindButton.setTitle(title, forState: .Normal)
-        
-        endGameTable.dataSource = endGameMenu
-        endGameTable.delegate = endGameMenu
-        endGameMenu.hidden = true
-        endGameMenu.alpha = 0
-        endGameMenu.layer.cornerRadius = 10
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+        }
     }
     
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
         endGameMenu.hidden = false
         endGameMenu.scoreSheet = gameResultArray
         endGameTable.reloadData()
-
-        endGameLabel.text = "Game Over"
         
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1
         }
     }
-    
-    @IBAction func mainMenuButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("exitGameSegue", sender: self)
+
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if isMultiplayer {
+            performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
+        } else {
+            performSegueWithIdentifier("unwindToMenuViaSinglePlayerStart", sender: self)
+        }
     }
     
     @IBAction func saveRunButtonPressed(sender: AnyObject) {
@@ -132,9 +144,34 @@ class GameViewController: UIViewController {
             return
         }
         saveRunButtton.enabled = false
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            ghostStore.storeGhostData(nil)
+            ghostStore.storeGhostData() { complete in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.showConfirmationLabel()
+                }
+            }
         }
+    }
+    
+    private func showConfirmationLabel() {
+        UIView.animateWithDuration(0.5,
+            animations: {
+                self.saveConfirmationLabel.alpha = 1
+                self.saveConfirmationLabel.transform = CGAffineTransformMakeTranslation(0, -20)
+            },
+            completion: { finished in
+                UIView.animateWithDuration(1,
+                    delay: 5,
+                    options: UIViewAnimationOptions.BeginFromCurrentState,
+                    animations: {
+                        self.saveConfirmationLabel.alpha = 0
+                        self.saveConfirmationLabel.transform = CGAffineTransformMakeTranslation(0, 0)
+                    },
+                    completion: nil
+                )
+            }
+        )
     }
     
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {

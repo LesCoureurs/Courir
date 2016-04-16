@@ -10,16 +10,26 @@ import UIKit
 import SpriteKit
 import MultipeerConnectivity
 
-private let cellIdentifier = "host-cell-identifer"
+private let cellIdentifier = "peerCell"
 
 class RoomViewController: UIViewController {
 
+    static let numberOfVCsToMenu = 2
+
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
+    @IBOutlet weak var lobbyTitle: UILabel!
+
+    @IBOutlet weak var switchModeButton: UIButton!
+    @IBOutlet weak var helpText: UILabel!
 
     private var seed: NSData?
 
-    private(set) var mode: GameMode = .Multiplayer
+    private(set) var mode: GameMode! {
+        didSet {
+            updateLobbyTitle(mode)
+        }
+    }
     private(set) var isHost = true
     var host: MCPeerID? = myPeerID
     
@@ -33,19 +43,61 @@ class RoomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        peersTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         portal.connectionDelegate = self
         peersTableView.dataSource = self
+
+        startButton.setLetterSpacing(defaultLetterSpacing)
+        switchModeButton.setFadeForUserActions()
         
+        mode = .Multiplayer
+
         if isHost {
             portal.beginHosting()
             startButton.enabled = peers.count > 0
         } else {
+            lobbyTitle.text = "Lobby"
             startButton.enabled = false
+            switchModeButton.enabled = false
         }
     }
 
-    @IBAction func startGame(sender: AnyObject) {
+    @IBAction func handleSwitchModeAction(sender: AnyObject) {
+        let newMode: GameMode = mode == .Multiplayer ? .SpecialMultiplayer : .Multiplayer
+        setMode(newMode)
+    }
+
+    private func updateLobbyTitle(mode: GameMode) {
+        if isHost {
+            let isSpecial = mode == .SpecialMultiplayer
+            let gameType = isSpecial ? "Special" : ""
+            lobbyTitle.text = "Hosting \(gameType) Multiplayer"
+            let newAlpha: CGFloat = isSpecial ? 1 : 0
+            UIView.animateWithDuration(0.5) {
+                self.helpText.alpha = newAlpha
+            }
+        }
+    }
+
+    // MARK: Setup
+
+    func playerIsNotHost() {
+        isHost = false
+        host = nil
+    }
+
+    func setMode(mode: GameMode) {
+        self.mode = mode
+    }
+
+    // MARK: - Navigation
+
+    @IBAction func handleBackAction(sender: AnyObject) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut()
+        }
+    }
+    
+    @IBAction func handleStartGameAction(sender: AnyObject) {
         portal.stopHosting()
         portal.stopSearchingForHosts()
         var startData = [String: AnyObject]()
@@ -61,19 +113,6 @@ class RoomViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(), { self.performSegueWithIdentifier("startGameSegue", sender: self) })
 
     }
-    
-    func playerIsNotHost() {
-        isHost = false
-        host = nil
-    }
-
-    func setMode(mode: GameMode) {
-        self.mode = mode
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startGameSegue" {
@@ -82,19 +121,23 @@ class RoomViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
+    @IBAction func unwindToRoomViewFromGameView(sender: UIStoryboardSegue) {
         
+    }
+
+    @IBAction func unwindToMenuViaRoomView(sender: UIStoryboardSegue) {
+        if let parentVC = parentViewController as? MainViewController {
+            parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
+        }
     }
 }
 
 extension RoomViewController: UITableViewDataSource {
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = peersTableView
-            .dequeueReusableCellWithIdentifier(cellIdentifier)!
-        let peerLabel = UILabel(frame: cell.frame)
-        peerLabel.text = peers[indexPath.row].displayName
-        cell.addSubview(peerLabel)
+        let cell = tableView
+            .dequeueReusableCellWithIdentifier(cellIdentifier)! as! PeerTableViewCell
+        cell.peerName.text = peers[indexPath.row].displayName
         return cell
     }
     
