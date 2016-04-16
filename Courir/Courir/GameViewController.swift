@@ -53,7 +53,7 @@ class GameViewController: UIViewController {
     }
 
     private func setUpGameEndMenu() {
-        let title = isMultiplayer ? "Back To Room" : "Play Again"
+        let title = isMultiplayer ? "back to room" : "play again"
         replayOrUnwindButton.setTitle(title, forState: .Normal)
 
         let menuButtons = [mainMenuButton, saveRunButtton, replayOrUnwindButton]
@@ -123,8 +123,6 @@ class GameViewController: UIViewController {
         endGameMenu.hidden = false
         endGameMenu.scoreSheet = gameResultArray
         endGameTable.reloadData()
-
-        endGameLabel.text = "Game Over"
         
         UIView.animateWithDuration(0.5) { () -> Void in
             self.endGameMenu.alpha = 1

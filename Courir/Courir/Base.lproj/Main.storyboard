@@ -14,6 +14,10 @@
             <string>BaronNeue-Bold</string>
             <string>BaronNeue-Bold</string>
             <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
         </mutableArray>
         <mutableArray key="Baron Neue Italic 50.otf">
             <string>BaronNeue-Italic</string>
@@ -37,12 +41,6 @@
             <string>FiraSans-SemiBold</string>
             <string>FiraSans-SemiBold</string>
             <string>FiraSans-SemiBold</string>
-        </mutableArray>
-        <mutableArray key="Raleway-Bold.ttf">
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
         </mutableArray>
         <mutableArray key="ionicons.ttf">
             <string>Ionicons</string>
@@ -326,13 +324,13 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="game over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
                                         <rect key="frame" x="159" y="41" width="342" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="54" id="LEe-nS-8HS"/>
                                             <constraint firstAttribute="width" constant="342" id="qFg-cz-5rH"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="28"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -342,8 +340,8 @@
                                             <constraint firstAttribute="width" constant="108" id="4Yk-NC-x9a"/>
                                             <constraint firstAttribute="height" constant="30" id="GHS-k5-hTT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
-                                        <state key="normal" title="Main Menu">
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
+                                        <state key="normal" title="main menu">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -358,8 +356,8 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="l9U-TM-4nw"/>
                                             <constraint firstAttribute="height" constant="30" id="t7f-hC-M1L"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
-                                        <state key="normal" title="Save Run">
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
+                                        <state key="normal" title="save run">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -372,7 +370,7 @@
                                             <constraint firstAttribute="width" constant="103" id="Ke5-hR-u0M"/>
                                             <constraint firstAttribute="height" constant="30" id="dB2-VI-Yy9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
