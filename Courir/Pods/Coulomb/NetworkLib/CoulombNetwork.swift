@@ -14,7 +14,8 @@ public protocol CoulombNetworkDelegate: class {
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
     func connectedPeersInSessionChanged(peers: [MCPeerID])
     func connectedToPeer(peer: MCPeerID)
-    func disconnectedFromSession()
+    func connectingToPeer(peer: MCPeerID)
+    func disconnectedFromSession(peer: MCPeerID)
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
@@ -218,7 +219,7 @@ extension CoulombNetwork: MCSessionDelegate {
                 if self.host == peerID {
                     DLog("%@", "disconnected from host")
                     session.disconnect()
-                    delegate?.disconnectedFromSession()
+                    delegate?.disconnectedFromSession(peerID)
                     return
                 }
             }
@@ -226,6 +227,8 @@ extension CoulombNetwork: MCSessionDelegate {
             if self.host != nil {
                 delegate?.connectedPeersInSessionChanged(session.connectedPeers)
             }
+        } else {
+            delegate?.connectingToPeer(peerID)
         }
     }
     

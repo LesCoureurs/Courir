@@ -34,7 +34,7 @@ class GameNetworkPortal {
     var semaphore: dispatch_semaphore_t!
     let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
-    var isConnecting = true
+    var isConnecting = false
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
         didSet {
@@ -146,15 +146,18 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectedToPeer(peer: MCPeerID) {
-        isConnecting = true
         connectionDelegate?.connectedToRoom(peer)
+    }
+    
+    func connectingToPeer(peer: MCPeerID) {
+        isConnecting = true
     }
     
     func disconnectedFromSession(peer: MCPeerID) {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        
+        isConnecting = false
         connectionDelegate?.disconnectedFromRoom(peer)
         gameStateDelegate?.disconnectedFromGame(peer)
     }
