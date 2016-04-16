@@ -14,8 +14,15 @@
             <string>BaronNeue-Bold</string>
             <string>BaronNeue-Bold</string>
             <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
+            <string>BaronNeue-Bold</string>
         </mutableArray>
         <mutableArray key="Baron Neue Italic 50.otf">
+            <string>BaronNeue-Italic</string>
+            <string>BaronNeue-Italic</string>
+            <string>BaronNeue-Italic</string>
             <string>BaronNeue-Italic</string>
             <string>BaronNeue-Italic</string>
             <string>BaronNeue-Italic</string>
@@ -37,12 +44,6 @@
             <string>FiraSans-SemiBold</string>
             <string>FiraSans-SemiBold</string>
             <string>FiraSans-SemiBold</string>
-        </mutableArray>
-        <mutableArray key="Raleway-Bold.ttf">
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
-            <string>Raleway-Bold</string>
         </mutableArray>
         <mutableArray key="ionicons.ttf">
             <string>Ionicons</string>
@@ -114,7 +115,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 314159" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bja-Tp-cf5">
-                                                            <rect key="frame" x="8" y="11" width="123" height="21"/>
+                                                            <rect key="frame" x="8" y="11" width="122.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="9rQ-uL-1Le"/>
                                                             </constraints>
@@ -265,7 +266,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZt-Lh-pM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1389" y="218"/>
+            <point key="canvasLocation" x="1307" y="330"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="efx-Xn-ReG">
@@ -295,7 +296,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="HeI-hA-VMh" id="P2m-F1-hKD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="460" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cH-Q0-lTJ">
@@ -326,13 +327,13 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="game over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLM-bK-lrE">
                                         <rect key="frame" x="159" y="41" width="342" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="54" id="LEe-nS-8HS"/>
                                             <constraint firstAttribute="width" constant="342" id="qFg-cz-5rH"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="28"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -342,8 +343,8 @@
                                             <constraint firstAttribute="width" constant="108" id="4Yk-NC-x9a"/>
                                             <constraint firstAttribute="height" constant="30" id="GHS-k5-hTT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
-                                        <state key="normal" title="Main Menu">
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
+                                        <state key="normal" title="main menu">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -358,8 +359,8 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="l9U-TM-4nw"/>
                                             <constraint firstAttribute="height" constant="30" id="t7f-hC-M1L"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
-                                        <state key="normal" title="Save Run">
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
+                                        <state key="normal" title="save run">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -367,12 +368,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
-                                        <rect key="frame" x="424" y="366" width="103" height="30"/>
+                                        <rect key="frame" x="424" y="366" width="120" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="103" id="Ke5-hR-u0M"/>
+                                            <constraint firstAttribute="width" constant="120" id="Ke5-hR-u0M"/>
                                             <constraint firstAttribute="height" constant="30" id="dB2-VI-Yy9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -380,13 +381,21 @@
                                             <action selector="replayOrUnwindButtonPressed:" destination="4ES-gW-g9a" eventType="touchUpInside" id="BNe-Wp-O3b"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="saved!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgP-GS-H8a">
+                                        <rect key="frame" x="312.5" y="375" width="35.5" height="11"/>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Italic" family="Baron Neue" pointSize="11"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="CDt-cz-TQL"/>
                                     <constraint firstItem="QaN-3f-Tot" firstAttribute="bottom" secondItem="5rN-cr-Xkg" secondAttribute="bottom" id="MaU-gr-CxG"/>
+                                    <constraint firstItem="mgP-GS-H8a" firstAttribute="centerY" secondItem="QaN-3f-Tot" secondAttribute="centerY" id="Q7e-rA-I35"/>
                                     <constraint firstAttribute="height" constant="432" id="VxF-jr-Qwd"/>
                                     <constraint firstItem="pyj-x2-Wwr" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="ebG-gE-j78"/>
+                                    <constraint firstItem="mgP-GS-H8a" firstAttribute="centerX" secondItem="QaN-3f-Tot" secondAttribute="centerX" id="enW-U7-P1W"/>
                                     <constraint firstAttribute="bottom" secondItem="QaN-3f-Tot" secondAttribute="bottom" constant="36" id="fr9-g9-UYM"/>
                                     <constraint firstItem="MLM-bK-lrE" firstAttribute="centerX" secondItem="NZD-Wm-f2y" secondAttribute="centerX" id="g54-As-paC"/>
                                     <constraint firstAttribute="width" constant="661" id="gM9-L0-HeF"/>
@@ -412,6 +421,7 @@
                         <outlet property="endGameTable" destination="pyj-x2-Wwr" id="EjW-2D-VCK"/>
                         <outlet property="mainMenuButton" destination="5rN-cr-Xkg" id="RRz-Ox-fq4"/>
                         <outlet property="replayOrUnwindButton" destination="If6-Cc-Qy2" id="EBc-7J-Ohc"/>
+                        <outlet property="saveConfirmationLabel" destination="mgP-GS-H8a" id="136-1P-1Sq"/>
                         <outlet property="saveRunButtton" destination="QaN-3f-Tot" id="xLX-9I-XJW"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToRoomViewFromGameView" unwindAction="unwindToRoomViewFromGameView:" id="sP3-C3-HBf"/>
                         <segue destination="Y48-kV-EJR" kind="unwind" identifier="unwindToSinglePlayerStart" unwindAction="unwindToSinglePlayerStart:" id="H0a-fi-yPa"/>
@@ -548,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="roI-DW-gmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130" y="-688"/>
+            <point key="canvasLocation" x="245" y="-578"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="XWS-3s-eeM">
@@ -594,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mh2-9m-pmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-995" y="325"/>
+            <point key="canvasLocation" x="-825" y="325"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -879,7 +889,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xsc-6v-fMK">
-                                        <rect key="frame" x="35" y="97" width="330" height="3"/>
+                                        <rect key="frame" x="35" y="144" width="330" height="3"/>
                                         <color key="backgroundColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="Kas-3Y-rMc"/>
@@ -887,11 +897,8 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VR5-bS-gWq">
-                                        <rect key="frame" x="35" y="140" width="330" height="506"/>
+                                        <rect key="frame" x="35" y="168" width="330" height="478"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="550" id="Dsk-ij-3Yn"/>
-                                        </constraints>
                                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="peerCell" id="qi5-Mm-dAn" customClass="PeerTableViewCell" customModule="Courir" customModuleProvider="target">
@@ -924,11 +931,6 @@
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Dsk-ij-3Yn"/>
-                                            </mask>
-                                        </variation>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AI-gz-q6n">
                                         <rect key="frame" x="35" y="696" width="66" height="37"/>
@@ -948,19 +950,25 @@
                                             <action selector="handleBackAction:" destination="40i-zX-uIe" eventType="touchUpInside" id="aSZ-uj-GMa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lobby" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-jX-TsN">
-                                        <rect key="frame" x="35" y="40" width="103" height="32"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hosting special multiplayer" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-jX-TsN">
+                                        <rect key="frame" x="35" y="42" width="300" height="65"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="129" id="ejv-YG-vmv"/>
+                                            <constraint firstAttribute="width" constant="300" id="N5V-EA-FIm"/>
+                                            <constraint firstAttribute="height" constant="65" id="Pz9-tJ-fvV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="32"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="ejv-YG-vmv"/>
-                                            </mask>
-                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The host generates obstacles in special mode" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Civ-hD-hiD">
+                                        <rect key="frame" x="35" y="100" width="220" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="220" id="eHv-jp-0dz"/>
+                                            <constraint firstAttribute="height" constant="42" id="hj6-Uy-sTo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BaronNeue-Italic" family="Baron Neue" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
@@ -968,15 +976,25 @@
                                     <constraint firstAttribute="trailing" secondItem="VR5-bS-gWq" secondAttribute="trailing" constant="35" id="9dP-0R-RYE"/>
                                     <constraint firstAttribute="width" constant="400" id="BPJ-Rf-8ql"/>
                                     <constraint firstItem="xsc-6v-fMK" firstAttribute="leading" secondItem="fFh-jX-TsN" secondAttribute="leading" id="Gzx-zh-0fs"/>
-                                    <constraint firstItem="fFh-jX-TsN" firstAttribute="top" secondItem="1H7-sZ-ycQ" secondAttribute="top" constant="40" id="MdX-Cg-QGU"/>
-                                    <constraint firstItem="VR5-bS-gWq" firstAttribute="top" secondItem="xsc-6v-fMK" secondAttribute="bottom" constant="40" id="MrO-Gf-sBs"/>
+                                    <constraint firstItem="xsc-6v-fMK" firstAttribute="top" secondItem="1H7-sZ-ycQ" secondAttribute="top" constant="144" id="MPX-uD-Oq1"/>
+                                    <constraint firstItem="fFh-jX-TsN" firstAttribute="top" secondItem="1H7-sZ-ycQ" secondAttribute="top" constant="42" id="MdX-Cg-QGU"/>
+                                    <constraint firstItem="VR5-bS-gWq" firstAttribute="top" secondItem="xsc-6v-fMK" secondAttribute="bottom" constant="21" id="MrO-Gf-sBs"/>
                                     <constraint firstAttribute="bottom" secondItem="6AI-gz-q6n" secondAttribute="bottom" constant="35" id="bTL-1a-To7"/>
                                     <constraint firstItem="6AI-gz-q6n" firstAttribute="top" secondItem="VR5-bS-gWq" secondAttribute="bottom" constant="50" id="d3F-m8-eKM"/>
                                     <constraint firstItem="fFh-jX-TsN" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="leading" constant="35" id="eEu-gl-Zqj"/>
+                                    <constraint firstItem="xsc-6v-fMK" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="leading" constant="35" id="flJ-f5-tg9"/>
+                                    <constraint firstItem="Civ-hD-hiD" firstAttribute="top" secondItem="1H7-sZ-ycQ" secondAttribute="top" constant="100" id="ilM-qx-k1H"/>
                                     <constraint firstItem="VR5-bS-gWq" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="leading" constant="35" id="mMe-6D-Cm0"/>
+                                    <constraint firstItem="Civ-hD-hiD" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="leading" constant="35" id="qJd-qj-rGT"/>
                                     <constraint firstItem="6AI-gz-q6n" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="leading" constant="35" id="vdg-3m-Fol"/>
-                                    <constraint firstItem="xsc-6v-fMK" firstAttribute="top" secondItem="fFh-jX-TsN" secondAttribute="bottom" constant="25" id="voL-WW-49h"/>
+                                    <constraint firstItem="xsc-6v-fMK" firstAttribute="top" secondItem="fFh-jX-TsN" secondAttribute="bottom" constant="20" id="voL-WW-49h"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Gzx-zh-0fs"/>
+                                        <exclude reference="voL-WW-49h"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-kf-Igw">
                                 <rect key="frame" x="520" y="200" width="253" height="52"/>
@@ -1011,42 +1029,49 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6Y-R0-Vlc">
+                                <rect key="frame" x="610" y="170" width="118" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="VG2-sn-C0M"/>
+                                    <constraint firstAttribute="width" constant="118" id="mIv-XG-9kq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BaronNeue-Italic" family="Baron Neue" pointSize="15"/>
+                                <state key="normal" title="switch mode">
+                                    <color key="titleColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleSwitchModeAction:" destination="40i-zX-uIe" eventType="touchUpInside" id="IZg-za-ipw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Iac-Gw-vJC" firstAttribute="top" secondItem="Izs-xz-hMR" secondAttribute="topMargin" id="4se-m1-9jH"/>
-                            <constraint firstAttribute="trailing" secondItem="1H7-sZ-ycQ" secondAttribute="trailing" constant="564" id="7k5-j2-MEq"/>
-                            <constraint firstItem="1H7-sZ-ycQ" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leadingMargin" constant="40" id="GF9-c0-qJt"/>
                             <constraint firstItem="Iac-Gw-vJC" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leadingMargin" id="JSQ-Az-RPe"/>
-                            <constraint firstItem="6eg-Q1-7P5" firstAttribute="top" secondItem="aXg-kf-Igw" secondAttribute="bottom" constant="372" id="WZa-3R-geZ"/>
+                            <constraint firstItem="K6Y-R0-Vlc" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leading" constant="610" id="Mth-Fh-a6w"/>
+                            <constraint firstItem="K6Y-R0-Vlc" firstAttribute="top" secondItem="IMN-pv-s0k" secondAttribute="bottom" constant="150" id="QlP-CK-kC5"/>
                             <constraint firstItem="aXg-kf-Igw" firstAttribute="leading" secondItem="1H7-sZ-ycQ" secondAttribute="trailing" constant="120" id="YnR-e9-eHF"/>
                             <constraint firstItem="1H7-sZ-ycQ" firstAttribute="bottom" secondItem="6eg-Q1-7P5" secondAttribute="top" id="avR-az-p95"/>
                             <constraint firstItem="1H7-sZ-ycQ" firstAttribute="leading" secondItem="Izs-xz-hMR" secondAttribute="leading" id="eBL-MS-puU"/>
                             <constraint firstItem="aXg-kf-Igw" firstAttribute="top" secondItem="IMN-pv-s0k" secondAttribute="bottom" constant="180" id="mO3-Zh-fTV"/>
-                            <constraint firstAttribute="trailing" secondItem="aXg-kf-Igw" secondAttribute="trailing" constant="174" id="rCX-z9-dAS"/>
                             <constraint firstItem="1H7-sZ-ycQ" firstAttribute="top" secondItem="Izs-xz-hMR" secondAttribute="top" id="ssW-IF-QDK"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="7k5-j2-MEq"/>
-                                <exclude reference="GF9-c0-qJt"/>
-                                <exclude reference="rCX-z9-dAS"/>
-                                <exclude reference="WZa-3R-geZ"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="900" height="768"/>
                     <connections>
+                        <outlet property="helpText" destination="Civ-hD-hiD" id="qMg-nu-5vb"/>
+                        <outlet property="lobbyTitle" destination="fFh-jX-TsN" id="MyY-V3-lmV"/>
                         <outlet property="peersTableView" destination="VR5-bS-gWq" id="LaQ-kD-ehb"/>
                         <outlet property="startButton" destination="aXg-kf-Igw" id="9wn-nr-uvy"/>
+                        <outlet property="switchModeButton" destination="K6Y-R0-Vlc" id="H51-DT-0Fq"/>
                         <segue destination="4ES-gW-g9a" kind="show" identifier="startGameSegue" id="ph3-8p-GxT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAm-ww-Rl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501" y="1253"/>
+            <point key="canvasLocation" x="1307" y="1253"/>
         </scene>
     </scenes>
     <resources>

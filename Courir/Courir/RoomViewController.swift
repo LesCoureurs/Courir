@@ -18,10 +18,18 @@ class RoomViewController: UIViewController {
 
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var peersTableView: UITableView!
+    @IBOutlet weak var lobbyTitle: UILabel!
+
+    @IBOutlet weak var switchModeButton: UIButton!
+    @IBOutlet weak var helpText: UILabel!
 
     private var seed: NSData?
 
-    private(set) var mode: GameMode = .Multiplayer
+    private(set) var mode: GameMode! {
+        didSet {
+            updateLobbyTitle(mode)
+        }
+    }
     private(set) var isHost = true
     var host: MCPeerID? = myPeerID
     
@@ -39,12 +47,34 @@ class RoomViewController: UIViewController {
         peersTableView.dataSource = self
 
         startButton.setLetterSpacing(defaultLetterSpacing)
+        switchModeButton.setFadeForUserActions()
         
+        mode = .Multiplayer
+
         if isHost {
             portal.beginHosting()
             startButton.enabled = peers.count > 0
         } else {
+            lobbyTitle.text = "Lobby"
             startButton.enabled = false
+            switchModeButton.enabled = false
+        }
+    }
+
+    @IBAction func handleSwitchModeAction(sender: AnyObject) {
+        let newMode: GameMode = mode == .Multiplayer ? .SpecialMultiplayer : .Multiplayer
+        setMode(newMode)
+    }
+
+    private func updateLobbyTitle(mode: GameMode) {
+        if isHost {
+            let isSpecial = mode == .SpecialMultiplayer
+            let gameType = isSpecial ? "Special" : ""
+            lobbyTitle.text = "Hosting \(gameType) Multiplayer"
+            let newAlpha: CGFloat = isSpecial ? 1 : 0
+            UIView.animateWithDuration(0.5) {
+                self.helpText.alpha = newAlpha
+            }
         }
         
         dispatch_semaphore_signal(portal.semaphore)

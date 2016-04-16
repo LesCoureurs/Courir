@@ -42,4 +42,12 @@ extension UIButton {
         setAttributedTitle(generateAttributedString(title, letterSpacing, disabledColor),
                            forState: .Disabled)
     }
+
+    func setFadeForUserActions() {
+        let color = currentTitleColor
+        let highlightedColor = color.colorWithAlphaComponent(0.4)
+        let disabledColor = color.colorWithAlphaComponent(0.2)
+        setTitleColor(highlightedColor, forState: .Highlighted)
+        setTitleColor(disabledColor, forState: .Disabled)
+    }
 }
