@@ -6,6 +6,7 @@ use_frameworks!
 
 target 'Courir' do
   pod 'Coulomb', :git => 'https://github.com/SplooshKit/Coulomb.git', :tag => '0.0.6'
+  pod 'SwiftyGif'
 end
 
 target 'CourirTests' do

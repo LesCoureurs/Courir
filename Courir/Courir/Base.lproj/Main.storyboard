@@ -572,10 +572,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqN-Bv-mav">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y65-33-ynE">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                            </webView>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lpm-kr-MVY">
                                 <rect key="frame" x="104" y="0.0" width="900" height="768"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -587,11 +586,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Y65-33-ynE" firstAttribute="top" secondItem="IoV-Hl-qrl" secondAttribute="top" id="4M3-sd-tZe"/>
                             <constraint firstItem="Lpm-kr-MVY" firstAttribute="top" secondItem="IoV-Hl-qrl" secondAttribute="topMargin" id="9Wz-2Q-yUz"/>
-                            <constraint firstItem="lqN-Bv-mav" firstAttribute="bottom" secondItem="l3d-fN-wIS" secondAttribute="top" id="A05-GG-mLN"/>
-                            <constraint firstAttribute="trailing" secondItem="lqN-Bv-mav" secondAttribute="trailing" id="Qqk-36-cB4"/>
-                            <constraint firstItem="lqN-Bv-mav" firstAttribute="top" secondItem="IoV-Hl-qrl" secondAttribute="top" id="gGS-kf-gcz"/>
-                            <constraint firstItem="lqN-Bv-mav" firstAttribute="leading" secondItem="IoV-Hl-qrl" secondAttribute="leading" id="i1b-BH-eV3"/>
+                            <constraint firstAttribute="trailing" secondItem="Y65-33-ynE" secondAttribute="trailing" id="K9F-nK-BOR"/>
+                            <constraint firstItem="Y65-33-ynE" firstAttribute="leading" secondItem="IoV-Hl-qrl" secondAttribute="leading" id="a5j-UN-bwd"/>
+                            <constraint firstItem="l3d-fN-wIS" firstAttribute="top" secondItem="Y65-33-ynE" secondAttribute="bottom" id="kVS-Wo-zWf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lpm-kr-MVY" secondAttribute="trailing" id="tGP-fd-0cx"/>
                         </constraints>
                     </view>
@@ -599,7 +598,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="contentView" destination="Lpm-kr-MVY" id="w4j-O6-AqL"/>
-                        <outlet property="menuBg" destination="lqN-Bv-mav" id="EUC-6x-KcS"/>
+                        <outlet property="menuBackground" destination="Y65-33-ynE" id="FxM-Q8-E5H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mh2-9m-pmy" userLabel="First Responder" sceneMemberID="firstResponder"/>

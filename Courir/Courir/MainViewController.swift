@@ -7,11 +7,12 @@
 //
 import Foundation
 import UIKit
+import SwiftyGif
 
 class MainViewController: UIViewController {
 
-    @IBOutlet var menuBg: UIWebView!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var menuBackground: UIImageView!
 
     private var viewControllerStack = [UIViewController]()
 
@@ -19,7 +20,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMenuBg()
+        loadMenuBackground()
         let menuVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(Screen.Menu.rawValue)
         updateActiveViewController(menuVC)
         viewControllerStack.append(menuVC)
@@ -30,11 +31,10 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    private func loadMenuBg() {
-        let filePath = NSBundle.mainBundle().pathForResource("menu-bg", ofType: "gif")
-        let menuBgGif = NSData(contentsOfFile: filePath!)
-        menuBg.loadData(menuBgGif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
-        menuBg.userInteractionEnabled = false;
+    private func loadMenuBackground() {
+        let gifManager = SwiftyGifManager(memoryLimit: 20)
+        let backgroundGif = UIImage(gifName: "menu-bg")
+        menuBackground.setGifImage(backgroundGif, manager: gifManager)
     }
 
     func prepareForTransitionInto(newScreen: Screen) -> UIViewController? {
