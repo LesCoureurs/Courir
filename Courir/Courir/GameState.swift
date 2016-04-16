@@ -62,8 +62,14 @@ class GameState: Observed {
     var objects: [GameObject] {
         return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
     }
+    
+    private(set) var arePlayersReady = false {
+        didSet {
+            observer?.didChangeProperty("arePlayersReady", from: self)
+        }
+    }
 
-    var allPlayersReady: Bool {
+    private var allPlayersReady: Bool {
         return players.filter { $0.state == PlayerState.Ready }.count == players.count
     }
     
@@ -125,6 +131,13 @@ class GameState: Observed {
             return host
         }
         return nil
+    }
+    
+    func playerReady(peerID: MCPeerID) {
+        getPlayer(withPeerID: peerID)?.ready()
+        if allPlayersReady {
+            arePlayersReady = true
+        }
     }
     
     func everyoneFinished() -> Bool {

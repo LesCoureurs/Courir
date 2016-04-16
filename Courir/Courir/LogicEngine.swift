@@ -82,7 +82,8 @@ class LogicEngine {
     
     @objc func update() {
         guard !state.gameIsOver else {
-            print("game is over")
+            // Stop updating when game is over
+            stopTick()
             return
         }
         updateEventQueue()

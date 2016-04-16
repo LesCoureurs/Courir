@@ -57,9 +57,7 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
     }
 
     func gameReadySignalReceived(data: AnyObject?, peer: MCPeerID) {
-        if let player = state.getPlayer(withPeerID: peer) {
-            player.ready()
-        }
+        state.playerReady(peer)
     }
 
     func playerLostSignalReceived(data: AnyObject?, peer: MCPeerID) {
