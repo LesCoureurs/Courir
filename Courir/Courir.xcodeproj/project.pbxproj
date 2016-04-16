@@ -46,7 +46,6 @@
 		6ED65C3C1CBD0AC300D51103 /* FiraSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */; };
 		6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */; };
 		6ED65C3E1CBD0AC300D51103 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */; };
-		6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */; };
 		6ED65C431CBD12BB00D51103 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED65C421CBD12BB00D51103 /* UIKitExtensions.swift */; };
 		6ED6BAC51CBFC4D10037230B /* PeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */; };
 		6EF577671CA3CA93003FB063 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF577661CA3CA93003FB063 /* Observer.swift */; };
@@ -129,7 +128,6 @@
 		6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.otf"; sourceTree = "<group>"; };
 		6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-SemiBold.otf"; sourceTree = "<group>"; };
 		6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
-		6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
 		6ED65C421CBD12BB00D51103 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerTableViewCell.swift; sourceTree = "<group>"; };
 		6EF577661CA3CA93003FB063 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 				6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */,
 				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
 				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
-				6ED65C3B1CBD0AC300D51103 /* Raleway-ExtraLight.ttf */,
 				6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */,
 			);
 			name = Fonts;
@@ -448,7 +445,6 @@
 				6E637D0E1CC13F3900FF40C2 /* Baron Neue Bold 60.otf in Resources */,
 				6E2CEE511CB4D2E1003DD41D /* PlayerJumping.atlas in Resources */,
 				6524A7161C9C7EB800D8CC48 /* Main.storyboard in Resources */,
-				6ED65C3F1CBD0AC300D51103 /* Raleway-ExtraLight.ttf in Resources */,
 				6ED65C3D1CBD0AC300D51103 /* FiraSans-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
