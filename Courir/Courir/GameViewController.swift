@@ -117,11 +117,13 @@ class GameViewController: UIViewController {
     // MARK: End Game
 
     func exitGame() {
-        if isMultiplayer {
-            performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
-        } else {
-            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            if self.isMultiplayer {
+                self.performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
+            } else {
+                self.performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+            }
+        })
     }
     
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
@@ -180,6 +182,7 @@ class GameViewController: UIViewController {
     
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
         if isMultiplayer {
+            portal.gameStateDelegate = nil
             performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
         } else {
             initialGhostStore = gameEndGhostStore

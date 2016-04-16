@@ -125,6 +125,7 @@ class RoomViewController: UIViewController {
     }
     
     @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
+        portal.gameStateDelegate = nil
         if isHost {
             portal.beginHosting()
         }
@@ -136,9 +137,12 @@ class RoomViewController: UIViewController {
     }
 
     @IBAction func unwindToMenuViaRoomView(sender: UIStoryboardSegue) {
-        if let parentVC = parentViewController as? MainViewController {
-            parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
-        }
+        portal.gameStateDelegate = nil
+        dispatch_async(dispatch_get_main_queue(), {
+            if let parentVC = self.parentViewController as? MainViewController {
+                parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
+            }
+        })
     }
 }
 

@@ -158,8 +158,13 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
         isConnecting = false
-        connectionDelegate?.disconnectedFromRoom(peer)
-        gameStateDelegate?.disconnectedFromGame(peer)
+        
+        if gameStateDelegate != nil {
+            gameStateDelegate?.disconnectedFromGame(peer)
+        } else {
+            connectionDelegate?.disconnectedFromRoom(peer)
+        }
+        
     }
     
     // Receives NSData and converts it into a dictionary of type [String: AnyObject]
