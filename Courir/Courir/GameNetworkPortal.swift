@@ -34,7 +34,7 @@ class GameNetworkPortal {
     var semaphore: dispatch_semaphore_t!
     let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
-    var isConnecting = false
+    var isMovingToRoomView = false
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
         didSet {
@@ -55,7 +55,7 @@ class GameNetworkPortal {
         coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
         coulombNetwork.debugMode = true
-        semaphore = dispatch_semaphore_create(0)
+        createSemaphore()
     }
 
     deinit {
@@ -119,6 +119,13 @@ class GameNetworkPortal {
     func getMyPeerID() -> MCPeerID {
         return coulombNetwork.getMyPeerID()
     }
+    
+    // MARK: Semaphore
+    func createSemaphore() {
+        if semaphore == nil {
+            semaphore = dispatch_semaphore_create(0)
+        }
+    }
 }
 
 extension GameNetworkPortal: CoulombNetworkDelegate {
@@ -134,30 +141,30 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
         print("Portal: Connected Peers in sesison changed: \(peers)")
-//        let timeout = dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout)
-        
         // Only wait when connecting
-        if isConnecting {
+        if isMovingToRoomView {
+            print("semaphore waiting..")
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-            isConnecting = false
+            isMovingToRoomView = false
         }
         print("Portal: semaphore finished waiting")
         connectionDelegate?.playersInRoomChanged(peers)
     }
     
     func connectedToPeer(peer: MCPeerID) {
+        isMovingToRoomView = true
         connectionDelegate?.connectedToRoom(peer)
     }
     
     func connectingToPeer(peer: MCPeerID) {
-        isConnecting = true
+        
     }
     
     func disconnectedFromSession(peer: MCPeerID) {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        isConnecting = false
+        isMovingToRoomView = false
         
         if gameStateDelegate != nil {
             gameStateDelegate?.disconnectedFromGame(peer)

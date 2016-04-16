@@ -59,6 +59,8 @@ class RoomViewController: UIViewController {
             startButton.enabled = false
             switchModeButton.enabled = false
         }
+        print("semaphore signal")
+        dispatch_semaphore_signal(portal.semaphore)
     }
 
     @IBAction func handleSwitchModeAction(sender: AnyObject) {
@@ -76,8 +78,6 @@ class RoomViewController: UIViewController {
                 self.helpText.alpha = newAlpha
             }
         }
-        
-        dispatch_semaphore_signal(portal.semaphore)
     }
 
     // MARK: Setup
