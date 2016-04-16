@@ -25,6 +25,10 @@ class RoomSelectionViewController: UIViewController {
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.notConnectedToRoom(_:)),
+                                                         name: "notConnected", object: nil)
+        
         newRoomButton.setLetterSpacing(defaultLetterSpacing)
     }
 
@@ -61,6 +65,20 @@ class RoomSelectionViewController: UIViewController {
         hosts = portal.getFoundHosts()
         dispatch_async(dispatch_get_main_queue(), {
             self.roomsAvailableTableView.reloadData()
+        })
+    }
+    
+    func notConnectedToRoom(notification: NSNotification) {
+        let userInfo = notification.userInfo as! [String: AnyObject]
+        let peerName = userInfo["peerName"]
+        
+        let message = (peerName != nil) ? "Not Connected to \(peerName!)." : "Not Connected."
+        
+        let alert = UIAlertController(title: "Connection", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alert, animated: true, completion: nil)
         })
     }
 }
@@ -103,8 +121,11 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
         
     }
     
-    func disconnectedFromRoom() {
-        
+    func disconnectedFromRoom(peer: MCPeerID) {
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName("notConnected",
+                                  object: self,
+                                  userInfo: ["peerName": peer.displayName] as [NSObject: AnyObject])
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
