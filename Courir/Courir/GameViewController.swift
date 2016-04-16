@@ -136,6 +136,7 @@ class GameViewController: UIViewController {
 
     @IBAction func handleBackAction(sender: AnyObject) {
         if isMultiplayer {
+            portal.disconnectFromRoom()
             performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
         } else {
             performSegueWithIdentifier("unwindToMenuViaSinglePlayerStart", sender: self)
