@@ -76,6 +76,9 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
 
 
     func disconnectedFromGame(peer: MCPeerID) {
-        
+        stopTick()
+        dispatch_async(dispatch_get_main_queue(), {
+            NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
+        })
     }
 }
