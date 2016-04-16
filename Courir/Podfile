@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 # Uncomment this line to define a global platform for your project
-platform :ios, '8.1'
+platform :ios, '9.2'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
 target 'Courir' do
-  pod 'Coulomb', :git => 'https://github.com/SplooshKit/Coulomb.git', :tag => '0.0.6'
+  pod 'Coulomb', :git => 'https://github.com/LesCoureurs/Coulomb.git', :tag => '1.0.1'
   pod 'SwiftyGif'
 end
 
