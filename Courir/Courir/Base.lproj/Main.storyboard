@@ -367,9 +367,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If6-Cc-Qy2">
-                                        <rect key="frame" x="424" y="366" width="103" height="30"/>
+                                        <rect key="frame" x="424" y="366" width="120" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="103" id="Ke5-hR-u0M"/>
+                                            <constraint firstAttribute="width" constant="120" id="Ke5-hR-u0M"/>
                                             <constraint firstAttribute="height" constant="30" id="dB2-VI-Yy9"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BaronNeue-Bold" family="Baron Neue" pointSize="15"/>
