@@ -122,9 +122,7 @@ class GameNetworkPortal {
     
     // MARK: Semaphore
     func createSemaphore() {
-        if semaphore == nil {
-            semaphore = dispatch_semaphore_create(0)
-        }
+        semaphore = dispatch_semaphore_create(0)
     }
 }
 
@@ -157,7 +155,7 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     }
     
     func connectingToPeer(peer: MCPeerID) {
-        
+        createSemaphore()
     }
     
     func disconnectedFromSession(peer: MCPeerID) {
