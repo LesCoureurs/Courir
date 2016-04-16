@@ -116,7 +116,7 @@ class GameViewController: UIViewController {
 
     func exitGame() {
         if isMultiplayer {
-            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
+            performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
         } else {
             performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
         }
