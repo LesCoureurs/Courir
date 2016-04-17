@@ -58,7 +58,6 @@
 		7279DFBB1C9E92A400FA4198 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279DFBA1C9E92A400FA4198 /* GameEvent.swift */; };
 		728082041CB8CC0E00795C53 /* MyPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728082031CB8CC0E00795C53 /* MyPlayer.swift */; };
 		7286F7941CBE7E670024B45E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7286F7921CBE7E670024B45E /* MainViewController.swift */; };
-		7286F7951CBE7E670024B45E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7286F7931CBE7E670024B45E /* MainViewController.xib */; };
 		7286F7991CBE893D0024B45E /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7286F7981CBE893D0024B45E /* Screen.swift */; };
 		7A168DD81CA534B900E9CCBB /* RoomSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */; };
 		7A168DDA1CA53EE500E9CCBB /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */; };
@@ -140,7 +139,6 @@
 		7279DFBA1C9E92A400FA4198 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
 		728082031CB8CC0E00795C53 /* MyPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlayer.swift; sourceTree = "<group>"; };
 		7286F7921CBE7E670024B45E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		7286F7931CBE7E670024B45E /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		7286F7981CBE893D0024B45E /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSelectionViewController.swift; sourceTree = "<group>"; };
 		7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
@@ -242,8 +240,8 @@
 				6E637D0B1CC13E7600FF40C2 /* Baron Neue Italic 50.otf */,
 				6ED65C381CBD0AC300D51103 /* FiraSans-Light.otf */,
 				6ED65C391CBD0AC300D51103 /* FiraSans-SemiBold.otf */,
-				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
 				6E4503FA1CBFA16200FDB2BA /* ionicons.ttf */,
+				6ED65C3A1CBD0AC300D51103 /* Raleway-Bold.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -251,8 +249,8 @@
 		720CB0CF1CB4DDE8002AE231 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */,
 				7286F7981CBE893D0024B45E /* Screen.swift */,
+				720CB0D01CB4DDFC002AE231 /* SettingsManager.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -260,6 +258,13 @@
 		720CB0D41CB4E514002AE231 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */,
+				6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */,
+				6E2CEE561CB503FD003DD41D /* ObstacleSpriteNode.swift */,
+				7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */,
+				7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */,
+				6E2CEE581CB52585003DD41D /* PlayerSpriteNode.swift */,
+				6E2B0F371CB7C466001E957D /* ScoreSpriteNode.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -267,31 +272,9 @@
 		7A6233001CA440FE007FEF08 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				720CB0D41CB4E514002AE231 /* Nodes */,
-				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
-				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
-				6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */,
-				7266DF011CA566A9002216C9 /* GameViewController.swift */,
-				024D82431CAC37E400D9CB53 /* GameEndTableCell.swift */,
-				024D82411CAC256500D9CB53 /* GameEndView.swift */,
-				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
-				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
-				720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */,
-				7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */,
-				7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */,
-				7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */,
-				7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */,
-				7A4812071CB2C9D30063CC8B /* PreviousRunTableViewCell.swift */,
-				6E2CEE561CB503FD003DD41D /* ObstacleSpriteNode.swift */,
-				6E2CEE581CB52585003DD41D /* PlayerSpriteNode.swift */,
-				6E2CEE5A1CB52783003DD41D /* IsoViewConverter.swift */,
-				6E2CEE5C1CB53885003DD41D /* EnvironmentSpriteNode.swift */,
-				6E2B0F371CB7C466001E957D /* ScoreSpriteNode.swift */,
+				7A7B8A301CC349CD00AD9AB9 /* Game */,
+				7A7B8A311CC349D200AD9AB9 /* Navigation */,
 				6ED65C421CBD12BB00D51103 /* UIKitExtensions.swift */,
-				7286F7921CBE7E670024B45E /* MainViewController.swift */,
-				7286F7931CBE7E670024B45E /* MainViewController.xib */,
-				6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */,
-				6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -299,14 +282,14 @@
 		7A6233011CA44122007FEF08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6E2CEE5E1CB539F7003DD41D /* Environment.swift */,
 				6E48F5511C9D7C3000E0ED9F /* GameObject.swift */,
 				7A8839311C9E7BA1007434E8 /* GameState.swift */,
+				7A8C65C01CB28BB100EF6117 /* GhostStore.swift */,
+				728082031CB8CC0E00795C53 /* MyPlayer.swift */,
 				6E48F54D1C9D506C00E0ED9F /* Obstacle.swift */,
 				6E48F54B1C9D505A00E0ED9F /* Player.swift */,
 				7A8C65BE1CB2839200EF6117 /* PlayerEvent.swift */,
-				7A8C65C01CB28BB100EF6117 /* GhostStore.swift */,
-				6E2CEE5E1CB539F7003DD41D /* Environment.swift */,
-				728082031CB8CC0E00795C53 /* MyPlayer.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -323,6 +306,36 @@
 				6E48F54F1C9D507C00E0ED9F /* ObstacleGenerator.swift */,
 			);
 			name = Logic;
+			sourceTree = "<group>";
+		};
+		7A7B8A301CC349CD00AD9AB9 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				720CB0D41CB4E514002AE231 /* Nodes */,
+				024D82431CAC37E400D9CB53 /* GameEndTableCell.swift */,
+				024D82411CAC256500D9CB53 /* GameEndView.swift */,
+				6524A7101C9C7EB800D8CC48 /* GameScene.swift */,
+				6E2CEE4A1CB0FF8D003DD41D /* GameScene+Observer.swift */,
+				7266DF011CA566A9002216C9 /* GameViewController.swift */,
+				6E2CEE5A1CB52783003DD41D /* IsoViewConverter.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		7A7B8A311CC349D200AD9AB9 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				7286F7921CBE7E670024B45E /* MainViewController.swift */,
+				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
+				6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */,
+				7A4812071CB2C9D30063CC8B /* PreviousRunTableViewCell.swift */,
+				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
+				6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */,
+				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
+				720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */,
+				7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 		8DE78664409EC854A3A7063D /* Pods */ = {
@@ -395,7 +408,7 @@
 				TargetAttributes = {
 					6524A7081C9C7EB800D8CC48 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5Q2K45WZP8;
+						DevelopmentTeam = K2MUGZ7D3M;
 					};
 					6524A7201C9C7EB800D8CC48 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -436,7 +449,6 @@
 				6E637D0C1CC13E7600FF40C2 /* Baron Neue Italic 50.otf in Resources */,
 				6524A71B1C9C7EB800D8CC48 /* LaunchScreen.storyboard in Resources */,
 				6E2B0F361CB7C2AF001E957D /* Digits.atlas in Resources */,
-				7286F7951CBE7E670024B45E /* MainViewController.xib in Resources */,
 				6E2CEE531CB4D2E1003DD41D /* PlayerStationary.atlas in Resources */,
 				6E637D0A1CC13CA300FF40C2 /* Baron Neue Normal 50.otf in Resources */,
 				6E2CEE521CB4D2E1003DD41D /* PlayerRunning.atlas in Resources */,
@@ -689,7 +701,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Courir/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0127828.Courir;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group5.Courir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -704,7 +716,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Courir/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0127828.Courir;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group5.Courir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
