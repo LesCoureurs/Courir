@@ -1,5 +1,5 @@
 //
-//  Sploosh.swift
+//  CoulombNetwork.swift
 //  NetworkLib
 //
 //  Created by Ian Ngiaw on 3/14/16.
@@ -12,9 +12,10 @@ import UIKit
 public protocol CoulombNetworkDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
-    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?)
+    func connectedPeersInSessionChanged(peers: [MCPeerID])
     func connectedToPeer(peer: MCPeerID)
-    func disconnectedFromSession()
+    func connectingToPeer(peer: MCPeerID)
+    func disconnectedFromSession(peer: MCPeerID)
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
@@ -22,68 +23,70 @@ public class CoulombNetwork: NSObject {
     public var debugMode = false
     public var autoAcceptGuests = true
     
-    static let defaultTimeout: NSTimeInterval = 30
+    static let defaultTimeout: NSTimeInterval = 7
+    private let maxNumPeerInRoom = 4
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
     
     public weak var delegate: CoulombNetworkDelegate?
     
-    private lazy var session: MCSessionWithHost = {
-        let session = MCSessionWithHost(peer: self.myPeerId, securityIdentity: nil,
-            encryptionPreference: .Required)
+    private lazy var session: MCSession = {
+        let session = MCSession(peer: self.myPeerId, securityIdentity: nil,
+                                encryptionPreference: .Required)
         session.delegate = self
         return session
     }()
-    
     private let myPeerId: MCPeerID
+    private var host: MCPeerID?
     private let serviceType: String
     
-    public init(serviceType: String, deviceId: String) {
+    public init(serviceType: String, myPeerId: MCPeerID) {
         self.serviceType = serviceType
-        myPeerId = MCPeerID(displayName: deviceId)
-    }
-    
-    public convenience init(serviceType: String) {
-        let myDeviceId = UIDevice.currentDevice().name
-        self.init(serviceType: serviceType, deviceId: myDeviceId)
+        self.myPeerId = myPeerId
     }
     
     deinit {
+        print("Coulomb deinit")
         stopAdvertisingHost()
         stopSearchingForHosts()
+        session.disconnect()
     }
     
+    func setUpSession() {
+        session.delegate = self
+    }
     // MARK: Methods for host
     public func startAdvertisingHost() {
-        if serviceAdvertiser == nil {
-            serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
-                discoveryInfo: ["peerType": "host"], serviceType: serviceType)
-            serviceAdvertiser?.delegate = self
-        }
-        serviceAdvertiser?.startAdvertisingPeer()
+        stopSearchingForHosts()
+        self.host = myPeerId
+
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
+                                                      discoveryInfo: ["peerType": "host"], serviceType: serviceType)
+        self.serviceAdvertiser?.delegate = self
+        
+        self.serviceAdvertiser?.startAdvertisingPeer()
     }
     
     public func stopAdvertisingHost() {
-        if let advertiser = serviceAdvertiser {
-            advertiser.stopAdvertisingPeer()
-        }
+        self.host = nil
+        serviceAdvertiser?.stopAdvertisingPeer()
+        serviceAdvertiser?.delegate = nil
     }
     
     // MARK: Methods for guest
     public func startSearchingForHosts() {
-        if serviceBrowser == nil {
-            serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
-            serviceBrowser?.delegate = self
-        }
+        self.host = nil
+
+        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
+        serviceBrowser?.delegate = self
+
         foundHosts = []
         serviceBrowser?.startBrowsingForPeers()
     }
     
     public func stopSearchingForHosts() {
-        if let browser = serviceBrowser {
-            browser.stopBrowsingForPeers()
-        }
+        serviceBrowser?.stopBrowsingForPeers()
     }
     
     public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
@@ -91,15 +94,12 @@ public class CoulombNetwork: NSObject {
             return
         }
         
-        guard let browser = serviceBrowser else {
-            return
-        }
-        
-        browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
+        DLog("%@", "connect to host: \(host)")
+        serviceBrowser?.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
         
         // If the session is still without host, assign a new one
-        if session.host == nil {
-            session.host = host
+        if self.host == nil {
+            self.host = host
         }
     }
     
@@ -116,20 +116,23 @@ public class CoulombNetwork: NSObject {
     // Disconnect from current session, browse for another host
     public func disconnect() {
         session.disconnect()
+        host = nil
         DLog("%@", "disconnected from \(session.hashValue)")
     }
     
     // This method is async
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
-            DLog("%@", "send data to host: \(data)")
             try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
         } catch {
-            DLog("%@", "send data failed: \(data)")
             return false
         }
         
         return true
+    }
+    
+    public func getMyPeerID() -> MCPeerID {
+        return myPeerId
     }
     
     // Debug mode
@@ -143,39 +146,38 @@ public class CoulombNetwork: NSObject {
 extension CoulombNetwork: MCNearbyServiceAdvertiserDelegate {
     // Invitation is received from guest
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
-        didReceiveInvitationFromPeer peerID: MCPeerID,
-        withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
-            DLog("%@", "didReceiveInvitationFromPeer \(peerID)")
-            
-            let acceptGuest = {
-                (accepted: Bool) -> Void in
-                invitationHandler(accepted, self.session)
-            }
-            
-            if autoAcceptGuests {
-                acceptGuest(true)
-            } else {
-                delegate?.invitationToConnectReceived(peerID, handleInvitation: acceptGuest)
-            }
+                           didReceiveInvitationFromPeer peerID: MCPeerID,
+                                                        withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
+        DLog("%@", "didReceiveInvitationFromPeer \(peerID)")
+        
+        let acceptGuest = {
+            (accepted: Bool) -> Void in
+            invitationHandler(accepted, self.session)
+        }
+        
+        if autoAcceptGuests {
+            acceptGuest(true)
+        } else {
+            delegate?.invitationToConnectReceived(peerID, handleInvitation: acceptGuest)
+        }
     }
 }
 
 extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
     // Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
-        withDiscoveryInfo info: [String : String]?) {
-            DLog("%@", "foundPeer: \(peerID)")
-            
-            guard let discoveryInfo = info else {
-                return
-            }
-            guard discoveryInfo["peerType"] == "host" else {
-                return
-            }
-            
-            DLog("%@", "invitePeer: \(peerID)")
-            foundHosts.append(peerID)
-            delegate?.foundHostsChanged(foundHosts)
+                        withDiscoveryInfo info: [String : String]?) {
+        DLog("%@", "foundPeer: \(peerID)")
+        
+        guard let discoveryInfo = info else {
+            return
+        }
+        guard discoveryInfo["peerType"] == "host" else {
+            return
+        }
+        
+        foundHosts.append(peerID)
+        delegate?.foundHostsChanged(foundHosts)
     }
     
     // Peer is lost in browser
@@ -183,7 +185,7 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
         guard foundHosts.contains(peerID) else {
             return
         }
-        
+        DLog("%@", "lostPeer: \(peerID)")
         let index = foundHosts.indexOf(peerID)!
         foundHosts.removeAtIndex(index)
         delegate?.foundHostsChanged(foundHosts)
@@ -193,94 +195,65 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
 extension CoulombNetwork: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
-        didChangeState state: MCSessionState) {
-            DLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
-            if state != .Connecting {
-                if state == .Connected {
-                    DLog("%@", "connected to \(session.hashValue)")
-                    // Update the set of peers in the session
-                    self.session.peersInSession.insert(peerID)
-                    
-                    // If host of session is unassigned, that means self is host
-                    if self.session.host == nil {
-                        self.session.host = myPeerId
-                    }
-                    
-                    // If currently a guest, stop looking for host
-                    stopSearchingForHosts()
-                    
-                    // Pass to delegate
-                    delegate?.connectedToPeer(peerID)
-                } else {
-                    DLog("%@", "not connected to \(session.hashValue)")
-                    DLog("%@", "peersInSession \(self.session.peersInSession)")
-                    
-                    // If session.connectedPeers is empty, it implies that either:
-                    // - Self is disconnected from the session
-                    // - The session has no other connected peer
-                    // Combine with peersInSession count > 1, we can be certain that
-                    // self is disconnected.
-                    if self.session.connectedPeers.isEmpty && self.session.peersInSession.count > 1 {
-                        DLog("%@", "Self was removed")
-                        self.session.peersInSession.remove(myPeerId)
-                        delegate?.disconnectedFromSession()
+                        didChangeState state: MCSessionState) {
+        DLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+        if state != .Connecting {
+            if state == .Connected {
+                DLog("%@", "connected to \(session.hashValue)")
+                // If currently a guest, stop looking for host
+                stopSearchingForHosts()
+                
+                if self.host == peerID {
+                    if session.connectedPeers.count >= maxNumPeerInRoom {
+                        disconnect()
+                        return
                     } else {
-                        DLog("%@", "Self was not removed")
-                        DLog("%@", "Current host: \(self.session.host)")
-                        
-                        // If the removed item is the current host
-                        if self.session.host == peerID {
-                            var nextHost = peerID
-                            
-                            // Assign a new host as the first item in peersInSession set that is not the old host
-                            for peer in self.session.peersInSession {
-                                if peer != peerID {
-                                    nextHost = peer
-                                    break
-                                }
-                            }
-                            DLog("%@", "Next potential host: \(nextHost)")
-                            
-                            // If the current item is the next in line, convert it to a host
-                            if myPeerId == nextHost {
-                                DLog("%@", "my peer is the next host")
-                                // Convert current item into a host
-                                self.session.host = myPeerId
-                                DLog("%@", "New host \(self.session.host?.displayName)")
-                                stopSearchingForHosts()
-                                startAdvertisingHost()
-                            }
-                        }
+                        // Pass to delegate
+                        delegate?.connectedToPeer(peerID)
                     }
                 }
+            } else {
+                DLog("%@", "not connected to \(session.hashValue)")
                 
-                delegate?.connectedPeersInSessionChanged(self.session.connectedPeers, host: self.session.host)
+                // If self is disconnected from current host
+                if self.host == peerID {
+                    DLog("%@", "disconnected from host")
+                    session.disconnect()
+                    delegate?.disconnectedFromSession(peerID)
+                    return
+                }
             }
+            // If self did not disconnect deliberately
+            if self.host != nil {
+                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
+            }
+        } else {
+            delegate?.connectingToPeer(peerID)
+        }
     }
     
     // Handles incomming NSData
     public func session(session: MCSession, didReceiveData data: NSData,
-        fromPeer peerID: MCPeerID) {
-            DLog("%@", "Data received: \(data)")
-            delegate?.handleDataPacket(data, peerID: peerID)
+                        fromPeer peerID: MCPeerID) {
+        delegate?.handleDataPacket(data, peerID: peerID)
     }
     
     // Handles incoming NSInputStream
     public func session(session: MCSession, didReceiveStream stream: NSInputStream,
-        withName streamName: String, fromPeer peerID: MCPeerID) {
-            
+                        withName streamName: String, fromPeer peerID: MCPeerID) {
+        
     }
     
     // Handles finish receiving resource
     public func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String,
-        fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
-            
+                        fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
+        
     }
     
     // Handles start receiving resource
     public func session(session: MCSession, didStartReceivingResourceWithName resourceName: String,
-        fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
-            
+                        fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
+        
     }
 }
 

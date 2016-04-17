@@ -12,9 +12,10 @@ import MultipeerConnectivity
 protocol GameNetworkPortalConnectionDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void)
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID)
+    func playersInRoomChanged(peerIDs: [MCPeerID])
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID)
-    func disconnectedFromRoom()
+    func connectedToRoom(peer: MCPeerID)
+    func disconnectedFromRoom(peer: MCPeerID)
 }
 
 protocol GameNetworkPortalGameStateDelegate: class {
@@ -25,13 +26,15 @@ protocol GameNetworkPortalGameStateDelegate: class {
     func collideActionReceived(data: AnyObject?, peer: MCPeerID)
     func floatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
     func nonfloatingObstacleReceived(data: AnyObject?, peer: MCPeerID)
-    func disconnectedFromGame()
+    func disconnectedFromGame(peer: MCPeerID)
 }
 
 class GameNetworkPortal {
     static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
-
+    var semaphore: dispatch_semaphore_t!
+    let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
+    var isMovingToRoomView = false
     weak var connectionDelegate: GameNetworkPortalConnectionDelegate?
     weak var gameStateDelegate: GameNetworkPortalGameStateDelegate? {
         didSet {
@@ -41,7 +44,7 @@ class GameNetworkPortal {
             }
         }
     }
-    var coulombNetwork: CoulombNetwork!
+    let coulombNetwork: CoulombNetwork!
 
     private var messageBacklog = [(data: NSData, peer: MCPeerID)]()
 
@@ -49,8 +52,10 @@ class GameNetworkPortal {
         // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
         // If autoAcceptGuests is set to false, implement 
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
-        coulombNetwork = CoulombNetwork(serviceType: serviceType, deviceId: deviceId)
+        coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
+        // coulombNetwork.debugMode = true
+        createSemaphore()
     }
 
     deinit {
@@ -60,35 +65,43 @@ class GameNetworkPortal {
 
     // Some of the following methods are safe: they only execute when applicable, else just return
     // MARK: Hosting
-    // Safe
     func beginHosting() {
         coulombNetwork.startAdvertisingHost()
     }
     
-    // Safe
     func stopHosting() {
         coulombNetwork.stopAdvertisingHost()
     }
     
     // MARK: Looking for hosts
-    // Safe
     func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
-    // Safe
     func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
-    // Safe
     func connectToHost(host: MCPeerID) {
         coulombNetwork.connectToHost(host)
     }
     
+    func getFoundHosts() -> [MCPeerID] {
+        return coulombNetwork.getFoundHosts()
+    }
+    
     // MARK: Common methods
     func disconnectFromRoom() {
-        coulombNetwork.disconnect()
+        let group = dispatch_group_create()
+        
+        dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            self.stopHosting()
+            self.beginSearchingForHosts()
+        })
+        
+        dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            self.coulombNetwork.disconnect()
+        })
     }
     
     // MARK: Data transfer
@@ -101,6 +114,15 @@ class GameNetworkPortal {
     // Send data to everyone in the session
     private func sendData(data: NSData, mode: MCSessionSendDataMode) {
         coulombNetwork.sendData(data, mode: mode)
+    }
+    
+    func getMyPeerID() -> MCPeerID {
+        return coulombNetwork.getMyPeerID()
+    }
+    
+    // MARK: Semaphore
+    func createSemaphore() {
+        semaphore = dispatch_semaphore_create(0)
     }
 }
 
@@ -115,23 +137,39 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
-    func connectedPeersInSessionChanged(peers: [MCPeerID], host: MCPeerID?) {
-        guard let currentHost = host else {
-            return
+    func connectedPeersInSessionChanged(peers: [MCPeerID]) {
+        print("Portal: Connected Peers in sesison changed: \(peers)")
+        // Only wait when connecting
+        if isMovingToRoomView {
+            print("semaphore waiting..")
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+            isMovingToRoomView = false
         }
-        connectionDelegate?.playersInRoomChanged(peers, host: currentHost)
+        print("Portal: semaphore finished waiting")
+        connectionDelegate?.playersInRoomChanged(peers)
     }
     
-    func connectedToPeer(peer: MCPeerID) {}
+    func connectedToPeer(peer: MCPeerID) {
+        isMovingToRoomView = true
+        connectionDelegate?.connectedToRoom(peer)
+    }
     
-    func disconnectedFromSession() {
+    func connectingToPeer(peer: MCPeerID) {
+        createSemaphore()
+    }
+    
+    func disconnectedFromSession(peer: MCPeerID) {
         // Called when self is disconnected from a session
         // Stop hosting (if applicable) and begin searching for host again
         // Call delegate to take further actions e.g. segue
-        stopHosting()
-        beginSearchingForHosts()
-        connectionDelegate?.disconnectedFromRoom()
-        gameStateDelegate?.disconnectedFromGame()
+        isMovingToRoomView = false
+        
+        if gameStateDelegate != nil {
+            gameStateDelegate?.disconnectedFromGame(peer)
+        } else {
+            connectionDelegate?.disconnectedFromRoom(peer)
+        }
+        
     }
     
     // Receives NSData and converts it into a dictionary of type [String: AnyObject]

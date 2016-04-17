@@ -1,20 +1,20 @@
 {
   "name": "Coulomb",
-  "version": "0.0.6",
+  "version": "1.0.1",
   "summary": "Network Library built on Multipeer Connectivity.",
   "description": "A zero-config real-time networking library built on Apple's Multipeer Connectivity Framework.",
-  "homepage": "https://github.com/SplooshKit/Coulomb",
+  "homepage": "https://github.com/LesCoureurs/Coulomb",
   "license": {
     "type": "MIT",
     "file": "LISENCE"
   },
-  "authors": "SplooshKit",
+  "authors": "LesCoureurs",
   "platforms": {
-    "ios": "8.1"
+    "ios": "9.2"
   },
   "source": {
-    "git": "https://github.com/SplooshKit/Coulomb.git",
-    "tag": "0.0.6"
+    "git": "https://github.com/LesCoureurs/Coulomb.git",
+    "tag": "1.0.1"
   },
-  "source_files": "NetworkLib/*.swift"
+  "source_files": "NetworkLib/CoulombNetwork.swift"
 }

@@ -20,6 +20,8 @@ class GameViewController: UIViewController {
 
     var initialGhostStore: GhostStore?
     var gameEndGhostStore: GhostStore?
+    
+    private let portal = GameNetworkPortal._instance
 
     @IBOutlet weak var endGameLabel: UILabel!
     @IBOutlet weak var endGameMenu: GameEndView!
@@ -27,6 +29,7 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var saveRunButtton: UIButton!
+
     @IBOutlet weak var replayOrUnwindButton: UIButton!
     
     @IBOutlet weak var saveConfirmationLabel: UILabel!
@@ -114,11 +117,13 @@ class GameViewController: UIViewController {
     // MARK: End Game
 
     func exitGame() {
-        if isMultiplayer {
-            performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
-        } else {
-            performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            if self.isMultiplayer {
+                self.performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
+            } else {
+                self.performSegueWithIdentifier("unwindToSinglePlayerStart", sender: self)
+            }
+        })
     }
     
     private func displayGameEndMenu(gameResultArray: [(peerID: MCPeerID, score: Int)]) {
@@ -133,6 +138,7 @@ class GameViewController: UIViewController {
 
     @IBAction func handleBackAction(sender: AnyObject) {
         if isMultiplayer {
+            portal.disconnectFromRoom()
             performSegueWithIdentifier("unwindToMenuViaRoomView", sender: self)
         } else {
             performSegueWithIdentifier("unwindToMenuViaSinglePlayerStart", sender: self)
@@ -176,6 +182,7 @@ class GameViewController: UIViewController {
     
     @IBAction func replayOrUnwindButtonPressed(sender: AnyObject) {
         if isMultiplayer {
+            portal.gameStateDelegate = nil
             performSegueWithIdentifier("unwindToRoomViewFromGameView", sender: self)
         } else {
             initialGhostStore = gameEndGhostStore

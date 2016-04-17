@@ -22,19 +22,14 @@ class RoomSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        portal.connectionDelegate = self
-        
         roomsAvailableTableView.delegate = self
         roomsAvailableTableView.dataSource = self
         
-        newRoomButton.setLetterSpacing(defaultLetterSpacing)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.notConnectedToRoom(_:)),
+                                                         name: "notConnected", object: nil)
         
-        portal.beginSearchingForHosts()
-    }
-    
-    @IBAction func refreshButtonPressed(sender: UIButton) {
-        // TODO: Add logic for refresh button
+        newRoomButton.setLetterSpacing(defaultLetterSpacing)
     }
 
     // MARK: - Navigation
@@ -45,10 +40,46 @@ class RoomSelectionViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        portal.connectionDelegate = self
+        portal.stopHosting()
+        portal.beginSearchingForHosts()
+    }
+
+    @IBAction func unwindToRoomSelectionFromRoomView(segue: UIStoryboardSegue) {
+    }
+    
+    @IBAction func unwindToRoomSelectionFromGameView(segue: UIStoryboardSegue) {
+    }
+    
     @IBAction func handleBackAction(sender: AnyObject) {
         if let parentVC = parentViewController as? MainViewController {
             parentVC.transitionOut()
         }
+    }
+    
+    @IBAction func refreshButtonPressed(sender: AnyObject) {
+        portal.stopSearchingForHosts()
+        portal.beginSearchingForHosts()
+        hosts = portal.getFoundHosts()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.roomsAvailableTableView.reloadData()
+        })
+    }
+    
+    func notConnectedToRoom(notification: NSNotification) {
+        let userInfo = notification.userInfo as! [String: AnyObject]
+        let peerName = userInfo["peerName"]
+        
+        let message = (peerName != nil) ? "Not Connected to \(peerName!)." : "Not Connected."
+        
+        let alert = UIAlertController(title: "Connection", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alert, animated: true, completion: nil)
+        })
     }
 }
 
@@ -56,10 +87,6 @@ class RoomSelectionViewController: UIViewController {
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         portal.connectToHost(hosts[indexPath.row])
-        if let parentVC = parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
-            newVC.playerIsNotHost()
-            parentVC.completeTransition(to: newVC, from: self)
-        }
     }
 }
 
@@ -81,22 +108,36 @@ extension RoomSelectionViewController: UITableViewDataSource {
 extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
         hosts = foundHosts
-        roomsAvailableTableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.roomsAvailableTableView.reloadData()
+        })
     }
     
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void) {
         
     }
     
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
+    func playersInRoomChanged(peerIDs: [MCPeerID]) {
         
     }
     
-    func disconnectedFromRoom() {
-        
+    func disconnectedFromRoom(peer: MCPeerID) {
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName("notConnected",
+                                  object: self,
+                                  userInfo: ["peerName": peer.displayName] as [NSObject: AnyObject])
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
         
+    }
+    
+    func connectedToRoom(peer: MCPeerID) {
+        dispatch_async(dispatch_get_main_queue(), {
+            if let parentVC = self.parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
+                newVC.playerIsNotHost()
+                parentVC.completeTransition(to: newVC, from: self)
+            }
+        })
     }
 }

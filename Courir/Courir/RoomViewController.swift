@@ -59,6 +59,8 @@ class RoomViewController: UIViewController {
             startButton.enabled = false
             switchModeButton.enabled = false
         }
+        print("semaphore signal")
+        dispatch_semaphore_signal(portal.semaphore)
     }
 
     @IBAction func handleSwitchModeAction(sender: AnyObject) {
@@ -92,6 +94,7 @@ class RoomViewController: UIViewController {
     // MARK: - Navigation
 
     @IBAction func handleBackAction(sender: AnyObject) {
+        portal.disconnectFromRoom()
         if let parentVC = parentViewController as? MainViewController {
             parentVC.transitionOut()
         }
@@ -121,14 +124,25 @@ class RoomViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToRoomViewFromGameView(sender: UIStoryboardSegue) {
-        
+    @IBAction func unwindToRoomViewFromGameView(unwindSegue: UIStoryboardSegue) {
+        portal.gameStateDelegate = nil
+        if isHost {
+            portal.beginHosting()
+        }
+    }
+    
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        portal.disconnectFromRoom()
+        performSegueWithIdentifier("unwindToRoomSelectionFromRoomViewSegue", sender: self)
     }
 
     @IBAction func unwindToMenuViaRoomView(sender: UIStoryboardSegue) {
-        if let parentVC = parentViewController as? MainViewController {
-            parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
-        }
+        portal.gameStateDelegate = nil
+        dispatch_async(dispatch_get_main_queue(), {
+            if let parentVC = self.parentViewController as? MainViewController {
+                parentVC.transitionOut(from: self, downLevels: RoomViewController.numberOfVCsToMenu)
+            }
+        })
     }
 }
 
@@ -148,17 +162,14 @@ extension RoomViewController: UITableViewDataSource {
 
 extension RoomViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
-        
+        print("room view delegate")
     }
     
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void) {
         acceptGuest(true)
     }
     
-    func playersInRoomChanged(peerIDs: [MCPeerID], host: MCPeerID) {
-        if host == myPeerID {
-            isHost = true
-        }
+    func playersInRoomChanged(peerIDs: [MCPeerID]) {
         peers = peerIDs
         
         if isHost {
@@ -172,8 +183,13 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
         }
     }
     
-    func disconnectedFromRoom() {
-
+    // When self is disconnected from a room
+    func disconnectedFromRoom(peer: MCPeerID) {
+        dispatch_async(dispatch_get_main_queue(), {
+            if let parentVC = self.parentViewController as? MainViewController {
+                parentVC.transitionOut()
+            }
+        })
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
@@ -188,5 +204,9 @@ extension RoomViewController: GameNetworkPortalConnectionDelegate {
             self.host = peer
         }
         presentGameScene()
+    }
+    
+    func connectedToRoom(peer: MCPeerID) {
+        
     }
 }

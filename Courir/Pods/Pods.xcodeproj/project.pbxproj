@@ -23,21 +23,6 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>01A2825566DEA7D8513A1796147BBCC1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>MCSessionWithHost.swift</string>
-			<key>path</key>
-			<string>NetworkLib/MCSessionWithHost.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>061177D569D762FC746082FF160347E1</key>
 		<dict>
 			<key>fileRef</key>
@@ -45,18 +30,67 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>06E55A79372EB0D8E2E39DF7F14479B1</key>
+		<key>075040A905D2E5111CB30F239D76086E</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>baseConfigurationReference</key>
+			<string>5B79CB3043636B29C23434C089B15F34</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-Courir/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.2</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-Courir/Pods-Courir.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_Courir</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SwiftyGif-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
 		</dict>
 		<key>076CAD3B49F9A68A3D8267D8C2B6A972</key>
 		<dict>
@@ -71,10 +105,66 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>07B44B4B3D01EC7C864A9D7947F72A52</key>
+		<key>14AE0801D27ABA5B0A8EAE4C7B4C15F4</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Courir.framework</string>
+			<key>path</key>
+			<string>Pods_Courir.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>15A5647D8FA9A705B873980845ED5C71</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Coulomb.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>15C284186AABD389A1E61530465522CA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SwiftyGifManager.swift</string>
+			<key>path</key>
+			<string>SwiftyGif/SwiftyGifManager.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1886BD7E7D05500FF93750B800E196B1</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>B33B8F73A38205E32BEA273CD750CDBE</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>1A0E5EF6B00AE0582289DDD50D0004DB</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BBDD7F303F3BE5084956D7797872EB64</string>
+			<string>15A5647D8FA9A705B873980845ED5C71</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -98,7 +188,7 @@
 				<key>INSTALL_PATH</key>
 				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
+				<string>9.2</string>
 				<key>LD_RUNPATH_SEARCH_PATHS</key>
 				<array>
 					<string>$(inherited)</string>
@@ -108,15 +198,13 @@
 				<key>MODULEMAP_FILE</key>
 				<string>Target Support Files/Coulomb/Coulomb.modulemap</string>
 				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
+				<string>NO</string>
 				<key>PRODUCT_NAME</key>
 				<string>Coulomb</string>
 				<key>SDKROOT</key>
 				<string>iphoneos</string>
 				<key>SKIP_INSTALL</key>
 				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
 				<key>TARGETED_DEVICE_FAMILY</key>
 				<string>1,2</string>
 				<key>VERSIONING_SYSTEM</key>
@@ -127,82 +215,7 @@
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>07C2A39C8127ABF3F741E25F5593375E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>88022DA9B8AEF4223823839F7458D5E3</string>
-				<string>0F29B1E0AC4522634A5E1AACBBAE4D5F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0F29B1E0AC4522634A5E1AACBBAE4D5F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>9B6E5783855CB15170C56CD862770D12</string>
-				<string>99DBAA22F239350CC4E5A723DE374285</string>
-				<string>DC9D9696F82978AA184BBC33C42F60CC</string>
-				<string>1DC5D4DE9F8A320D6BB173D4C6B723B9</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SwiftyGif</string>
-			<key>path</key>
-			<string>SwiftyGif</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>14A1C699149C46F23AC6B88C2B794A9E</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>5B185827E6EAC1A6C03B5E20D756E2D7</string>
-				<string>FE3A551E4E1D88897F08EBA68A7AC038</string>
-				<string>2EDFFA79E03251EBD30034D38E79CF8D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>14AE0801D27ABA5B0A8EAE4C7B4C15F4</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Pods_Courir.framework</string>
-			<key>path</key>
-			<string>Pods_Courir.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1886BD7E7D05500FF93750B800E196B1</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B33B8F73A38205E32BEA273CD750CDBE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
+			<string>Release</string>
 		</dict>
 		<key>1BC16D8332DF3579F9E93DAE7AF73C76</key>
 		<dict>
@@ -217,30 +230,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1DC5D4DE9F8A320D6BB173D4C6B723B9</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>709849DDE18FE8CF8EDC89A5667DC8ED</string>
-				<string>EEF305F9B4EAB9F00740C79C8D939E1C</string>
-				<string>CB5167D0F2C6886EE60C80C5079FAB68</string>
-				<string>06E55A79372EB0D8E2E39DF7F14479B1</string>
-				<string>CCA8517044B08382D40BE47F8D09A17D</string>
-				<string>31573A523173FB751A4482300F1F76BB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/SwiftyGif</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>2632967891812527D4311EC712FBA4F2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>DC9D9696F82978AA184BBC33C42F60CC</string>
+			<string>B98700CF621B9CDDD259159F05CC5AA9</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -262,12 +255,32 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>28E365A3995F56959ECB3126B392A092</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2F6B698AB2B724E3F7BF1AA06D26E8D5</string>
+				<string>15A5647D8FA9A705B873980845ED5C71</string>
+				<string>9FE40B29BB867335DA1F70C28A3C4C71</string>
+				<string>D6FBC0947968B7B612010893B175BEC8</string>
+				<string>9F76B01EFE4A53D43DF72EBA32A75591</string>
+				<string>69E6D8626E88432E748FD599D0EBF243</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/Coulomb</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
 		<dict>
 			<key>buildConfigurations</key>
 			<array>
-				<string>9EB645C612834738B99727720210C23E</string>
-				<string>E39CD1E764776175CB82EEC82A6C9948</string>
+				<string>8D1534490D941DCA47C62AC4314182AF</string>
+				<string>C5A18280E9321A9268D1C80B7DA43967</string>
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
@@ -276,23 +289,14 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>2EDFFA79E03251EBD30034D38E79CF8D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>01A2825566DEA7D8513A1796147BBCC1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>31573A523173FB751A4482300F1F76BB</key>
+		<key>2F6B698AB2B724E3F7BF1AA06D26E8D5</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>SwiftyGif-umbrella.h</string>
+			<string>Coulomb.modulemap</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -336,6 +340,82 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>38F42F66C554CBE563ADA5D26E533A0B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>15C284186AABD389A1E61530465522CA</string>
+				<string>7F6DCCB2FCC90F64DFB897BB26349EC7</string>
+				<string>B98700CF621B9CDDD259159F05CC5AA9</string>
+				<string>CA7BC5AE6D66E09DF8AE344AE5F877A6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SwiftyGif</string>
+			<key>path</key>
+			<string>SwiftyGif</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>39CEDCAA3A44846A99FAF4A5ECC143DF</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>15A5647D8FA9A705B873980845ED5C71</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Coulomb/Coulomb-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Coulomb/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.2</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Coulomb/Coulomb.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>Coulomb</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
 		<key>3A03B301519326B805FA1D3705FD4221</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -352,22 +432,9 @@
 		<key>3B8F6399FDA275E5459424FF4ABEC7C7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9B6E5783855CB15170C56CD862770D12</string>
+			<string>15C284186AABD389A1E61530465522CA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>3DB594D2A0992169FBA69E840106B57E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Coulomb-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>3E4E89230EF59BC255123B67864ACF77</key>
 		<dict>
@@ -382,10 +449,21 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
+		<key>3E7EFEA40831EC5B8DC0D19973CFE3A4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SwiftyGif.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>4758B5538A5F699EF8355D1A879FF014</key>
 		<dict>
 			<key>fileRef</key>
-			<string>06E55A79372EB0D8E2E39DF7F14479B1</string>
+			<string>81C6F83DB4F44C8AFC95F1878DF272F4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -396,9 +474,45 @@
 			<key>name</key>
 			<string>Coulomb</string>
 			<key>target</key>
-			<string>BA48155B84FC3F7AA6DC309231392D15</string>
+			<string>B48D6379F513331417A7DBFB3FE7E1B9</string>
 			<key>targetProxy</key>
 			<string>DD7BE16DDCECFC58B86E7B5F1F4C1C77</string>
+		</dict>
+		<key>4990DFFBB8A8E49A065CCA2571F97603</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>CoulombNetwork.swift</string>
+			<key>path</key>
+			<string>NetworkLib/CoulombNetwork.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EB14CBBA169557D49EF4F5C9246C4E9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4990DFFBB8A8E49A065CCA2571F97603</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4F42911CB1DC6ADE1EF5B353E623519C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>EC27F2458EAE9BB6D271C2908FE90F64</string>
+				<string>38F42F66C554CBE563ADA5D26E533A0B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>4F4A916E61706DC01043B024723C8F1D</key>
 		<dict>
@@ -427,13 +541,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5B185827E6EAC1A6C03B5E20D756E2D7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9A82078183975AF6B8A44C0892304D51</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>5B79CB3043636B29C23434C089B15F34</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -446,6 +553,13 @@
 			<string>Pods-Courir.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>614E724C891106303E4550893409FAF5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9FE40B29BB867335DA1F70C28A3C4C71</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>63B80479CC1B14C5703EA79D5742E3ED</key>
 		<dict>
@@ -460,94 +574,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>64ECAC9A73755EF341C9CD833AF044D5</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>5B79CB3043636B29C23434C089B15F34</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Pods-Courir/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Pods-Courir/Pods-Courir.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>Pods_Courir</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>654F594A3A4064B463F14F72C7320743</key>
-		<dict>
-			<key>fileRef</key>
-			<string>78078ACA651C66A6487AD245131DED7C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>67AF7B317A180A24331D627C5E9E404D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>SwiftyGif</string>
-			<key>target</key>
-			<string>DB66DE3C6317A978435C27BAABD2314E</string>
-			<key>targetProxy</key>
-			<string>F24501D78717691653B52F827F5525E7</string>
-		</dict>
-		<key>709849DDE18FE8CF8EDC89A5667DC8ED</key>
+		<key>6539DF337C153291058ED1FEA5E7AB0B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -560,14 +587,34 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>717474DACAFC15133635E4AE9629E065</key>
+		<key>6611DC63E3DEAA1F81707616805D0BAF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>67AF7B317A180A24331D627C5E9E404D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SwiftyGif</string>
+			<key>target</key>
+			<string>DB66DE3C6317A978435C27BAABD2314E</string>
+			<key>targetProxy</key>
+			<string>F24501D78717691653B52F827F5525E7</string>
+		</dict>
+		<key>69E6D8626E88432E748FD599D0EBF243</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>Coulomb.modulemap</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -599,6 +646,19 @@
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
+		<key>744711CDC0D602B1985937E19EC45596</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SwiftyGif-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>7500291C9834676B8611DCBE9106E301</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -611,32 +671,6 @@
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>760C212B309BAA60A365C684D7A3B59D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D1CE61765724B90E08990A473501C95E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>78078ACA651C66A6487AD245131DED7C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Coulomb-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>79D0FF7EF0AE62A3F5091721AF1C6A81</key>
 		<dict>
@@ -657,7 +691,7 @@
 			<array>
 				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
 				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
-				<string>07C2A39C8127ABF3F741E25F5593375E</string>
+				<string>4F42911CB1DC6ADE1EF5B353E623519C</string>
 				<string>AE430015269F4F3880E899B2AC53D4B9</string>
 				<string>1BC16D8332DF3579F9E93DAE7AF73C76</string>
 			</array>
@@ -666,65 +700,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>88022DA9B8AEF4223823839F7458D5E3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F9FFBB15939E0620BB9D458170CC3F2D</string>
-				<string>01A2825566DEA7D8513A1796147BBCC1</string>
-				<string>A8F2CD0B1AF63CC8189B79783C9C9869</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Coulomb</string>
-			<key>path</key>
-			<string>Coulomb</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8CF9F03561066BC0A4915185017F5273</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A24E5C189787E6B76357C51C8B464D96</string>
-				<string>64ECAC9A73755EF341C9CD833AF044D5</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>8E54E5AC0D63362B7B81E746E8D8AB0C</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>07B44B4B3D01EC7C864A9D7947F72A52</string>
-				<string>EA65F779D52881DA69C9816EDCFF7FE1</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>978EC046041E50B10B14C982EF8F3059</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>99DBAA22F239350CC4E5A723DE374285</key>
+		<key>7F6DCCB2FCC90F64DFB897BB26349EC7</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -739,7 +715,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9A82078183975AF6B8A44C0892304D51</key>
+		<key>816B52B501D5B6B185E2A8402778A32A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>6611DC63E3DEAA1F81707616805D0BAF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>81C6F83DB4F44C8AFC95F1878DF272F4</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -748,26 +737,25 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>Coulomb-dummy.m</string>
+			<string>SwiftyGif-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9B6E5783855CB15170C56CD862770D12</key>
+		<key>8CF9F03561066BC0A4915185017F5273</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>buildConfigurations</key>
+			<array>
+				<string>DE4ACDACE279B433181F19CA22781DB2</string>
+				<string>075040A905D2E5111CB30F239D76086E</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SwiftyGifManager.swift</string>
-			<key>path</key>
-			<string>SwiftyGif/SwiftyGifManager.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>XCConfigurationList</string>
 		</dict>
-		<key>9EB645C612834738B99727720210C23E</key>
+		<key>8D1534490D941DCA47C62AC4314182AF</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -827,7 +815,7 @@
 				<key>GCC_WARN_UNUSED_VARIABLE</key>
 				<string>YES</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
+				<string>9.2</string>
 				<key>ONLY_ACTIVE_ARCH</key>
 				<string>YES</string>
 				<key>STRIP_INSTALLED_PRODUCT</key>
@@ -840,10 +828,88 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>A163CD7A156256628B30FE728CBCD1DB</key>
+		<key>93FA60741B61EF9E41AA6D91FC88DDEA</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>ADE432369238081AF2D44E2D9DA62E37</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>978EC046041E50B10B14C982EF8F3059</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9F76B01EFE4A53D43DF72EBA32A75591</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Coulomb-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9FE40B29BB867335DA1F70C28A3C4C71</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Coulomb-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A3E59BF1661B6B58D818FE955F8E5DA4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SwiftyGif-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AA76701EE3B1D2D7A82B6F279A64DB73</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Courir-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>ABBACA7C7E32602502CBA4EA8C57FCCF</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>CB5167D0F2C6886EE60C80C5079FAB68</string>
+			<string>E7FBFE0F338427DB74CC76BC11B60DEA</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -867,7 +933,7 @@
 				<key>INSTALL_PATH</key>
 				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
+				<string>9.2</string>
 				<key>LD_RUNPATH_SEARCH_PATHS</key>
 				<array>
 					<string>$(inherited)</string>
@@ -898,102 +964,19 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>A24E5C189787E6B76357C51C8B464D96</key>
+		<key>ADE432369238081AF2D44E2D9DA62E37</key>
 		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BC80FF1394252BA047329C4C12F6D13A</string>
-			<key>buildSettings</key>
+			<key>fileRef</key>
+			<string>9F76B01EFE4A53D43DF72EBA32A75591</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
 			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Pods-Courir/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<key>ATTRIBUTES</key>
 				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
+					<string>Public</string>
 				</array>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Pods-Courir/Pods-Courir.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>Pods_Courir</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
 			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>A8F2CD0B1AF63CC8189B79783C9C9869</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>717474DACAFC15133635E4AE9629E065</string>
-				<string>BBDD7F303F3BE5084956D7797872EB64</string>
-				<string>9A82078183975AF6B8A44C0892304D51</string>
-				<string>3DB594D2A0992169FBA69E840106B57E</string>
-				<string>78078ACA651C66A6487AD245131DED7C</string>
-				<string>AF239E7A8D6E0B7D0E94DB54554AD98A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Coulomb</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AA76701EE3B1D2D7A82B6F279A64DB73</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-Courir-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>AE430015269F4F3880E899B2AC53D4B9</key>
 		<dict>
@@ -1010,36 +993,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>AF239E7A8D6E0B7D0E94DB54554AD98A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B1A7EEDE4A9905FF81269100CED3D1A5</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>654F594A3A4064B463F14F72C7320743</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>B33B8F73A38205E32BEA273CD750CDBE</key>
 		<dict>
 			<key>fileRef</key>
-			<string>31573A523173FB751A4482300F1F76BB</string>
+			<string>744711CDC0D602B1985937E19EC45596</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1050,15 +1007,15 @@
 				</array>
 			</dict>
 		</dict>
-		<key>BA48155B84FC3F7AA6DC309231392D15</key>
+		<key>B48D6379F513331417A7DBFB3FE7E1B9</key>
 		<dict>
 			<key>buildConfigurationList</key>
-			<string>8E54E5AC0D63362B7B81E746E8D8AB0C</string>
+			<string>CBC5EC75232CD351EF7B367C27728F9C</string>
 			<key>buildPhases</key>
 			<array>
-				<string>14A1C699149C46F23AC6B88C2B794A9E</string>
-				<string>760C212B309BAA60A365C684D7A3B59D</string>
-				<string>B1A7EEDE4A9905FF81269100CED3D1A5</string>
+				<string>E44F2A16BD408C0DD1BA81A8287EDB41</string>
+				<string>816B52B501D5B6B185E2A8402778A32A</string>
+				<string>93FA60741B61EF9E41AA6D91FC88DDEA</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -1074,6 +1031,77 @@
 			<string>FC75164047CC0E52B2E69D12203F30B4</string>
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>B88C4609EA80698EE6A51B899C7473D3</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>E7FBFE0F338427DB74CC76BC11B60DEA</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/SwiftyGif/SwiftyGif-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/SwiftyGif/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.2</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/SwiftyGif/SwiftyGif.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>SwiftyGif</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>B98700CF621B9CDDD259159F05CC5AA9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>UIImageView+SwiftyGif.swift</string>
+			<key>path</key>
+			<string>SwiftyGif/UIImageView+SwiftyGif.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
 		<dict>
@@ -1091,19 +1119,6 @@
 			<string>SOURCE_ROOT</string>
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>BBDD7F303F3BE5084956D7797872EB64</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Coulomb.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>BC3CA7F9E30CC8F7E2DD044DD34432FC</key>
 		<dict>
@@ -1131,62 +1146,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BC98CABEA82FA4F283C528CDC388ED27</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>CB5167D0F2C6886EE60C80C5079FAB68</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/SwiftyGif/SwiftyGif-prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/SwiftyGif/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/SwiftyGif/SwiftyGif.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>PRODUCT_NAME</key>
-				<string>SwiftyGif</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
 		<key>BF6342C8B29F4CEEA088EFF7AB4DE362</key>
 		<dict>
 			<key>children</key>
@@ -1200,167 +1159,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>CB5167D0F2C6886EE60C80C5079FAB68</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>SwiftyGif.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CCA8517044B08382D40BE47F8D09A17D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SwiftyGif-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D1CE61765724B90E08990A473501C95E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D41D8CD98F00B204E9800998ECF8427E</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0700</string>
-				<key>LastUpgradeCheck</key>
-				<string>0700</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>7DB346D0F39D3F0E887471402A8071AB</string>
-			<key>productRefGroup</key>
-			<string>AE430015269F4F3880E899B2AC53D4B9</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>BA48155B84FC3F7AA6DC309231392D15</string>
-				<string>7442E2B6DB0631BBB4DB5403F7585B54</string>
-				<string>DB66DE3C6317A978435C27BAABD2314E</string>
-			</array>
-		</dict>
-		<key>DB66DE3C6317A978435C27BAABD2314E</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>E06672CB5E03643E54A78389019CA210</string>
-			<key>buildPhases</key>
-			<array>
-				<string>335770649A2908F526BA316A17260BC7</string>
-				<string>00E1D1672DD607E052D1E2BA55E44D8D</string>
-				<string>1886BD7E7D05500FF93750B800E196B1</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SwiftyGif</string>
-			<key>productName</key>
-			<string>SwiftyGif</string>
-			<key>productReference</key>
-			<string>F5387A67C9D56FF0D94C4786DC0D836D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>DC9D9696F82978AA184BBC33C42F60CC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>UIImageView+SwiftyGif.swift</string>
-			<key>path</key>
-			<string>SwiftyGif/UIImageView+SwiftyGif.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DD7BE16DDCECFC58B86E7B5F1F4C1C77</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>BA48155B84FC3F7AA6DC309231392D15</string>
-			<key>remoteInfo</key>
-			<string>Coulomb</string>
-		</dict>
-		<key>DEA2C897F2CCF0D72E69BFC535961C4D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-Courir-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E06672CB5E03643E54A78389019CA210</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A163CD7A156256628B30FE728CBCD1DB</string>
-				<string>BC98CABEA82FA4F283C528CDC388ED27</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>E35953700B3526238C1A8F5AB7AAE91C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E39CD1E764776175CB82EEC82A6C9948</key>
+		<key>C5A18280E9321A9268D1C80B7DA43967</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -1415,7 +1214,7 @@
 				<key>GCC_WARN_UNUSED_VARIABLE</key>
 				<string>YES</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
+				<string>9.2</string>
 				<key>STRIP_INSTALLED_PRODUCT</key>
 				<string>NO</string>
 				<key>SYMROOT</key>
@@ -1428,10 +1227,135 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>EA65F779D52881DA69C9816EDCFF7FE1</key>
+		<key>CA7BC5AE6D66E09DF8AE344AE5F877A6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6539DF337C153291058ED1FEA5E7AB0B</string>
+				<string>3E7EFEA40831EC5B8DC0D19973CFE3A4</string>
+				<string>E7FBFE0F338427DB74CC76BC11B60DEA</string>
+				<string>81C6F83DB4F44C8AFC95F1878DF272F4</string>
+				<string>A3E59BF1661B6B58D818FE955F8E5DA4</string>
+				<string>744711CDC0D602B1985937E19EC45596</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/SwiftyGif</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CBC5EC75232CD351EF7B367C27728F9C</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>39CEDCAA3A44846A99FAF4A5ECC143DF</string>
+				<string>1A0E5EF6B00AE0582289DDD50D0004DB</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>D41D8CD98F00B204E9800998ECF8427E</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7DB346D0F39D3F0E887471402A8071AB</string>
+			<key>productRefGroup</key>
+			<string>AE430015269F4F3880E899B2AC53D4B9</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>B48D6379F513331417A7DBFB3FE7E1B9</string>
+				<string>7442E2B6DB0631BBB4DB5403F7585B54</string>
+				<string>DB66DE3C6317A978435C27BAABD2314E</string>
+			</array>
+		</dict>
+		<key>D6FBC0947968B7B612010893B175BEC8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Coulomb-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DB66DE3C6317A978435C27BAABD2314E</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>E06672CB5E03643E54A78389019CA210</string>
+			<key>buildPhases</key>
+			<array>
+				<string>335770649A2908F526BA316A17260BC7</string>
+				<string>00E1D1672DD607E052D1E2BA55E44D8D</string>
+				<string>1886BD7E7D05500FF93750B800E196B1</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SwiftyGif</string>
+			<key>productName</key>
+			<string>SwiftyGif</string>
+			<key>productReference</key>
+			<string>F5387A67C9D56FF0D94C4786DC0D836D</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>DD7BE16DDCECFC58B86E7B5F1F4C1C77</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>B48D6379F513331417A7DBFB3FE7E1B9</string>
+			<key>remoteInfo</key>
+			<string>Coulomb</string>
+		</dict>
+		<key>DE4ACDACE279B433181F19CA22781DB2</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BBDD7F303F3BE5084956D7797872EB64</string>
+			<string>BC80FF1394252BA047329C4C12F6D13A</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1448,30 +1372,38 @@
 				<string>@rpath</string>
 				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
 				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Coulomb/Coulomb-prefix.pch</string>
 				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Coulomb/Info.plist</string>
+				<string>Target Support Files/Pods-Courir/Info.plist</string>
 				<key>INSTALL_PATH</key>
 				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
+				<string>9.2</string>
 				<key>LD_RUNPATH_SEARCH_PATHS</key>
 				<array>
 					<string>$(inherited)</string>
 					<string>@executable_path/Frameworks</string>
 					<string>@loader_path/Frameworks</string>
 				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
 				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Coulomb/Coulomb.modulemap</string>
+				<string>Target Support Files/Pods-Courir/Pods-Courir.modulemap</string>
 				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
 				<key>PRODUCT_NAME</key>
-				<string>Coulomb</string>
+				<string>Pods_Courir</string>
 				<key>SDKROOT</key>
 				<string>iphoneos</string>
 				<key>SKIP_INSTALL</key>
 				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
 				<key>TARGETED_DEVICE_FAMILY</key>
 				<string>1,2</string>
 				<key>VERSIONING_SYSTEM</key>
@@ -1482,23 +1414,89 @@
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Release</string>
+			<string>Debug</string>
 		</dict>
-		<key>EEF305F9B4EAB9F00740C79C8D939E1C</key>
+		<key>DEA2C897F2CCF0D72E69BFC535961C4D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
 			<key>path</key>
-			<string>SwiftyGif.modulemap</string>
+			<string>Pods-Courir-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E06672CB5E03643E54A78389019CA210</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>ABBACA7C7E32602502CBA4EA8C57FCCF</string>
+				<string>B88C4609EA80698EE6A51B899C7473D3</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>E35953700B3526238C1A8F5AB7AAE91C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E44F2A16BD408C0DD1BA81A8287EDB41</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>614E724C891106303E4550893409FAF5</string>
+				<string>4EB14CBBA169557D49EF4F5C9246C4E9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>E7FBFE0F338427DB74CC76BC11B60DEA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>SwiftyGif.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EC27F2458EAE9BB6D271C2908FE90F64</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4990DFFBB8A8E49A065CCA2571F97603</string>
+				<string>28E365A3995F56959ECB3126B392A092</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Coulomb</string>
+			<key>path</key>
+			<string>Coulomb</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F204A97AC5DE81638C04B2557FF98A06</key>
 		<dict>
 			<key>fileRef</key>
-			<string>99DBAA22F239350CC4E5A723DE374285</string>
+			<string>7F6DCCB2FCC90F64DFB897BB26349EC7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1530,21 +1528,6 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>F9FFBB15939E0620BB9D458170CC3F2D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>CoulombNetwork.swift</string>
-			<key>path</key>
-			<string>NetworkLib/CoulombNetwork.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>FC75164047CC0E52B2E69D12203F30B4</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -1572,13 +1555,6 @@
 			<string>Pods-Courir-resources.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FE3A551E4E1D88897F08EBA68A7AC038</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F9FFBB15939E0620BB9D458170CC3F2D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

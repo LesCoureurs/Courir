@@ -48,6 +48,9 @@ let digitsAtlas = SKTextureAtlas(named: "Digits")
 let numEnvironmentObjects = 3
 
 // My Details
+var myName: String?
+let myDefaultPlayerNumber = 1
+let myMultiplayerModeNumber = 0
 let me = MyPlayer()
 let myDeviceName = me.deviceName
 let myPeerID = me.peerID
