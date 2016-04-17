@@ -12,8 +12,9 @@ import MultipeerConnectivity
 class LogicEngine {
 
     // MARK: Properties
+    /// GCD dispatch source that runs LogicEngine in the background
     private var dispatchTimer: dispatch_source_t?
-
+    
     let state: GameState
     private let obstacleGenerator: ObstacleGenerator
     
@@ -33,6 +34,7 @@ class LogicEngine {
         }
     }
     
+    /// Convenience initializer to create a `LogicEngine` for when playing with a ghost
     convenience init(ghostStore: GhostStore) {
         let ghostID = MCPeerID(displayName: "Ghost Player")
         self.init(mode: .SinglePlayer, peers: [ghostID], seed: ghostStore.seed)
@@ -43,14 +45,17 @@ class LogicEngine {
         initGhostEventQueue(ghostStore.eventSequence, ghostPlayerNumber: ghostPlayerNumber!)
     }
     
+    /// The current score
     var score: Int {
         return state.distance
     }
     
+    /// The current speed
     var speed: Int {
         return state.currentSpeed
     }
     
+    /// Initializes the `eventQueue` with the `eventSequence` saved in a `GhostStore`
     private func initGhostEventQueue(eventSequence: [PlayerEvent], ghostPlayerNumber: Int) {
         let ghostSequence = eventSequence.map {
             (event: $0.event, playerNumber: ghostPlayerNumber, timeStep: $0.timeStep,
@@ -62,6 +67,7 @@ class LogicEngine {
 
     // MARK: Logic Handling
     
+    /// Starts `LogicEngine`'s `dispatchTimer`
     func startTick() {
         stopTick()
         dispatchTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0))
@@ -71,6 +77,7 @@ class LogicEngine {
         dispatch_resume(dispatchTimer!)
     }
     
+    /// Stops `LogicEngine`'s `dispatchTimer`
     func stopTick() {
         if let timer = dispatchTimer {
             dispatch_source_cancel(timer)
@@ -78,6 +85,7 @@ class LogicEngine {
         }
     }
     
+    /// Updates the current `state` based on the properties of players and obstacles in the game
     @objc func update() {
         guard !state.gameIsOver else {
             // Stop updating when game is over
@@ -134,6 +142,7 @@ class LogicEngine {
         }
     }
     
+    /// Handles `PlayerDidJump` and `PlayerDidDuck` `GameEvent`s
     func handlePlayerActionEvent(player: Player, timeStep occurrence: Int, action: GameEvent) {
         assert (action == .PlayerDidJump || action == .PlayerDidDuck)
         
@@ -163,6 +172,7 @@ class LogicEngine {
         }
     }
     
+    /// Handles `PlayerLost` `GameEvent`s
     func handlePlayerLostEvent(player: Player, timeStep occurrence: Int, score: Int) {
         if isValidToSend(player) {
             sendPlayerLostData(occurrence, score: score)
@@ -178,6 +188,7 @@ class LogicEngine {
         }
     }
     
+    /// Handles `PlayerDidCollide` `GameEvent`s
     func handlePlayerCollisionEvent(player: Player, xCoordinate: Int?) {
         player.run()
         let validToSend = isValidToSend(player)
@@ -220,6 +231,7 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
+    /// Sends on `gameNetworkPortal` that the player has lost at the current timeStep and score
     func sendPlayerLostData() {
         sendPlayerLostData(timeStep, score: state.distance)
     }
@@ -344,6 +356,7 @@ class LogicEngine {
         state.distance += speed
     }
 
+    /// Updates the `state`'s `currentSpeed` to the next `timeStep`'s speed
     func updateGameSpeed(timeStep: Int) {
         state.currentSpeed = Int(speedMultiplier * log(Double(timeStep+1))) + initialGameSpeed
     }
@@ -356,6 +369,7 @@ class LogicEngine {
         state.players.append(player)
     }
     
+    /// Appends the `GameEvent` to the `eventQueue`
     func appendToEventQueue(event: GameEvent, playerNumber: Int, occurringTimeStep: Int, otherData: AnyObject? = nil) {
         eventQueue.insert(event, playerNumber: playerNumber, timeStep: occurringTimeStep,
                           otherData: otherData)
