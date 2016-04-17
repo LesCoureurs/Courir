@@ -86,6 +86,8 @@ class RoomSelectionViewController: UIViewController {
 // MARK: UITableViewDelegate
 extension RoomSelectionViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! RoomTableViewCell
+        cell.joiningActivityIndicator.startAnimating()
         portal.connectToHost(hosts[indexPath.row])
     }
 }
@@ -122,10 +124,9 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func disconnectedFromRoom(peer: MCPeerID) {
-        NSNotificationCenter.defaultCenter()
-            .postNotificationName("notConnected",
-                                  object: self,
-                                  userInfo: ["peerName": peer.displayName] as [NSObject: AnyObject])
+        dispatch_async(dispatch_get_main_queue()) {
+            self.roomsAvailableTableView.reloadData()
+        }
     }
     
     func gameStartSignalReceived(data: AnyObject?, peer: MCPeerID) {
@@ -133,11 +134,12 @@ extension RoomSelectionViewController: GameNetworkPortalConnectionDelegate {
     }
     
     func connectedToRoom(peer: MCPeerID) {
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.roomsAvailableTableView.reloadData()
             if let parentVC = self.parentViewController as? MainViewController, newVC = parentVC.prepareForTransitionInto(.Room) as? RoomViewController {
                 newVC.playerIsNotHost()
                 parentVC.completeTransition(to: newVC, from: self)
             }
-        })
+        }
     }
 }

@@ -767,16 +767,22 @@
                                                             <color key="textColor" red="0.28627450980000002" green="0.23529411759999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Tc2-Kg-Kuc">
+                                                            <rect key="frame" x="302" y="12" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="Tc2-Kg-Kuc" firstAttribute="centerY" secondItem="Owx-Md-CfC" secondAttribute="centerY" id="801-hh-gsE"/>
                                                         <constraint firstItem="Owx-Md-CfC" firstAttribute="centerY" secondItem="lOF-ol-RTd" secondAttribute="centerY" id="awc-Bd-JnW"/>
                                                         <constraint firstItem="Owx-Md-CfC" firstAttribute="leading" secondItem="lOF-ol-RTd" secondAttribute="leadingMargin" id="eTo-lS-aE6"/>
+                                                        <constraint firstItem="Tc2-Kg-Kuc" firstAttribute="trailing" secondItem="lOF-ol-RTd" secondAttribute="trailingMargin" id="uIH-Na-voA"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="hostName" destination="Owx-Md-CfC" id="FR0-de-aiw"/>
+                                                    <outlet property="joiningActivityIndicator" destination="Tc2-Kg-Kuc" id="KuY-6Z-e4m"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

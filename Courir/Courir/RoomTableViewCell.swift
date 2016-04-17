@@ -11,6 +11,7 @@ import UIKit
 class RoomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var hostName: UILabel!
+    @IBOutlet weak var joiningActivityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
