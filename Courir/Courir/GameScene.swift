@@ -18,7 +18,7 @@ class GameScene: SKScene {
     private let countdownNode = CountdownNode()
     private(set) var hasGameStarted = false
     
-    private let pauseButtonNode = PauseButtonNode()
+    let pauseButtonNode = PauseButtonNode()
     private var isGamePaused = false
     
     let scoreNode = ScoreSpriteNode()
