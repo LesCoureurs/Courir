@@ -34,71 +34,73 @@ class ObstacleGeneratorTests: XCTestCase {
     }
     
     func testSeed_blank() {
-        let g1 = ObstacleGenerator(seed: "")
-        let g2 = ObstacleGenerator(seed: "")
+        let g1 = ObstacleGenerator(seed: "".dataUsingEncoding(NSUTF8StringEncoding))
+        let g2 = ObstacleGenerator(seed: "".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertFalse(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
     func testSeed_singleChar() {
-        var g1 = ObstacleGenerator(seed: "a")
-        var g2 = ObstacleGenerator(seed: "a")
+        var g1 = ObstacleGenerator(seed: "a".dataUsingEncoding(NSUTF8StringEncoding))
+        var g2 = ObstacleGenerator(seed: "a".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
         
-        g1 = ObstacleGenerator(seed: "1")
-        g2 = ObstacleGenerator(seed: "1")
+        g1 = ObstacleGenerator(seed: "1".dataUsingEncoding(NSUTF8StringEncoding))
+        g2 = ObstacleGenerator(seed: "1".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
     func testSeed_multipleChar() {
-        var g1 = ObstacleGenerator(seed: "Courir")
-        var g2 = ObstacleGenerator(seed: "Courir")
+        var g1 = ObstacleGenerator(seed: "Courir".dataUsingEncoding(NSUTF8StringEncoding))
+        var g2 = ObstacleGenerator(seed: "Courir".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
         
-        g1 = ObstacleGenerator(seed: "Coulomb")
-        g2 = ObstacleGenerator(seed: "Coulomb")
+        g1 = ObstacleGenerator(seed: "Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
+        g2 = ObstacleGenerator(seed: "Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
     func testSeed_multipleSpecialChar() {
-        var g1 = ObstacleGenerator(seed: "Courir, best Courir!")
-        var g2 = ObstacleGenerator(seed: "Courir, best Courir!")
+        var g1 = ObstacleGenerator(seed: "Courir, best Courir!".dataUsingEncoding(NSUTF8StringEncoding))
+        var g2 = ObstacleGenerator(seed: "Courir, best Courir!".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
         
-        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
-        g2 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
+        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
+        g2 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertTrue(generatesSameSequence(g1, g2),
                       "Valid generators should result with same values")
     }
     
     func testSeed_differentStrings() {
-        var g1 = ObstacleGenerator(seed: "Courir")
-        var g2 = ObstacleGenerator(seed: "Coulomb")
+        var g1 = ObstacleGenerator(seed: "Courir".dataUsingEncoding(NSUTF8StringEncoding))
+        var g2 = ObstacleGenerator(seed: "Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertFalse(generatesSameSequence(g1, g2),
                        "Valid & different generators should result with different values")
         
-        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb")
-        g2 = ObstacleGenerator(seed: "Coulomb ~`!@#$%^&*()_+")
+        g1 = ObstacleGenerator(seed: "~`!@#$%^&*()_+ Coulomb".dataUsingEncoding(NSUTF8StringEncoding))
+        g2 = ObstacleGenerator(seed: "Coulomb ~`!@#$%^&*()_+".dataUsingEncoding(NSUTF8StringEncoding))
         XCTAssertFalse(generatesSameSequence(g1, g2),
                        "Valid & different generators should result with different values")
     }
     
     /// Compare output obstacle types with predefined expected output
     func testGetNextObstacleIsDeterministic() {
-        let g1 = ObstacleGenerator(seed: "seed")
-        let expected1: [ObstacleType?] = [nil, nil, ObstacleType.Floating, nil, nil]
+        let g1 = ObstacleGenerator(seed: "Courir".dataUsingEncoding(NSUTF8StringEncoding))
+        let expected1: [ObstacleType?] = [nil, nil, nil, nil, ObstacleType.Floating]
         for i in 0..<5 {
+//            print(g1.getNextObstacle()?.type)
             XCTAssertTrue(g1.getNextObstacle()?.type == expected1[i], "Non deterministic")
         }
-        
-        let g2 = ObstacleGenerator(seed: "another seed")
-        let expected2: [ObstacleType?] = [nil, nil, nil, nil, ObstacleType.NonFloating]
+        print()
+        let g2 = ObstacleGenerator(seed: "Coulomb x Courir".dataUsingEncoding(NSUTF8StringEncoding))
+        let expected2: [ObstacleType?] = [nil, nil, nil,  ObstacleType.Floating, nil]
         for i in 0..<5 {
+//            print(g2.getNextObstacle()?.type)
             XCTAssertTrue(g2.getNextObstacle()?.type == expected2[i], "Non deterministic")
         }
     }

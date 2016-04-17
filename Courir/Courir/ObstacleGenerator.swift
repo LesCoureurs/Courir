@@ -17,7 +17,7 @@ class ObstacleGenerator {
     }
     
     init(seed: NSData? = nil) {
-        if seed != nil {
+        if seed != nil && seed?.length != 0 {
             source = GKARC4RandomSource(seed: seed!)
         } else {
             source = GKARC4RandomSource()
