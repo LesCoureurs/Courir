@@ -70,6 +70,7 @@
 		7AA0E6FD1CC2473A00FF4148 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */; };
 		7AAEBBF91CAFC6E5008F7A1B /* PauseButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */; };
 		7AAEBBFB1CAFCA97008F7A1B /* PauseMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */; };
+		7AEE4C7B1CC3DE4E00475CD1 /* EventQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE4C7A1CC3DE4E00475CD1 /* EventQueueTests.swift */; };
 		7AF09BFA1CB14C14001B0A5B /* CountdownNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +152,7 @@
 		7AA0E6FC1CC2473A00FF4148 /* EventQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		7AAEBBF81CAFC6E5008F7A1B /* PauseButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseButtonNode.swift; sourceTree = "<group>"; };
 		7AAEBBFA1CAFCA97008F7A1B /* PauseMenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseMenuNode.swift; sourceTree = "<group>"; };
+		7AEE4C7A1CC3DE4E00475CD1 /* EventQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueueTests.swift; sourceTree = "<group>"; };
 		7AF09BF91CB14C14001B0A5B /* CountdownNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownNode.swift; sourceTree = "<group>"; };
 		9BB0AA586B363113C0E5AEE0 /* Pods_Courir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Courir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD945865012F28217E8BAC8 /* Pods-Courir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Courir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Courir/Pods-Courir.release.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				6524A7251C9C7EB800D8CC48 /* CourirTests.swift */,
+				7AEE4C7A1CC3DE4E00475CD1 /* EventQueueTests.swift */,
 				6E772DE81CA44A0C00A0B755 /* ObstacleGeneratorTests.swift */,
 				6524A7271C9C7EB800D8CC48 /* Info.plist */,
 			);
@@ -574,6 +577,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEE4C7B1CC3DE4E00475CD1 /* EventQueueTests.swift in Sources */,
 				6E772DE91CA44A0C00A0B755 /* ObstacleGeneratorTests.swift in Sources */,
 				6524A7261C9C7EB800D8CC48 /* CourirTests.swift in Sources */,
 			);
