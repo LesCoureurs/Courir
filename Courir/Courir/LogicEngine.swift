@@ -220,6 +220,10 @@ class LogicEngine {
         gameNetworkPortal.send(.PlayerDidCollide, data: collisionData)
     }
     
+    func sendPlayerLostData() {
+        sendPlayerLostData(timeStep, score: state.distance)
+    }
+    
     private func sendPlayerLostData(timeStep: Int, score: Int) {
         var playerLostData = [String: AnyObject]()
         playerLostData["time_step"] = timeStep

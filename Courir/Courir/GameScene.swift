@@ -271,6 +271,9 @@ extension GameScene: PauseMenuDelegate {
     func leaveGameSelected() {
         logicEngine.stopTick()
         if gameState.isMultiplayer {
+            if gameState.myPlayer.state != .Lost {
+                logicEngine.sendPlayerLostData()
+            }
             GameNetworkPortal._instance.disconnectFromRoom()
         }
         NSNotificationCenter.defaultCenter().postNotificationName("exitGame", object: nil)
