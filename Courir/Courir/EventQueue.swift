@@ -25,9 +25,9 @@ class EventQueue {
         return queue.count
     }
     
-    convenience init(initalEvents: [Element]) {
+    convenience init(initialEvents: [Element]) {
         self.init()
-        queue = initalEvents
+        queue = initialEvents
         for i in (0...(queue.count / 2 - 1)).reverse() {
             shiftDown(i)
         }

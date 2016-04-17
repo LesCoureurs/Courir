@@ -56,7 +56,7 @@ class LogicEngine {
             (event: $0.event, playerNumber: ghostPlayerNumber, timeStep: $0.timeStep,
                 otherData: $0.otherData)
         }
-        eventQueue = EventQueue(initalEvents: ghostSequence)
+        eventQueue = EventQueue(initialEvents: ghostSequence)
     }
     
 
