@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
     }
 
     private func loadMenuBackground() {
-        let gifManager = SwiftyGifManager(memoryLimit: 20)
+        let gifManager = SwiftyGifManager(memoryLimit: 200)
         let backgroundGif = UIImage(gifName: "menu-bg")
         menuBackground.setGifImage(backgroundGif, manager: gifManager)
     }
