@@ -10,11 +10,23 @@ import Foundation
 import MultipeerConnectivity
 
 class GameState: Observed {
-    
-    var environmentObjects = [Environment]()
-    
+
+    // MARK: Basic Game Properties
+
+    weak var observer: Observer?
+
     var myPlayer: Player!
     var players = [Player]()
+
+    var environmentObjects = [Environment]()
+    var obstacles = [Obstacle]() {
+        didSet {
+            observer?.didChangeProperty("obstacles", from: self)
+        }
+    }
+    var objects: [GameObject] {
+        return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
+    }
 
     var host: Player?
     var hostID: MCPeerID?
@@ -24,12 +36,6 @@ class GameState: Observed {
     
     private(set) var myEvents = [PlayerEvent]()
 
-    var obstacles = [Obstacle]() {
-        didSet {
-            observer?.didChangeProperty("obstacles", from: self)
-        }
-    }
-    
     var currentSpeed = initialGameSpeed
     var distance = 0 {
         didSet {
@@ -37,19 +43,34 @@ class GameState: Observed {
         }
     } // Score
 
+    var gameIsOver = false {
+        didSet {
+            observer?.didChangeProperty("gameIsOver", from: self)
+        }
+    }
+
+    // MARK: Multiplayer & Ghost Mode Properties
+
     private (set) var mode: GameMode
     var isMultiplayer: Bool {
         return mode == .Multiplayer || mode == .SpecialMultiplayer
     }
 
     let seed: NSData
-    var gameIsOver = false {
+
+    private var allPlayersReady: Bool {
+        return players.filter { $0.state == PlayerState.Ready }.count == players.count
+    }
+
+    private(set) var arePlayersReady = false {
         didSet {
-            observer?.didChangeProperty("gameIsOver", from: self)
+            observer?.didChangeProperty("arePlayersReady", from: self)
         }
     }
-    
-    weak var observer: Observer?
+
+    var ghostStore: GhostStore {
+        return GhostStore(seed: seed, score: distance, eventSequence: myEvents)
+    }
 
     init(seed: NSData, mode: GameMode = .SinglePlayer) {
         self.mode = mode
@@ -59,24 +80,7 @@ class GameState: Observed {
         }
     }
 
-    var objects: [GameObject] {
-        return players.map {$0 as GameObject} + obstacles.map {$0 as GameObject}
-    }
-    
-    private(set) var arePlayersReady = false {
-        didSet {
-            observer?.didChangeProperty("arePlayersReady", from: self)
-        }
-    }
-
-    private var allPlayersReady: Bool {
-        return players.filter { $0.state == PlayerState.Ready }.count == players.count
-    }
-    
-    var ghostStore: GhostStore {
-        return GhostStore(seed: seed, score: distance, eventSequence: myEvents)
-    }
-
+    /// Initialise all `Player` models, including the current device's player
     func initPlayers(peers: [MCPeerID]) {
         var allPeerIDs = peers
 
@@ -87,6 +91,7 @@ class GameState: Observed {
 
     }
 
+    /// Initialise all `Player` models, and set a host for the game.
     func initPlayers(peers: [MCPeerID], withHost hostID: MCPeerID) {
         var allPeerIDs = Array(Set(peers).union([myPeerID]).subtract([hostID]))
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
@@ -113,6 +118,7 @@ class GameState: Observed {
         }
     }
 
+    /// Retrieve the `Player` with the specified `peerID`.
     func getPlayer(withPeerID peerID: MCPeerID) -> Player? {
         guard peerID != hostID else {
             return nil
@@ -124,6 +130,7 @@ class GameState: Observed {
         return nil
     }
 
+    /// Retrieve the `Player` with the specified `playerNumber`.
     func getPlayer(withPlayerNumber playerNumber: Int?) -> Player? {
         if let player = players.filter({ $0.playerNumber == playerNumber }).first {
             return player
@@ -132,14 +139,16 @@ class GameState: Observed {
         }
         return nil
     }
-    
+
+    /// Updates the state of the `Player` with the given peerID to be `Ready`
     func playerReady(peerID: MCPeerID) {
         getPlayer(withPeerID: peerID)?.ready()
         if allPlayersReady {
             arePlayersReady = true
         }
     }
-    
+
+    /// - returns: `true` if all players have completed (lost) the game
     func everyoneFinished() -> Bool {
         for player in players {
             if player.state != .Lost {
@@ -148,11 +157,13 @@ class GameState: Observed {
         }
         return true
     }
-    
+
+    /// - returns: `true` if the current device's player is still alive in the game
     func ownPlayerStillPlaying() -> Bool {
         return myPlayer.state != PlayerState.Lost
     }
-    
+
+    /// Update the given `Player`'s score
     func updatePlayerScore(player: Player, score: Int) {
         for (peerID, playerNumber) in peerMapping {
             if playerNumber == player.playerNumber {

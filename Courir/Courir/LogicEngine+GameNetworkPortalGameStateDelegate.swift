@@ -72,7 +72,6 @@ extension LogicEngine: GameNetworkPortalGameStateDelegate {
                            occurringTimeStep: occurringTimeStep, otherData: score)
     }
 
-
     func disconnectedFromGame(peer: MCPeerID) {
         stopTick()
         dispatch_async(dispatch_get_main_queue(), {
