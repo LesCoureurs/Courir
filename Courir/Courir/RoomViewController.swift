@@ -59,8 +59,10 @@ class RoomViewController: UIViewController {
             startButton.enabled = false
             switchModeButton.enabled = false
         }
-        print("semaphore signal")
-        dispatch_semaphore_signal(portal.semaphore)
+        if portal.semaphore != nil {
+            print("semaphore signal")
+            dispatch_semaphore_signal(portal.semaphore!)
+        }
     }
 
     @IBAction func handleSwitchModeAction(sender: AnyObject) {

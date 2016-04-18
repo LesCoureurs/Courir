@@ -31,7 +31,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
 
 class GameNetworkPortal {
     static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
-    var semaphore: dispatch_semaphore_t!
+    var semaphore: dispatch_semaphore_t?
     let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
     var isMovingToRoomView = false
@@ -54,7 +54,7 @@ class GameNetworkPortal {
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
         coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
         coulombNetwork.delegate = self
-        // coulombNetwork.debugMode = true
+        coulombNetwork.debugMode = true
         createSemaphore()
     }
 
@@ -140,9 +140,9 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
         print("Portal: Connected Peers in sesison changed: \(peers)")
         // Only wait when connecting
-        if isMovingToRoomView {
+        if isMovingToRoomView && semaphore != nil {
             print("semaphore waiting..")
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+            dispatch_semaphore_wait(semaphore!, DISPATCH_TIME_FOREVER)
             isMovingToRoomView = false
         }
         print("Portal: semaphore finished waiting")
