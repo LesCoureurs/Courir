@@ -257,9 +257,13 @@ class LogicEngine {
     private func updateEnvironmentPosition() {
         for environmentObject in state.environmentObjects {
             environmentObject.xCoordinate -= speed
-            if environmentObject.xCoordinate < Environment.removalXCoordinate {
-                environmentObject.resetXCoordinate()
-            }
+        }
+        let environmentsToReset = state
+            .environmentObjects.filter{ $0.xCoordinate < Environment.removalXCoordinate }
+        for environmentObject in environmentsToReset {
+            let xCoordinates = state.environmentObjects.map{ $0.xCoordinate }
+            let maxXCoordinate = xCoordinates.maxElement()!
+            environmentObject.resetXCoordinate(maxXCoordinate)
         }
     }
     

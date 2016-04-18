@@ -64,8 +64,8 @@ class Environment: GameObject {
         Environment.numEnvironmentObjects -= 1
     }
     
-    func resetXCoordinate() {
-        xCoordinate = Environment.lastObjectXCoordinate
+    func resetXCoordinate(farthestXCoordinate: Int) {
+        xCoordinate = farthestXCoordinate + Environment.spawnXCoordinateIncrement
         zPosition += CGFloat(Environment.numEnvironmentObjects)
     }
 }
