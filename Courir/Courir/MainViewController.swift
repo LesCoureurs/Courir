@@ -11,12 +11,15 @@ import SwiftyGif
 
 class MainViewController: UIViewController {
 
+    // MARK: Properties
+
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var menuBackground: UIImageView!
 
     private var viewControllerStack = [UIViewController]()
-
     private var isProcessingTransition = false
+
+    // MARK: UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,20 @@ class MainViewController: UIViewController {
         menuBackground.setGifImage(backgroundGif, manager: gifManager)
     }
 
+    // MARK: Segues
+
+    /**
+     Notifies the `MainViewController` that a segue into `newScreen` is about to be
+     performed. 
+
+     - important:
+     The `MainViewController` must subsequently be called with `completeTransition`
+     instead of `transitionInto`.
+     
+     - returns:
+     The UIViewController for the new screen
+     */
+
     func prepareForTransitionInto(newScreen: Screen) -> UIViewController? {
         guard !isProcessingTransition else {
             return nil
@@ -50,6 +67,11 @@ class MainViewController: UIViewController {
         return nil
     }
 
+    /**
+     Completes the transition into the specified new view controller. This
+     function complements `prepareForTransitionInto`.
+     */
+
     func completeTransition(to newVC: UIViewController, from oldVC: UIViewController) {
         if isProcessingTransition {
             viewControllerStack.append(newVC)
@@ -57,6 +79,11 @@ class MainViewController: UIViewController {
             isProcessingTransition = false
         }
     }
+
+    /**
+     Transition *immediately* into the specified screen. The `MainViewController`
+     should not be in the middle of preparing for a transition.
+     */
 
     func transitionInto(newScreen: Screen, from oldVC: UIViewController) {
         guard !isProcessingTransition else {
@@ -70,6 +97,11 @@ class MainViewController: UIViewController {
         }
     }
 
+    /**
+     Transition *immediately* out into previous screen the user was at.
+     This is a convenience method.
+     */
+
     func transitionOut() {
         guard !isProcessingTransition else {
             return
@@ -79,6 +111,15 @@ class MainViewController: UIViewController {
             transitionOut(from: oldVC, downLevels: 1)
         }
     }
+
+    /**
+     Transition out from the specified view controller by the specified number.
+     
+     - parameters:
+        - from/oldVC: The current view controller which you wish to transition out from
+        - downLevels/times: The number of levels to go back, e.g. for a stack of
+          `[A, B]`, transitioning out 1 time from B means the screen is now at A
+     */
 
     func transitionOut(from oldVC: UIViewController, downLevels times: Int) {
         guard !isProcessingTransition else {
