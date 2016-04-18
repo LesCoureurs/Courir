@@ -10,6 +10,19 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    // MARK: UIViewController
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    // MARK: Display Form
+
+    /// Display form for setting new player name
     @IBAction func handleSetName(sender: AnyObject) {
         presentViewController(generateFormFor("New Name", withSaveKey: "myName", andPlaceholder: SettingsManager._instance.get("myName") as! String), animated: true, completion: nil)
     }
@@ -38,24 +51,13 @@ class SettingsViewController: UIViewController {
         
     }
 
+    /// Allow the user to save the field only if it contains at least 1 non-whitespace character
     func textFieldDidChange(sender: UIControl) {
         if let field = sender as? UITextField, text = field.text, controller = self.presentedViewController as? UIAlertController, save = controller.actions.last {
             save.enabled = !text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).isEmpty
         }
 
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
     // MARK: - Navigation
 
