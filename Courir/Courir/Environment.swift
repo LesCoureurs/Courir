@@ -19,11 +19,6 @@ class Environment: GameObject {
     static let lowestZPosition: CGFloat = -99999
     
     static var numEnvironmentObjects = 0
-    static var lastObjectXCoordinate: Int {
-        return Environment.spawnXCoordinate
-             + (Environment.numEnvironmentObjects - 1)
-             * Environment.spawnXCoordinateIncrement
-    }
     
     // ==============================================
     // Instance variables and methods
