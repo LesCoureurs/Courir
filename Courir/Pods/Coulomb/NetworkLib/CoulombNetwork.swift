@@ -223,9 +223,7 @@ extension CoulombNetwork: MCSessionDelegate {
                 }
             }
             // If self did not disconnect deliberately
-            DLog("%@", "Curr host: \(self.host)")
             if self.host != nil {
-                DLog("%@", "connectedPeersInSessionChanged: \(session.connectedPeers)")
                 delegate?.connectedPeersInSessionChanged(session.connectedPeers)
             }
         } else {

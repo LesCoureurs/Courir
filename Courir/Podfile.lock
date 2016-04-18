@@ -1,23 +1,23 @@
 PODS:
-  - Coulomb (1.0.1)
+  - Coulomb (1.0.2)
   - SwiftyGif (1.0.2)
 
 DEPENDENCIES:
-  - Coulomb (from `https://github.com/LesCoureurs/Coulomb.git`, tag `1.0.1`)
+  - Coulomb (from `https://github.com/LesCoureurs/Coulomb.git`, tag `1.0.2`)
   - SwiftyGif
 
 EXTERNAL SOURCES:
   Coulomb:
     :git: https://github.com/LesCoureurs/Coulomb.git
-    :tag: 1.0.1
+    :tag: 1.0.2
 
 CHECKOUT OPTIONS:
   Coulomb:
     :git: https://github.com/LesCoureurs/Coulomb.git
-    :tag: 1.0.1
+    :tag: 1.0.2
 
 SPEC CHECKSUMS:
-  Coulomb: f5f3390430db452a8edef7f57b3426c15970211c
+  Coulomb: b2d692ba560f731ef68b95ace85e938e4f03a056
   SwiftyGif: 57d06538eec2bd038af061ad07f1200f519c3fcb
 
 COCOAPODS: 0.39.0
