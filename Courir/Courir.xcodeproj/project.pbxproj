@@ -272,6 +272,26 @@
 			name = Nodes;
 			sourceTree = "<group>";
 		};
+		72B1E00A1CC4E68000301F3A /* Single Player */ = {
+			isa = PBXGroup;
+			children = (
+				7A4812071CB2C9D30063CC8B /* PreviousRunTableViewCell.swift */,
+				7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */,
+			);
+			name = "Single Player";
+			sourceTree = "<group>";
+		};
+		72B1E00B1CC4E69B00301F3A /* Multiplayer */ = {
+			isa = PBXGroup;
+			children = (
+				6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */,
+				6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */,
+				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
+				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
+			);
+			name = Multiplayer;
+			sourceTree = "<group>";
+		};
 		7A6233001CA440FE007FEF08 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,15 +348,11 @@
 		7A7B8A311CC349D200AD9AB9 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				72B1E00A1CC4E68000301F3A /* Single Player */,
+				72B1E00B1CC4E69B00301F3A /* Multiplayer */,
 				7286F7921CBE7E670024B45E /* MainViewController.swift */,
 				6524A7121C9C7EB800D8CC48 /* MenuViewController.swift */,
-				6ED6BAC41CBFC4D10037230B /* PeerTableViewCell.swift */,
-				7A4812071CB2C9D30063CC8B /* PreviousRunTableViewCell.swift */,
-				7A168DD71CA534B900E9CCBB /* RoomSelectionViewController.swift */,
-				6E4503FC1CBFA4F500FDB2BA /* RoomTableViewCell.swift */,
-				7A168DD91CA53EE500E9CCBB /* RoomViewController.swift */,
 				720CB0D71CB4EF25002AE231 /* SettingsViewController.swift */,
-				7A4812051CB2C7B10063CC8B /* SinglePlayerStartViewController.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
