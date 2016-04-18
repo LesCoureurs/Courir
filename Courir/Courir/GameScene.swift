@@ -41,12 +41,7 @@ class GameScene: SKScene {
         return gameSetupData.mode == GameMode.Multiplayer || gameSetupData.mode == GameMode.SpecialMultiplayer
     }
 
-    func setUpWith(data: GameSetupData) {
-        gameSetupData = data
-    }
-
     var initialGhostStore: GhostStore?
-
     
     // ==============================================
     // MARK: Overridden methods
@@ -74,7 +69,19 @@ class GameScene: SKScene {
         setupGestureRecognizers(view)
         gameSceneReady()
     }
-    
+
+    // ==============================================
+    // MARK: Start & Setup
+    // ==============================================
+
+    func setUpWith(data: GameSetupData) {
+        gameSetupData = data
+    }
+
+    func startGame() {
+        countdownNode.start()
+    }
+
     private func gameSceneReady() {
         if gameState.isMultiplayer {
             GameNetworkPortal._instance.send(.GameReady)
@@ -82,11 +89,6 @@ class GameScene: SKScene {
             startGame()
         }
     }
-    
-    func startGame() {
-        countdownNode.start()
-    }
-
     
     // ==============================================
     // MARK: Initialisers
