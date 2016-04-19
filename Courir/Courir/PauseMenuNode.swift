@@ -27,7 +27,12 @@ class PauseMenuNode: SKNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        overlayNode = aDecoder.decodeObjectForKey("overlayKey") as! SKShapeNode
         super.init(coder: aDecoder)
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(overlayNode, forKey: "overlayKey")
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
