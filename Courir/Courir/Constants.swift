@@ -48,11 +48,8 @@ let digitsAtlas = SKTextureAtlas(named: "Digits")
 let numEnvironmentObjects = 3
 
 // My Details
-var myName: String?
-let myDefaultPlayerNumber = 1
-let myMultiplayerModeNumber = 0
-let me = MyPlayer()
 let defaultHostNumber = 3
+let me = MyPlayer()
 
 // Colors
 let blue = UIColor(red: 95, green: 174, blue: 190)
@@ -60,4 +57,3 @@ let brown = UIColor(red: 73, green: 60, blue: 48)
 let selectedCellColor = UIColor(white: 1, alpha: 0.2)
 
 let defaultLetterSpacing: CGFloat = 5
-
