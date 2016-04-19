@@ -1,6 +1,6 @@
 //
 //  CoulombNetwork.swift
-//  NetworkLib
+//  Coulomb
 //
 //  Created by Ian Ngiaw on 3/14/16.
 //  Copyright © 2016 nus.cs3217.group5. All rights reserved.
@@ -20,14 +20,20 @@ public protocol CoulombNetworkDelegate: class {
 }
 
 public class CoulombNetwork: NSObject {
+    // MARK: Public settings
+    /// Toggle on/off to print DLog messages to console
     public var debugMode = false
     public var autoAcceptGuests = true
+    public var maxNumPeerInRoom = 4
     
+    // MARK: Private settings
     static let defaultTimeout: NSTimeInterval = 7
-    private let maxNumPeerInRoom = 4
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
+    private let myPeerId: MCPeerID
+    private var host: MCPeerID?
+    private let serviceType: String
     
     public weak var delegate: CoulombNetworkDelegate?
     
@@ -37,9 +43,6 @@ public class CoulombNetwork: NSObject {
         session.delegate = self
         return session
     }()
-    private let myPeerId: MCPeerID
-    private var host: MCPeerID?
-    private let serviceType: String
     
     public init(serviceType: String, myPeerId: MCPeerID) {
         self.serviceType = serviceType
@@ -47,16 +50,14 @@ public class CoulombNetwork: NSObject {
     }
     
     deinit {
-        print("Coulomb deinit")
         stopAdvertisingHost()
         stopSearchingForHosts()
         session.disconnect()
     }
     
-    func setUpSession() {
-        session.delegate = self
-    }
     // MARK: Methods for host
+    /// Start advertising.
+    /// Assign advertiser delegate
     public func startAdvertisingHost() {
         stopSearchingForHosts()
         self.host = myPeerId
@@ -68,12 +69,15 @@ public class CoulombNetwork: NSObject {
         self.serviceAdvertiser?.startAdvertisingPeer()
     }
     
+    /// Stop advertising.
+    /// Unassign advertiser delegate
     public func stopAdvertisingHost() {
         serviceAdvertiser?.stopAdvertisingPeer()
         serviceAdvertiser?.delegate = nil
     }
     
     // MARK: Methods for guest
+    /// Start looking for discoverable hosts
     public func startSearchingForHosts() {
         self.host = nil
 
@@ -84,10 +88,12 @@ public class CoulombNetwork: NSObject {
         serviceBrowser?.startBrowsingForPeers()
     }
     
+    /// Stop looking for hosts
     public func stopSearchingForHosts() {
         serviceBrowser?.stopBrowsingForPeers()
     }
     
+    /// Send inivitation to connect to a host
     public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
         guard foundHosts.contains(host) else {
             return
@@ -102,24 +108,21 @@ public class CoulombNetwork: NSObject {
         }
     }
     
+    /// Get the list of discovered hosts
     public func getFoundHosts() -> [MCPeerID] {
         return foundHosts
     }
     
     // MARK: Methods for session
-    public func getConnectedPeers() -> [MCPeerID] {
-        return session.connectedPeers
-    }
-    
-    // When deliberately disconnect
-    // Disconnect from current session, browse for another host
+    /// Called when deliberately disconnect.
+    /// Disconnect from current session, browse for another host
     public func disconnect() {
         session.disconnect()
         host = nil
         DLog("%@", "disconnected from \(session.hashValue)")
     }
     
-    // This method is async
+    /// Send data to every peer in session
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
             try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
@@ -130,11 +133,12 @@ public class CoulombNetwork: NSObject {
         return true
     }
     
+    /// Return my peer ID
     public func getMyPeerID() -> MCPeerID {
         return myPeerId
     }
     
-    // Debug mode
+    /// Debug mode
     private func DLog(message: String, _ function: String) {
         if debugMode {
             NSLog(message, function)
@@ -143,7 +147,7 @@ public class CoulombNetwork: NSObject {
 }
 
 extension CoulombNetwork: MCNearbyServiceAdvertiserDelegate {
-    // Invitation is received from guest
+    /// Invitation is received from guest
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
                            didReceiveInvitationFromPeer peerID: MCPeerID,
                                                         withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
@@ -163,7 +167,7 @@ extension CoulombNetwork: MCNearbyServiceAdvertiserDelegate {
 }
 
 extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
-    // Peer is found in browser
+    /// Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
                         withDiscoveryInfo info: [String : String]?) {
         DLog("%@", "foundPeer: \(peerID)")
@@ -179,7 +183,7 @@ extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
         delegate?.foundHostsChanged(foundHosts)
     }
     
-    // Peer is lost in browser
+    /// Peer is lost in browser
     public func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         guard foundHosts.contains(peerID) else {
             return
@@ -256,6 +260,7 @@ extension CoulombNetwork: MCSessionDelegate {
     }
 }
 
+// MARK: For Dlog messages
 extension MCSessionState {
     func stringValue() -> String {
         switch(self) {
