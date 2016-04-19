@@ -73,7 +73,7 @@ class MenuViewController: UIViewController {
         
         saveAction = UIAlertAction(title: "Save", style: .Default) { action -> Void in
             if let value = nameTextField?.text {
-                SettingsManager._instance.put("myName", value: value)
+                SettingsManager._instance.put(SettingsManager.nameKey, value: value)
             }
         }
         

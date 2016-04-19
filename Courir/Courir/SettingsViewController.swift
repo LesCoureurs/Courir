@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
 
     /// Display form for setting new player name
     @IBAction func handleSetName(sender: AnyObject) {
-        presentViewController(generateFormFor("New Name", withSaveKey: "myName", andPlaceholder: SettingsManager._instance.get("myName") as! String), animated: true, completion: nil)
+        presentViewController(generateFormFor("New Name", withSaveKey: SettingsManager.nameKey, andPlaceholder: SettingsManager._instance.get(SettingsManager.nameKey) as! String), animated: true, completion: nil)
     }
 
     private func generateFormFor(title: String, withSaveKey key: String, andPlaceholder placeholder: String = "") -> UIAlertController {
