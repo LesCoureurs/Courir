@@ -30,7 +30,7 @@ protocol GameNetworkPortalGameStateDelegate: class {
 }
 
 class GameNetworkPortal {
-    static let _instance = GameNetworkPortal(playerName: me.name ?? myDeviceName)
+    static let _instance = GameNetworkPortal(playerName: me.name ?? me.deviceName)
     var semaphore: dispatch_semaphore_t?
     let semaphoreTimeout: Int64 = 200
     let serviceType = "courir"
@@ -52,7 +52,7 @@ class GameNetworkPortal {
         // NOTE: coulombNetwork.autoAcceptGuests is defaulted to true
         // If autoAcceptGuests is set to false, implement 
         // CoulombNetworkDelegate.invitationToConnectReceived to handle invitation properly
-        coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: myPeerID)
+        coulombNetwork = CoulombNetwork(serviceType: serviceType, myPeerId: me.peerID)
         coulombNetwork.delegate = self
         coulombNetwork.debugMode = true
         createSemaphore()

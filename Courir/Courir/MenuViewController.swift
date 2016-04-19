@@ -61,7 +61,7 @@ class MenuViewController: UIViewController {
         var nameTextField: UITextField?
         
         alertController.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-            textField.placeholder = myDeviceName
+            textField.placeholder = me.deviceName
             nameTextField = textField
             nameTextField!.addTarget(self, action: #selector(MenuViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
         })

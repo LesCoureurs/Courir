@@ -31,7 +31,7 @@ class RoomViewController: UIViewController {
         }
     }
     private(set) var isHost = true
-    var host: MCPeerID? = myPeerID
+    var host: MCPeerID? = me.peerID
     
     private var peers = [MCPeerID]()
 
@@ -60,7 +60,6 @@ class RoomViewController: UIViewController {
             switchModeButton.enabled = false
         }
         if portal.semaphore != nil {
-            print("semaphore signal")
             dispatch_semaphore_signal(portal.semaphore!)
         }
     }
@@ -164,7 +163,6 @@ extension RoomViewController: UITableViewDataSource {
 
 extension RoomViewController: GameNetworkPortalConnectionDelegate {
     func foundHostsChanged(foundHosts: [MCPeerID]) {
-        print("room view delegate")
     }
     
     func playerWantsToJoinRoom(peer: MCPeerID, acceptGuest: (Bool) -> Void) {

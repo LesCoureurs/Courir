@@ -52,8 +52,6 @@ var myName: String?
 let myDefaultPlayerNumber = 1
 let myMultiplayerModeNumber = 0
 let me = MyPlayer()
-let myDeviceName = me.deviceName
-let myPeerID = me.peerID
 let defaultHostNumber = 3
 
 // Colors
