@@ -21,10 +21,10 @@ let countdownTimerStart = 3
 let floatingProbability = Float(0.05)
 let nonfloatingProbability = Float(0.05)
 
-let obstacleSpaceMultiplier = 1.2
+let obstacleSpaceMultiplier = 1.5
 
 let initialGameSpeed = 1
-let speedMultiplier = 6.0
+let speedMultiplier = 5.0
 
 let framerate = 60.0
 let tickInterval = 1.0/framerate

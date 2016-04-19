@@ -134,7 +134,7 @@ class PlayerSpriteNode: SKSpriteNode {
     private func updatePlayerAnimation() {
         switch currentState {
         case .Invulnerable(_):
-            if currentAnimationStep % 2 == 0 {
+            if (currentAnimationStep / PlayerSpriteNode.playerFrameInterval) % 2 == 0 {
                 alpha = PlayerSpriteNode.minInvulnerableAlpha
             } else {
                 alpha = PlayerSpriteNode.maxInvulnerableAlpha
