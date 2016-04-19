@@ -203,22 +203,26 @@ class GameScene: SKScene {
         guard hasGameStarted else {
             return
         }
-        var event: GameEvent = .PlayerDidJump
-        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
-            event = .FloatingObstacleGenerated
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            var event: GameEvent = .PlayerDidJump
+            if self.gameSetupData.isHost && self.gameSetupData.mode == .SpecialMultiplayer {
+                event = .FloatingObstacleGenerated
+            }
+            self.logicEngine.handleEvent(event, playerNumber: self.myPlayerNumber)
         }
-        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         guard hasGameStarted else {
             return
         }
-        var event: GameEvent = .PlayerDidDuck
-        if gameSetupData.isHost && gameSetupData.mode == .SpecialMultiplayer {
-            event = .NonFloatingObstacleGenerated
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            var event: GameEvent = .PlayerDidDuck
+            if self.gameSetupData.isHost && self.gameSetupData.mode == .SpecialMultiplayer {
+                event = .NonFloatingObstacleGenerated
+            }
+            self.logicEngine.handleEvent(event, playerNumber: self.myPlayerNumber)
         }
-        logicEngine.handleEvent(event, playerNumber: myPlayerNumber)
     }
 }
 
