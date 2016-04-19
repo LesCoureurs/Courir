@@ -13,6 +13,8 @@ class PlayerSpriteNode: SKSpriteNode {
     // ==============================================
     // Static variables and methods
     // ==============================================
+    static let playerFrameRate = 30
+    static let playerFrameInterval = Int(framerate) / playerFrameRate
     
     static let firstZPosition: CGFloat = 10
 
@@ -140,8 +142,10 @@ class PlayerSpriteNode: SKSpriteNode {
         default:
             alpha = 1
         }
-        texture = currentAnimationFrames[currentAnimationStep]
-        currentAnimationStep = (currentAnimationStep + 1) % currentAnimationFrames.count
+        texture = currentAnimationFrames[currentAnimationStep /
+            PlayerSpriteNode.playerFrameInterval]
+        currentAnimationStep = (currentAnimationStep + 1) % (currentAnimationFrames.count *
+            PlayerSpriteNode.playerFrameInterval)
     }
     
     /// Updates player sprite's plumbob color; plumbob becomes red when player's x coordinate is 0
@@ -153,7 +157,18 @@ class PlayerSpriteNode: SKSpriteNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        if !PlayerSpriteNode.hasInitTextures {
+            PlayerSpriteNode.initTextures()
+        }
+        plumbob = aDecoder.decodeObjectForKey("plumbobKey") as? SKSpriteNode
+        isMe = aDecoder.decodeBoolForKey("isMeKey")
+        super.init(coder: aDecoder)
+    }
+
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(plumbob, forKey: "plumbobKey")
+        aCoder.encodeBool(isMe, forKey: "isMeKey")
     }
 }
 

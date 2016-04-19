@@ -65,7 +65,7 @@ class GameScene: SKScene {
         initResignActiveNotificationObserver()
         
         // Set game to 30FPS
-        view.frameInterval = 2
+        view.frameInterval = 1
         setupGestureRecognizers(view)
         gameSceneReady()
     }
