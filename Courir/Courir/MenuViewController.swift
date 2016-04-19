@@ -61,7 +61,7 @@ class MenuViewController: UIViewController {
         var nameTextField: UITextField?
         
         alertController.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-            textField.placeholder = myDeviceName
+            textField.placeholder = me.deviceName
             nameTextField = textField
             nameTextField!.addTarget(self, action: #selector(MenuViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
         })
@@ -73,7 +73,7 @@ class MenuViewController: UIViewController {
         
         saveAction = UIAlertAction(title: "Save", style: .Default) { action -> Void in
             if let value = nameTextField?.text {
-                SettingsManager._instance.put("myName", value: value)
+                SettingsManager._instance.put(SettingsManager.nameKey, value: value)
             }
         }
         

@@ -10,6 +10,7 @@ import Foundation
 
 class SettingsManager {
     static let _instance = SettingsManager()
+    static let nameKey = "myName"
     private static let defaults = NSUserDefaults.standardUserDefaults()
 
     private init() {}
