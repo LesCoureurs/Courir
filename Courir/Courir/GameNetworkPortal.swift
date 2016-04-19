@@ -63,34 +63,40 @@ class GameNetworkPortal {
         coulombNetwork.stopSearchingForHosts()
     }
 
-    // Some of the following methods are safe: they only execute when applicable, else just return
     // MARK: Hosting
+    /// Call library function to start hosting
     func beginHosting() {
         coulombNetwork.startAdvertisingHost()
     }
     
+    /// Call library function to stop hosting
     func stopHosting() {
         coulombNetwork.stopAdvertisingHost()
     }
     
     // MARK: Looking for hosts
+    /// Call library function to start looking for host
     func beginSearchingForHosts() {
         coulombNetwork.startSearchingForHosts()
     }
     
+    /// Call library function to stop looking for host
     func stopSearchingForHosts() {
         coulombNetwork.stopSearchingForHosts()
     }
     
+    /// Attempt to connect to host
     func connectToHost(host: MCPeerID) {
         coulombNetwork.connectToHost(host)
     }
     
+    /// Get the currently discoverable hosts
     func getFoundHosts() -> [MCPeerID] {
         return coulombNetwork.getFoundHosts()
     }
     
     // MARK: Common methods
+    /// Called when own device wants to deliberately exit a room
     func disconnectFromRoom() {
         let group = dispatch_group_create()
         
@@ -104,20 +110,17 @@ class GameNetworkPortal {
         })
     }
     
+    /// Return peer id of own device
+    func getMyPeerID() -> MCPeerID {
+        return coulombNetwork.getMyPeerID()
+    }
+    
     // MARK: Data transfer
+    /// Send data to everyone in the session
     func send(event: GameEvent, data: AnyObject = "No data", mode: MCSessionSendDataMode = .Reliable) {
         let standardData = ["event": event.rawValue, "data": data]
         let encodedData = NSKeyedArchiver.archivedDataWithRootObject(standardData)
-        sendData(encodedData, mode: mode)
-    }
-
-    // Send data to everyone in the session
-    private func sendData(data: NSData, mode: MCSessionSendDataMode) {
-        coulombNetwork.sendData(data, mode: mode)
-    }
-    
-    func getMyPeerID() -> MCPeerID {
-        return coulombNetwork.getMyPeerID()
+        coulombNetwork.sendData(encodedData, mode: mode)
     }
     
     // MARK: Semaphore
@@ -137,15 +140,13 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         connectionDelegate?.playerWantsToJoinRoom(peer, acceptGuest: handleInvitation)
     }
     
+    /// Wait for semaphore to make sure the correct delegate is assigned
     func connectedPeersInSessionChanged(peers: [MCPeerID]) {
-        print("Portal: Connected Peers in sesison changed: \(peers)")
         // Only wait when connecting
         if isMovingToRoomView && semaphore != nil {
-            print("semaphore waiting..")
             dispatch_semaphore_wait(semaphore!, DISPATCH_TIME_FOREVER)
             isMovingToRoomView = false
         }
-        print("Portal: semaphore finished waiting")
         connectionDelegate?.playersInRoomChanged(peers)
     }
     
@@ -158,10 +159,10 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         createSemaphore()
     }
     
+    /// Called when self is disconnected from a session
+    /// Stop hosting (if applicable) and begin searching for host again
+    /// Call delegate to take further actions e.g. segue
     func disconnectedFromSession(peer: MCPeerID) {
-        // Called when self is disconnected from a session
-        // Stop hosting (if applicable) and begin searching for host again
-        // Call delegate to take further actions e.g. segue
         isMovingToRoomView = false
         
         if gameStateDelegate != nil {
@@ -172,9 +173,9 @@ extension GameNetworkPortal: CoulombNetworkDelegate {
         
     }
     
-    // Receives NSData and converts it into a dictionary of type [String: AnyObject]
-    // All data packets must contain an event number which is keyed with the string
-    // "event"
+    /// Receives NSData and converts it into a dictionary of type [String: AnyObject]
+    /// All data packets must contain an event number which is keyed with the string
+    /// "event"
     func handleDataPacket(data: NSData, peerID: MCPeerID) {
 
         if let parsedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject], eventNumber = parsedData["event"] as? Int, event = GameEvent(rawValue: eventNumber) {
