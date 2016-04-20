@@ -75,8 +75,7 @@ class LogicEngine {
                                                 0))
         
         dispatch_source_set_timer(dispatchTimer!, dispatch_walltime(nil, 0),
-                                  NSEC_PER_SEC / UInt64(framerate),
-                                  NSEC_PER_SEC / UInt64(framerate * 2))
+                                  NSEC_PER_SEC / UInt64(framerate), 0)
         dispatch_source_set_event_handler(dispatchTimer!, update)
         dispatch_resume(dispatchTimer!)
     }
