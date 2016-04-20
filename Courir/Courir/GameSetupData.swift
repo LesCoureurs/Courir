@@ -17,7 +17,7 @@ struct GameSetupData {
 
     private (set) var host: MCPeerID?
     var isHost: Bool {
-        return host == me.peerID
+        return host?.displayName == me.peerID.displayName
     }
 
     private (set) var peers: [MCPeerID]

@@ -93,7 +93,10 @@ class GameState: Observed {
 
     /// Initialise all `Player` models, and set a host for the game.
     func initPlayers(peers: [MCPeerID], withHost hostID: MCPeerID) {
-        var allPeerIDs = Array(Set(peers).union([me.peerID]).subtract([hostID]))
+        var allPeerIDs: [MCPeerID] = Array(Set(peers))
+        if me.peerID.displayName != hostID.displayName {
+            allPeerIDs = Array(Set(peers).union([me.peerID]).subtract([hostID]))
+        }
         allPeerIDs.sortInPlace({ (this, other) in this.displayName < other.displayName })
 
         initPlayersHelper(allPeerIDs)
@@ -101,7 +104,7 @@ class GameState: Observed {
         self.host = Player(playerNumber: defaultHostNumber, numPlayers: allPeerIDs.count)
         self.hostID = hostID
 
-        if me.peerID == hostID {
+        if me.peerID.displayName == hostID.displayName {
             myPlayer = self.host
         }
     }
